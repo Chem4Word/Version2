@@ -1,0 +1,181 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<cml convention="conventions:molecular" xmlns="http://www.xml-cml.org/schema" xmlns:conventions="http://www.xml-cml.org/convention/" xmlns:nameDict="http://www.xml-cml.org/dictionary/cml/name/">
+  <molecule id="m60823" formalCharge="0" spinMultiplicity="1" xmlns:pubchem="http://www.ncbi.nlm.nih.gov">
+    <name dictRef="pubchem:cid">60823</name>
+    <atomArray>
+      <atom id="a1" elementType="F" x2="10.1755" y2="-4.8965" />
+      <atom id="a2" elementType="O" x2="6.5133" y2="-1.2358" />
+      <atom id="a3" elementType="O" x2="4.8191" y2="-0.8756" />
+      <atom id="a4" elementType="O" x2="12.2578" y2="1.3468" />
+      <atom id="a5" elementType="O" x2="2.5896" y2="1.1318" />
+      <atom id="a6" elementType="O" x2="3.1249" y2="-0.5155" />
+      <atom id="a7" elementType="N" x2="9.3665" y2="-0.3087" />
+      <atom id="a8" elementType="N" x2="10.8565" y2="2.3649" />
+      <atom id="a9" elementType="C" x2="9.6755" y2="0.6424" />
+      <atom id="a10" elementType="C" x2="8.4154" y2="-0.6177" />
+      <atom id="a11" elementType="C" x2="10.1755" y2="-0.8965" />
+      <atom id="a12" elementType="C" x2="9.0877" y2="1.4514" />
+      <atom id="a13" elementType="C" x2="7.6723" y2="0.0514" />
+      <atom id="a14" elementType="C" x2="10.6755" y2="0.6424" />
+      <atom id="a15" elementType="C" x2="10.9845" y2="-0.3087" />
+      <atom id="a16" elementType="C" x2="6.7212" y2="-0.2576">
+        <atomParity atomRefs4="a2 a17 a13 a47">-1.0</atomParity>
+      </atom>
+      <atom id="a17" elementType="C" x2="5.9781" y2="0.4115" />
+      <atom id="a18" elementType="C" x2="10.1755" y2="-1.8965" />
+      <atom id="a19" elementType="C" x2="8.0932" y2="1.3468" />
+      <atom id="a20" elementType="C" x2="9.4944" y2="2.3649" />
+      <atom id="a21" elementType="C" x2="11.9356" y2="-0.6177" />
+      <atom id="a22" elementType="C" x2="5.027" y2="0.1025">
+        <atomParity atomRefs4="a3 a24 a17 a56">-1.0</atomParity>
+      </atom>
+      <atom id="a23" elementType="C" x2="11.2633" y2="1.4514" />
+      <atom id="a24" elementType="C" x2="4.2839" y2="0.7716" />
+      <atom id="a25" elementType="C" x2="9.3095" y2="-2.3965" />
+      <atom id="a26" elementType="C" x2="11.0415" y2="-2.3965" />
+      <atom id="a27" elementType="C" x2="12.6787" y2="0.0514" />
+      <atom id="a28" elementType="C" x2="12.1435" y2="-1.5959" />
+      <atom id="a29" elementType="C" x2="9.3095" y2="-3.3965" />
+      <atom id="a30" elementType="C" x2="11.0415" y2="-3.3965" />
+      <atom id="a31" elementType="C" x2="13.6298" y2="-0.2576" />
+      <atom id="a32" elementType="C" x2="13.0945" y2="-1.9049" />
+      <atom id="a33" elementType="C" x2="10.1755" y2="-3.8965" />
+      <atom id="a34" elementType="C" x2="11.4443" y2="3.1739" />
+      <atom id="a35" elementType="C" x2="3.3328" y2="0.4626" />
+      <atom id="a36" elementType="C" x2="13.8377" y2="-1.2358" />
+      <atom id="a37" elementType="C" x2="11.0376" y2="4.0875" />
+      <atom id="a38" elementType="C" x2="12.4388" y2="3.0694" />
+      <atom id="a39" elementType="C" x2="11.6254" y2="4.8965" />
+      <atom id="a40" elementType="C" x2="13.0266" y2="3.8784" />
+      <atom id="a41" elementType="C" x2="12.6199" y2="4.792" />
+      <atom id="a42" elementType="H" x2="7.9268" y2="-0.9994" />
+      <atom id="a43" elementType="H" x2="8.7065" y2="-1.1651" />
+      <atom id="a44" elementType="H" x2="9.7043" y2="1.5162" />
+      <atom id="a45" elementType="H" x2="8.1608" y2="0.4331" />
+      <atom id="a46" elementType="H" x2="7.3812" y2="0.5988" />
+      <atom id="a47" elementType="H" x2="6.1316" y2="-0.4492" />
+      <atom id="a48" elementType="H" x2="6.4666" y2="0.7932" />
+      <atom id="a49" elementType="H" x2="5.687" y2="0.9589" />
+      <atom id="a50" elementType="H" x2="8.0284" y2="1.9634" />
+      <atom id="a51" elementType="H" x2="7.4766" y2="1.282" />
+      <atom id="a52" elementType="H" x2="8.158" y2="0.7302" />
+      <atom id="a53" elementType="H" x2="10.0608" y2="2.1127" />
+      <atom id="a54" elementType="H" x2="9.7466" y2="2.9313" />
+      <atom id="a55" elementType="H" x2="8.928" y2="2.6171" />
+      <atom id="a56" elementType="H" x2="5.4878" y2="-0.3124" />
+      <atom id="a57" elementType="H" x2="4.7724" y2="1.1533" />
+      <atom id="a58" elementType="H" x2="3.9928" y2="1.3191" />
+      <atom id="a59" elementType="H" x2="8.7725" y2="-2.0865" />
+      <atom id="a60" elementType="H" x2="11.5784" y2="-2.0865" />
+      <atom id="a61" elementType="H" x2="5.9236" y2="-1.4273" />
+      <atom id="a62" elementType="H" x2="12.5498" y2="0.6579" />
+      <atom id="a63" elementType="H" x2="11.6827" y2="-2.0107" />
+      <atom id="a64" elementType="H" x2="10.2399" y2="2.4297" />
+      <atom id="a65" elementType="H" x2="8.7725" y2="-3.7065" />
+      <atom id="a66" elementType="H" x2="11.5784" y2="-3.7065" />
+      <atom id="a67" elementType="H" x2="4.2294" y2="-1.0672" />
+      <atom id="a68" elementType="H" x2="14.0905" y2="0.1573" />
+      <atom id="a69" elementType="H" x2="13.2234" y2="-2.5113" />
+      <atom id="a70" elementType="H" x2="14.4273" y2="-1.4273" />
+      <atom id="a71" elementType="H" x2="10.421" y2="4.1523" />
+      <atom id="a72" elementType="H" x2="12.691" y2="2.503" />
+      <atom id="a73" elementType="H" x2="2.0" y2="0.9402" />
+      <atom id="a74" elementType="H" x2="11.3732" y2="5.4629" />
+      <atom id="a75" elementType="H" x2="13.6432" y2="3.8136" />
+      <atom id="a76" elementType="H" x2="12.9843" y2="5.2936" />
+    </atomArray>
+    <bondArray>
+      <bond atomRefs2="a1 a33" order="S" id="a1_a33"  />
+      <bond atomRefs2="a2 a16" order="S" id="a2_a16" >
+        <bondStereo>W</bondStereo>
+      </bond>
+      <bond atomRefs2="a2 a61" order="S" id="a2_a61"  />
+      <bond atomRefs2="a3 a22" order="S" id="a3_a22" >
+        <bondStereo>W</bondStereo>
+      </bond>
+      <bond atomRefs2="a3 a67" order="S" id="a3_a67"  />
+      <bond atomRefs2="a4 a23" order="D" id="a4_a23"  />
+      <bond atomRefs2="a5 a35" order="S" id="a5_a35"  />
+      <bond atomRefs2="a5 a73" order="S" id="a5_a73"  />
+      <bond atomRefs2="a6 a35" order="D" id="a6_a35"  />
+      <bond atomRefs2="a7 a9" order="S" id="a7_a9"  />
+      <bond atomRefs2="a7 a10" order="S" id="a7_a10"  />
+      <bond atomRefs2="a7 a11" order="S" id="a7_a11"  />
+      <bond atomRefs2="a8 a23" order="S" id="a8_a23"  />
+      <bond atomRefs2="a8 a34" order="S" id="a8_a34"  />
+      <bond atomRefs2="a8 a64" order="S" id="a8_a64"  />
+      <bond atomRefs2="a9 a12" order="S" id="a9_a12"  />
+      <bond atomRefs2="a9 a14" order="D" id="a9_a14"  />
+      <bond atomRefs2="a10 a13" order="S" id="a10_a13"  />
+      <bond atomRefs2="a10 a42" order="S" id="a10_a42"  />
+      <bond atomRefs2="a10 a43" order="S" id="a10_a43"  />
+      <bond atomRefs2="a11 a15" order="D" id="a11_a15"  />
+      <bond atomRefs2="a11 a18" order="S" id="a11_a18"  />
+      <bond atomRefs2="a12 a19" order="S" id="a12_a19"  />
+      <bond atomRefs2="a12 a20" order="S" id="a12_a20"  />
+      <bond atomRefs2="a12 a44" order="S" id="a12_a44"  />
+      <bond atomRefs2="a13 a16" order="S" id="a13_a16"  />
+      <bond atomRefs2="a13 a45" order="S" id="a13_a45"  />
+      <bond atomRefs2="a13 a46" order="S" id="a13_a46"  />
+      <bond atomRefs2="a14 a15" order="S" id="a14_a15"  />
+      <bond atomRefs2="a14 a23" order="S" id="a14_a23"  />
+      <bond atomRefs2="a15 a21" order="S" id="a15_a21"  />
+      <bond atomRefs2="a16 a17" order="S" id="a16_a17"  />
+      <bond atomRefs2="a16 a47" order="S" id="a16_a47"  />
+      <bond atomRefs2="a17 a22" order="S" id="a17_a22"  />
+      <bond atomRefs2="a17 a48" order="S" id="a17_a48"  />
+      <bond atomRefs2="a17 a49" order="S" id="a17_a49"  />
+      <bond atomRefs2="a18 a25" order="D" id="a18_a25"  />
+      <bond atomRefs2="a18 a26" order="S" id="a18_a26"  />
+      <bond atomRefs2="a19 a50" order="S" id="a19_a50"  />
+      <bond atomRefs2="a19 a51" order="S" id="a19_a51"  />
+      <bond atomRefs2="a19 a52" order="S" id="a19_a52"  />
+      <bond atomRefs2="a20 a53" order="S" id="a20_a53"  />
+      <bond atomRefs2="a20 a54" order="S" id="a20_a54"  />
+      <bond atomRefs2="a20 a55" order="S" id="a20_a55"  />
+      <bond atomRefs2="a21 a27" order="D" id="a21_a27"  />
+      <bond atomRefs2="a21 a28" order="S" id="a21_a28"  />
+      <bond atomRefs2="a22 a24" order="S" id="a22_a24"  />
+      <bond atomRefs2="a22 a56" order="S" id="a22_a56"  />
+      <bond atomRefs2="a24 a35" order="S" id="a24_a35"  />
+      <bond atomRefs2="a24 a57" order="S" id="a24_a57"  />
+      <bond atomRefs2="a24 a58" order="S" id="a24_a58"  />
+      <bond atomRefs2="a25 a29" order="S" id="a25_a29"  />
+      <bond atomRefs2="a25 a59" order="S" id="a25_a59"  />
+      <bond atomRefs2="a26 a30" order="D" id="a26_a30"  />
+      <bond atomRefs2="a26 a60" order="S" id="a26_a60"  />
+      <bond atomRefs2="a27 a31" order="S" id="a27_a31"  />
+      <bond atomRefs2="a27 a62" order="S" id="a27_a62"  />
+      <bond atomRefs2="a28 a32" order="D" id="a28_a32"  />
+      <bond atomRefs2="a28 a63" order="S" id="a28_a63"  />
+      <bond atomRefs2="a29 a33" order="D" id="a29_a33"  />
+      <bond atomRefs2="a29 a65" order="S" id="a29_a65"  />
+      <bond atomRefs2="a30 a33" order="S" id="a30_a33"  />
+      <bond atomRefs2="a30 a66" order="S" id="a30_a66"  />
+      <bond atomRefs2="a31 a36" order="D" id="a31_a36"  />
+      <bond atomRefs2="a31 a68" order="S" id="a31_a68"  />
+      <bond atomRefs2="a32 a36" order="S" id="a32_a36"  />
+      <bond atomRefs2="a32 a69" order="S" id="a32_a69"  />
+      <bond atomRefs2="a34 a37" order="D" id="a34_a37"  />
+      <bond atomRefs2="a34 a38" order="S" id="a34_a38"  />
+      <bond atomRefs2="a36 a70" order="S" id="a36_a70"  />
+      <bond atomRefs2="a37 a39" order="S" id="a37_a39"  />
+      <bond atomRefs2="a37 a71" order="S" id="a37_a71"  />
+      <bond atomRefs2="a38 a40" order="D" id="a38_a40"  />
+      <bond atomRefs2="a38 a72" order="S" id="a38_a72"  />
+      <bond atomRefs2="a39 a41" order="D" id="a39_a41"  />
+      <bond atomRefs2="a39 a74" order="S" id="a39_a74"  />
+      <bond atomRefs2="a40 a41" order="S" id="a40_a41"  />
+      <bond atomRefs2="a40 a75" order="S" id="a40_a75"  />
+      <bond atomRefs2="a41 a76" order="S" id="a41_a76"  />
+    </bondArray>
+    <name dictRef="pubchem:Allowed">(3R,5R)-7-[2-(4-fluorophenyl)-5-isopropyl-3-phenyl-4-(phenylcarbamoyl)pyrrol-1-yl]-3,5-dihydroxy-heptanoic acid</name>
+    <name dictRef="nameDict:cas">(3R,5R)-7-[4-[anilino(oxo)methyl]-2-(4-fluorophenyl)-5-isopropyl-3-phenyl-1-pyrrolyl]-3,5-dihydroxyheptanoic acid</name>
+    <name dictRef="pubchem:Preferred">(3R,5R)-7-[2-(4-fluorophenyl)-3-phenyl-4-(phenylcarbamoyl)-5-propan-2-ylpyrrol-1-yl]-3,5-dihydroxyheptanoic acid</name>
+    <name dictRef="nameDict:systematic">(3R,5R)-7-[2-(4-fluorophenyl)-3-phenyl-4-(phenylcarbamoyl)-5-propan-2-yl-pyrrol-1-yl]-3,5-dihydroxy-heptanoic acid</name>
+    <name dictRef="pubchem:Traditional">(3R,5R)-7-[2-(4-fluorophenyl)-5-isopropyl-3-phenyl-4-(phenylcarbamoyl)pyrrol-1-yl]-3,5-dihydroxy-enanthic acid</name>
+    <formula convention="pubchem:formula" inline="C33H35FN2O5" concise="C 33 H 35 F 1 N 2 O 5" />
+    <formula convention="pubchem:CanonicalSmiles" inline="CC(C)C1=C(C(=C(N1CCC(CC(CC(=O)O)O)O)C2=CC=C(C=C2)F)C3=CC=CC=C3)C(=O)NC4=CC=CC=C4" concise="C 33 H 35 F 1 N 2 O 5" />
+    <formula convention="pubchem:IsomericSmiles" inline="CC(C)C1=C(C(=C(N1CC[C@H](C[C@H](CC(=O)O)O)O)C2=CC=C(C=C2)F)C3=CC=CC=C3)C(=O)NC4=CC=CC=C4" concise="C 33 H 35 F 1 N 2 O 5" />
+  </molecule>
+</cml>

@@ -1,0 +1,119 @@
+<!-- note that the ID is used in dictionaries so DO NOT EDIT-->
+<cml xmlns='http://www.xml-cml.org/schema' id='ketone' xmlns:cmlDict='http://www.xml-cml.org/dictionary/cml/' xmlns:nameDict='http://www.xml-cml.org/dictionary/cml/name/'>
+  <cml convention='cmlDict:cmllite'>
+    <molecule id='m1'>
+      <name dictRef='nameDict:systematic'>ol</name>
+      <name dictRef='nameDict:abbreviation'>CH(OH)</name>
+      <formula concise='C 2 H 3 O 2 R 1' inline='C(O)' />
+      <atomArray>
+        <atom id='a1' elementType='C' x2='0' y2='0'>
+          <label value='r1' />
+        </atom>
+        <atom id='a1_h1' elementType='H' x2='0' y2='-1.5' />
+        <atom id='a2' elementType='O' x2='0' y2='1.5'>
+          <label value='r2' />
+        </atom>
+        <atom id='a2_h2' elementType='H' x2='0' y2='3.0' />
+      </atomArray>
+      <bondArray>
+        <bond atomRefs2='a1 a1_h1' order='S' id='b1' />
+        <bond atomRefs2='a1 a2' order='S' id='b2' />
+        <bond atomRefs2='a2 a2_h2' order='S' id='b3' />
+      </bondArray>
+    </molecule>
+  </cml>
+  <cml convention='cmlDict:cmllite'>
+    <molecule id='m1'>
+      <name dictRef='nameDict:systematic'>cyanohydrin</name>
+      <name dictRef='nameDict:abbreviation'>C(C#N)OH</name>
+      <formula concise='C 2 H 3 O 2 R 1' inline='C(C#N)OH' />
+      <atomArray>
+        <atom id='a1' elementType='C' x2='0' y2='0'>
+          <label value='r1' />
+        </atom>
+        <atom id='a1_c' elementType='C' x2='0' y2='-1.5' />
+        <atom id='a1_n' elementType='N' x2='0' y2='-3' />
+        <atom id='a2' elementType='O' x2='0' y2='1.5'>
+          <label value='r2' />
+        </atom>
+        <atom id='a2_h2' elementType='H' x2='0' y2='3.0' />
+      </atomArray>
+      <bondArray>
+        <bond atomRefs2='a1 a1_c' order='S' id='b1' />
+        <bond atomRefs2='a1_c a1_n' order='T' id='b2' />
+        <bond atomRefs2='a1 a2' order='S' id='b3' />
+        <bond atomRefs2='a2 a2_h2' order='S' id='b4' />
+      </bondArray>
+    </molecule>
+  </cml>
+  <cml convention='cmlDict:cmllite'>
+    <molecule id='m1'>
+      <name dictRef='nameDict:systematic'>oxime</name>
+      <name dictRef='nameDict:abbreviation'>C=NOH</name>
+      <formula concise='C 2 H 3 O 2 R 1' inline='C=NO' />
+      <atomArray>
+        <atom id='a1' elementType='C' x2='0' y2='0'>
+          <label value='r1' />
+        </atom>
+        <atom id='a2' elementType='N' x2='0' y2='1.5'>
+          <label value='r2' />
+        </atom>
+        <atom id='a2_o2' elementType='O' x2='1.0' y2='2.5' />
+        <atom id='a2_h2' elementType='H' x2='1.0' y2='3.5' />
+      </atomArray>
+      <bondArray>
+        <bond atomRefs2='a1 a2' order='D' id='b2' />
+        <bond atomRefs2='a2 a2_o2' order='S' id='b3' />
+        <bond atomRefs2='a2_o2 a2_h2' order='S' id='b4' />
+      </bondArray>
+    </molecule>
+  </cml>
+  <cml convention='cmlDict:cmllite'>
+    <molecule id='m1'>
+      <name dictRef='nameDict:systematic'>hydrazide</name>
+      <name dictRef='nameDict:abbreviation'>C=NNH2</name>
+      <formula concise='C 2 H 3 O 2 R 1' inline='C=NN' />
+      <atomArray>
+        <atom id='a1' elementType='C' x2='0' y2='0'>
+          <label value='r1' />
+        </atom>
+        <atom id='a2' elementType='N' x2='0' y2='1.5'>
+          <label value='r2' />
+        </atom>
+        <atom id='a2_n2' elementType='N' x2='1.0' y2='2.5' />
+        <atom id='a2_h1' elementType='H' x2='1.0' y2='3.5' />
+        <atom id='a2_h2' elementType='H' x2='2.0' y2='2.5' />
+      </atomArray>
+      <bondArray>
+        <bond atomRefs2='a1 a2' order='D' id='b2' />
+        <bond atomRefs2='a2 a2_n2' order='S' id='b3' />
+        <bond atomRefs2='a2_n2 a2_h1' order='S' id='b4' />
+        <bond atomRefs2='a2_n2 a2_h2' order='S' id='b5' />
+      </bondArray>
+    </molecule>
+  </cml>
+  <cml convention='cmlDict:cmllite'>
+    <molecule id='m1'>
+      <name dictRef='nameDict:systematic'>grignard</name>
+      <name dictRef='nameDict:abbreviation'>CR(OMgBr)</name>
+      <formula concise='C 2 H 3 O 2 R 1' inline='C(O)' />
+      <atomArray>
+        <atom id='a1' elementType='C' x2='0' y2='0'>
+          <label value='r1' />
+        </atom>
+        <atom id='a1_h1' elementType='R' x2='0' y2='-1.5' />
+        <atom id='a2' elementType='O' x2='0' y2='1.5'>
+          <label value='r2' />
+        </atom>
+        <atom id='a2_mg' elementType='Mg' x2='0' y2='3.0' />
+        <atom id='a2_br' elementType='Br' x2='0' y2='4.5' />
+      </atomArray>
+      <bondArray>
+        <bond atomRefs2='a1 a1_h1' order='S' id='b1' />
+        <bond atomRefs2='a1 a2' order='S' id='b2' />
+        <bond atomRefs2='a2 a2_mg' order='S' id='b3' />
+        <bond atomRefs2='a2_mg a2_br' order='S' id='b4' />
+      </bondArray>
+    </molecule>
+  </cml>
+</cml>

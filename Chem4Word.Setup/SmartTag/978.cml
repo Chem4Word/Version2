@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<cml convention="conventions:molecular" xmlns="http://www.xml-cml.org/schema" xmlns:conventions="http://www.xml-cml.org/convention/" xmlns:nameDict="http://www.xml-cml.org/dictionary/cml/name/">
+  <molecule id="m978" formalCharge="0" spinMultiplicity="1" xmlns:pubchem="http://www.ncbi.nlm.nih.gov">
+    <name dictRef="pubchem:cid">978</name>
+    <atomArray>
+      <atom id="a1" elementType="O" x2="3.7321" y2="2.095" />
+      <atom id="a2" elementType="O" x2="2.0" y2="2.095" />
+      <atom id="a3" elementType="N" x2="2.866" y2="-2.405" />
+      <atom id="a4" elementType="C" x2="2.866" y2="0.595" />
+      <atom id="a5" elementType="C" x2="2.866" y2="-1.405" />
+      <atom id="a6" elementType="C" x2="3.7321" y2="0.095" />
+      <atom id="a7" elementType="C" x2="2.0" y2="0.095" />
+      <atom id="a8" elementType="C" x2="3.7321" y2="-0.905" />
+      <atom id="a9" elementType="C" x2="2.0" y2="-0.905" />
+      <atom id="a10" elementType="C" x2="2.866" y2="1.595" />
+      <atom id="a11" elementType="H" x2="4.269" y2="0.405" />
+      <atom id="a12" elementType="H" x2="1.4631" y2="0.405" />
+      <atom id="a13" elementType="H" x2="4.269" y2="-1.215" />
+      <atom id="a14" elementType="H" x2="1.4631" y2="-1.215" />
+      <atom id="a15" elementType="H" x2="2.3291" y2="-2.715" />
+      <atom id="a16" elementType="H" x2="3.403" y2="-2.715" />
+      <atom id="a17" elementType="H" x2="3.7321" y2="2.715" />
+    </atomArray>
+    <bondArray>
+      <bond atomRefs2="a1 a10" order="S" id="a1_a10"  />
+      <bond atomRefs2="a1 a17" order="S" id="a1_a17"  />
+      <bond atomRefs2="a2 a10" order="D" id="a2_a10"  />
+      <bond atomRefs2="a3 a5" order="S" id="a3_a5"  />
+      <bond atomRefs2="a3 a15" order="S" id="a3_a15"  />
+      <bond atomRefs2="a3 a16" order="S" id="a3_a16"  />
+      <bond atomRefs2="a4 a6" order="D" id="a4_a6"  />
+      <bond atomRefs2="a4 a7" order="S" id="a4_a7"  />
+      <bond atomRefs2="a4 a10" order="S" id="a4_a10"  />
+      <bond atomRefs2="a5 a8" order="D" id="a5_a8"  />
+      <bond atomRefs2="a5 a9" order="S" id="a5_a9"  />
+      <bond atomRefs2="a6 a8" order="S" id="a6_a8"  />
+      <bond atomRefs2="a6 a11" order="S" id="a6_a11"  />
+      <bond atomRefs2="a7 a9" order="D" id="a7_a9"  />
+      <bond atomRefs2="a7 a12" order="S" id="a7_a12"  />
+      <bond atomRefs2="a8 a13" order="S" id="a8_a13"  />
+      <bond atomRefs2="a9 a14" order="S" id="a9_a14"  />
+    </bondArray>
+    <name dictRef="pubchem:Allowed">4-aminobenzoic acid</name>
+    <name dictRef="nameDict:cas">4-aminobenzoic acid</name>
+    <name dictRef="pubchem:Preferred">4-aminobenzoic acid</name>
+    <name dictRef="nameDict:systematic">4-azanylbenzoic acid</name>
+    <name dictRef="pubchem:Traditional">4-aminobenzoic acid</name>
+    <formula convention="pubchem:formula" inline="C7H7NO2" concise="C 7 H 7 N 1 O 2" />
+    <formula convention="pubchem:CanonicalSmiles" inline="C1=CC(=CC=C1C(=O)O)N" concise="C 7 H 7 N 1 O 2" />
+    <formula convention="pubchem:IsomericSmiles" inline="C1=CC(=CC=C1C(=O)O)N" concise="C 7 H 7 N 1 O 2" />
+  </molecule>
+</cml>

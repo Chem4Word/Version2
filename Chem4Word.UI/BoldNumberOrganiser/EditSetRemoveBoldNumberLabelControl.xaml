@@ -1,0 +1,116 @@
+﻿<UserControl x:Class="Chem4Word.UI.BoldNumberOrganiser.EditSetRemoveBoldNumberLabelControl" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Margin="1,1,1,1" Name="control" Padding=".5">
+	<UserControl.DataContext>
+		<Binding ElementName="control" Path="." />
+	</UserControl.DataContext>
+	<UserControl.Resources>
+		<SolidColorBrush x:Key="validEntryBrush" Color="Green" />
+		<SolidColorBrush x:Key="invalidEntryBrush" Color="Red" />
+		<SolidColorBrush x:Key="normalEntryBrush" Color="WhiteSmoke" />
+		<SolidColorBrush x:Key="outdatedEntryBrush" Color="BlanchedAlmond" />
+		<Thickness x:Key="validEntryThickness" Bottom="1" Left="1" Right="1" Top="1" />
+		<Thickness x:Key="invalidEntryThickness" Bottom="2" Left="2" Right="2" Top="2" />
+
+		<Style x:Key="generalStyle">
+			<Setter Property="Control.Background" Value="{DynamicResource normalEntryBrush}" />
+			<Style.Triggers>
+				<DataTrigger Binding="{Binding Path=IsOutdated}" Value="True">
+					<Setter Property="Control.Background" Value="{DynamicResource outdatedEntryBrush}" />
+				</DataTrigger>
+			</Style.Triggers>
+		</Style>
+
+
+		<Style TargetType="{x:Type Button}" BasedOn="{StaticResource generalStyle}">
+			<Setter Property="IsEnabled" Value="True" />
+			<Setter Property="Focusable" Value="False" />
+			<Setter Property="ToolTipService.ShowOnDisabled" Value="True" />
+			<Setter Property="Width" Value="70" />
+			<Setter Property="Height" Value="25" />
+			<Setter Property="Margin" Value="2" />
+			<Style.Triggers>
+				<DataTrigger Binding="{Binding Path=InUse}" Value="True">
+					<Setter Property="IsEnabled" Value="False" />
+					<Setter Property="ToolTip" Value="Cannot remove this item because it is in use in the document." />
+				</DataTrigger>
+			</Style.Triggers>
+		</Style>
+
+		<Style TargetType="{x:Type Border}" BasedOn="{StaticResource generalStyle}">
+			<Setter Property="BorderBrush" Value="{DynamicResource validEntryBrush}" />
+			<Setter Property="BorderThickness" Value="{DynamicResource validEntryThickness}" />
+			<Style.Triggers>
+				<DataTrigger Binding="{Binding Path=IsValid}" Value="False">
+					<Setter Property="BorderBrush" Value="{DynamicResource invalidEntryBrush}" />
+					<Setter Property="BorderThickness" Value="{DynamicResource invalidEntryThickness}" />
+				</DataTrigger>
+			</Style.Triggers>
+		</Style>
+
+	</UserControl.Resources>
+	<Border>
+		<DockPanel>
+			<TextBlock Name="title" DockPanel.Dock="Top">
+				Bold Number Editor
+				<TextBlock.Margin>2</TextBlock.Margin>
+				<TextBlock.FontSize>16</TextBlock.FontSize>
+				<TextBlock.FontWeight>Bold</TextBlock.FontWeight>
+				<TextBlock.HorizontalAlignment>Center</TextBlock.HorizontalAlignment>
+			</TextBlock>
+			<TextBlock Name="body" DockPanel.Dock="Top">
+				<Run>
+					The currently selected bold number for this molcule is not valid. This is probably because it clashes with a pre-exisiting value.
+				</Run>
+				<LineBreak />
+				<Run>
+					The current value of the bold number is:
+				</Run>
+				<TextBlock.Width>300</TextBlock.Width>
+				<TextBlock.Margin>2</TextBlock.Margin>
+				<TextBlock.FontSize>12</TextBlock.FontSize>
+				<TextBlock.FontWeight>Normal</TextBlock.FontWeight>
+				<TextBlock.HorizontalAlignment>Left</TextBlock.HorizontalAlignment>
+				<TextBlock.TextWrapping>WrapWithOverflow</TextBlock.TextWrapping>
+			</TextBlock>
+			<Label Name="oldBoldNumberValue" DockPanel.Dock="Top" Content="{Binding Path=OldLabelValue, Mode=OneWay}">
+				<Label.Width>300</Label.Width>
+				<Label.BorderBrush>Bisque</Label.BorderBrush>
+				<Label.BorderThickness>2</Label.BorderThickness>
+				<Label.Margin>1</Label.Margin>
+				<Label.Padding>1</Label.Padding>
+				<Label.FontSize>12</Label.FontSize>
+				<Label.FontWeight>Bold</Label.FontWeight>
+				<Label.Height>25</Label.Height>
+				<Label.HorizontalContentAlignment>Center</Label.HorizontalContentAlignment>
+			</Label>
+			<TextBlock DockPanel.Dock="Top">
+				<Run>
+					Please enter a new value below or press OK to accept the default.
+				</Run>
+				<TextBlock.Width>300</TextBlock.Width>
+				<TextBlock.Margin>2</TextBlock.Margin>
+				<TextBlock.FontSize>12</TextBlock.FontSize>
+				<TextBlock.FontWeight>Normal</TextBlock.FontWeight>
+				<TextBlock.HorizontalAlignment>Left</TextBlock.HorizontalAlignment>
+				<TextBlock.TextWrapping>WrapWithOverflow</TextBlock.TextWrapping>
+			</TextBlock>
+
+			<TextBox Name="textBox" TextAlignment="Left" VerticalAlignment="Center" KeyUp="txtEditLabel_KeyUp" DockPanel.Dock="Top">
+				<TextBox.Height>25</TextBox.Height>
+				<TextBox.Text>
+					<Binding Path="BoldNumberLabel" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay" />
+				</TextBox.Text>
+			</TextBox>
+
+			<StackPanel DockPanel.Dock="Bottom" FlowDirection="LeftToRight" Orientation="Horizontal" HorizontalAlignment="Right">
+				<Button>
+					OK
+					<Button.IsDefault>True</Button.IsDefault>
+					<Button.IsEnabled>
+						<Binding Path="IsValidLabelValue" UpdateSourceTrigger="PropertyChanged" Mode="OneWay" />
+					</Button.IsEnabled>
+				</Button>
+				<Button>Cancel</Button>
+			</StackPanel>
+		</DockPanel>
+	</Border>
+</UserControl>

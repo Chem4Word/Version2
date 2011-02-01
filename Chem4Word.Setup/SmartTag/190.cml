@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<cml convention="conventions:molecular" xmlns="http://www.xml-cml.org/schema" xmlns:conventions="http://www.xml-cml.org/convention/" xmlns:nameDict="http://www.xml-cml.org/dictionary/cml/name/">
+  <molecule id="m190" formalCharge="0" spinMultiplicity="1" xmlns:pubchem="http://www.ncbi.nlm.nih.gov">
+    <name dictRef="pubchem:cid">190</name>
+    <atomArray>
+      <atom id="a1" elementType="N" x2="4.6783" y2="0.1497" />
+      <atom id="a2" elementType="N" x2="4.6783" y2="-1.4597" />
+      <atom id="a3" elementType="N" x2="2.866" y2="-1.655" />
+      <atom id="a4" elementType="N" x2="2.0" y2="-0.155" />
+      <atom id="a5" elementType="N" x2="2.866" y2="1.345" />
+      <atom id="a6" elementType="C" x2="3.7321" y2="-0.155" />
+      <atom id="a7" elementType="C" x2="3.7321" y2="-1.155" />
+      <atom id="a8" elementType="C" x2="2.866" y2="0.345" />
+      <atom id="a9" elementType="C" x2="5.2619" y2="-0.655" />
+      <atom id="a10" elementType="C" x2="2.0" y2="-1.155" />
+      <atom id="a11" elementType="H" x2="4.8709" y2="0.7391" />
+      <atom id="a12" elementType="H" x2="5.8819" y2="-0.655" />
+      <atom id="a13" elementType="H" x2="1.4631" y2="-1.465" />
+      <atom id="a14" elementType="H" x2="2.3291" y2="1.655" />
+      <atom id="a15" elementType="H" x2="3.403" y2="1.655" />
+    </atomArray>
+    <bondArray>
+      <bond atomRefs2="a1 a6" order="S" id="a1_a6"  />
+      <bond atomRefs2="a1 a9" order="S" id="a1_a9"  />
+      <bond atomRefs2="a1 a11" order="S" id="a1_a11"  />
+      <bond atomRefs2="a2 a7" order="S" id="a2_a7"  />
+      <bond atomRefs2="a2 a9" order="D" id="a2_a9"  />
+      <bond atomRefs2="a3 a7" order="S" id="a3_a7"  />
+      <bond atomRefs2="a3 a10" order="D" id="a3_a10"  />
+      <bond atomRefs2="a4 a8" order="D" id="a4_a8"  />
+      <bond atomRefs2="a4 a10" order="S" id="a4_a10"  />
+      <bond atomRefs2="a5 a8" order="S" id="a5_a8"  />
+      <bond atomRefs2="a5 a14" order="S" id="a5_a14"  />
+      <bond atomRefs2="a5 a15" order="S" id="a5_a15"  />
+      <bond atomRefs2="a6 a7" order="D" id="a6_a7"  />
+      <bond atomRefs2="a6 a8" order="S" id="a6_a8"  />
+      <bond atomRefs2="a9 a12" order="S" id="a9_a12"  />
+      <bond atomRefs2="a10 a13" order="S" id="a10_a13"  />
+    </bondArray>
+    <name dictRef="pubchem:Allowed">7H-purin-6-amine</name>
+    <name dictRef="nameDict:cas">7H-purin-6-amine</name>
+    <name dictRef="pubchem:Preferred">7H-purin-6-amine</name>
+    <name dictRef="nameDict:systematic">7H-purin-6-amine</name>
+    <name dictRef="pubchem:Traditional">7H-adenine</name>
+    <formula convention="pubchem:formula" inline="C5H5N5" concise="C 5 H 5 N 5" />
+    <formula convention="pubchem:CanonicalSmiles" inline="C1=NC2=C(N1)C(=NC=N2)N" concise="C 5 H 5 N 5" />
+    <formula convention="pubchem:IsomericSmiles" inline="C1=NC2=C(N1)C(=NC=N2)N" concise="C 5 H 5 N 5" />
+  </molecule>
+</cml>

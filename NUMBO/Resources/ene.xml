@@ -1,0 +1,69 @@
+<!-- note that the ID is used in dictionaries so DO NOT EDIT-->
+<cml xmlns='http://www.xml-cml.org/schema' id='ene' xmlns:cmlDict='http://www.xml-cml.org/dictionary/cml/' xmlns:nameDict='http://www.xml-cml.org/dictionary/cml/name/'>
+  <cml convention='cmlDict:cmllite'>
+    <molecule id='m1'>
+      <name dictRef='nameDict:systematic'>benzo</name>
+      <name dictRef='nameDict:abbreviation'>benzo</name>
+      <formula concise='C 4 H 4 R 2' inline='R1=RC=CC=C1' />
+      <atomArray>
+        <atom id='a1' elementType='R' x2='0' y2='0'>
+          <label dictRef="cmlDict:r" value='r1' />
+        </atom>
+        <atom id='a2' elementType='R' x2='0' y2='1.5'>
+          <label dictRef="cmlDict:r" value='r2' />
+        </atom>
+        <atom id='a3' elementType='C' x2='1.2' y2='2.2' />
+        <atom id='a3h' elementType='H' x2='1.2' y2='3.7' />
+        <atom id='a4' elementType='C' x2='2.4' y2='1.5' />
+        <atom id='a4h' elementType='H' x2='3.6' y2='2.25' />
+        <atom id='a5' elementType='C' x2='2.4' y2='0' />
+        <atom id='a5h' elementType='H' x2='3.6' y2='-0.75' />
+        <atom id='a6' elementType='C' x2='1.2' y2='-0.7' />
+        <atom id='a6h' elementType='H' x2='1.2' y2='-2.2' />
+      </atomArray>
+      <bondArray>
+        <bond atomRefs2='a1 a2' order='S' id='b23' />
+        <bond atomRefs2='a2 a3' order='D' id='b23' />
+        <bond atomRefs2='a3 a3h' order='S' id='b33h' />
+        <bond atomRefs2='a3 a4' order='S' id='b34' />
+        <bond atomRefs2='a4 a4h' order='S' id='b44h' />
+        <bond atomRefs2='a4 a5' order='D' id='b45' />
+        <bond atomRefs2='a5 a5h' order='S' id='b55h' />
+        <bond atomRefs2='a5 a6' order='S' id='b56' />
+        <bond atomRefs2='a6 a6h' order='S' id='b66h' />
+        <bond atomRefs2='a6 a1' order='D' id='b16' />
+      </bondArray>
+    </molecule>
+  </cml>
+  <cml convention='cmlDict:cmllite'>
+    <molecule id='m1'>
+      <name dictRef='nameDict:systematic'>pyrrolo</name>
+      <name dictRef='nameDict:abbreviation'>pyrrolo</name>
+      <formula concise='C 2 H 3 O 2 R 1' inline='C1=C[NH]C=C1' />
+      <atomArray>
+        <atom id='a1' elementType='R' x2='0' y2='0'>
+          <label dictRef="cmlDict:r" value='r1' />
+        </atom>
+        <atom id='a2' elementType='R' x2='0' y2='1.5'>
+          <label dictRef="cmlDict:r" value='r2' />
+        </atom>
+        <atom id='a3' elementType='N' x2='1.3' y2='1.9' />
+        <atom id='a3h' elementType='H' x2='1.32' y2='3.4' />
+        <atom id='a4' elementType='C' x2='2.3' y2='0.75' />
+        <atom id='a4h' elementType='H' x2='3.8' y2='0.75' />
+        <atom id='a5' elementType='C' x2='1.3' y2='-0.4' />
+        <atom id='a5h' elementType='H' x2='1.32' y2='-1.9' />
+      </atomArray>
+      <bondArray>
+        <bond atomRefs2='a1 a2' order='D' id='b23' />
+        <bond atomRefs2='a2 a3' order='S' id='b23' />
+        <bond atomRefs2='a3 a3h' order='S' id='b33h' />
+        <bond atomRefs2='a3 a4' order='S' id='b34' />
+        <bond atomRefs2='a4 a4h' order='S' id='b44h' />
+        <bond atomRefs2='a4 a5' order='D' id='b45' />
+        <bond atomRefs2='a5 a5h' order='S' id='b55h' />
+        <bond atomRefs2='a5 a1' order='S' id='b16' />
+      </bondArray>
+    </molecule>
+  </cml>
+</cml>

@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<cml convention="conventions:molecular" xmlns="http://www.xml-cml.org/schema" xmlns:conventions="http://www.xml-cml.org/convention/" xmlns:nameDict="http://www.xml-cml.org/dictionary/cml/name/">
+  <molecule id="m10340" formalCharge="0" spinMultiplicity="1" xmlns:pubchem="http://www.ncbi.nlm.nih.gov">
+    <name dictRef="pubchem:cid">10340</name>
+    <atomArray>
+      <atom id="a1" elementType="Na" formalCharge="1" x2="5.4641017913818" y2="0.25" />
+      <atom id="a2" elementType="Na" formalCharge="1" x2="2.0" y2="0.25" />
+      <atom id="a3" elementType="O" formalCharge="-1" x2="4.5980763435364" y2="0.75" />
+      <atom id="a4" elementType="O" formalCharge="-1" x2="2.8660254478455" y2="0.75" />
+      <atom id="a5" elementType="O" x2="3.7320508956909" y2="-0.75" />
+      <atom id="a6" elementType="C" x2="3.7320508956909" y2="0.25" />
+    </atomArray>
+    <bondArray>
+      <bond atomRefs2="a3 a6" order="S" id="a3_a6"  />
+      <bond atomRefs2="a4 a6" order="S" id="a4_a6"  />
+      <bond atomRefs2="a5 a6" order="D" id="a5_a6"  />
+    </bondArray>
+    <name dictRef="pubchem:Allowed">disodium carbonate</name>
+    <name dictRef="nameDict:cas">disodium carbonate</name>
+    <name dictRef="pubchem:Preferred">disodium carbonate</name>
+    <name dictRef="nameDict:systematic">disodium carbonate</name>
+    <name dictRef="pubchem:Traditional">disodium carbonate</name>
+    <formula convention="pubchem:formula" inline="CNa2O3" concise="C 1 Na 2 O 3" />
+    <formula convention="pubchem:CanonicalSmiles" inline="C(=O)([O-])[O-].[Na+].[Na+]" concise="C 1 Na 2 O 3" />
+    <formula convention="pubchem:IsomericSmiles" inline="C(=O)([O-])[O-].[Na+].[Na+]" concise="C 1 Na 2 O 3" />
+  </molecule>
+</cml>

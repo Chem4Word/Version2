@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<cml convention="conventions:molecular" xmlns="http://www.xml-cml.org/schema" xmlns:conventions="http://www.xml-cml.org/convention/" xmlns:cmlDict="http://www.xml-cml.org/dictionary/cml/" xmlns:nameDict="http://www.xml-cml.org/dictionary/cml/name/">
+  <molecule id="m1">
+    <name dictRef="nameDict:iupac">acetic acid</name>
+    <name dictRef="nameDict:generic">acid</name>
+    <name dictRef="nameDict:trivial">acetyl hydroxide</name>
+    <formula concise="C 2 H 4 O 2" inline="AcOH" />
+    <atomArray>
+      <atom id="a1" elementType="C" x2="-2.5299999713897705" y2="0.2750000059604645" />
+      <atom id="a2" elementType="C" x2="-1.1963208495617348" y2="1.0450000059604645" />
+      <atom id="a3" elementType="O" x2="0.13735827226630049" y2="0.2750000059604645" />
+      <atom id="a4" elementType="O" x2="-1.1963208495617343" y2="2.5850000059604645" />
+      <atom id="a5" elementType="H" x2="-3.8636790932178062" y2="1.0450000059604647" />
+      <atom id="a6" elementType="H" x2="-2.529999971389771" y2="-1.2649999940395356" />
+      <atom id="a7" elementType="H" x2="-3.8636790932178062" y2="-0.49499999403953565" />
+      <atom id="a8" elementType="H" x2="1.4710373940943364" y2="1.045000005960464" />
+    </atomArray>
+    <bondArray>
+      <bond id="b1" atomRefs2="a1 a2" order="1" />
+      <bond id="b2" atomRefs2="a2 a3" order="1" />
+      <bond id="b3" atomRefs2="a2 a4" order="2" />
+      <bond id="b4" atomRefs2="a1 a5" order="1" />
+      <bond id="b5" atomRefs2="a1 a6" order="1" />
+      <bond id="b6" atomRefs2="a1 a7" order="1" />
+      <bond id="b7" atomRefs2="a3 a8" order="1" />
+    </bondArray>
+  </molecule>
+</cml>

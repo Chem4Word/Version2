@@ -1,0 +1,74 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<cml convention="conventions:molecular" xmlns="http://www.xml-cml.org/schema" xmlns:conventions="http://www.xml-cml.org/convention/" xmlns:nameDict="http://www.xml-cml.org/dictionary/cml/name/">
+  <molecule id="m98527" formalCharge="0" spinMultiplicity="1" xmlns:pubchem="http://www.ncbi.nlm.nih.gov">
+    <name dictRef="pubchem:cid">98527</name>
+    <atomArray>
+      <atom id="a1" elementType="Br" x2="4.5980763435364" y2="-2.9049999713898" />
+      <atom id="a2" elementType="O" x2="2.8660254478455" y2="0.0949999988079071" />
+      <atom id="a3" elementType="O" x2="6.3301272392273" y2="-1.9049999713898" />
+      <atom id="a4" elementType="N" x2="5.4641017913818" y2="2.5950000286102" />
+      <atom id="a5" elementType="C" x2="4.5980763435364" y2="0.0949999988079071" />
+      <atom id="a6" elementType="C" x2="4.5980763435364" y2="1.0950000286102" />
+      <atom id="a7" elementType="C" x2="3.7320508956909" y2="-0.405000001192093" />
+      <atom id="a8" elementType="C" x2="5.4641017913818" y2="1.5950000286102" />
+      <atom id="a9" elementType="C" x2="5.4641017913818" y2="-0.405000001192093" />
+      <atom id="a10" elementType="C" x2="5.4641017913818" y2="-1.4049999713898" />
+      <atom id="a11" elementType="C" x2="3.7320508956909" y2="-1.4049999713898" />
+      <atom id="a12" elementType="C" x2="4.5980763435364" y2="-1.9049999713898" />
+      <atom id="a13" elementType="C" x2="2.0" y2="-0.405000001192093" />
+      <atom id="a14" elementType="C" x2="7.1961522102356" y2="-1.4049999713898" />
+      <atom id="a15" elementType="H" x2="4.3860239982605" y2="1.6776094436645" />
+      <atom id="a16" elementType="H" x2="3.9874954223633" y2="0.987338185310364" />
+      <atom id="a17" elementType="H" x2="5.6761541366577" y2="1.0123906135559" />
+      <atom id="a18" elementType="H" x2="6.0746827125549" y2="1.7026618719101" />
+      <atom id="a19" elementType="H" x2="6.0010375976562" y2="-0.0949999988079071" />
+      <atom id="a20" elementType="H" x2="3.1951150894165" y2="-1.7150000333786" />
+      <atom id="a21" elementType="H" x2="4.9271659851074" y2="2.9049999713898" />
+      <atom id="a22" elementType="H" x2="6.0010375976562" y2="2.9049999713898" />
+      <atom id="a23" elementType="H" x2="1.6900000572205" y2="0.131935760378838" />
+      <atom id="a24" elementType="H" x2="1.4630641937256" y2="-0.714999973773956" />
+      <atom id="a25" elementType="H" x2="2.3099999427795" y2="-0.941935777664185" />
+      <atom id="a26" elementType="H" x2="6.8861522674561" y2="-0.868064284324646" />
+      <atom id="a27" elementType="H" x2="7.73308801651" y2="-1.0949999094009" />
+      <atom id="a28" elementType="H" x2="7.5061521530151" y2="-1.9419356584549" />
+    </atomArray>
+    <bondArray>
+      <bond atomRefs2="a1 a12" order="S" id="a1_a12"  />
+      <bond atomRefs2="a2 a7" order="S" id="a2_a7"  />
+      <bond atomRefs2="a2 a13" order="S" id="a2_a13"  />
+      <bond atomRefs2="a3 a10" order="S" id="a3_a10"  />
+      <bond atomRefs2="a3 a14" order="S" id="a3_a14"  />
+      <bond atomRefs2="a4 a8" order="S" id="a4_a8"  />
+      <bond atomRefs2="a4 a21" order="S" id="a4_a21"  />
+      <bond atomRefs2="a4 a22" order="S" id="a4_a22"  />
+      <bond atomRefs2="a5 a6" order="S" id="a5_a6"  />
+      <bond atomRefs2="a5 a7" order="S" id="a5_a7"  />
+      <bond atomRefs2="a5 a9" order="D" id="a5_a9"  />
+      <bond atomRefs2="a6 a8" order="S" id="a6_a8"  />
+      <bond atomRefs2="a6 a15" order="S" id="a6_a15"  />
+      <bond atomRefs2="a6 a16" order="S" id="a6_a16"  />
+      <bond atomRefs2="a7 a11" order="D" id="a7_a11"  />
+      <bond atomRefs2="a8 a17" order="S" id="a8_a17"  />
+      <bond atomRefs2="a8 a18" order="S" id="a8_a18"  />
+      <bond atomRefs2="a9 a10" order="S" id="a9_a10"  />
+      <bond atomRefs2="a9 a19" order="S" id="a9_a19"  />
+      <bond atomRefs2="a10 a12" order="D" id="a10_a12"  />
+      <bond atomRefs2="a11 a12" order="S" id="a11_a12"  />
+      <bond atomRefs2="a11 a20" order="S" id="a11_a20"  />
+      <bond atomRefs2="a13 a23" order="S" id="a13_a23"  />
+      <bond atomRefs2="a13 a24" order="S" id="a13_a24"  />
+      <bond atomRefs2="a13 a25" order="S" id="a13_a25"  />
+      <bond atomRefs2="a14 a26" order="S" id="a14_a26"  />
+      <bond atomRefs2="a14 a27" order="S" id="a14_a27"  />
+      <bond atomRefs2="a14 a28" order="S" id="a14_a28"  />
+    </bondArray>
+    <name dictRef="pubchem:Allowed">2-(4-bromo-2,5-dimethoxy-phenyl)ethanamine</name>
+    <name dictRef="nameDict:cas">2-(4-bromo-2,5-dimethoxyphenyl)ethanamine</name>
+    <name dictRef="pubchem:Preferred">2-(4-bromo-2,5-dimethoxyphenyl)ethanamine</name>
+    <name dictRef="nameDict:systematic">2-(4-bromo-2,5-dimethoxy-phenyl)ethanamine</name>
+    <name dictRef="pubchem:Traditional">2-(4-bromo-2,5-dimethoxy-phenyl)ethylamine</name>
+    <formula convention="pubchem:formula" inline="C10H14BrNO2" concise="C 10 H 14 Br 1 N 1 O 2" />
+    <formula convention="pubchem:CanonicalSmiles" inline="COC1=CC(=C(C=C1CCN)OC)Br" concise="C 10 H 14 Br 1 N 1 O 2" />
+    <formula convention="pubchem:IsomericSmiles" inline="COC1=CC(=C(C=C1CCN)OC)Br" concise="C 10 H 14 Br 1 N 1 O 2" />
+  </molecule>
+</cml>

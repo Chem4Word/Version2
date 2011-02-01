@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<cml convention="conventions:molecular" xmlns="http://www.xml-cml.org/schema" xmlns:conventions="http://www.xml-cml.org/convention/" xmlns:nameDict="http://www.xml-cml.org/dictionary/cml/name/">
+  <molecule id="m90455" formalCharge="0" spinMultiplicity="1" xmlns:pubchem="http://www.ncbi.nlm.nih.gov">
+    <name dictRef="pubchem:cid">90455</name>
+    <atomArray>
+      <atom id="a1" elementType="Al" x2="3.0" y2="0.0" />
+      <atom id="a2" elementType="N" x2="2.0" y2="0.0" />
+    </atomArray>
+    <bondArray>
+      <bond atomRefs2="a1 a2" order="T" id="a1_a2"  />
+    </bondArray>
+    <name dictRef="pubchem:Allowed">nitridoalumane</name>
+    <name dictRef="nameDict:cas">nitriloalumane</name>
+    <name dictRef="pubchem:Preferred">azanylidynealumane</name>
+    <name dictRef="nameDict:systematic">azanylidynealumane</name>
+    <name dictRef="pubchem:Traditional">nitriloalumane</name>
+    <formula convention="pubchem:formula" inline="AlN" concise="Al 1 N 1" />
+    <formula convention="pubchem:CanonicalSmiles" inline="N#[Al]" concise="Al 1 N 1" />
+    <formula convention="pubchem:IsomericSmiles" inline="N#[Al]" concise="Al 1 N 1" />
+  </molecule>
+</cml>
