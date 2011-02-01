@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<cml convention="conventions:molecular" xmlns="http://www.xml-cml.org/schema" xmlns:conventions="http://www.xml-cml.org/convention/" xmlns:nameDict="http://www.xml-cml.org/dictionary/cml/name/">
+  <molecule id="m24819" formalCharge="0" spinMultiplicity="1" xmlns:pubchem="http://www.ncbi.nlm.nih.gov">
+    <name dictRef="pubchem:cid">24819</name>
+    <atomArray>
+      <atom id="a1" elementType="Cl" x2="3.8606" y2="0.4677" />
+      <atom id="a2" elementType="Cl" x2="2.0" y2="0.0722" />
+      <atom id="a3" elementType="Cl" x2="2.5878" y2="-0.9458" />
+      <atom id="a4" elementType="Cl" x2="2.7866" y2="0.9458" />
+      <atom id="a5" elementType="Cl" x2="3.7377" y2="-0.7014" />
+      <atom id="a6" elementType="P" x2="2.9945" y2="-0.0323" />
+    </atomArray>
+    <bondArray>
+      <bond atomRefs2="a1 a6" order="S" id="a1_a6"  />
+      <bond atomRefs2="a2 a6" order="S" id="a2_a6"  />
+      <bond atomRefs2="a3 a6" order="S" id="a3_a6"  />
+      <bond atomRefs2="a4 a6" order="S" id="a4_a6"  />
+      <bond atomRefs2="a5 a6" order="S" id="a5_a6"  />
+    </bondArray>
+    <name dictRef="pubchem:Allowed">pentachlorophosphorane</name>
+    <name dictRef="nameDict:cas">pentachlorophosphorane</name>
+    <name dictRef="pubchem:Preferred">pentachloro-$l^{5}-phosphane</name>
+    <name dictRef="nameDict:systematic">pentachloro-$l^{5}-phosphane</name>
+    <name dictRef="pubchem:Traditional">pentachlorophosphorane</name>
+    <formula convention="pubchem:formula" inline="Cl5P" concise="Cl 5 P 1" />
+    <formula convention="pubchem:CanonicalSmiles" inline="P(Cl)(Cl)(Cl)(Cl)Cl" concise="Cl 5 P 1" />
+    <formula convention="pubchem:IsomericSmiles" inline="P(Cl)(Cl)(Cl)(Cl)Cl" concise="Cl 5 P 1" />
+  </molecule>
+</cml>

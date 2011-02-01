@@ -1,0 +1,74 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<cml convention="conventions:molecular" xmlns="http://www.xml-cml.org/schema" xmlns:conventions="http://www.xml-cml.org/convention/">
+  <molecule id="m92283" formalCharge="0" xmlns:pubchem="http://www.ncbi.nlm.nih.gov">
+    <name dictRef="pubchem:cid">92283</name>
+    <atomArray>
+      <atom id="a1" elementType="O" x2="5.0298404693603" y2="-0.190656781196594" />
+      <atom id="a2" elementType="O" x2="2.4607498645783" y2="0.118360213935375" />
+      <atom id="a3" elementType="O" x2="3.1330380439758" y2="-1.9507303237915" />
+      <atom id="a4" elementType="O" x2="3.3547978401184" y2="1.8971284627914" />
+      <atom id="a5" elementType="O" x2="5.3086085319519" y2="-1.9507303237915" />
+      <atom id="a6" elementType="O" x2="5.9528741836548" y2="1.3971284627914" />
+      <atom id="a7" elementType="C" x2="4.2208232879639" y2="0.397128462791443">
+        <atomParity atomRefs4="a1 a8 a10 a13">1.0</atomParity>
+      </atom>
+      <atom id="a8" elementType="C" x2="3.411806344986" y2="-0.190656781196594">
+        <atomParity atomRefs4="a2 a7 a9 a14">1.0</atomParity>
+      </atom>
+      <atom id="a9" elementType="C" x2="3.7208232879639" y2="-1.1417132616043">
+        <atomParity atomRefs4="a3 a8 a11 a15">1.0</atomParity>
+      </atom>
+      <atom id="a10" elementType="C" x2="4.2208232879639" y2="1.3971284627914">
+        <atomParity atomRefs4="a4 a12 a7 a16">-1.0</atomParity>
+      </atom>
+      <atom id="a11" elementType="C" x2="4.7208232879639" y2="-1.1417132616043" />
+      <atom id="a12" elementType="C" x2="5.0868487358093" y2="1.8971284627914" />
+      <atom id="a13" elementType="H" x2="4.9336285591125" y2="0.760320842266083" />
+      <atom id="a14" elementType="H" x2="2.9734001159668" y2="-0.629062950611115" />
+      <atom id="a15" elementType="H" x2="3.1084566116333" y2="-1.0447238683701" />
+      <atom id="a16" elementType="H" x2="4.2208232879639" y2="2.0171284675598" />
+      <atom id="a17" elementType="H" x2="2.0" y2="-0.296500772237778" />
+      <atom id="a18" elementType="H" x2="5.0868487358093" y2="2.5171284675598" />
+      <atom id="a19" elementType="H" x2="3.385214805603" y2="-2.5171284675598" />
+      <atom id="a20" elementType="H" x2="3.3547978401184" y2="2.5171284675598" />
+    </atomArray>
+    <bondArray>
+      <bond atomRefs2="a1 a7" order="1" id="a1_a7" />
+      <bond atomRefs2="a1 a11" order="1" id="a1_a11" />
+      <bond atomRefs2="a2 a8" order="1" id="a2_a8">
+        <bondStereo>W</bondStereo>
+      </bond>
+      <bond atomRefs2="a2 a17" order="1" id="a2_a17" />
+      <bond atomRefs2="a3 a9" order="1" id="a3_a9">
+        <bondStereo>W</bondStereo>
+      </bond>
+      <bond atomRefs2="a3 a19" order="1" id="a3_a19" />
+      <bond atomRefs2="a4 a10" order="1" id="a4_a10">
+        <bondStereo>W</bondStereo>
+      </bond>
+      <bond atomRefs2="a4 a20" order="1" id="a4_a20" />
+      <bond atomRefs2="a5 a11" order="2" id="a5_a11" />
+      <bond atomRefs2="a6 a12" order="2" id="a6_a12" />
+      <bond atomRefs2="a7 a8" order="1" id="a7_a8" />
+      <bond atomRefs2="a7 a10" order="1" id="a7_a10" />
+      <bond atomRefs2="a7 a13" order="1" id="a7_a13">
+        <bondStereo>H</bondStereo>
+      </bond>
+      <bond atomRefs2="a8 a9" order="1" id="a8_a9" />
+      <bond atomRefs2="a8 a14" order="1" id="a8_a14" />
+      <bond atomRefs2="a9 a11" order="1" id="a9_a11" />
+      <bond atomRefs2="a9 a15" order="1" id="a9_a15" />
+      <bond atomRefs2="a10 a12" order="1" id="a10_a12" />
+      <bond atomRefs2="a10 a16" order="1" id="a10_a16" />
+      <bond atomRefs2="a12 a18" order="1" id="a12_a18" />
+    </bondArray>
+    <name dictRef="pubchem:Allowed">(2R)-2-[(2S,3R,4S)-3,4-dihydroxy-5-oxo-tetrahydrofuran-2-yl]-2-hydroxy-acetaldehyde</name>
+    <name dictRef="pubchem:CAS-likeStyle">(2R)-2-[(2S,3R,4S)-3,4-dihydroxy-5-oxo-2-tetrahydrofuranyl]-2-hydroxyacetaldehyde</name>
+    <name dictRef="pubchem:Preferred">(2R)-2-[(2S,3R,4S)-3,4-dihydroxy-5-oxooxolan-2-yl]-2-hydroxyacetaldehyde</name>
+    <name dictRef="pubchem:Systematic">(2R)-2-[(2S,3R,4S)-3,4-dihydroxy-5-oxo-oxolan-2-yl]-2-hydroxy-ethanal</name>
+    <name dictRef="pubchem:Traditional">(2R)-2-[(2S,3R,4S)-3,4-dihydroxy-5-keto-tetrahydrofuran-2-yl]-2-hydroxy-acetaldehyde</name>
+    <formula convention="pubchem:formula" inline="C6H8O6" />
+    <formula convention="pubchem:CanonicalSmiles" inline="C(=O)C(C1C(C(C(=O)O1)O)O)O" />
+    <formula convention="pubchem:IsomericSmiles" inline="C(=O)[C@@H]([C@@H]1[C@@H]([C@@H](C(=O)O1)O)O)O" />
+  </molecule>
+</cml>

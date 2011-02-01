@@ -1,0 +1,147 @@
+<!-- note that the ID is used in dictionaries so DO NOT EDIT-->
+<cml:cml id='DIVALENT_SINGLE' xmlns:cml='http://www.xml-cml.org/schema' xmlns:cmlDict='http://www.xml-cml.org/dictionary/cml/' xmlns:nameDict='http://www.xml-cml.org/dictionary/cml/name/'>
+  <cml:cml convention='cmlDict:cmllite' xmlns:cml='http://www.xml-cml.org/schema' xmlns:cmlDict='http://www.xml-cml.org/dictionary/cml/' xmlns:nameDict='http://www.xml-cml.org/dictionary/cml/name/'>
+    <cml:molecule id='m1'>
+      <cml:name dictRef='nameDict:systematic'>amide</cml:name>
+      <cml:name dictRef='nameDict:abbreviation'>CONH</cml:name>
+      <cml:formula concise='C 1 H 1 N 1 O 1 R 2' inline='-C(=O)NH-' />
+      <cml:atomArray>
+        <cml:atom id='a1' elementType='R' x2='0' y2='0' />
+        <cml:atom id='a2' elementType='C' x2='1.5' y2='0' />
+        <cml:atom id='a3' elementType='O' x2='1.5' y2='1.5' />
+        <cml:atom id='a4' elementType='N' x2='3.0' y2='0' />
+        <cml:atom id='a5' elementType='H' x2='3.0' y2='0' />
+        <cml:atom id='a6' elementType='R' x2='4.5' y2='0' />
+      </cml:atomArray>
+      <cml:bondArray>
+        <cml:bond atomRefs2='a1 a2' order='S' id='b1' />
+        <cml:bond atomRefs2='a2 a3' order='D' id='b2' />
+        <cml:bond atomRefs2='a2 a4' order='S' id='b3' />
+        <cml:bond atomRefs2='a4 a5' order='S' id='b4' />
+        <cml:bond atomRefs2='a5 a6' order='S' id='b5' />
+      </cml:bondArray>
+    </cml:molecule>
+  </cml:cml>
+  <cml:cml convention='cmlDict:cmllite' xmlns:cml='http://www.xml-cml.org/schema' xmlns:cmlDict='http://www.xml-cml.org/dictionary/cml/' xmlns:nameDict='http://www.xml-cml.org/dictionary/cml/name/'>
+    <cml:molecule id='m1'>
+      <cml:name dictRef='nameDict:systematic'>carbonyl</cml:name>
+      <cml:name dictRef='nameDict:abbreviation'>C=O</cml:name>
+      <cml:formula concise='C 1 O 1 R 2' inline='-C(=O)-' />
+      <cml:atomArray>
+        <cml:atom id='a1' elementType='O' x2='-6.610000610351562' y2='4.949999809265137' />
+        <cml:atom id='a2' elementType='C' x2='-5.276321488523529' y2='5.719999809265136' />
+        <cml:atom id='a3' elementType='R' x2='-3.94264236669549' y2='4.9499998092651' />
+        <cml:atom id='a4' elementType='R' x2='-5.276321488523529' y2='7.259999809265136' />
+      </cml:atomArray>
+      <cml:bondArray>
+        <cml:bond atomRefs2='a1 a2' order='D' id='b1' />
+        <cml:bond atomRefs2='a2 a3' order='S' id='b2' />
+        <cml:bond atomRefs2='a2 a4' order='S' id='b3' />
+      </cml:bondArray>
+    </cml:molecule>
+  </cml:cml>
+  <cml:cml convention='cmlDict:cmllite' xmlns:cml='http://www.xml-cml.org/schema' xmlns:cmlDict='http://www.xml-cml.org/dictionary/cml/' xmlns:nameDict='http://www.xml-cml.org/dictionary/cml/name/'>
+    <cml:molecule id='m1'>
+      <cml:name dictRef='nameDict:systematic'>imine</cml:name>
+      <cml:name dictRef='nameDict:abbreviation'>C=NH</cml:name>
+      <cml:formula concise='C 1 H 1 N 1 R 2' inline='-C(=NH)-' />
+      <cml:atomArray>
+        <cml:atom id='a5' elementType='H' x2='-6.610000610351562' y2='3.4' />
+        <cml:atom id='a1' elementType='N' x2='-6.610000610351562' y2='4.949999809265137' />
+        <cml:atom id='a2' elementType='C' x2='-5.276321488523529' y2='5.719999809265136' />
+        <cml:atom id='a3' elementType='R' x2='-3.94264236669549' y2='4.9499998092651' />
+        <cml:atom id='a4' elementType='R' x2='-5.276321488523529' y2='7.259999809265136' />
+      </cml:atomArray>
+      <cml:bondArray>
+        <cml:bond atomRefs2='a1 a2' order='D' id='b1' />
+        <cml:bond atomRefs2='a2 a3' order='S' id='b2' />
+        <cml:bond atomRefs2='a2 a4' order='S' id='b3' />
+        <cml:bond atomRefs2='a1 a5' order='S' id='b4' />
+      </cml:bondArray>
+    </cml:molecule>
+  </cml:cml>
+  <cml:cml convention='cmlDict:cmllite' xmlns:cml='http://www.xml-cml.org/schema' xmlns:cmlDict='http://www.xml-cml.org/dictionary/cml/' xmlns:nameDict='http://www.xml-cml.org/dictionary/cml/name/'>
+    <cml:molecule id='m1'>
+      <cml:name dictRef='nameDict:systematic'>methyl</cml:name>
+      <cml:name dictRef='nameDict:abbreviation'>CMe</cml:name>
+      <cml:formula concise='C 1 O 1 R 2' inline='-C(CH3)-' />
+      <cml:atomArray>
+        <cml:atom id='a1' elementType='C' x2='-6.610000610351562' y2='4.949999809265137' />
+        <cml:atom id='a1_h1' elementType='H' x2='-5.84' y2='3.60' />
+        <cml:atom id='a1_h2' elementType='H' x2='-7.95' y2='4.17' />
+        <cml:atom id='a1_h3' elementType='H' x2='-7.38' y2='6.30' />
+        <cml:atom id='a2' elementType='C' x2='-5.276321488523529' y2='5.719999809265136' />
+        <cml:atom id='a3' elementType='R' x2='-3.94264236669549' y2='4.9499998092651' />
+        <cml:atom id='a4' elementType='R' x2='-5.276321488523529' y2='7.259999809265136' />
+      </cml:atomArray>
+      <cml:bondArray>
+        <cml:bond atomRefs2='a1 a2' order='S' id='b1' />
+        <cml:bond atomRefs2='a1 a1_h1' order='S' id='b11' />
+        <cml:bond atomRefs2='a1 a1_h2' order='S' id='b12' />
+        <cml:bond atomRefs2='a1 a1_h3' order='S' id='b13' />
+        <cml:bond atomRefs2='a2 a3' order='S' id='b2' />
+        <cml:bond atomRefs2='a2 a4' order='S' id='b3' />
+      </cml:bondArray>
+    </cml:molecule>
+  </cml:cml>
+  <cml:cml convention='cmlDict:cmllite' xmlns:cml='http://www.xml-cml.org/schema' xmlns:cmlDict='http://www.xml-cml.org/dictionary/cml/' xmlns:nameDict='http://www.xml-cml.org/dictionary/cml/name/'>
+    <cml:molecule id='m1'>
+      <cml:name dictRef='nameDict:systematic'>oxime</cml:name>
+      <cml:name dictRef='nameDict:abbreviation'>C=NOH</cml:name>
+      <cml:formula concise='C 1 H 1 N 1 O 1 R 2' inline='-C(=NOH)-' />
+      <cml:atomArray>
+        <cml:atom id='a5' elementType='O' x2='-6.610000610351562' y2='3.4' />
+        <cml:atom id='a5_h1' elementType='H' x2='-7.950000610351562' y2='2.63' />
+        <cml:atom id='a1' elementType='N' x2='-6.610000610351562' y2='4.949999809265137' />
+        <cml:atom id='a2' elementType='C' x2='-5.276321488523529' y2='5.719999809265136' />
+        <cml:atom id='a3' elementType='R' x2='-3.94264236669549' y2='4.9499998092651' />
+        <cml:atom id='a4' elementType='R' x2='-5.276321488523529' y2='7.259999809265136' />
+      </cml:atomArray>
+      <cml:bondArray>
+        <cml:bond atomRefs2='a1 a2' order='D' id='b1' />
+        <cml:bond atomRefs2='a2 a3' order='S' id='b2' />
+        <cml:bond atomRefs2='a2 a4' order='S' id='b3' />
+        <cml:bond atomRefs2='a1 a5' order='S' id='b4' />
+        <cml:bond atomRefs2='a5 a5_h1' order='S' id='b5' />
+      </cml:bondArray>
+    </cml:molecule>
+  </cml:cml>
+  <cml:cml convention='cmlDict:cmllite' xmlns:cml='http://www.xml-cml.org/schema' xmlns:cmlDict='http://www.xml-cml.org/dictionary/cml/' xmlns:nameDict='http://www.xml-cml.org/dictionary/cml/name/'>
+    <cml:molecule id='m1'>
+      <cml:name dictRef='nameDict:systematic'>sulfonyl</cml:name>
+      <cml:name dictRef='nameDict:abbreviation'>SO2</cml:name>
+      <cml:formula concise='O 2 S 1 R 2' inline='-S(=O)(=O)-' />
+      <cml:atomArray>
+        <cml:atom id='a1' elementType='O' x2='-5.510000610351562' y2='4.0' />
+        <cml:atom id='a2' elementType='S' x2='-5.276321488523529' y2='5.719999809265136' />
+        <cml:atom id='a3' elementType='R' x2='-3.94264236669549' y2='4.9499998092651' />
+        <cml:atom id='a4' elementType='R' x2='-5.276321488523529' y2='7.259999809265136' />
+        <cml:atom id='a5' elementType='O' x2='-7.110000610351562' y2='5.749999809265137' />
+      </cml:atomArray>
+      <cml:bondArray>
+        <cml:bond atomRefs2='a1 a2' order='D' id='b1' />
+        <cml:bond atomRefs2='a2 a5' order='D' id='b2' />
+        <cml:bond atomRefs2='a2 a3' order='S' id='b3' />
+        <cml:bond atomRefs2='a2 a4' order='S' id='b4' />
+      </cml:bondArray>
+    </cml:molecule>
+  </cml:cml>
+  <cml:cml convention='cmlDict:cmllite' xmlns:cml='http://www.xml-cml.org/schema' xmlns:cmlDict='http://www.xml-cml.org/dictionary/cml/' xmlns:nameDict='http://www.xml-cml.org/dictionary/cml/name/'>
+    <cml:molecule id='m1'>
+      <cml:name dictRef='nameDict:systematic'>sulfoxide</cml:name>
+      <cml:name dictRef='nameDict:abbreviation'>SO</cml:name>
+      <cml:formula concise='O 1 S 1 R 2' inline='-S(=O)-' />
+      <cml:atomArray>
+        <cml:atom id='a1' elementType='O' x2='-6.610000610351562' y2='4.949999809265137' />
+        <cml:atom id='a2' elementType='S' x2='-5.276321488523529' y2='5.719999809265136' />
+        <cml:atom id='a3' elementType='R' x2='-3.94264236669549' y2='4.9499998092651' />
+        <cml:atom id='a4' elementType='R' x2='-5.276321488523529' y2='7.259999809265136' />
+      </cml:atomArray>
+      <cml:bondArray>
+        <cml:bond atomRefs2='a1 a2' order='D' id='b1' />
+        <cml:bond atomRefs2='a2 a3' order='S' id='b2' />
+        <cml:bond atomRefs2='a2 a4' order='S' id='b3' />
+      </cml:bondArray>
+    </cml:molecule>
+  </cml:cml>
+</cml:cml>

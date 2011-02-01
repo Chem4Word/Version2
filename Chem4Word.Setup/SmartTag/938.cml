@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<cml convention="conventions:molecular" xmlns="http://www.xml-cml.org/schema" xmlns:conventions="http://www.xml-cml.org/convention/" xmlns:nameDict="http://www.xml-cml.org/dictionary/cml/name/">
+  <molecule id="m938" formalCharge="0" spinMultiplicity="1" xmlns:pubchem="http://www.ncbi.nlm.nih.gov">
+    <name dictRef="pubchem:cid">938</name>
+    <atomArray>
+      <atom id="a1" elementType="O" x2="3.7321" y2="1.44" />
+      <atom id="a2" elementType="O" x2="2.0" y2="1.44" />
+      <atom id="a3" elementType="N" x2="3.7321" y2="-1.56" />
+      <atom id="a4" elementType="C" x2="2.866" y2="-0.06" />
+      <atom id="a5" elementType="C" x2="2.0" y2="-0.56" />
+      <atom id="a6" elementType="C" x2="3.7321" y2="-0.56" />
+      <atom id="a7" elementType="C" x2="2.0" y2="-1.56" />
+      <atom id="a8" elementType="C" x2="2.866" y2="-2.06" />
+      <atom id="a9" elementType="C" x2="2.866" y2="0.94" />
+      <atom id="a10" elementType="H" x2="1.4631" y2="-0.25" />
+      <atom id="a11" elementType="H" x2="4.269" y2="-0.25" />
+      <atom id="a12" elementType="H" x2="1.4631" y2="-1.87" />
+      <atom id="a13" elementType="H" x2="2.866" y2="-2.68" />
+      <atom id="a14" elementType="H" x2="3.7321" y2="2.06" />
+    </atomArray>
+    <bondArray>
+      <bond atomRefs2="a1 a9" order="S" id="a1_a9"  />
+      <bond atomRefs2="a1 a14" order="S" id="a1_a14"  />
+      <bond atomRefs2="a2 a9" order="D" id="a2_a9"  />
+      <bond atomRefs2="a3 a6" order="S" id="a3_a6"  />
+      <bond atomRefs2="a3 a8" order="D" id="a3_a8"  />
+      <bond atomRefs2="a4 a5" order="S" id="a4_a5"  />
+      <bond atomRefs2="a4 a6" order="D" id="a4_a6"  />
+      <bond atomRefs2="a4 a9" order="S" id="a4_a9"  />
+      <bond atomRefs2="a5 a7" order="D" id="a5_a7"  />
+      <bond atomRefs2="a5 a10" order="S" id="a5_a10"  />
+      <bond atomRefs2="a6 a11" order="S" id="a6_a11"  />
+      <bond atomRefs2="a7 a8" order="S" id="a7_a8"  />
+      <bond atomRefs2="a7 a12" order="S" id="a7_a12"  />
+      <bond atomRefs2="a8 a13" order="S" id="a8_a13"  />
+    </bondArray>
+    <name dictRef="pubchem:Allowed">nicotinic acid</name>
+    <name dictRef="nameDict:cas">nicotinic acid</name>
+    <name dictRef="pubchem:Preferred">pyridine-3-carboxylic acid</name>
+    <name dictRef="nameDict:systematic">pyridine-3-carboxylic acid</name>
+    <name dictRef="pubchem:Traditional">nicotinic acid</name>
+    <formula convention="pubchem:formula" inline="C6H5NO2" concise="C 6 H 5 N 1 O 2" />
+    <formula convention="pubchem:CanonicalSmiles" inline="C1=CC(=CN=C1)C(=O)O" concise="C 6 H 5 N 1 O 2" />
+    <formula convention="pubchem:IsomericSmiles" inline="C1=CC(=CN=C1)C(=O)O" concise="C 6 H 5 N 1 O 2" />
+  </molecule>
+</cml>

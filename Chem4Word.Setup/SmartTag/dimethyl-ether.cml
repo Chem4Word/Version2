@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<cml:cml convention="conventions:molecular" xmlns:cml="http://www.xml-cml.org/schema" xmlns:conventions="http://www.xml-cml.org/convention/" xmlns:cmlDict="http://www.xml-cml.org/dictionary/cml/" xmlns:nameDict="http://www.xml-cml.org/dictionary/cml/name/">
+  <cml:molecule id="m1">
+    <cml:name dictRef="nameDict:iupac">methoxymethane</cml:name>
+    <cml:name dictRef="nameDict:generic">ether</cml:name>
+    <cml:atomArray>
+      <cml:atom id="a1" elementType="C" x2="-1.130115200179381" y2="0.35376325428176436" />
+      <cml:atom id="a2" elementType="O" x2="-1.9001152001793806" y2="1.6874423761098" />
+      <cml:atom id="a3" elementType="C" x2="-3.4401152001793807" y2="1.6874423761098" />
+      <cml:atom id="a4" elementType="H" x2="-2.4637943220074168" y2="-0.4162367457182352" />
+      <cml:atom id="a5" elementType="H" x2="-0.3601152001793815" y2="-0.9799158675462714" />
+      <cml:atom id="a6" elementType="H" x2="-3.4401152001793807" y2="3.2274423761098" />
+      <cml:atom id="a7" elementType="H" x2="-4.98011520017938" y2="1.6874423761098003" />
+      <cml:atom id="a8" elementType="H" x2="0.20356392164865467" y2="1.1237632542817637" />
+      <cml:atom id="a9" elementType="H" x2="-3.440115200179381" y2="0.14744237610980004" />
+    </cml:atomArray>
+    <cml:bondArray>
+      <cml:bond atomRefs2="a1 a2" order="1" id="b1" />
+      <cml:bond atomRefs2="a2 a3" order="1" id="b2" />
+      <cml:bond atomRefs2="a1 a4" order="1" id="b3" />
+      <cml:bond atomRefs2="a1 a5" order="1" id="b4" />
+      <cml:bond atomRefs2="a3 a6" order="1" id="b5" />
+      <cml:bond atomRefs2="a3 a7" order="1" id="b6" />
+      <cml:bond atomRefs2="a1 a8" order="1" id="b7" />
+      <cml:bond atomRefs2="a3 a9" order="1" id="b8" />
+    </cml:bondArray>
+  </cml:molecule>
+</cml:cml>

@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<cml convention="conventions:molecular" xmlns="http://www.xml-cml.org/schema" xmlns:conventions="http://www.xml-cml.org/convention/" xmlns:nameDict="http://www.xml-cml.org/dictionary/cml/name/">
+  <molecule id="m16211014" formalCharge="0" spinMultiplicity="1" xmlns:pubchem="http://www.ncbi.nlm.nih.gov">
+    <name dictRef="pubchem:cid">16211014</name>
+    <atomArray>
+      <atom id="a1" elementType="F" formalCharge="-1" x2="0.0" y2="0.0" />
+      <atom id="a2" elementType="H" formalCharge="1" x2="1.0" y2="0.0" />
+    </atomArray>
+    <name dictRef="pubchem:Allowed">hydron fluoride</name>
+    <name dictRef="nameDict:cas">hydron fluoride</name>
+    <name dictRef="pubchem:Preferred">hydron fluoride</name>
+    <name dictRef="nameDict:systematic">hydron fluoride</name>
+    <name dictRef="pubchem:Traditional">hydron fluoride</name>
+    <formula convention="pubchem:formula" inline="FH" concise="H 1 F 1" />
+    <formula convention="pubchem:CanonicalSmiles" inline="[H+].[F-]" concise="H 1 F 1" />
+    <formula convention="pubchem:IsomericSmiles" inline="[H+].[F-]" concise="H 1 F 1" />
+  </molecule>
+</cml>

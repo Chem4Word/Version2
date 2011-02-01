@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<cml convention="conventions:molecular" xmlns="http://www.xml-cml.org/schema" xmlns:conventions="http://www.xml-cml.org/convention/" xmlns:nameDict="http://www.xml-cml.org/dictionary/cml/name/">
+  <molecule id="m9260" formalCharge="0" spinMultiplicity="1" xmlns:pubchem="http://www.ncbi.nlm.nih.gov">
+    <name dictRef="pubchem:cid">9260</name>
+    <atomArray>
+      <atom id="a1" elementType="N" x2="2.0" y2="0.5" />
+      <atom id="a2" elementType="N" x2="2.866" y2="-1.0" />
+      <atom id="a3" elementType="C" x2="3.7321" y2="0.5" />
+      <atom id="a4" elementType="C" x2="2.866" y2="1.0" />
+      <atom id="a5" elementType="C" x2="3.7321" y2="-0.5" />
+      <atom id="a6" elementType="C" x2="2.0" y2="-0.5" />
+      <atom id="a7" elementType="H" x2="4.269" y2="0.81" />
+      <atom id="a8" elementType="H" x2="2.866" y2="1.62" />
+      <atom id="a9" elementType="H" x2="4.269" y2="-0.81" />
+      <atom id="a10" elementType="H" x2="1.4631" y2="-0.81" />
+    </atomArray>
+    <bondArray>
+      <bond atomRefs2="a1 a4" order="D" id="a1_a4"  />
+      <bond atomRefs2="a1 a6" order="S" id="a1_a6"  />
+      <bond atomRefs2="a2 a5" order="S" id="a2_a5"  />
+      <bond atomRefs2="a2 a6" order="D" id="a2_a6"  />
+      <bond atomRefs2="a3 a4" order="S" id="a3_a4"  />
+      <bond atomRefs2="a3 a5" order="D" id="a3_a5"  />
+      <bond atomRefs2="a3 a7" order="S" id="a3_a7"  />
+      <bond atomRefs2="a4 a8" order="S" id="a4_a8"  />
+      <bond atomRefs2="a5 a9" order="S" id="a5_a9"  />
+      <bond atomRefs2="a6 a10" order="S" id="a6_a10"  />
+    </bondArray>
+    <name dictRef="pubchem:Allowed">pyrimidine</name>
+    <name dictRef="nameDict:cas">pyrimidine</name>
+    <name dictRef="pubchem:Preferred">pyrimidine</name>
+    <name dictRef="nameDict:systematic">pyrimidine</name>
+    <name dictRef="pubchem:Traditional">pyrimidine</name>
+    <formula convention="pubchem:formula" inline="C4H4N2" concise="C 4 H 4 N 2" />
+    <formula convention="pubchem:CanonicalSmiles" inline="C1=CN=CN=C1" concise="C 4 H 4 N 2" />
+    <formula convention="pubchem:IsomericSmiles" inline="C1=CN=CN=C1" concise="C 4 H 4 N 2" />
+  </molecule>
+</cml>

@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<cml convention="conventions:molecular" xmlns="http://www.xml-cml.org/schema" xmlns:conventions="http://www.xml-cml.org/convention/" xmlns:nameDict="http://www.xml-cml.org/dictionary/cml/name/">
+  <molecule id="m14801" formalCharge="0" spinMultiplicity="1" xmlns:pubchem="http://www.ncbi.nlm.nih.gov">
+    <name dictRef="pubchem:cid">14801</name>
+    <atomArray>
+      <atom id="a1" elementType="Mn" x2="2.8660254478455" y2="8.32667268468867E-17" />
+      <atom id="a2" elementType="O" x2="3.7320508956909" y2="0.5" />
+      <atom id="a3" elementType="O" x2="2.0" y2="-0.5" />
+    </atomArray>
+    <bondArray>
+      <bond atomRefs2="a1 a2" order="D" id="a1_a2"  />
+      <bond atomRefs2="a1 a3" order="D" id="a1_a3"  />
+    </bondArray>
+    <name dictRef="pubchem:Allowed">dioxomanganese</name>
+    <name dictRef="nameDict:cas">dioxomanganese</name>
+    <name dictRef="pubchem:Preferred">dioxomanganese</name>
+    <name dictRef="nameDict:systematic">dioxomanganese</name>
+    <name dictRef="pubchem:Traditional">diketomanganese</name>
+    <formula convention="pubchem:formula" inline="MnO2" concise="Mn 1 O 2" />
+    <formula convention="pubchem:CanonicalSmiles" inline="O=[Mn]=O" concise="Mn 1 O 2" />
+    <formula convention="pubchem:IsomericSmiles" inline="O=[Mn]=O" concise="Mn 1 O 2" />
+  </molecule>
+</cml>

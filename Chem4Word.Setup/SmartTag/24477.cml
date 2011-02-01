@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<cml convention="conventions:molecular" xmlns="http://www.xml-cml.org/schema" xmlns:conventions="http://www.xml-cml.org/convention/" xmlns:nameDict="http://www.xml-cml.org/dictionary/cml/name/">
+  <molecule id="m24477" formalCharge="0" spinMultiplicity="1" xmlns:pubchem="http://www.ncbi.nlm.nih.gov">
+    <name dictRef="pubchem:cid">24477</name>
+    <atomArray>
+      <atom id="a1" elementType="S" x2="4.2320508956909" y2="0.866025388240814" />
+      <atom id="a2" elementType="S" x2="3.7320508956909" y2="1.7320507764816" />
+      <atom id="a3" elementType="Na" formalCharge="1" x2="5.9641017913818" y2="0.866025388240814" />
+      <atom id="a4" elementType="Na" formalCharge="1" x2="2.5" y2="0.866025388240814" />
+      <atom id="a5" elementType="O" formalCharge="-1" x2="5.0980763435364" y2="1.3660254478455" />
+      <atom id="a6" elementType="O" formalCharge="-1" x2="3.3660254478455" y2="0.366025388240814" />
+      <atom id="a7" elementType="O" x2="4.7320508956909" y2="0.0" />
+    </atomArray>
+    <bondArray>
+      <bond atomRefs2="a1 a2" order="D" id="a1_a2"  />
+      <bond atomRefs2="a1 a5" order="S" id="a1_a5"  />
+      <bond atomRefs2="a1 a6" order="S" id="a1_a6"  />
+      <bond atomRefs2="a1 a7" order="D" id="a1_a7"  />
+    </bondArray>
+    <formula convention="pubchem:formula" inline="Na2O3S2" concise="Na 2 O 3 S 2" />
+    <formula convention="pubchem:CanonicalSmiles" inline="[O-]S(=O)(=S)[O-].[Na+].[Na+]" concise="Na 2 O 3 S 2" />
+    <formula convention="pubchem:IsomericSmiles" inline="[O-]S(=O)(=S)[O-].[Na+].[Na+]" concise="Na 2 O 3 S 2" />
+  </molecule>
+</cml>

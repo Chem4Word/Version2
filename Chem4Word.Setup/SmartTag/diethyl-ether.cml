@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<cml:cml convention="conventions:molecular" xmlns:cml="http://www.xml-cml.org/schema" xmlns:conventions="http://www.xml-cml.org/convention/" xmlns:cmlDict="http://www.xml-cml.org/dictionary/cml/" xmlns:nameDict="http://www.xml-cml.org/dictionary/cml/name/">
+  <cml:molecule id="m1">
+    <cml:name dictRef="nameDict:iupac">ethoxyethane</cml:name>
+    <cml:name dictRef="nameDict:generic">ether</cml:name>
+    <cml:atomArray>
+      <cml:atom id="a1" elementType="C" x2="-5.005000114440918" y2="1.9800000190734863" />
+      <cml:atom id="a2" elementType="C" x2="-3.6713209926128823" y2="1.2100000190734863" />
+      <cml:atom id="a3" elementType="O" x2="-2.3376418707848465" y2="1.9800000190734863" />
+      <cml:atom id="a4" elementType="C" x2="-1.0039627489568113" y2="1.2100000190734863" />
+      <cml:atom id="a5" elementType="C" x2="0.3297163728712247" y2="1.9800000190734859" />
+      <cml:atom id="a6" elementType="H" x2="-4.235000114440918" y2="3.313679140901522" />
+      <cml:atom id="a7" elementType="H" x2="-6.338679236268954" y2="2.7500000190734863" />
+      <cml:atom id="a8" elementType="H" x2="-5.775000114440918" y2="0.6463208972454508" />
+      <cml:atom id="a9" elementType="H" x2="-2.94833478592261" y2="-0.14973927392926112" />
+      <cml:atom id="a10" elementType="H" x2="-4.394307199303155" y2="-0.14973927392926112" />
+      <cml:atom id="a11" elementType="H" x2="-0.28097654226653923" y2="-0.14973927392926134" />
+      <cml:atom id="a12" elementType="H" x2="-1.7269489556470836" y2="-0.14973927392926112" />
+      <cml:atom id="a13" elementType="H" x2="1.099716372871224" y2="0.6463208972454499" />
+      <cml:atom id="a14" elementType="H" x2="1.6633954946992606" y2="2.7500000190734855" />
+      <cml:atom id="a15" elementType="H" x2="-0.44028362712877456" y2="3.313679140901522" />
+    </cml:atomArray>
+    <cml:bondArray>
+      <cml:bond atomRefs2="a1 a2" order="1" id="b1" />
+      <cml:bond atomRefs2="a2 a3" order="1" id="b2" />
+      <cml:bond atomRefs2="a3 a4" order="1" id="b3" />
+      <cml:bond atomRefs2="a4 a5" order="1" id="b4" />
+      <cml:bond atomRefs2="a1 a6" order="1" id="b5" />
+      <cml:bond atomRefs2="a1 a7" order="1" id="b6" />
+      <cml:bond atomRefs2="a1 a8" order="1" id="b7" />
+      <cml:bond atomRefs2="a2 a9" order="1" id="b8" />
+      <cml:bond atomRefs2="a2 a10" order="1" id="b9" />
+      <cml:bond atomRefs2="a4 a11" order="1" id="b10" />
+      <cml:bond atomRefs2="a4 a12" order="1" id="b11" />
+      <cml:bond atomRefs2="a5 a13" order="1" id="b12" />
+      <cml:bond atomRefs2="a5 a14" order="1" id="b13" />
+      <cml:bond atomRefs2="a5 a15" order="1" id="b14" />
+    </cml:bondArray>
+  </cml:molecule>
+</cml:cml>

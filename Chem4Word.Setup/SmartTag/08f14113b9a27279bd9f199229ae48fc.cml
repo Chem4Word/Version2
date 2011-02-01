@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<cml convention="conventions:molecular" xmlns="http://www.xml-cml.org/schema" xmlns:conventions="http://www.xml-cml.org/convention/" xmlns:cmlDict="http://www.xml-cml.org/dictionary/cml/" xmlns:nameDict="http://www.xml-cml.org/dictionary/cml/name/">
+  <molecule id="m1">
+    <name dictRef="nameDict:iupac">dimethyl sulphoxide</name>
+    <name dictRef="nameDict:abbreviation">DMSO</name>
+    <formula concise="C 2 H 6 O 1 S 1" />
+    <atomArray>
+      <atom id="a1" elementType="C" x2="-1.7599999904632568" y2="-7.039999961853027" />
+      <atom id="a2" elementType="S" x2="-0.4263208686352211" y2="-6.269999961853028" />
+      <atom id="a3" elementType="C" x2="0.9073582531928142" y2="-7.039999961853028" />
+      <atom id="a4" elementType="O" x2="-0.42632086863522034" y2="-4.729999961853028" />
+      <atom id="a5" elementType="H" x2="-2.5299999904632564" y2="-5.706320840024992" />
+      <atom id="a6" elementType="H" x2="-3.0936791122912926" y2="-7.809999961853027" />
+      <atom id="a7" elementType="H" x2="-0.9899999904632575" y2="-8.373679083681063" />
+      <atom id="a8" elementType="H" x2="0.13735825319281358" y2="-8.373679083681063" />
+      <atom id="a9" elementType="H" x2="2.2410373750208494" y2="-7.809999961853029" />
+      <atom id="a10" elementType="H" x2="1.6773582531928148" y2="-5.706320840024993" />
+    </atomArray>
+    <bondArray>
+      <bond id="b1" atomRefs2="a1 a2" order="1" />
+      <bond id="b2" atomRefs2="a2 a3" order="1" />
+      <bond id="b3" atomRefs2="a2 a4" order="2" />
+      <bond id="b4" atomRefs2="a1 a5" order="1" />
+      <bond id="b5" atomRefs2="a1 a6" order="1" />
+      <bond id="b6" atomRefs2="a1 a7" order="1" />
+      <bond id="b7" atomRefs2="a3 a8" order="1" />
+      <bond id="b8" atomRefs2="a3 a9" order="1" />
+      <bond id="b9" atomRefs2="a3 a10" order="1" />
+    </bondArray>
+  </molecule>
+</cml>

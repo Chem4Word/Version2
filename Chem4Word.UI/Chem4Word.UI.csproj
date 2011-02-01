@@ -1,0 +1,569 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <ProjectGuid>{83CB424B-E829-44D0-9D5F-E49C3B285D10}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Chem4Word.UI</RootNamespace>
+    <AssemblyName>Chem4Word.UI</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
+    <ExpressionBlendVersion>4.0.20525.0</ExpressionBlendVersion>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <Utf8Output>true</Utf8Output>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=1b44e1d426115821, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libs\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Office.Interop.Word, Version=14.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Microsoft.Office.Tools.v9.0, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.Office.Tools.Word.v9.0, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\Reference Assemblies\Microsoft\VSTO\v9.0\Microsoft.Office.Tools.Word.v9.0.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationCore">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="PresentationFramework">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="PresentationFramework.Aero" />
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Configuration.Install" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="UIAutomationProvider">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsFormsIntegration">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="About\AboutBox.xaml.cs">
+      <DependentUpon>AboutBox.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="BoldNumberOrganiser\EditSetRemoveBoldNumberLabelControl.xaml.cs">
+      <DependentUpon>EditSetRemoveBoldNumberLabelControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Commands\ChemCommands.cs" />
+    <Compile Include="CmlViewer\Viewer.xaml.cs">
+      <DependentUpon>Viewer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Converters\BackgroundConverter.cs" />
+    <Compile Include="Converters\BooleanToOpacityConverter.cs" />
+    <Compile Include="Converters\DrawingModeToBooleanConverter.cs" />
+    <Compile Include="Converters\HasImageAndIsExpandedToVisibilityConverter.cs" />
+    <Compile Include="Converters\IsMouseOverHasImageToVisibilityConverter.cs" />
+    <Compile Include="Converters\NullOrEmptyStringToBooleanConverter.cs" />
+    <Compile Include="Converters\NullToBooleanConverter.cs" />
+    <Compile Include="Converters\ObservableCollectionToBooleanConverter.cs" />
+    <Compile Include="Converters\PrettyXmlConverter.cs" />
+    <Compile Include="DocumentHostControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="DocumentHostControl.Designer.cs">
+      <DependentUpon>DocumentHostControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Import\CmlLiteExistenceValidator.cs" />
+    <Compile Include="Import\CmlLiteNormaliser.cs" />
+    <Compile Include="Import\ImportFailedControl.xaml.cs">
+      <DependentUpon>ImportFailedControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Import\ImportMediator.cs" />
+    <Compile Include="Import\ImportWarning.cs" />
+    <Compile Include="Import\ImportWarningControl.xaml.cs">
+      <DependentUpon>ImportWarningControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Import\IValidator.cs" />
+    <Compile Include="Import\SchematronValidator.cs" />
+    <Compile Include="Import\SchemaValidator.cs" />
+    <Compile Include="Import\UriReaderValidator.cs" />
+    <Compile Include="Import\XmlValidator.cs" />
+    <Compile Include="ManageView\EditLabels.xaml.cs">
+      <DependentUpon>EditLabels.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ManageView\LabelItem.xaml.cs">
+      <DependentUpon>LabelItem.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ManageView\ManageDepictionOption.xaml.cs">
+      <DependentUpon>ManageDepictionOption.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Navigator\ChemistryNavigator.xaml.cs">
+      <DependentUpon>ChemistryNavigator.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Navigator\DepictionMenuItem.cs" />
+    <Compile Include="Navigator\NavigatorItem.xaml.cs">
+      <DependentUpon>NavigatorItem.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="TwoD\ExtendedRadioButton.cs" />
+    <Compile Include="TwoD\NewEditorWindow.xaml.cs">
+      <DependentUpon>NewEditorWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="TwoD\PeriodicTableWindow.xaml.cs">
+      <DependentUpon>PeriodicTableWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="TwoD\SelectionRotationTool.xaml.cs">
+      <DependentUpon>SelectionRotationTool.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Tools\FocusHelper.cs" />
+    <Compile Include="Tools\SortAdorner.cs" />
+    <Compile Include="Tools\TextTools.cs" />
+    <Compile Include="TwoD\AbstractEdgeControl.cs" />
+    <Compile Include="TwoD\AbstractNodeControl.cs" />
+    <Compile Include="TwoD\AddLabelWindow.xaml.cs">
+      <DependentUpon>AddLabelWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="TwoD\BasicEdgeControl.cs" />
+    <Compile Include="TwoD\BasicNodeControl.cs" />
+    <Compile Include="TwoD\BondContextMenu.xaml.cs">
+      <DependentUpon>BondContextMenu.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="TwoD\CanvasContainer.xaml.cs">
+      <DependentUpon>CanvasContainer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="TwoD\ChemCanvas.xaml.cs">
+      <DependentUpon>ChemCanvas.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="TwoD\ChemContextMenu.xaml.cs">
+      <DependentUpon>ChemContextMenu.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="TwoD\CmlChangedEventArgs.cs" />
+    <Compile Include="TwoD\CoordinateTool.cs" />
+    <Compile Include="TwoD\DottedEdgeControl.cs" />
+    <Compile Include="TwoD\DoubleEdgeControl.cs" />
+    <Compile Include="TwoD\DragControl.xaml.cs">
+      <DependentUpon>DragControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="TwoD\FAtomNodeControl.cs" />
+    <Compile Include="TwoD\GeometryTool.cs" />
+    <Compile Include="TwoD\HatchEdgeControl.cs" />
+    <Compile Include="TwoD\HAtomNodeControl.cs" />
+    <Compile Include="TwoD\NoFocusScrollViewer.cs" />
+    <Compile Include="TwoD\NoTextNodeControl.cs" />
+    <Compile Include="TwoD\PeriodicTableElementChooser.xaml.cs">
+      <DependentUpon>PeriodicTableElementChooser.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="TwoD\RadialChemContextMenu.xaml.cs">
+      <DependentUpon>RadialChemContextMenu.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="TwoD\RadialPanel.cs" />
+    <Compile Include="TwoD\TripleEdgeControl.cs" />
+    <Compile Include="TwoD\WavyEdgeControl.cs" />
+    <Compile Include="TwoD\WedgeEdgeControl.cs" />
+    <Compile Include="UIControls\SearchTextBox.cs" />
+    <Compile Include="WebServices\OpsinLookUp.xaml.cs">
+      <DependentUpon>OpsinLookUp.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="WebServices\PubChemResultItem.cs" />
+    <Compile Include="WebServices\PubChemLookUp.xaml.cs">
+      <DependentUpon>PubChemLookUp.xaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="BoldNumberOrganiser\EditSetRemoveBoldNumberLabelControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="TwoD\NewEditorWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="TwoD\PeriodicTableWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="TwoD\SelectionRotationTool.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="Import\ImportFailedControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="Import\ImportWarningControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="ManageView\EditLabels.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="ManageView\LabelItem.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="ManageView\ManageDepictionOption.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\cmllite.xslt" />
+    <None Include="Resources\CMLSchema.xsd" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\AddElectron.png" />
+    <Resource Include="Resources\Images\ZoomIn32.png" />
+    <Resource Include="Resources\Images\ZoomOut32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\AddHydrogenDot.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\AddLabel.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\AddProton.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\Delete.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\FlipAboutBond.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\FlipHorizontal.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\FlipVertical.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\Redo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\RemoveElectron.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\RemoveHydrogenDot.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\RemoveIsotope.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\RemoveLabel.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\RemoveProton.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\Rotate.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\SetCharge.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\Undo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\UnsetCharge.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="TwoD\AddLabelWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="TwoD\BondContextMenu.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="TwoD\CanvasContainer.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="TwoD\ChemCanvas.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="TwoD\ChemContextMenu.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="TwoD\DragControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="About\AboutBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="CmlViewer\Viewer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Navigator\ChemistryNavigator.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Navigator\NavigatorItem.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Generic.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="TwoD\PeriodicTableElementChooser.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="TwoD\Strings.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="WebServices\OpsinLookUp.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="TwoD\RadialChemContextMenu.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="WebServices\PubChemLookUp.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="DocumentHostControl.resx">
+      <DependentUpon>DocumentHostControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\EmptyTextBoxBackground.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\TextBoxBackground.GIF" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Chem4Word.API\Chem4Word.Api.csproj">
+      <Project>{B416CED3-D6BB-4A85-A3B3-8DBBDF1CD823}</Project>
+      <Name>Chem4Word.Api</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Euclid\Euclid.csproj">
+      <Project>{D78B7D21-FA43-45B5-86FF-E03DFA55C4BC}</Project>
+      <Name>Euclid</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NUMBO\Numbo.csproj">
+      <Project>{C19EC9B8-0051-47FD-A129-310CCA3CB411}</Project>
+      <Name>Numbo</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\DupeBoldNumberPlain.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\DupeClicked.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\DupeCmlBoldNumberClicked.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\DupeCmlBoldNumberMouseOver.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\DupeCmlClicked.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\DupeCmlMouseOver.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\DupeCmlPlain.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\DupeMouseOver.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\DupePlain.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Duplicate Button.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\Copy.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\Shortcut.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\Unlink.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\Apply.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\Error.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\Warning.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\Add.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\Info.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\Save16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\clear.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\search.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\AboutBodydown.png" />
+    <Resource Include="Resources\Images\AboutfloatRight.png" />
+    <Resource Include="Resources\Images\AboutTop.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\pubchem2cml.xslt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\Select_All.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

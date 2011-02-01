@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<cml:cml xmlns:cml="http://www.xml-cml.org/schema" xmlns:cmlDict="http://www.xml-cml.org/dictionary/cml/" xmlns:nameDict="http://www.xml-cml.org/dictionary/cml/name/">
+  <cml:molecule id="m1">
+    <cml:name dictRef="cmlName:iupac">(2S)-pyrrolidine-2-carboxylic acid</cml:name>
+    <cml:name dictRef="cmlName:trivial">proline</cml:name>
+    <cml:name dictRef="cmlName:abbreviation">Pro</cml:name>
+    <cml:atomArray>
+      <cml:atom id="a1" elementType="N" x2="-2.9700000286102295" y2="2.079992235704072" />
+      <cml:atom id="a2" elementType="C" x2="-4.215866357627256" y2="1.1747756371920701" />
+      <cml:atom id="a3" elementType="C" x2="-3.7400039402400367" y2="-0.289771802727822" />
+      <cml:atom id="a4" elementType="C" x2="-2.1999961169804223" y2="-0.289771802727822" />
+      <cml:atom id="a5" elementType="C" x2="-1.7241336995932013" y2="1.1747756371920701" />
+      <cml:atom id="a6" elementType="C" x2="-0.25950113902076843" y2="1.650644802521196" />
+      <cml:atom id="a7" elementType="H" x2="-0.635196287408688" y2="0.08582416336741172" />
+      <cml:atom id="a8" elementType="O" x2="0.06070035521272804" y2="3.1569883898513362" />
+      <cml:atom id="a9" elementType="O" x2="0.8849299273181681" y2="0.6201703805201815" />
+      <cml:atom id="a10" elementType="H" x2="-2.97000002861023" y2="3.619992235704072" />
+      <cml:atom id="a11" elementType="H" x2="-5.258271239911207" y2="2.308350540491619" />
+      <cml:atom id="a12" elementType="H" x2="-5.725481164349286" y2="0.8703694359976624" />
+      <cml:atom id="a13" elementType="H" x2="-5.140227033470267" y2="-0.9308453470148762" />
+      <cml:atom id="a14" elementType="H" x2="-3.9170063885014246" y2="-1.819565950091929" />
+      <cml:atom id="a15" elementType="H" x2="-2.0229936687190357" y2="-1.819565950091929" />
+      <cml:atom id="a16" elementType="H" x2="-0.7997730237501923" y2="-0.9308453470148774" />
+      <cml:atom id="a17" elementType="H" x2="0.5647284330846715" y2="-0.8861732068099588" />
+    </cml:atomArray>
+    <cml:bondArray>
+      <cml:bond atomRefs2="a1 a2" order="1" id="b1" />
+      <cml:bond atomRefs2="a1 a5" order="1" id="b2" />
+      <cml:bond atomRefs2="a2 a3" order="1" id="b3" />
+      <cml:bond atomRefs2="a3 a4" order="1" id="b4" />
+      <cml:bond atomRefs2="a5 a4" order="1" id="b5">
+        <cml:bondStereo>H</cml:bondStereo>
+      </cml:bond>
+      <cml:bond atomRefs2="a5 a6" order="1" id="b6" />
+      <cml:bond atomRefs2="a5 a7" order="1" id="b7">
+        <cml:bondStereo>W</cml:bondStereo>
+      </cml:bond>
+      <cml:bond atomRefs2="a6 a8" order="2" id="b8" />
+      <cml:bond atomRefs2="a6 a9" order="1" id="b9" />
+      <cml:bond atomRefs2="a1 a10" order="1" id="b10" />
+      <cml:bond atomRefs2="a2 a11" order="1" id="b11" />
+      <cml:bond atomRefs2="a2 a12" order="1" id="b12" />
+      <cml:bond atomRefs2="a3 a13" order="1" id="b13" />
+      <cml:bond atomRefs2="a3 a14" order="1" id="b14" />
+      <cml:bond atomRefs2="a4 a15" order="1" id="b15" />
+      <cml:bond atomRefs2="a4 a16" order="1" id="b16" />
+      <cml:bond atomRefs2="a9 a17" order="1" id="b17" />
+    </cml:bondArray>
+  </cml:molecule>
+</cml:cml>

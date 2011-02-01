@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<cml convention="conventions:molecular" xmlns="http://www.xml-cml.org/schema" xmlns:conventions="http://www.xml-cml.org/convention/" xmlns:nameDict="http://www.xml-cml.org/dictionary/cml/name/">
+  <molecule id="m7955" formalCharge="0" spinMultiplicity="1" xmlns:pubchem="http://www.ncbi.nlm.nih.gov">
+    <name dictRef="pubchem:cid">7955</name>
+    <atomArray>
+      <atom id="a1" elementType="N" x2="4.2689867019653" y2="-1.3450000286102" />
+      <atom id="a2" elementType="N" x2="5.1350121498108" y2="0.155000001192093" />
+      <atom id="a3" elementType="N" x2="3.4029612541199" y2="0.155000001192093" />
+      <atom id="a4" elementType="N" x2="6.0010375976562" y2="-1.3450000286102" />
+      <atom id="a5" elementType="N" x2="2.5369358062744" y2="-1.3450000286102" />
+      <atom id="a6" elementType="N" x2="4.2689867019653" y2="1.6549999713898" />
+      <atom id="a7" elementType="C" x2="5.1350121498108" y2="-0.845000028610229" />
+      <atom id="a8" elementType="C" x2="3.4029612541199" y2="-0.845000028610229" />
+      <atom id="a9" elementType="C" x2="4.2689867019653" y2="0.654999971389771" />
+      <atom id="a10" elementType="H" x2="6.5379729270935" y2="-1.0349999666214" />
+      <atom id="a11" elementType="H" x2="6.0010375976562" y2="-1.9650000333786" />
+      <atom id="a12" elementType="H" x2="2.0" y2="-1.0349999666214" />
+      <atom id="a13" elementType="H" x2="2.5369358062744" y2="-1.9650000333786" />
+      <atom id="a14" elementType="H" x2="4.8059225082397" y2="1.9650000333786" />
+      <atom id="a15" elementType="H" x2="3.7320508956909" y2="1.9650000333786" />
+    </atomArray>
+    <bondArray>
+      <bond atomRefs2="a1 a7" order="D" id="a1_a7"  />
+      <bond atomRefs2="a1 a8" order="S" id="a1_a8"  />
+      <bond atomRefs2="a2 a7" order="S" id="a2_a7"  />
+      <bond atomRefs2="a2 a9" order="D" id="a2_a9"  />
+      <bond atomRefs2="a3 a8" order="D" id="a3_a8"  />
+      <bond atomRefs2="a3 a9" order="S" id="a3_a9"  />
+      <bond atomRefs2="a4 a7" order="S" id="a4_a7"  />
+      <bond atomRefs2="a4 a10" order="S" id="a4_a10"  />
+      <bond atomRefs2="a4 a11" order="S" id="a4_a11"  />
+      <bond atomRefs2="a5 a8" order="S" id="a5_a8"  />
+      <bond atomRefs2="a5 a12" order="S" id="a5_a12"  />
+      <bond atomRefs2="a5 a13" order="S" id="a5_a13"  />
+      <bond atomRefs2="a6 a9" order="S" id="a6_a9"  />
+      <bond atomRefs2="a6 a14" order="S" id="a6_a14"  />
+      <bond atomRefs2="a6 a15" order="S" id="a6_a15"  />
+    </bondArray>
+    <name dictRef="pubchem:Allowed">1,3,5-triazine-2,4,6-triamine</name>
+    <name dictRef="nameDict:cas">1,3,5-triazine-2,4,6-triamine</name>
+    <name dictRef="pubchem:Preferred">1,3,5-triazine-2,4,6-triamine</name>
+    <name dictRef="nameDict:systematic">1,3,5-triazine-2,4,6-triamine</name>
+    <name dictRef="pubchem:Traditional">melamine</name>
+    <formula convention="pubchem:formula" inline="C3H6N6" concise="C 3 H 6 N 6" />
+    <formula convention="pubchem:CanonicalSmiles" inline="C1(=NC(=NC(=N1)N)N)N" concise="C 3 H 6 N 6" />
+    <formula convention="pubchem:IsomericSmiles" inline="C1(=NC(=NC(=N1)N)N)N" concise="C 3 H 6 N 6" />
+  </molecule>
+</cml>
