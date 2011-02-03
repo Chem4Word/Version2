@@ -10,3 +10,4 @@ Debug/
 *.suo
 _ReSharper.*
 *.resharper.user
+glob:Libs/Chem4Word.Font.dll
