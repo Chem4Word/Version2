@@ -174,8 +174,8 @@ namespace Chem4Word.UI.ManageView
                     editing = value;
                     if (editing)
                     {
-                        FocusHelper.FocusTextBoxCursorSelectAll(textBox);
-                        /// we are about to start editing
+//                        FocusHelper.FocusTextBoxCursorSelectAll(textBox);
+                        // we are about to start editing
                         if (Click != null)
                         {
                             Click(this, null);
@@ -183,7 +183,7 @@ namespace Chem4Word.UI.ManageView
                     }
                     else
                     {
-                        /// we were editing and are now stopping
+                        // we were editing and are now stopping
                         if (IsValid)
                         {
                             CalculateAndCallCorrectSetMethodIfPossible();

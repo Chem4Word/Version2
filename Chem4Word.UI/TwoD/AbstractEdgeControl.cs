@@ -401,8 +401,8 @@ namespace Chem4Word.UI.TwoD
                 if (canvas.DrawingMode != CanvasContainer.DrawingMode.BondSelect)
                 {
                     Point currentLoc = e.GetPosition(canvas);
-                    currentLoc = new Point(currentLoc.X - canvas.standardXOffset,
-                                           currentLoc.Y - canvas.standardYOffset);
+                    currentLoc = new Point(currentLoc.X - canvas.StandardXOffset,
+                                           currentLoc.Y - canvas.StandardYOffset);
 
                     // Is it in the mouse in the 'select back' rectangle??
                     Geometry backGeometry = GetSelectBackGeometry();

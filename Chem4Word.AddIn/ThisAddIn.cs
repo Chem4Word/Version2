@@ -13,46 +13,40 @@ using log4net.Config;
 using Microsoft.Office.Core;
 using Microsoft.Win32;
 
-namespace Chem4Word.AddIn
-{
-    public partial class ThisAddIn
-    {
-        private static readonly ILog Log = LogManager.GetLogger(typeof(ThisAddIn));
+namespace Chem4Word.AddIn {
+    public partial class ThisAddIn {
         private const string ChemistryInstallPath = @"Chemistry Add-in for Word";
-        private static readonly string AddInRegistryKeyPath = @"Software\Microsoft\Office\Word\Addins\Chemistry Add-in for Word";
+        private static readonly ILog Log = LogManager.GetLogger(typeof (ThisAddIn));
+
+        private static readonly string AddInRegistryKeyPath =
+            @"Software\Microsoft\Office\Word\Addins\Chemistry Add-in for Word";
+
         private static readonly string AddInManifestKeyName = @"Manifest";
-        private void ThisAddInStartup(object sender, EventArgs e)
-        {
-            //Window w = new Window();
+
+        private void ThisAddInStartup(object sender, EventArgs e) {
             SetUpLogging();
         }
 
-        private void ThisAddInShutdown(object sender, EventArgs e)
-        { }
+        private void ThisAddInShutdown(object sender, EventArgs e) {}
 
         /// <summary>
-        /// Sets local details of Chemistry Ribbon
+        ///   Sets local details of Chemistry Ribbon
         /// </summary>
-        /// <param name="serviceGuid"> system GUID</param>
+        /// <param name = "serviceGuid"> system GUID</param>
         /// <returns>system object associated with new ChemistryRibbon</returns>
-        protected override object RequestService(Guid serviceGuid)
-        {
-            if (serviceGuid == typeof(IRibbonExtensibility).GUID)
-            {
-                CoreClass chemistryCore = new CoreClass(this.Application);
-                this.VstoSmartTags.Add(chemistryCore.SmartTag);
-
+        protected override object RequestService(Guid serviceGuid) {
+            if (serviceGuid == typeof (IRibbonExtensibility).GUID) {
+                CoreClass chemistryCore = new CoreClass(Application);
+                VstoSmartTags.Add(chemistryCore.SmartTag);
                 return new ChemistryRibbon(chemistryCore, CustomTaskPanes, Application);
             }
-
             return base.RequestService(serviceGuid);
         }
 
         /// <summary>
-        /// Override the BeginInit method to load Chemistry Fonts.
+        ///   Override the BeginInit method to load Chemistry Fonts.
         /// </summary>
-        public override void BeginInit()
-        {
+        public override void BeginInit() {
             base.BeginInit();
 
             // Install 2 Chemisty fonts into current process.
@@ -61,29 +55,24 @@ namespace Chem4Word.AddIn
         }
 
         /// <summary>
-        /// Method to find the assembly directory name.
+        ///   Method to find the assembly directory name.
         /// </summary>
         /// <returns>
-        /// Returns the install path of the AddIn from the registry.
+        ///   Returns the install path of the AddIn from the registry.
         /// </returns>
-        private static string GetAssemblyDirectoryName()
-        {
+        private static string GetAssemblyDirectoryName() {
             string addInInstallPath = String.Empty;
 
-            using (RegistryKey addInKey = Registry.CurrentUser.OpenSubKey(AddInRegistryKeyPath, false))
-            {
-                if (addInKey != null)
-                {
+            using (RegistryKey addInKey = Registry.CurrentUser.OpenSubKey(AddInRegistryKeyPath, false)) {
+                if (addInKey != null) {
                     var registryValue = addInKey.GetValue(AddInManifestKeyName);
 
-                    if (registryValue != null)
-                    {
+                    if (registryValue != null) {
                         var registryPath = registryValue.ToString();
 
                         // Path might contain "|vstolocal". "|" is an invalid character and needs to be removed.
                         int invalidCharPosition = registryPath.IndexOfAny(Path.GetInvalidPathChars());
-                        while (invalidCharPosition > -1)
-                        {
+                        while (invalidCharPosition > -1) {
                             registryPath = registryPath.Remove(invalidCharPosition, 1);
                             invalidCharPosition = registryPath.IndexOfAny(Path.GetInvalidPathChars());
                         }
@@ -96,21 +85,17 @@ namespace Chem4Word.AddIn
             return addInInstallPath;
         }
 
-        private static void SetUpLogging()
-        {
+        private static void SetUpLogging() {
             string appDataFolder =
-                Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), ChemistryInstallPath);
+                Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
+                             ChemistryInstallPath);
 
             string configFilePath = Path.Combine(appDataFolder, "Log4NetConfig.xml");
 
-            if (File.Exists(configFilePath))
-            {
-                try
-                {
+            if (File.Exists(configFilePath)) {
+                try {
                     File.SetAttributes(configFilePath, FileAttributes.Normal);
-                }
-                catch
-                {
+                } catch {
                     //don't do anything, just let it go
                     Log.Debug("failed to configure logging");
                 }
@@ -118,30 +103,25 @@ namespace Chem4Word.AddIn
 
             FileInfo configFile = new FileInfo(configFilePath);
 
-            if (!configFile.Exists)
-            {
+            if (!configFile.Exists) {
                 //if they don't already have a config file, go find it and copy it
                 //string logPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles),
                 //                              ChemistryInstallPath+"\\Log4NetConfig.xml");
                 string addInInstallPath = GetAssemblyDirectoryName();
                 string logPath = Path.Combine(addInInstallPath, "Log4NetConfig.xml");
-                if (File.Exists(logPath))
-                {
+                if (File.Exists(logPath)) {
                     File.Copy(logPath, configFile.FullName);
                     XmlDocument document = new XmlDocument();
                     document.Load(configFile.FullName);
 
-                    foreach (XmlNode node in document.GetElementsByTagName("file"))
-                    {
+                    foreach (XmlNode node in document.GetElementsByTagName("file")) {
                         node.Attributes.GetNamedItem("value").Value =
                             Path.Combine(appDataFolder,
                                          "C4WLog.txt");
                         break;
                     }
                     document.Save(configFile.FullName);
-                }
-                else
-                {
+                } else {
                     throw new Exception("Could not find logging configuration file.");
                 }
             }
@@ -149,11 +129,10 @@ namespace Chem4Word.AddIn
         }
 
         /// <summary>
-        /// Required method for Designer support - do not modify
-        /// the contents of this method with the code editor.
+        ///   Required method for Designer support - do not modify
+        ///   the contents of this method with the code editor.
         /// </summary>
-        private void InternalStartup()
-        {
+        private void InternalStartup() {
             Startup += ThisAddInStartup;
             Shutdown += ThisAddInShutdown;
         }

@@ -214,6 +214,10 @@ namespace Chem4Word.UI.TwoD
             get { return _editor != null ? _editor.CmlOutPut : null; }
         }
 
+        public ContextObject ContextObject {
+            get { return _editor != null ? _editor.ContextObject : null; }
+        }
+
         ///<summary>
         ///</summary>
         public bool ConnectionTableChanged

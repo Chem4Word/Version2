@@ -36,50 +36,50 @@ using Microsoft.Win32;
 using Numbo;
 using Numbo.Cml;
 using Numbo.Coa;
-using Application=Microsoft.Office.Interop.Word.Application;
+using Application = Microsoft.Office.Interop.Word.Application;
 using WordTools = Microsoft.Office.Tools.Word;
 using Office = Microsoft.Office.Core;
-using Shape=Microsoft.Office.Interop.Word.Shape;
-using Window=Microsoft.Office.Interop.Word.Window;
+using Shape = Microsoft.Office.Interop.Word.Shape;
+using Window = Microsoft.Office.Interop.Word.Window;
 
-namespace Chem4Word.Core
-{
+namespace Chem4Word.Core {
     /// <summary>
-    /// This function as a controller between Chem4Word UI and Word API.
-    /// This class also controll how Chemistry Zone was Created, Edited, Navigated, etc...
+    ///   This function as a controller between Chem4Word UI and Word API.
+    ///   This class also controll how Chemistry Zone was Created, Edited, Navigated, etc...
     /// </summary>
-    public class CoreClass : ICoreClass
-    {
+    public class CoreClass : ICoreClass {
         private static readonly ILog Log = LogManager.GetLogger(typeof (CoreClass));
+        private readonly string AddInManifestKeyName = @"Manifest";
+
+        private readonly string AddInRegistryKeyPath =
+            @"Software\Microsoft\Office\Word\Addins\Chemistry Add-in for Word";
+
         internal readonly string assemblyDirectoryName;
         private readonly Dictionary<Document, IChemistryDocument> documentDictionary;
         private readonly GalleryDictionaryManager galleryDictionaryManager;
-        private readonly string AddInRegistryKeyPath = @"Software\Microsoft\Office\Word\Addins\Chemistry Add-in for Word";
-        private readonly string AddInManifestKeyName = @"Manifest";
+
         internal readonly string localAppDataFolder;
         private readonly ChemistrySmartTag smartTag;
         private readonly Application wordApp;
 
-        static CoreClass()
-        {
+        static CoreClass() {
             // Required to initialise the WPF context, prevents a bug in the RibbonControl.
             System.Windows.Window w = new System.Windows.Window();
         }
 
         /// <summary>
-        /// Initializes a new instance of the Core class.
+        ///   Initializes a new instance of the Core class.
         /// </summary>
-        public CoreClass(Application wordApplication)
-        {
+        public CoreClass(Application wordApplication) {
             Log.Info("creating a new CORE - word app: " + wordApplication);
             // Initialization
             localAppDataFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-                                  Properties.Resources.CHEM4WORD_LOCATION);
+                                              Properties.Resources.CHEM4WORD_LOCATION);
             assemblyDirectoryName = GetAssemblyDirectoryName();
             wordApp = wordApplication;
             galleryDictionaryManager = new GalleryDictionaryManager();
             documentDictionary = new Dictionary<Document, IChemistryDocument>();
-            
+
             // Check if [LocalApplicationData]\Chem4Word\Chemistry Gallery\Chem4Word.dotx is missing
             // Recover them from Program Folder
             CheckForRecovery();
@@ -102,144 +102,46 @@ namespace Chem4Word.Core
             wordApp.WindowBeforeDoubleClick += WordAppWindowBeforeDoubleClick;
         }
 
-        private void InitialiseUserSettings()
-        {
-            XDocument userSetting = XDocument.Load(localAppDataFolder + @"\User Setting.xml");
-            string importOption = userSetting.Root.Element("importOption").Attribute("value").Value;
-            Setting.Import =
-                (ImportSetting) Enum.Parse(typeof (ImportSetting), importOption, true);
-            string documentPreferedDepiction =
-                userSetting.Root.Element("documentPreferedDepiction").Attribute("value").Value;
-            Setting.DocumentPreferedDepiction = (DocPreferedDepiction)
-                                                Enum.Parse(typeof (DocPreferedDepiction),
-                                                           documentPreferedDepiction, true);
-            string navigatorPreferedDepiction =
-                userSetting.Root.Element("navigatorPreferedDepiction").Attribute("value").Value;
-            Setting.NavigatorPreferedDepiction = (NavPreferedDepiction)
-                                                 Enum.Parse(typeof (NavPreferedDepiction),
-                                                            navigatorPreferedDepiction, true);
-            bool collapseNavigatorDepiction;
-            bool.TryParse(userSetting.Root.Element("collapseNavigatorDepiction").Attribute("value").Value, out collapseNavigatorDepiction);
-            Setting.CollapseNavigatorDepiction = collapseNavigatorDepiction;
-        }
-
-        void WordAppWindowBeforeDoubleClick(Selection Sel, ref bool Cancel)
-        {
-            switch (Sel.ContentControls.Count)
-            {
-                case 0:
-                    break;
-                case 1:
-                    {
-                        object firstIndex = 1;
-                        ContentControl cc = Sel.ContentControls.get_Item(ref firstIndex);
-
-                        // check if the content control is a chemistry zone
-                        if (Properties.Resources.ChemistryZoneAlias.Equals(cc.Title))
-                        {
-                            LoadAppropriateEditor(this.ActiveChemistryDocument.SelectedChemistryZone);
-                        }
-                        break;
-                    }
-            }
-        }
-
-        public void LoadAppropriateEditor(IChemistryZone chemistryZone)
-        {
-            if (
-                Depiction.Is2D(
-                    DepictionOption.CreateDepictionOption(chemistryZone.Cml,
-                                                          chemistryZone.Properties
-                                                              .DocumentDepictionOptionXPath)))
-            {
-                Tweak2D(chemistryZone);
-            }
-            else
-            {
-                EditLabels(chemistryZone);
-                
-            }
-        }
 
         /// <summary>
-        /// Method to find the assembly directory name.
-        /// </summary>
-        /// <returns>
-        /// Returns the install path of the AddIn from the registry.
-        /// </returns>
-        private string GetAssemblyDirectoryName()
-        {
-            string addInInstallPath = String.Empty;
-
-            using (RegistryKey addInKey = Registry.CurrentUser.OpenSubKey(AddInRegistryKeyPath, false))
-            {
-                if (addInKey != null)
-                {
-                    var registryValue = addInKey.GetValue(AddInManifestKeyName);
-
-                    if (registryValue != null)
-                    {
-                        var registryPath = registryValue.ToString();
-
-                        // Path might contain "|vstolocal". "|" is an invalid character and needs to be removed.
-                        int invalidCharPosition = registryPath.IndexOfAny(Path.GetInvalidPathChars());
-                        while (invalidCharPosition > -1)
-                        {
-                            registryPath = registryPath.Remove(invalidCharPosition, 1);
-                            invalidCharPosition = registryPath.IndexOfAny(Path.GetInvalidPathChars());
-                        }
-
-                        addInInstallPath = Path.GetDirectoryName(registryPath);
-                    }
-                }
-            }
-
-            return addInInstallPath;
-        }
-        
-
-        /// <summary>
-        /// Used to retrieve the item.
+        ///   Used to retrieve the item.
         /// </summary>
         public object FetchItem { get; set; }
 
         /// <summary>
-        /// Used to retrieve the XDocument.
+        ///   Used to retrieve the XDocument.
         /// </summary>
         public XDocument SetCml { get; set; }
 
         /// <summary>
-        /// Used to retrieve the XDocument.
+        ///   Used to retrieve the XDocument.
         /// </summary>
         public XDocument GetCml { get; set; }
 
         /// <summary>
-        /// Used to retrieve the assembly directory name.
+        ///   Used to retrieve the assembly directory name.
         /// </summary>
-        public string GetAssemblyDirectory
-        {
+        public string GetAssemblyDirectory {
             get { return assemblyDirectoryName; }
         }
 
         /// <summary>
-        /// 
         /// </summary>
-        public ChemistrySmartTag SmartTag
-        {
+        public ChemistrySmartTag SmartTag {
             get { return smartTag; }
         }
 
+        #region ICoreClass Members
+
         /// <summary>
-        /// Gets the active document.
+        ///   Gets the active document.
         /// </summary>
-        /// <returns>Return an active document <see cref="ChemistryDocument"/></returns>
+        /// <returns>Return an active document <see cref = "ChemistryDocument" /></returns>
         public IChemistryDocument ActiveChemistryDocument { get; private set; }
 
         public IChemistryZone CreateCopy(IChemistryZone chemistryZone,
-                                         ChemistryZoneProperties chemistryZonePropertiesForCopiedZone)
-        {
-            if (chemistryZonePropertiesForCopiedZone == null)
-            {
+                                         ChemistryZoneProperties chemistryZonePropertiesForCopiedZone) {
+            if (chemistryZonePropertiesForCopiedZone == null) {
                 chemistryZonePropertiesForCopiedZone = chemistryZone.Properties;
             }
             IChemistryZone chemZone = CreateDuplicatedChemistryZone(chemistryZone, chemistryZonePropertiesForCopiedZone,
@@ -248,17 +150,14 @@ namespace Chem4Word.Core
         }
 
         public IChemistryZone CreateLink(IChemistryZone chemistryZone,
-                                         ChemistryZoneProperties chemistryZonePropertiesForLinkedZone)
-        {
-            if (chemistryZone == null)
-            {
+                                         ChemistryZoneProperties chemistryZonePropertiesForLinkedZone) {
+            if (chemistryZone == null) {
                 MessageBox.Show(
                     "Direct insertion as a bold number is not yet supported.", Resources.CHEM_4_WORD_MESSAGE_BOX_TITLE,
                     MessageBoxButton.OK, MessageBoxImage.Stop);
                 return null;
             }
-            if (chemistryZonePropertiesForLinkedZone == null)
-            {
+            if (chemistryZonePropertiesForLinkedZone == null) {
                 chemistryZonePropertiesForLinkedZone = chemistryZone.Properties;
             }
             IChemistryZone chemZone = CreateDuplicatedChemistryZone(chemistryZone, chemistryZonePropertiesForLinkedZone,
@@ -266,8 +165,7 @@ namespace Chem4Word.Core
             return chemZone;
         }
 
-        public IChemistryZone BreakLinks(IChemistryZone chemistryZone)
-        {
+        public IChemistryZone BreakLinks(IChemistryZone chemistryZone) {
             MessageBox.Show(
                 "Breaking links is not yet supported.",
                 Resources.CHEM_4_WORD_MESSAGE_BOX_TITLE, MessageBoxButton.OK, MessageBoxImage.Stop);
@@ -275,16 +173,14 @@ namespace Chem4Word.Core
         }
 
         /// <summary>
-        /// Create Chemistry Zone from user selected CML file.
-        /// This method will create Chemistry Zone if the selected CML file is valid. Otherwise, it will not.
+        ///   Create Chemistry Zone from user selected CML file.
+        ///   This method will create Chemistry Zone if the selected CML file is valid. Otherwise, it will not.
         /// </summary>
-        /// <param name="fileName">File name that point to Cml or Xml file is going to be import into Word document</param>
-        public IChemistryZone ImportCmlFile(string fileName)
-        {
+        /// <param name = "fileName">File name that point to Cml or Xml file is going to be import into Word document</param>
+        public IChemistryZone ImportCmlFile(string fileName) {
             IChemistryZone chemistryZone = null;
             ImportMediator importMediator = new ImportMediator();
-            switch (Setting.Import)
-            {
+            switch (Setting.Import) {
                 case ImportSetting.StrictFail:
                     importMediator.ParseSeverity = ImportMediator.Severity.Strict;
                     break;
@@ -296,8 +192,7 @@ namespace Chem4Word.Core
                     break;
             }
             importMediator.Start(fileName);
-            if (importMediator.Worked())
-            {
+            if (importMediator.Worked()) {
                 ContextObject contextObject = Cid.RemoveMoleculeBoldNumberLabels(importMediator.GetContextObject(),
                                                                                  importMediator.GetContextObject().Cml.
                                                                                      Root);
@@ -308,7 +203,9 @@ namespace Chem4Word.Core
                 DepictionOption navigatorDepictionOption = GetPreferedNavigatorDepiction(contextObject,
                                                                                          Setting.
                                                                                              NavigatorPreferedDepiction);
-                ChemistryZoneProperties chemistryZoneProperties = new ChemistryZoneProperties(documentDepictionOption,navigatorDepictionOption, true);
+                ChemistryZoneProperties chemistryZoneProperties = new ChemistryZoneProperties(documentDepictionOption,
+                                                                                              navigatorDepictionOption,
+                                                                                              true);
                 Range range = wordApp.ActiveDocument.ActiveWindow.Selection.Range;
                 //chemistryZone = AddNewContextObjectToDocument(range, contextObject,
                 //                                              documentDepictionOption,
@@ -321,16 +218,13 @@ namespace Chem4Word.Core
 
         ///<summary>
         ///</summary>
-        ///<param name="richTextContentControl"></param>
-        ///<param name="oneDDepictionOption"></param>
-        public void CreateOneDZoneContent(ref ContentControl richTextContentControl, DepictionOption oneDDepictionOption)
-        {
-            if (oneDDepictionOption == null)
-            {
+        ///<param name = "richTextContentControl"></param>
+        ///<param name = "oneDDepictionOption"></param>
+        public void CreateOneDZoneContent(ref ContentControl richTextContentControl, DepictionOption oneDDepictionOption) {
+            if (oneDDepictionOption == null) {
                 throw new ArgumentNullException("oneDDepictionOption");
             }
-            if (Depiction.Is2D(oneDDepictionOption))
-            {
+            if (Depiction.Is2D(oneDDepictionOption)) {
                 throw new ArgumentOutOfRangeException("oneDDepictionOption");
             }
             bool oldValue = wordApp.AutoCorrect.CorrectSentenceCaps;
@@ -347,47 +241,131 @@ namespace Chem4Word.Core
         }
 
         /// <summary>
-        /// 
         /// </summary>
         public event EventHandler<ContentControlEventArgs> ContentControlSelectionChanged;
 
-        private void WordAppDocumentChange()
-        {
-            try
-            {
-                if (documentDictionary == null || documentDictionary.Count < 1 ||
-                !(documentDictionary.ContainsKey(wordApp.ActiveDocument)))
-                {
-                    this.WordAppDocumentOpen(wordApp.ActiveDocument);
-                }    
+        #endregion
+
+        private void InitialiseUserSettings() {
+            XDocument userSetting = XDocument.Load(localAppDataFolder + @"\User Setting.xml");
+            string importOption = userSetting.Root.Element("importOption").Attribute("value").Value;
+            Setting.Import =
+                (ImportSetting) Enum.Parse(typeof (ImportSetting), importOption, true);
+            string documentPreferedDepiction =
+                userSetting.Root.Element("documentPreferedDepiction").Attribute("value").Value;
+            Setting.DocumentPreferedDepiction = (DocPreferedDepiction)
+                                                Enum.Parse(typeof (DocPreferedDepiction),
+                                                           documentPreferedDepiction, true);
+            string navigatorPreferedDepiction =
+                userSetting.Root.Element("navigatorPreferedDepiction").Attribute("value").Value;
+            Setting.NavigatorPreferedDepiction = (NavPreferedDepiction)
+                                                 Enum.Parse(typeof (NavPreferedDepiction),
+                                                            navigatorPreferedDepiction, true);
+            bool collapseNavigatorDepiction;
+            bool.TryParse(userSetting.Root.Element("collapseNavigatorDepiction").Attribute("value").Value,
+                          out collapseNavigatorDepiction);
+            Setting.CollapseNavigatorDepiction = collapseNavigatorDepiction;
+        }
+
+        private void WordAppWindowBeforeDoubleClick(Selection Sel, ref bool Cancel) {
+            switch (Sel.ContentControls.Count) {
+                case 0:
+                    break;
+                case 1:
+                    {
+                        object firstIndex = 1;
+                        ContentControl cc = Sel.ContentControls.get_Item(ref firstIndex);
+
+                        // check if the content control is a chemistry zone
+                        if (Properties.Resources.ChemistryZoneAlias.Equals(cc.Title)) {
+                            LoadAppropriateEditor(ActiveChemistryDocument.SelectedChemistryZone);
+                        }
+                        break;
+                    }
             }
-            catch(Exception exception)
-            {
-                Log.Error("Error in WordAppDocumentChange", exception);
+        }
+
+        ///<summary>
+        ///</summary>
+        ///<param name = "chemistryZone"></param>
+        public void LoadAppropriateEditor(IChemistryZone chemistryZone) {
+            if (
+                Depiction.Is2D(
+                    DepictionOption.CreateDepictionOption(chemistryZone.Cml,
+                                                          chemistryZone.Properties
+                                                              .DocumentDepictionOptionXPath))) {
+                Tweak2D(chemistryZone);
+            } else {
+                EditLabels(chemistryZone);
             }
         }
 
         /// <summary>
-        /// Create duplicated Chemistry Zone at the current cursor.
+        ///   Method to find the assembly directory name.
         /// </summary>
-        /// <param name="chemZone">Source Chemistry Zone.</param>
-        /// <param name="chemistryZoneProperties"></param>
-        /// <param name="linked">True: Linked CML, False: Unlinked CML.</param>
-        public IChemistryZone CreateDuplicatedChemistryZone(IChemistryZone chemZone,
-                                                            ChemistryZoneProperties chemistryZoneProperties, bool linked)
-        {
-            /// TODO BOLD NUMBER options ...
-            /// waiting for user options class
-            /// do we destroy old number, autogenerate new number or prompt for new one?
-            if (wordApp.Selection.Range.ContentControls.Count > 0)
-            {
-                for (int indx = 1; indx <= wordApp.Selection.Range.ContentControls.Count; indx++)
-                {
-                    object objIndex = indx;
-                    ContentControl contentControl = wordApp.Selection.Range.ContentControls.get_Item(ref objIndex);
+        /// <returns>
+        ///   Returns the install path of the AddIn from the registry.
+        /// </returns>
+        private string GetAssemblyDirectoryName() {
+            string addInInstallPath = String.Empty;
 
-                    if (Properties.Resources.ChemistryZoneAlias.Equals(contentControl.Title))
-                    {
+            using (RegistryKey addInKey = Registry.CurrentUser.OpenSubKey(AddInRegistryKeyPath, false)) {
+                if (addInKey != null) {
+                    var registryValue = addInKey.GetValue(AddInManifestKeyName);
+
+                    if (registryValue != null) {
+                        var registryPath = registryValue.ToString();
+
+                        // Path might contain "|vstolocal". "|" is an invalid character and needs to be removed.
+                        int invalidCharPosition = registryPath.IndexOfAny(Path.GetInvalidPathChars());
+                        while (invalidCharPosition > -1) {
+                            registryPath = registryPath.Remove(invalidCharPosition, 1);
+                            invalidCharPosition = registryPath.IndexOfAny(Path.GetInvalidPathChars());
+                        }
+
+                        addInInstallPath = Path.GetDirectoryName(registryPath);
+                    }
+                }
+            }
+
+            return addInInstallPath;
+        }
+
+        private void WordAppDocumentChange() {
+            try {
+                var activeDocument = wordApp.ActiveDocument;
+                try {
+                    if (documentDictionary == null || documentDictionary.Count < 1 ||
+                        !(documentDictionary.ContainsKey(activeDocument))) {
+                        WordAppDocumentOpen(wordApp.ActiveDocument);
+                    }
+                }
+                catch (Exception exception) {
+                    Log.Error("Error in WordAppDocumentChange", exception);
+                }
+            } catch (System.Runtime.InteropServices.ExternalException e) {
+                // this means that the final document is closed so 
+                // we don't need to do anything
+            }
+        }
+
+        /// <summary>
+        ///   Create duplicated Chemistry Zone at the current cursor.
+        /// </summary>
+        /// <param name = "chemZone">Source Chemistry Zone.</param>
+        /// <param name = "chemistryZoneProperties"></param>
+        /// <param name = "linked">True: Linked CML, False: Unlinked CML.</param>
+        public IChemistryZone CreateDuplicatedChemistryZone(IChemistryZone chemZone,
+                                                            ChemistryZoneProperties chemistryZoneProperties, bool linked) {
+            // TODO BOLD NUMBER options ...
+            // waiting for user options class
+            // do we destroy old number, autogenerate new number or prompt for new one?
+            if (wordApp.Selection.Range.ContentControls.Count > 0) {
+                for (int indx = 1; indx <= wordApp.Selection.Range.ContentControls.Count; indx++) {
+                    object objIndex = indx;
+                    ContentControl contentControl = wordApp.Selection.Range.ContentControls.Item[objIndex];
+
+                    if (Properties.Resources.ChemistryZoneAlias.Equals(contentControl.Title)) {
                         MessageBox.Show(
                             "Cannot create nested Chemistry Zone.\nDeselect Chemistry Zone before create duplicated Zone.",
                             Resources.CHEM_4_WORD_MESSAGE_BOX_TITLE,
@@ -403,12 +381,11 @@ namespace Chem4Word.Core
                 DepictionOption.CreateDepictionOption(chemZone.Cml,
                                                       chemistryZoneProperties.NavigatorDepictionOptionXPath);
             ContentControl control;
-            if (Depiction.Is2D(documentDepictionOption))
-            {
-                /// zone is 2D - therefore a picture content control is necessary  
-                ContextObject contexObject = new ContextObject(chemZone.Cml);
-                CmlMolecule cmlMolecule = new CmlMolecule((XElement) documentDepictionOption.MachineUnderstandableOption);
-                CanvasContainer editor = new CanvasContainer(contexObject, cmlMolecule);
+            if (Depiction.Is2D(documentDepictionOption)) {
+                // zone is 2D - therefore a picture content control is necessary  
+                var contexObject = chemZone.AsContextObject();
+                var cmlMolecule = new CmlMolecule((XElement) documentDepictionOption.MachineUnderstandableOption);
+                var editor = new CanvasContainer(contexObject, cmlMolecule);
                 editor.GeneratePng(false);
 
                 object missing = Type.Missing;
@@ -417,28 +394,22 @@ namespace Chem4Word.Core
 
                 control.Range.InlineShapes.AddPicture(editor.PngFileOutput, ref missing, ref missing, ref missing);
 
-                try
-                {
+                try {
                     // Sometime the the open state of the file is not update quickly enough,
                     // So that we need to invoke GC to refresh the environment states.
                     GC.Collect();
                     GC.WaitForPendingFinalizers();
                     // Delete the png file
                     File.Delete(editor.PngFileOutput);
-                    editor = null;
-                }
-                catch (IOException)
-                {
+                } catch (IOException) {
                     /*
                      * IOException occurs if the specified file is in use in which case 
                      * we just move on - another temp file will exist in the temp directory 
                      * which is not a tragedy
                      */
                 }
-            }
-            else
-            {
-                /// zone is 1D    
+            } else {
+                // zone is 1D    
                 object missing = Type.Missing;
                 control = wordApp.ActiveDocument.ContentControls.Add(
                     WdContentControlType.wdContentControlRichText, ref missing);
@@ -446,15 +417,12 @@ namespace Chem4Word.Core
             }
             control.Title = Properties.Resources.ChemistryZoneAlias;
 
-            IChemistryZone newChemistryZone = null;
-            if (linked)
-            {
+            IChemistryZone newChemistryZone;
+            if (linked) {
                 newChemistryZone = ActiveChemistryDocument.DocumentContentControlAfterAdd(control,
                                                                                           chemistryZoneProperties,
                                                                                           chemZone);
-            }
-            else
-            {
+            } else {
                 var newChemistryZoneProperties = chemistryZoneProperties.Clone();
                 newChemistryZone = ActiveChemistryDocument.DocumentContentControlAfterAdd(control, chemZone.Cml,
                                                                                           newChemistryZoneProperties);
@@ -465,117 +433,20 @@ namespace Chem4Word.Core
             return newChemistryZone;
         }
 
-        ///// <summary>
-        ///// Create duplicated Chemistry Zone at the current cursor.
-        ///// </summary>
-        ///// <param name="chemZone">Source Chemistry Zone.</param>
-        ///// <param name="linked">True: Linked CML, False: Unlinked CML.</param>
-        //public IChemistryZone CreateDuplicatedChemistryZone(IChemistryZone chemZone, bool linked)
-        //{
-        //    /// TODO BOLD NUMBER options ...
-        //    /// waiting for user options class
-        //    /// do we destroy old number, autogenerate new number or prompt for new one?
-        //    if (wordApp.Selection.Range.ContentControls.Count > 0)
-        //    {
-        //        for (int indx = 1; indx <= wordApp.Selection.Range.ContentControls.Count; indx++)
-        //        {
-        //            object objIndex = indx;
-        //            ContentControl contentControl = wordApp.Selection.Range.ContentControls.get_Item(ref objIndex);
-
-        //            if (Properties.Resources.ChemistryZoneAlias.Equals(contentControl.Title))
-        //            {
-        //                MessageBox.Show(
-        //                    "Cannot create nested Chemistry Zone.\nDeselect Chemistry Zone before create duplicated Zone.",
-        //                    Resources.CHEM_4_WORD_MESSAGE_BOX_TITLE,
-        //                    MessageBoxButton.OK, MessageBoxImage.Warning);
-
-        //                return null;
-        //            }
-        //        }
-        //    }
-        //    DepictionOption documentDepictionOption =
-        //        DepictionOption.CreateDepictionOption(chemZone.Cml, chemZone.Properties.DocumentDepictionOptionXPath);
-        //    DepictionOption navigatorDepictionOption =
-        //        DepictionOption.CreateDepictionOption(chemZone.Cml, chemZone.Properties.NavigatorDepictionOptionXPath);
-        //    ContentControl control;
-        //    if (Depiction.Is2D(documentDepictionOption))
-        //    {
-        //        /// zone is 2D - therefore a picture content control is necessary  
-        //        ContextObject contexObject = new ContextObject(chemZone.Cml);
-        //        CmlMolecule cmlMolecule = new CmlMolecule((XElement) documentDepictionOption.MachineUnderstandableOption);
-        //        CanvasContainer editor = new CanvasContainer(contexObject, cmlMolecule);
-        //        editor.GeneratePng(false);
-
-        //        object missing = Type.Missing;
-        //        control = wordApp.ActiveDocument.ContentControls.Add(
-        //            WdContentControlType.wdContentControlPicture, ref missing);
-
-        //        control.Range.InlineShapes.AddPicture(editor.PngFileOutput, ref missing, ref missing, ref missing);
-
-        //        try
-        //        {
-        //            // Sometime the the open state of the file is not update quickly enough,
-        //            // So that we need to invoke GC to refresh the environment states.
-        //            GC.Collect();
-        //            GC.WaitForPendingFinalizers();
-        //            // Delete the png file
-        //            File.Delete(editor.PngFileOutput);
-        //        }
-        //        catch (IOException)
-        //        {
-        //            /*
-        //             * IOException occurs if the specified file is in use in which case 
-        //             * we just move on - another temp file will exist in the temp directory 
-        //             * which is not a tragedy
-        //             */
-        //        }
-        //    }
-        //    else
-        //    {
-        //        /// zone is 1D    
-        //        object missing = Type.Missing;
-        //        control = wordApp.ActiveDocument.ContentControls.Add(
-        //            WdContentControlType.wdContentControlRichText, ref missing);
-        //        CreateOneDZoneContent(ref control, documentDepictionOption);
-        //    }
-        //    control.Title = Properties.Resources.ChemistryZoneAlias;
-
-        //    IChemistryZone newChemistryZone = null;
-        //    if (linked)
-        //    {
-        //        newChemistryZone = ActiveChemistryDocument.DocumentContentControlAfterAdd(control, chemZone.Properties,
-        //                                                                                  chemZone);
-        //    }
-        //    else
-        //    {
-        //        newChemistryZone = ActiveChemistryDocument.DocumentContentControlAfterAdd(control, chemZone.Cml,
-        //                                                                                  new ChemistryZoneProperties(
-        //                                                                                      documentDepictionOption,
-        //                                                                                      navigatorDepictionOption));
-        //    }
-        //    // Select the added Chemistry Zone.
-        //    wordApp.Selection.SetRange(control.Range.End + 1, control.Range.End + 1);
-        //    newChemistryZone.Lock();
-        //    return newChemistryZone;
-        //}
-
         /// <summary>
-        /// 
         /// </summary>
         public event EventHandler<ChemistryDocumentEventArgs> WindowActivate;
 
         /// <summary>
-        /// Event raised when the application is deactivated.
+        ///   Event raised when the application is deactivated.
         /// </summary>
         public event EventHandler<ChemistryDocumentEventArgs> WindowDeactivateEvent;
 
         /// <summary>
-        /// 
         /// </summary>
         public event EventHandler<ChemistryDocumentEventArgs> DocumentBeforeClose;
 
-        private static ControlProperties.ChemistryControlType TypeFromTypeName(string typeName)
-        {
+        private static ControlProperties.ChemistryControlType TypeFromTypeName(string typeName) {
             string shortName = typeName.Substring(typeName.LastIndexOf('.') + 1);
             return
                 (ControlProperties.ChemistryControlType)
@@ -583,31 +454,25 @@ namespace Chem4Word.Core
         }
 
         private static void WordAppDocumentBeforeSave(Document doc, ref bool saveAsUI,
-                                                      ref bool cancel)
-        {
-            if (doc.HasVstoObject())
-            {
+                                                      ref bool cancel) {
+            if (doc.HasVstoObject()) {
                 Microsoft.Office.Tools.Word.Document vstoDoc = doc.GetVstoObject();
                 List<ControlProperties> savedControls = new List<ControlProperties>();
 
-                if (vstoDoc.Controls.Count > 0)
-                {
-                    for (int i = 0; i < vstoDoc.Controls.Count; i++)
-                    {
+                if (vstoDoc.Controls.Count > 0) {
+                    for (int i = 0; i < vstoDoc.Controls.Count; i++) {
                         DocumentHostControl vstoControl =
                             vstoDoc.Controls[i] as DocumentHostControl;
 
                         // Check to see if the control is a Windows Forms control.
-                        if (vstoControl != null)
-                        {
+                        if (vstoControl != null) {
                             ControlProperties.ChemistryControlType type =
                                 TypeFromTypeName(vstoControl.GetType().ToString());
 
                             // The control is a Windows Forms control, so determine whether the control is
                             // floating or inline with the text. 
                             Shape controlShape = vstoDoc.Controls.GetShapeForControl(vstoControl);
-                            if (controlShape != null)
-                            {
+                            if (controlShape != null) {
                                 // The control is a floating Windows Forms control, so save its
                                 // top and left properties.
                                 savedControls.Add(new ControlProperties(
@@ -619,9 +484,7 @@ namespace Chem4Word.Core
                                                       controlShape.Height,
                                                       vstoControl.CustomXMLId,
                                                       GetPersistentProperties(vstoControl)));
-                            }
-                            else
-                            {
+                            } else {
                                 // The control is an inline Windows Forms control, so save its
                                 // start and end properties.
                                 InlineShape controlInlineShape =
@@ -646,12 +509,10 @@ namespace Chem4Word.Core
             }
         }
 
-        private static KeyValuePair<string, object>[] GetPersistentProperties(DocumentHostControl c)
-        {
+        private static KeyValuePair<string, object>[] GetPersistentProperties(DocumentHostControl c) {
             List<KeyValuePair<string, object>> list = new List<KeyValuePair<string, object>>();
             DocumentHostControl documentHostControl;
-            if ((documentHostControl = c) != null)
-            {
+            if ((documentHostControl = c) != null) {
                 list.Add(new KeyValuePair<string, object>("CMLCustomXML", documentHostControl.CustomXMLId));
                 list.Add(new KeyValuePair<string, object>("Width", documentHostControl.Width));
                 list.Add(new KeyValuePair<string, object>("Height", documentHostControl.Height));
@@ -660,56 +521,47 @@ namespace Chem4Word.Core
         }
 
         /// <summary>
-        /// Check Chem4Word Gallery dictionary files in Local Application Data. C:\Users\[user-name]\AppData\Local\Chemistry Gallery
-        /// If there are some files missing, the Add-in will recover those files from Program folder. C:\Program Files\Chem4Word\Data
+        ///   Check Chem4Word Gallery dictionary files in Local Application Data. C:\Users\[user-name]\AppData\Local\Chemistry Gallery
+        ///   If there are some files missing, the Add-in will recover those files from Program folder. C:\Program Files\Chem4Word\Data
         /// </summary>
-        private void CheckForRecovery()
-        {
+        private void CheckForRecovery() {
             // If is missing, Recover it.
-            if (!File.Exists(localAppDataFolder + @"\Chemistry Gallery\Chem4Word.dotx"))
-            {
+            if (!File.Exists(localAppDataFolder + @"\Chemistry Gallery\Chem4Word.dotx")) {
                 File.Copy(assemblyDirectoryName + @"\Data\Chem4Word.dotx",
                           localAppDataFolder + @"\Chemistry Gallery\Chem4Word.dotx");
             }
 
             string[] cmlFiles = Directory.GetFiles(assemblyDirectoryName + @"\Data", @"*.cml");
-            foreach (string file in cmlFiles)
-            {
+            foreach (string file in cmlFiles) {
                 FileInfo fileInfor = new FileInfo(file);
-                if (!File.Exists(localAppDataFolder + @"\Chemistry Gallery\" + fileInfor.Name))
-                {
+                if (!File.Exists(localAppDataFolder + @"\Chemistry Gallery\" + fileInfor.Name)) {
                     File.Copy(assemblyDirectoryName + @"\Data\" + fileInfor.Name,
                               localAppDataFolder + @"\Chemistry Gallery\" + fileInfor.Name);
                 }
             }
 
-            if (!File.Exists(localAppDataFolder + @"\User Setting.xml"))
-            {
+            if (!File.Exists(localAppDataFolder + @"\User Setting.xml")) {
                 File.Copy(assemblyDirectoryName + @"\User Setting.xml",
                           localAppDataFolder + @"\User Setting.xml");
-            }
-            else
-            {
+            } else {
                 XmlDataDocument existingUserSettings = new XmlDataDocument();
                 XmlDataDocument latestUserSettings = new XmlDataDocument();
 
                 existingUserSettings.Load(localAppDataFolder + @"\User Setting.xml");
                 latestUserSettings.Load(assemblyDirectoryName + @"\User Setting.xml");
 
-                if (existingUserSettings != null && latestUserSettings != null)
-                {
+                if (existingUserSettings != null && latestUserSettings != null) {
                     XmlNode existingUserSettingsNode = existingUserSettings.SelectSingleNode("/userSetting");
                     XmlNode lastestUserSettingsNode = latestUserSettings.SelectSingleNode("/userSetting");
 
                     if (existingUserSettingsNode != null && existingUserSettingsNode.HasChildNodes &&
-                                lastestUserSettingsNode != null && lastestUserSettingsNode.HasChildNodes)
-                    {
-                        bool areEqual = CompareUserSettingsFile(existingUserSettingsNode, "/userSetting", lastestUserSettingsNode);
+                        lastestUserSettingsNode != null && lastestUserSettingsNode.HasChildNodes) {
+                        bool areEqual = CompareUserSettingsFile(existingUserSettingsNode, "/userSetting",
+                                                                lastestUserSettingsNode);
 
-                        if (!areEqual)
-                        {
+                        if (!areEqual) {
                             File.Copy(assemblyDirectoryName + @"\User Setting.xml",
-                                                      localAppDataFolder + @"\User Setting.xml", true);
+                                      localAppDataFolder + @"\User Setting.xml", true);
                         }
                     }
                 }
@@ -717,45 +569,37 @@ namespace Chem4Word.Core
         }
 
         /// <summary>
-        /// Compares the schema of two xml nodes.
+        ///   Compares the schema of two xml nodes.
         /// </summary>
-        /// <param name="parentNode">Node to compare</param>
-        /// <param name="referenceXPath">Reference Xpath of the root element of the parentNode</param>
-        /// <param name="nodeToCompareAgainst">Node to compare against parentNode</param>
+        /// <param name = "parentNode">Node to compare</param>
+        /// <param name = "referenceXPath">Reference Xpath of the root element of the parentNode</param>
+        /// <param name = "nodeToCompareAgainst">Node to compare against parentNode</param>
         /// <returns></returns>
-        private bool CompareUserSettingsFile(XmlNode parentNode, string referenceXPath,XmlNode nodeToCompareAgainst)
-        {
+        private bool CompareUserSettingsFile(XmlNode parentNode, string referenceXPath, XmlNode nodeToCompareAgainst) {
             bool areEqual = true;
-            if (!nodeToCompareAgainst.ChildNodes.Count.Equals(parentNode.ChildNodes.Count))
-            {
+            if (!nodeToCompareAgainst.ChildNodes.Count.Equals(parentNode.ChildNodes.Count)) {
                 return false;
-            }
-            else if (!parentNode.Attributes.Count.Equals(nodeToCompareAgainst.Attributes.Count))
-            {
+            } else if (!parentNode.Attributes.Count.Equals(nodeToCompareAgainst.Attributes.Count)) {
                 return false;
-            }
-            else
-            {
+            } else {
                 XmlNode tempNode = null;
-                foreach (XmlNode node in parentNode.ChildNodes)
-                {
-                    tempNode = nodeToCompareAgainst.SelectSingleNode(string.Format("/{0}/{1}", referenceXPath, node.Name));
-                    if (tempNode == null)
-                    {
+                foreach (XmlNode node in parentNode.ChildNodes) {
+                    tempNode =
+                        nodeToCompareAgainst.SelectSingleNode(string.Format("/{0}/{1}", referenceXPath, node.Name));
+                    if (tempNode == null) {
                         areEqual = false;
                         break;
                     }
 
-                    if (node.HasChildNodes && tempNode.HasChildNodes)
-                    {
-                        areEqual = areEqual && CompareUserSettingsFile(node, string.Format("{0}/{1}", referenceXPath, node.Name), tempNode);
-                        if (!areEqual)
-                        {
+                    if (node.HasChildNodes && tempNode.HasChildNodes) {
+                        areEqual = areEqual &&
+                                   CompareUserSettingsFile(node, string.Format("{0}/{1}", referenceXPath, node.Name),
+                                                           tempNode);
+                        if (!areEqual) {
                             break;
                         }
-                    }
-                    else if ((node.HasChildNodes && !tempNode.HasChildNodes) || (!node.HasChildNodes && tempNode.HasChildNodes))
-                    {
+                    } else if ((node.HasChildNodes && !tempNode.HasChildNodes) ||
+                               (!node.HasChildNodes && tempNode.HasChildNodes)) {
                         areEqual = false;
                         break;
                     }
@@ -766,16 +610,13 @@ namespace Chem4Word.Core
         }
 
 
-
         /// <summary>
-        /// Helper function to fire Event if Chemistry Zone was selected.
+        ///   Helper function to fire Event if Chemistry Zone was selected.
         /// </summary>
-        /// <param name="selectionState">Indicate True or False if Chemistry Zone was Selected or not.</param>
-        private void ContentControlSelection(bool selectionState)
-        {
+        /// <param name = "selectionState">Indicate True or False if Chemistry Zone was Selected or not.</param>
+        private void ContentControlSelection(bool selectionState) {
             // Fire event when Content Control Selection state changed
-            if (ContentControlSelectionChanged != null)
-            {
+            if (ContentControlSelectionChanged != null) {
                 ContentControlSelectionChanged(
                     this,
                     new ContentControlEventArgs
@@ -786,60 +627,49 @@ namespace Chem4Word.Core
         }
 
         /// <summary>
-        /// Adds a new context object to the document - creates a ChemZone of the relevant type
+        ///   Adds a new context object to the document - creates a ChemZone of the relevant type
         /// </summary>
-        /// <param name="range"></param>
-        /// <param name="contextObject"></param>
-        /// <param name="documentDepictionOption"></param>
-        /// <param name="navigatorDepictionOption">The depiction to use in the navigator. If this is null then an empty string is used</param>
-        //public IChemistryZone AddNewContextObjectToDocument(Range range, ContextObject contextObject,
-        //                                                    DepictionOption documentDepictionOption,
-        //                                                    DepictionOption navigatorDepictionOption)
-            public IChemistryZone AddNewContextObjectToDocument(Range range, ContextObject contextObject,
-                                                            ChemistryZoneProperties chemistryZoneProperties)    
-    {
+        /// <param name = "range"></param>
+        /// <param name = "contextObject"></param>
+        /// <param name = "chemistryZoneProperties"></param>
+        public IChemistryZone AddNewContextObjectToDocument(Range range, ContextObject contextObject,
+                                                            ChemistryZoneProperties chemistryZoneProperties) {
             var documentDepictionOption = DepictionOption.CreateDepictionOption(contextObject.Cml,
-                                                                                            chemistryZoneProperties.
-                                                                                                DocumentDepictionOptionXPath);
-            if (documentDepictionOption == null)
-            {
-                throw new ArgumentNullException("documentDepictionOption",
-                                                "Chem4Word cannot add this chemistry to the document because no depiction has been found for the document");
+                                                                                chemistryZoneProperties.
+                                                                                    DocumentDepictionOptionXPath);
+            if (documentDepictionOption == null) {
+                throw new ArgumentException("documentDepictionOption",
+                                            "Chem4Word cannot add this chemistry to the document because no depiction has been found for the document");
             }
             ContentControl control;
             range.Select();
             object missing = Type.Missing;
             range.Text = string.Empty;
-            if (Depiction.Is2D(documentDepictionOption))
-            {
+            if (Depiction.Is2D(documentDepictionOption)) {
                 // remove the current text from the selection before adding the picture
                 control = wordApp.ActiveDocument.ContentControls.Add(
                     WdContentControlType.wdContentControlPicture, ref missing);
 
-                try
-                {
+                try {
                     //EditorWindow dialog2DEditing = new EditorWindow(contextObject,
                     //                                                documentDepictionOption.MachineUnderstandableOption);
 
-                    
+
                     // dialog2DEditing.CreatePng();
                     // control.Range.InlineShapes.AddPicture(dialog2DEditing.PngFileName, ref missing, ref missing, ref missing);
                     CanvasContainer container = new CanvasContainer(contextObject,
-                                                           new CmlMolecule((XElement)
-                                                               documentDepictionOption.MachineUnderstandableOption));
+                                                                    new CmlMolecule((XElement)
+                                                                                    documentDepictionOption.
+                                                                                        MachineUnderstandableOption));
                     container.GeneratePng(true);
                     control.Range.InlineShapes.AddPicture(container.PngFileOutput, ref missing, ref missing, ref missing);
                     container = null;
+                } catch (Exception e) {
+                    MessageBox.Show(e.Message + "\n\n" + e.Source + "\n\n" + e.StackTrace,
+                                    Resources.CHEM_4_WORD_MESSAGE_BOX_TITLE, MessageBoxButton.OK,
+                                    MessageBoxImage.Stop);
                 }
-                catch (Exception e)
-                {
-                    MessageBox.Show(e.Message+"\n\n"+e.Source+"\n\n"+e.StackTrace, Resources.CHEM_4_WORD_MESSAGE_BOX_TITLE, MessageBoxButton.OK,
-                               MessageBoxImage.Stop);
-                }    
-            
-            }
-            else
-            {
+            } else {
                 control = wordApp.ActiveDocument.ContentControls.Add(
                     WdContentControlType.wdContentControlRichText, ref missing);
                 CreateOneDZoneContent(ref control, documentDepictionOption);
@@ -857,14 +687,12 @@ namespace Chem4Word.Core
         }
 
         /// <summary>
-        /// Creates an inline control within the Word document with the content from the CML file
+        ///   Creates an inline control within the Word document with the content from the CML file
         /// </summary>
-        /// <param name="fileName">CML file</param>
-        public void CreateInlineControl(string fileName)
-        {
+        /// <param name = "fileName">CML file</param>
+        public void CreateInlineControl(string fileName) {
             ImportMediator m = new ImportMediator();
-            switch (Setting.Import)
-            {
+            switch (Setting.Import) {
                 case ImportSetting.StrictFail:
                     m.ParseSeverity = ImportMediator.Severity.Strict;
                     break;
@@ -877,8 +705,7 @@ namespace Chem4Word.Core
             }
             m.Start(fileName);
 
-            if (m.Worked())
-            {
+            if (m.Worked()) {
                 CmlMolecule cmlMolecule = CmlUtils.GetFirstDescendentMolecule(m.GetContextObject().Cml.Root);
 
                 DocumentHostControl control = new DocumentHostControl();
@@ -902,140 +729,97 @@ namespace Chem4Word.Core
         }
 
         /// <summary>
-        /// Prompts the user to select a depiction of the chemistry.
+        ///   Prompts the user to select a depiction of the chemistry.
         /// </summary>
-        /// <param name="contextObject">The contextObject containing the chemistry</param>
-        /// <param name="reason">the reason why the user is being prompted for this information</param>
+        /// <param name = "contextObject">The contextObject containing the chemistry</param>
+        /// <param name = "reason">the reason why the user is being prompted for this information</param>
         /// <returns>The selected depiction option or null</returns>
-        public DepictionOption SelectDepictionOption(ContextObject contextObject, string reason)
-        {
+        public DepictionOption SelectDepictionOption(ContextObject contextObject, string reason) {
             return SelectDepictionOption(contextObject, contextObject.Cml.Root, reason);
         }
 
         /// <summary>
-        /// Prompts the user to select a depiction of the chemistry.
+        ///   Prompts the user to select a depiction of the chemistry.
         /// </summary>
-        /// <param name="contextObject">The contextObject containing the chemistry</param>
-        /// <param name="eldestElement">The eldest element to look for depictions under</param>
-        /// <param name="reason">the reason why the user is being prompted for this information</param>
+        /// <param name = "contextObject">The contextObject containing the chemistry</param>
+        /// <param name = "eldestElement">The eldest element to look for depictions under</param>
+        /// <param name = "reason">the reason why the user is being prompted for this information</param>
         /// <returns>The selected depiction option or null</returns>
-        public DepictionOption SelectDepictionOption(ContextObject contextObject, XElement eldestElement, string reason)
-        {
-            try
-            {
+        public DepictionOption SelectDepictionOption(ContextObject contextObject, XElement eldestElement, string reason) {
+            try {
                 ManageViewOption manageViewOpt =
                     new ManageViewOption(contextObject, "");
-                if (manageViewOpt.ShowDialog() == true)
-                {
-                    if (manageViewOpt.SelectedDepiction != null)
-                    {
+                if (manageViewOpt.ShowDialog() == true) {
+                    if (manageViewOpt.SelectedDepiction != null) {
                         return manageViewOpt.SelectedDepiction;
                     }
                 }
-            }
-            catch (ArgumentNullException e)
-            {
+            } catch (ArgumentNullException e) {
                 throw new NumboException("Chemistry Object was broken:\n Cannot find custom CML.", e);
-            }
-            catch (Exception e)
-            {
+            } catch (Exception e) {
                 throw new NumboException("Error Switching Depictions:\n" + e.Message, e);
             }
             return null;
         }
 
-        public IEnumerable<DepictionOption> GetAvailableDepictionOptions()
-        {
-            try
-            {
-                IChemistryZone selectedZone = ActiveChemistryDocument.SelectedChemistryZone;
-                ContextObject contextObject = new ContextObject(selectedZone.Cml);
-                return Depiction.PossibleDepictionOptions(contextObject,
-                                                                                            contextObject.Cml.Root);
-                     }
-            catch (ArgumentNullException e)
-            {
-                throw new NumboException("Chemistry Object was broken:\n Cannot find custom CML.", e);
-            }
-            catch (Exception e)
-            {
-                throw new NumboException("Error Switching Depictions:\n" + e.StackTrace + "\n" + e.Message, e);
-            }
-        }
-
         /// <summary>
-        /// Change depiction option of the selected Chemistry Zone.
+        ///   Change depiction option of the selected Chemistry Zone.
         /// </summary>
-        public void SwitchViewOptions()
-        {
-            try
-            {
-                IChemistryZone selectedZone = ActiveChemistryDocument.SelectedChemistryZone;
-                ContextObject contextObject = new ContextObject(selectedZone.Cml);
-                DepictionOption newDocumentDepictionOption = SelectDepictionOption(contextObject,
-                                                                                   "Please select how you would like to display this chemistry in the document");
-                if (newDocumentDepictionOption != null)
-                {
+        public void SwitchViewOptions() {
+            try {
+                var selectedZone = ActiveChemistryDocument.SelectedChemistryZone;
+                var contextObject = selectedZone.AsContextObject();
+                var newDocumentDepictionOption = SelectDepictionOption(contextObject,
+                                                                       "Please select how you would like to display this chemistry in the document");
+                if (newDocumentDepictionOption != null) {
                     ChangeExistingDocumentDepiction(selectedZone,
                                                     newDocumentDepictionOption, true);
                 }
-            }
-            catch (ArgumentNullException e)
-            {
+            } catch (ArgumentNullException e) {
                 throw new NumboException("Chemistry Object was broken:\n Cannot find custom CML.", e);
-            }
-            catch (Exception e)
-            {
+            } catch (Exception e) {
                 throw new NumboException("Error Switching Depictions:\n" + e.StackTrace + "\n" + e.Message, e);
             }
         }
 
         /// <summary>
-        /// Tweak 2D by showing 2D Editor, so that user can alter Chemistry diagram.
-        /// This function could be called after user selected one Chemistry Zone.
-        /// This function will go away once the chemistry canvas are inlined
+        ///   Tweak 2D by showing 2D Editor, so that user can alter Chemistry diagram.
+        ///   This function could be called after user selected one Chemistry Zone.
+        ///   This function will go away once the chemistry canvas are inlined
         /// </summary>
-        public void Tweak2D(IChemistryZone selectedZone)
-        {
-            XDocument cml = selectedZone.Cml;
-            try
-            {
-                DepictionOption depictionOption = DepictionOption.CreateDepictionOption(cml,
+        public void Tweak2D(IChemistryZone selectedZone) {
+            var co = selectedZone.AsContextObject();
+            var originalContextObject = co.Clone();
+            try {
+                DepictionOption depictionOption = DepictionOption.CreateDepictionOption(co.Cml,
                                                                                         selectedZone.Properties.
                                                                                             DocumentDepictionOptionXPath);
                 DepictionOption associatedTwoDDepictionOption = depictionOption.GetAssociatedTwoDDepictionOption();
-
-                NewEditorWindow dialog2DEditing = new NewEditorWindow(selectedZone, new ContextObject(cml),
-                                                                associatedTwoDDepictionOption.
-                                                                    MachineUnderstandableOption);
+                var dialog2DEditing = new NewEditorWindow(selectedZone, co,
+                                                                      associatedTwoDDepictionOption.
+                                                                          MachineUnderstandableOption);
                 string xpathToTwoDDepictionOption = associatedTwoDDepictionOption.AbsoluteXPathToDepictionOption;
                 associatedTwoDDepictionOption = null;
                 depictionOption = null;
                 bool? dialogResult = dialog2DEditing.ShowDialog();
 
-                if (dialogResult == true)
-                {
-                    //dialog2DEditing.CreatePng();
-
-                    bool continueProcessing = true;
-
-                    // get the updated contextOject from the 2d editor
-                    ContextObject contextObject = new ContextObject(dialog2DEditing.CmlOutput);
+                if (dialogResult == true) {
+                    var continueProcessing = true;
+                    // get the updated contextObject from the 2d editor
+                    // var contextObject = new ContextObject(dialog2DEditing.CmlOutput);
+                    var contextObject = dialog2DEditing.ContextObject;
 
                     associatedTwoDDepictionOption = DepictionOption.CreateDepictionOption(contextObject.Cml,
                                                                                           xpathToTwoDDepictionOption);
-                    bool outdated =
+                    var outdated =
                         (bool)
                         ((XElement) associatedTwoDDepictionOption.MachineUnderstandableOption).XPathEvaluate(
                             "count(.//@*[local-name()='" + CmlConstants.Outdated + "' and namespace-uri()='" +
                             CmlConstants.CmlxNS + "']) > 0");
 
-                    if (outdated)
-                    {
-                        IChemistryZone chemistryZone = ActiveChemistryDocument.SelectedChemistryZone;
-
+                    if (outdated) {
                         ICollection<IChemistryZone> commonBindingZones =
-                            GetAllChemistryZonesBindingToTheCmlInThis(chemistryZone);
+                            GetAllChemistryZonesBindingToTheCmlInThis(selectedZone);
                         Dictionary<DepictionOption, ICollection<IChemistryZone>> documentDepictionOptionsInUse =
                             GetDocumentDepictionOptionsInUse(contextObject, commonBindingZones);
                         Dictionary<DepictionOption, ICollection<IChemistryZone>> navigatorDepictionOptionsInUse =
@@ -1044,76 +828,48 @@ namespace Chem4Word.Core
                         ContextObjectAndDialogResultHolder resultHolder = EditLabels(contextObject,
                                                                                      documentDepictionOptionsInUse,
                                                                                      navigatorDepictionOptionsInUse);
-                        if (resultHolder.dialogResult == true)
-                        {
-                            cml = resultHolder.contextObject.Cml;
-                        }
-                        else
-                        {
-                            /// the user cancelled the process so we don't update the zone    
+
+
+                        if (resultHolder.GetDialogResult()) {
+                            contextObject = resultHolder.GetContextObject();
+                        } else {
                             continueProcessing = false;
+                            contextObject = originalContextObject;
                         }
                     }
 
-                    if (continueProcessing)
-                    {
-                        //if (Depiction.Is2D(depictionOption))
-                        //{
-                        //    //dialog2DEditing.CreatePng();
-                        //    CanvasContainer editor = new CanvasContainer(new ContextObject(cml),
-                        //                                                 new CmlMolecule(
-                        //                                                     (XElement)
-                        //                                                     associatedTwoDDepictionOption.
-                        //                                                         MachineUnderstandableOption));
-                        //    editor.GeneratePng(false);
-
-                        //    // Replace new picture.
-                        //    ContentControl cc = selectedZone.ContentControl;
-                        //    object missing = Type.Missing;
-                        //    selectedZone.Unlock();
-                        //    cc.Range.InlineShapes[1].Delete();
-
-                        //    cc.Range.InlineShapes.AddPicture(editor.PngFileOutput, ref missing, ref missing,
-                        //                                     ref missing);
-                        //    selectedZone.Lock();
-                        //    // Delete the png file
-                        //    File.Delete(dialog2DEditing.PngFileName);
-                        //}
-                        selectedZone.Cml = cml;
+                    if (continueProcessing) {
+                        var chemZoneProperties = selectedZone.Properties;
+                        chemZoneProperties.ViewBox = contextObject.ViewBoxDimensions;
+                        selectedZone.Properties = chemZoneProperties;
+                        selectedZone.Cml = contextObject.Cml;
                     }
                 }
-            }
-            catch (Exception ex)
-            {
+            } catch (Exception ex) {
                 throw new NumboException("Error Tweak 2D:\n" + ex.Message, ex);
-            }
-            finally
-            {
-                /// Sometimes the the open state of the file is not update quickly enough,
-                /// So that we need to invoke GC to refresh the environment states.
+            } finally {
+                // Sometimes the the open state of the file is not update quickly enough,
+                // So that we need to invoke GC to refresh the environment states.
                 GC.Collect();
                 GC.WaitForPendingFinalizers();
             }
         }
 
         /// <summary>
-        /// Save selected Chemistry Zone into Gallery dictionary.
-        /// This function could be called after user selected one Chemistry Zone.
+        ///   Save selected Chemistry Zone into Gallery dictionary.
+        ///   This function could be called after user selected one Chemistry Zone.
         /// </summary>
-        /// <param name="galleryName">Name of the gallery instance.</param>
-        /// <exception cref="Exception">If there is not exactly one chemistry zone selected</exception>
-        public void SaveSelectionIntoGallery(string galleryName)
-        {
+        /// <param name = "galleryName">Name of the gallery instance.</param>
+        /// <exception cref = "Exception">If there is not exactly one chemistry zone selected</exception>
+        public void SaveSelectionIntoGallery(string galleryName) {
             Microsoft.Office.Tools.Word.Document wordDoc =
                 Microsoft.Office.Tools.Word.Document.GetVstoObject(wordApp.ActiveWindow.Document);
-            if (wordApp.ActiveWindow.Panes.Count > 0)
-            {
+            if (wordApp.ActiveWindow.Panes.Count > 0) {
                 Pane pane = wordApp.ActiveWindow.Panes[1];
 
                 // For this mile stone we support user to to save only one Chemistry Zone each time.
                 int selectedCcCount = pane.Selection.ContentControls.Count;
-                if (selectedCcCount == 1)
-                {
+                if (selectedCcCount == 1) {
                     string cmlString = ActiveChemistryDocument.SelectedChemistryZone.Cml.ToString();
                     string tag = Guid.NewGuid().ToString();
                     // store cml string into CML File Manager
@@ -1122,8 +878,7 @@ namespace Chem4Word.Core
 
                     // prepare to store selection into gallery
                     Template template = wordDoc.AttachedTemplate as Template;
-                    if (template != null)
-                    {
+                    if (template != null) {
                         object description = string.Empty;
 
                         // store selection into gallery
@@ -1135,46 +890,39 @@ namespace Chem4Word.Core
                             );
 
                         // Update the Chem4Word.dotx template file silently
-                        if (!template.Saved)
-                        {
+                        if (!template.Saved) {
                             template.Save();
                         }
                     }
 
                     // Update Local SmartTag
-                    if (!smartTag.IsTermExists(galleryName))
-                    {
+                    if (!smartTag.IsTermExists(galleryName)) {
                         smartTag.AddTerm(galleryName, cmlString);
                     }
                         // galleryName is already in SmartTag dictionary
-                    else
-                    {
+                    else {
                         MessageBox.Show(
                             string.Format(CultureInfo.InvariantCulture, "\"{0}\" was already in SmartTag Dictionary.",
                                           galleryName),
                             Resources.CHEM_4_WORD_MESSAGE_BOX_TITLE, MessageBoxButton.OK, MessageBoxImage.Stop);
                     }
                 }
-                    /// TOLA NOTE is this possible - surely the save to gallery option is not 
-                    /// active if a ChemZone has not been selected?
-                else if (selectedCcCount == 0)
-                {
+                    // TOLA NOTE is this possible - surely the save to gallery option is not 
+                    // active if a ChemZone has not been selected?
+                else if (selectedCcCount == 0) {
                     // Alert message to user when there is non Chemistry Zone were selected.
-                    throw new NumboException("You have not selected Chemistry Zone properly.");
-                }
-                else
-                {
+                    throw new NumboException("You have not correctly selected the Chemistry Zone.");
+                } else {
                     // Alert message to user when there are more than one Chemistry Zone were selected.
-                    throw new NumboException("Sorry you can save only one Chemistry Zone each time.");
+                    throw new NumboException("Sorry you can save only one Chemistry Zone at a time.");
                 }
             }
         }
 
         /// <summary>
-        /// Invoke  user setting.
+        ///   Invoke  user setting.
         /// </summary>
-        public void InvokeUserSetting()
-        {
+        public void InvokeUserSetting() {
             UserSettingOption userSettingOption =
                 new UserSettingOption(localAppDataFolder + @"\User Setting.xml");
             bool? dialogResult = userSettingOption.ShowDialog();
@@ -1209,43 +957,37 @@ namespace Chem4Word.Core
         }
 
         /// <summary>
-        /// 
         /// </summary>
-        /// <param name="contextObject"></param>
-        /// <param name="documentDepictionOptionsInUse"></param>
-        /// <param name="navigatorDepictionOptionsInUse"></param>
+        /// <param name = "contextObject"></param>
+        /// <param name = "documentDepictionOptionsInUse"></param>
+        /// <param name = "navigatorDepictionOptionsInUse"></param>
         /// <returns></returns>
         private static ContextObjectAndDialogResultHolder EditLabels(ContextObject contextObject,
-                                                                     Dictionary<DepictionOption, ICollection<IChemistryZone>>
+                                                                     Dictionary
+                                                                         <DepictionOption, ICollection<IChemistryZone>>
                                                                          documentDepictionOptionsInUse,
-                                                                     Dictionary<DepictionOption, ICollection<IChemistryZone>>
-                                                                         navigatorDepictionOptionsInUse)
-        {
-            ContextObject returnContextObject = contextObject.Clone();
-            bool? result = false;
-            try
-            {
-                EditLabels editLabels = new EditLabels(contextObject, documentDepictionOptionsInUse,
+                                                                     Dictionary
+                                                                         <DepictionOption, ICollection<IChemistryZone>>
+                                                                         navigatorDepictionOptionsInUse) {
+            var returnContextObject = contextObject.Clone();
+            var result = false;
+            EditLabels editLabels;
+            try {
+                editLabels = new EditLabels(contextObject, documentDepictionOptionsInUse,
                                                        navigatorDepictionOptionsInUse);
-                result = editLabels.ShowDialog();
-                if (result.Value)
-                {
+                if (editLabels.ShowDialog() == true) {
                     returnContextObject = editLabels.ContextObject;
+                    result = true;
                 }
-            }
-            catch (ArgumentNullException e)
-            {
+            } catch (ArgumentNullException e) {
                 throw new NumboException("Chemistry Object was broken:\n Cannot find custom CML.", e);
-            }
-            catch (Exception e)
-            {
+            } catch (Exception e) {
                 throw new NumboException("Error Editing Label:\n" + e.Message, e);
-            }
+            } 
             return new ContextObjectAndDialogResultHolder(returnContextObject, result);
         }
 
-        private ICollection<IChemistryZone> GetAllChemistryZonesBindingToTheCmlInThis(IChemistryZone chemistryZone)
-        {
+        private ICollection<IChemistryZone> GetAllChemistryZonesBindingToTheCmlInThis(IChemistryZone chemistryZone) {
             ICollection<IChemistryZone> commonBindingZones =
                 ActiveChemistryDocument.GetOtherCommonBindingZones(chemistryZone);
             commonBindingZones.Add(chemistryZone);
@@ -1253,43 +995,39 @@ namespace Chem4Word.Core
         }
 
         /// <summary>
-        /// Edit label of the specified Chemistry Zone
+        ///   Edit label of the specified Chemistry Zone
         /// </summary>
-        /// <param name="chemistryZone">The chemistry zone to edit label for</param>
-        /// <exception cref="NumboException">If there is a problem with the chemistry zone</exception>
-        public void EditLabels(IChemistryZone chemistryZone)
-        {
-                ICollection<IChemistryZone> commonBindingZones = GetAllChemistryZonesBindingToTheCmlInThis(chemistryZone);
-                ContextObject contextObject = new ContextObject(chemistryZone.Cml);
-                Dictionary<DepictionOption, ICollection<IChemistryZone>> documentDepictionOptionsInUse =
-                    GetDocumentDepictionOptionsInUse(contextObject, commonBindingZones);
-                Dictionary<DepictionOption, ICollection<IChemistryZone>> navigatorDepictionOptionsInUse =
-                    GetNavigatorDepictionOptionsInUse(contextObject, commonBindingZones);
+        /// <param name = "chemistryZone">The chemistry zone to edit label for</param>
+        /// <exception cref = "NumboException">If there is a problem with the chemistry zone</exception>
+        public void EditLabels(IChemistryZone chemistryZone) {
+            ICollection<IChemistryZone> commonBindingZones = GetAllChemistryZonesBindingToTheCmlInThis(chemistryZone);
+            ContextObject contextObject = chemistryZone.AsContextObject();
+            Dictionary<DepictionOption, ICollection<IChemistryZone>> documentDepictionOptionsInUse =
+                GetDocumentDepictionOptionsInUse(contextObject, commonBindingZones);
+            Dictionary<DepictionOption, ICollection<IChemistryZone>> navigatorDepictionOptionsInUse =
+                GetNavigatorDepictionOptionsInUse(contextObject, commonBindingZones);
 
-                ContextObjectAndDialogResultHolder resultHolder = EditLabels(contextObject,
-                                                                             documentDepictionOptionsInUse,
-                                                                             navigatorDepictionOptionsInUse);
-                if (resultHolder.dialogResult == true)
-                {
-                    chemistryZone.Cml = resultHolder.contextObject.Cml;
-                }
+            ContextObjectAndDialogResultHolder resultHolder = EditLabels(contextObject,
+                                                                         documentDepictionOptionsInUse,
+                                                                         navigatorDepictionOptionsInUse);
+            if (resultHolder.GetDialogResult()) {
+                chemistryZone.Cml = resultHolder.GetContextObject().Cml;
+            }
         }
 
         ///<summary>
-        /// Show a dialog window (modal) which contains the CML of the current zone
+        ///  Show a dialog window (modal) which contains the CML of the current zone
         ///</summary>
-        /// <exception cref="NumboException">if the chemistry object was broken</exception>
-        ///<exception cref="Exception"></exception>
-        public void ViewCml(IChemistryZone chemistryZone)
-        {
-                new Viewer(chemistryZone.Cml).ShowDialog();
+        ///<exception cref = "NumboException">if the chemistry object was broken</exception>
+        ///<exception cref = "Exception"></exception>
+        public void ViewCml(IChemistryZone chemistryZone) {
+            new Viewer(chemistryZone.Cml).ShowDialog();
         }
 
         /// <summary>
-        /// Create chemistry from the currently selected text in the document.
+        ///   Create chemistry from the currently selected text in the document.
         /// </summary>
-        public void AddInlineChemText()
-        {
+        public void AddInlineChemText() {
             Range range = wordApp.ActiveDocument.ActiveWindow.Selection.Range;
             string latex = TextTools.ConvertWordMarkupToLatexStyle(range);
             ContextObject contextObject = Cid.CreateChemistryFromUnknownOrigin(latex);
@@ -1302,19 +1040,17 @@ namespace Chem4Word.Core
         }
 
         /// <summary>
-        /// Gets the DepictionOption for the document or propmts the user for the information
+        ///   Gets the DepictionOption for the document or propmts the user for the information
         /// </summary>
-        /// <param name="contextObject"></param>
-        /// <param name="docPreferedDepiction">the type of depiction option to return</param>
+        /// <param name = "contextObject"></param>
+        /// <param name = "docPreferedDepiction">the type of depiction option to return</param>
         /// <returns></returns>
         internal static DepictionOption GetPreferedDocumentDepiction(ContextObject contextObject,
                                                                      DocPreferedDepiction
-                                                                         docPreferedDepiction)
-        {
+                                                                         docPreferedDepiction) {
             IEnumerable<DepictionOption> depictionOptions = Depiction.PossibleDepictionOptions(contextObject);
             DepictionOption documentDepictionOption = null;
-            switch (docPreferedDepiction)
-            {
+            switch (docPreferedDepiction) {
                 case DocPreferedDepiction.TwoD:
                     documentDepictionOption = depictionOptions.FirstOrDefault(Depiction.Is2D);
                     break;
@@ -1331,8 +1067,7 @@ namespace Chem4Word.Core
                     documentDepictionOption = depictionOptions.FirstOrDefault(Depiction.IsInlineFormula);
                     break;
             }
-            if (documentDepictionOption == null)
-            {
+            if (documentDepictionOption == null) {
                 // TODO JAT
                 // NOTE temp - just chose something
                 // we should actually be throwing up UI to ask the user
@@ -1343,12 +1078,10 @@ namespace Chem4Word.Core
 
         internal static DepictionOption GetPreferedNavigatorDepiction(ContextObject contextObject,
                                                                       NavPreferedDepiction
-                                                                          navPreferedDepiction)
-        {
+                                                                          navPreferedDepiction) {
             IEnumerable<DepictionOption> depictionOptions = Depiction.PossibleDepictionOptions(contextObject);
             DepictionOption navigatorDepictionOption = null;
-            switch (navPreferedDepiction)
-            {
+            switch (navPreferedDepiction) {
                 case NavPreferedDepiction.BoldNumber:
                     navigatorDepictionOption = depictionOptions.FirstOrDefault(Depiction.IsMoleculeBoldNumberLabel);
                     break;
@@ -1362,8 +1095,7 @@ namespace Chem4Word.Core
                     navigatorDepictionOption = depictionOptions.FirstOrDefault(Depiction.IsInlineFormula);
                     break;
             }
-            if (navigatorDepictionOption == null)
-            {
+            if (navigatorDepictionOption == null) {
                 // TODO JAT
                 // we should actually be throwing up UI to ask the user
                 navigatorDepictionOption =
@@ -1375,25 +1107,20 @@ namespace Chem4Word.Core
         private static Dictionary<DepictionOption, ICollection<IChemistryZone>> GetDocumentDepictionOptionsInUse(
             ContextObject contextObject,
             IEnumerable<IChemistryZone>
-                chemistryZonesPointingToSameCml)
-        {
+                chemistryZonesPointingToSameCml) {
             // it is vital that all the depiction options are build usign the same CML XDocument
             // and this is also the same one passed to the edit labels dialog because the 
             // copmarison of the depictionOptions requires that they have the ReferenceEqual
             // source xdocument
             var dictionary = new Dictionary<DepictionOption, ICollection<IChemistryZone>>();
-            foreach (var zone in chemistryZonesPointingToSameCml)
-            {
+            foreach (var zone in chemistryZonesPointingToSameCml) {
                 var depictionOption = DepictionOption.CreateDepictionOption(contextObject.Cml,
-                                                                                        zone.Properties.
-                                                                                            DocumentDepictionOptionXPath);
+                                                                            zone.Properties.
+                                                                                DocumentDepictionOptionXPath);
                 ICollection<IChemistryZone> chemzones;
-                if (dictionary.TryGetValue(depictionOption, out chemzones))
-                {
+                if (dictionary.TryGetValue(depictionOption, out chemzones)) {
                     chemzones.Add(zone);
-                }
-                else
-                {
+                } else {
                     chemzones = new List<IChemistryZone> {zone};
                     dictionary.Add(depictionOption, chemzones);
                 }
@@ -1404,25 +1131,20 @@ namespace Chem4Word.Core
         private static Dictionary<DepictionOption, ICollection<IChemistryZone>> GetNavigatorDepictionOptionsInUse(
             ContextObject contextObject,
             IEnumerable<IChemistryZone>
-                chemistryZonesPointingToSameCml)
-        {
+                chemistryZonesPointingToSameCml) {
             // it is vital that all the depiction options are build usign the same CML XDocument
             // and this is also the same one passed to the edit labels dialog because the 
             // copmarison of the depictionOptions requires that they have the ReferenceEqual
             // source xdocument
             var dictionary = new Dictionary<DepictionOption, ICollection<IChemistryZone>>();
-            foreach (var zone in chemistryZonesPointingToSameCml)
-            {
+            foreach (var zone in chemistryZonesPointingToSameCml) {
                 var depictionOption = DepictionOption.CreateDepictionOption(contextObject.Cml,
-                                                                                        zone.Properties.
-                                                                                            NavigatorDepictionOptionXPath);
+                                                                            zone.Properties.
+                                                                                NavigatorDepictionOptionXPath);
                 ICollection<IChemistryZone> chemzones;
-                if (dictionary.TryGetValue(depictionOption, out chemzones))
-                {
+                if (dictionary.TryGetValue(depictionOption, out chemzones)) {
                     chemzones.Add(zone);
-                }
-                else
-                {
+                } else {
                     chemzones = new List<IChemistryZone> {zone};
                     dictionary.Add(depictionOption, chemzones);
                 }
@@ -1430,66 +1152,19 @@ namespace Chem4Word.Core
             return dictionary;
         }
 
-        private ContextObjectAndDialogResultHolder ManageMoleculeBoldNumbersOnImport(ContextObject contextObject)
-        {
-            var depictionOptions = Depiction.PossibleDepictionOptions(contextObject);
-            var possibleBoldNumberLabels = new List<DepictionOption>(depictionOptions.Count());
-            foreach (DepictionOption option in depictionOptions)
-            {
-                if (Depiction.IsMoleculeBoldNumberLabel(option))
-                {
-                    possibleBoldNumberLabels.Add(option);
-                }
-            }
-
-            List<XElement> possibleBoldNumbers = new List<XElement>(possibleBoldNumberLabels.Count());
-            foreach (DepictionOption label in possibleBoldNumberLabels)
-            {
-                possibleBoldNumbers.Add(label.MachineUnderstandableOption as XElement);
-            }
-            // create list of all the context objects present in the current document
-            List<ContextObject> otherContextObjects = new List<ContextObject>();
-
-            foreach (IChemistryZone chemistryZone in ActiveChemistryDocument)
-            {
-                otherContextObjects.Add(new ContextObject(chemistryZone.Cml));
-            }
-            // now remove the current context object 
-            otherContextObjects.Remove(contextObject);
-            bool? dialogResult = true;
-            if (!ChemicalIntelligence.IsBoldNumberUnique(contextObject, possibleBoldNumbers, otherContextObjects))
-            {
-                dialogResult = false;
-                List<string> currentlyUsedBoldNumbers = new List<string>();
-                foreach (ContextObject o in otherContextObjects)
-                {
-                    foreach (
-                        DepictionOption label in
-                            Depiction.PossibleDepictionOptions(o).TakeWhile(Depiction.IsMoleculeBoldNumberLabel))
-                    {
-                        currentlyUsedBoldNumbers.Add(label.GetAsLatexFormattedString());
-                    }
-                }
-            }
-
-            ContextObjectAndDialogResultHolder resultHolder = new ContextObjectAndDialogResultHolder(contextObject,
-                                                                                                     dialogResult);
-            return resultHolder;
-        }
-
         ///<summary>
-        /// Change the existing document representation to the specified new one and update the
-        /// backing data to reflect this change. After the change the zone is selected
+        ///  Change the existing document representation to the specified new one and update the
+        ///  backing data to reflect this change. After the change the zone is selected
         ///</summary>
-        ///<param name="chemistryZone">The chemistry zone currently displayed</param>
-        ///<param name="newDocumentDepictionOption">The new depiction to use</param>
-        /// <param name="selectZoneAfterModification">If true the zone is selected after modification, if false moves the cursor to the end of the zone</param>
+        ///<param name = "chemistryZone">The chemistry zone currently displayed</param>
+        ///<param name = "newDocumentDepictionOption">The new depiction to use</param>
+        ///<param name = "selectZoneAfterModification">If true the zone is selected after modification, if false moves the cursor to the end of the zone</param>
         public void ChangeExistingDocumentDepiction(IChemistryZone chemistryZone,
-                                                     DepictionOption newDocumentDepictionOption, bool selectZoneAfterModification)
-        {
+                                                    DepictionOption newDocumentDepictionOption,
+                                                    bool selectZoneAfterModification) {
             var navigatorDepictionOption = DepictionOption.CreateDepictionOption(chemistryZone.Cml,
-                                                                                             chemistryZone.Properties.
-                                                                                                 NavigatorDepictionOptionXPath);
+                                                                                 chemistryZone.Properties.
+                                                                                     NavigatorDepictionOptionXPath);
 
             //var newChemistryZone = ActiveChemistryDocument.RebindDocumentContentControl(chemistryZone,
             //                                                                                       new ChemistryZoneProperties
@@ -1499,32 +1174,25 @@ namespace Chem4Word.Core
             ChemistryZoneProperties newChemistryZoneProperties = chemistryZone.Properties.Clone();
             newChemistryZoneProperties.SetDocumentDepictionOption(newDocumentDepictionOption);
             var newChemistryZone = ActiveChemistryDocument.RebindDocumentContentControl(chemistryZone,
-                                                                                       newChemistryZoneProperties);
+                                                                                        newChemistryZoneProperties);
 
             var contentControl = newChemistryZone.ContentControl;
-            if (selectZoneAfterModification)
-            {
+            if (selectZoneAfterModification) {
                 // Select the Chemistry Zone.
-               // wordApp.Selection.SetRange(contentControl.Range.Start, contentControl.Range.End);
+                // wordApp.Selection.SetRange(contentControl.Range.Start, contentControl.Range.End);
                 newChemistryZone.Choose();
-            } else
-            {
-                wordApp.Selection.SetRange(contentControl.Range.Start+1, contentControl.Range.End+1);
+            } else {
+                wordApp.Selection.SetRange(contentControl.Range.Start + 1, contentControl.Range.End + 1);
             }
-
         }
-
-        
 
 
         /// <summary>
-        /// Handle event when Word document is opened.
+        ///   Handle event when Word document is opened.
         /// </summary>
-        /// <param name="doc">Document object of the opened document. <see cref="Microsoft.Office.Interop.Word.Document"/></param>
-        private void WordAppDocumentOpen(Document doc)
-        {
-            try
-            {
+        /// <param name = "doc">Document object of the opened document. <see cref = "Microsoft.Office.Interop.Word.Document" /></param>
+        private void WordAppDocumentOpen(Document doc) {
+            try {
                 // handle inline controls
                 // Load the persisted state of dynamic controls.
                 ControlProperties[] savedControls = ControlsStorage.Load(doc);
@@ -1532,26 +1200,22 @@ namespace Chem4Word.Core
                 // JAT TODO - we should have serialised the depiction options to the 
                 // context object so we can deserialize them - and use them to reinstantiate
                 // the controls etc. also we should not need to reimport anything?
-                if (savedControls != null && savedControls.Length > 0)
-                {
+                if (savedControls != null && savedControls.Length > 0) {
                     Microsoft.Office.Tools.Word.Document vstoDoc = doc.GetVstoObject();
 
                     // Recreate controls according to persisted state.
-                    foreach (ControlProperties controlInfo in savedControls)
-                    {
+                    foreach (ControlProperties controlInfo in savedControls) {
                         // We create Windows Forms controls by instantiating their type.
                         // For host controls (which do not have a default constructor), we call
                         // specific methods, e.g. AddBookmark().
-                        if (ControlProperties.ChemistryControlType.DocumentHostControl.Equals(controlInfo.ControlType))
-                        {
+                        if (ControlProperties.ChemistryControlType.DocumentHostControl.Equals(controlInfo.ControlType)) {
                             DocumentHostControl control = new DocumentHostControl();
 
                             CustomXMLPart part =
                                 wordApp.ActiveDocument.CustomXMLParts.SelectByID(controlInfo.CustomXmlId);
 
                             ImportMediator m = new ImportMediator();
-                            switch (Setting.Import)
-                            {
+                            switch (Setting.Import) {
                                 case ImportSetting.StrictFail:
                                     m.ParseSeverity = ImportMediator.Severity.Strict;
                                     break;
@@ -1564,8 +1228,7 @@ namespace Chem4Word.Core
                             }
                             m.Start(XDocument.Parse(part.DocumentElement.XML));
 
-                            if (m.Worked())
-                            {
+                            if (m.Worked()) {
                                 XElement molecule =
                                     m.GetContextObject().Cml.Root.Element(
                                         CmlConstants.CmlxNamespace + CmlMolecule.Tag);
@@ -1579,8 +1242,7 @@ namespace Chem4Word.Core
                                 object vertical = true;
                                 float width = wordApp.PixelsToPoints(controlInfo.ControlWidth, ref horizontal);
                                 float height = wordApp.PixelsToPoints(controlInfo.ControlHeight, ref vertical);
-                                if (controlInfo.IsInline)
-                                {
+                                if (controlInfo.IsInline) {
                                     // Add inline control
                                     object start = (int) controlInfo.ControlX;
                                     // We use a zero-length range for positioning.
@@ -1594,9 +1256,7 @@ namespace Chem4Word.Core
                                         width,
                                         height,
                                         controlInfo.ControlName);
-                                }
-                                else
-                                {
+                                } else {
                                     // Add floating control
                                     vstoDoc.Controls.AddControl(
                                         control,
@@ -1610,9 +1270,7 @@ namespace Chem4Word.Core
                         }
                     }
                 }
-            }
-            finally
-            {
+            } finally {
                 ActiveChemistryDocument = new ChemistryDocument(wordApp.ActiveDocument, this);
                 documentDictionary.Add(wordApp.ActiveDocument, ActiveChemistryDocument);
 
@@ -1622,63 +1280,51 @@ namespace Chem4Word.Core
         }
 
         /// <summary>
-        /// 
         /// </summary>
-        /// <param name="sel"></param>
-        private void WordAppWindowSelectionChange(Selection sel)
-        {
-            switch (sel.ContentControls.Count)
-            {
+        /// <param name = "sel"></param>
+        private void WordAppWindowSelectionChange(Selection sel) {
+            switch (sel.ContentControls.Count) {
                 case 0:
                     ContentControlSelection(false);
                     break;
                 case 1:
-                {
-                    // get the first content control from selection
-                    object firstIndex = 1;
-                    ContentControl cc = sel.ContentControls.get_Item(ref firstIndex);
+                    {
+                        // get the first content control from selection
+                        object firstIndex = 1;
+                        ContentControl cc = sel.ContentControls.get_Item(ref firstIndex);
 
-                    // Check if the added content control is Chemistry Zone
-                    if (Properties.Resources.ChemistryZoneAlias.Equals(cc.Title))
-                    {
-                        ContentControlSelection(true);
+                        // Check if the added content control is Chemistry Zone
+                        if (Properties.Resources.ChemistryZoneAlias.Equals(cc.Title)) {
+                            ContentControlSelection(true);
+                        } else {
+                            ContentControlSelection(false);
+                        }
                     }
-                    else
-                    {
-                        ContentControlSelection(false);
-                    }
-                }
                     break;
             }
         }
 
         /// <summary>
-        /// 
         /// </summary>
-        /// <param name="doc"></param>
-        /// <param name="wn"></param>
+        /// <param name = "doc"></param>
+        /// <param name = "wn"></param>
         private void ApplicationWindowActivate(Document doc,
-                                               Window wn)
-        {
+                                               Window wn) {
             Microsoft.Office.Tools.Word.Document wordDoc =
                 Microsoft.Office.Tools.Word.Document.GetVstoObject(wordApp.ActiveWindow.Document);
             wordDoc.AttachedTemplate = localAppDataFolder + @"\Chemistry Gallery\Chem4Word.dotx";
 
             // Switch ActiveChemistryDocument every time user switch document in Word.
-            if (documentDictionary.ContainsKey(wordApp.ActiveDocument))
-            {
+            if (documentDictionary.ContainsKey(wordApp.ActiveDocument)) {
                 ActiveChemistryDocument = documentDictionary[wordApp.ActiveDocument];
-            }
-            else
-            {
+            } else {
                 ActiveChemistryDocument = new ChemistryDocument(doc, this);
                 documentDictionary.Add(wordApp.ActiveDocument, ActiveChemistryDocument);
                 doc.ContentControlAfterAdd += ActiveDocumentContentControlAfterAdd;
             }
 
             // Fire Event
-            if (WindowActivate != null)
-            {
+            if (WindowActivate != null) {
                 WindowActivate(
                     this,
                     new ChemistryDocumentEventArgs
@@ -1689,10 +1335,8 @@ namespace Chem4Word.Core
             }
         }
 
-        private void ApplicationWindowDeactivate(Document document, Window window)
-        {
-            if (WindowDeactivateEvent != null)
-            {
+        private void ApplicationWindowDeactivate(Document document, Window window) {
+            if (WindowDeactivateEvent != null) {
                 WindowDeactivateEvent(this, new ChemistryDocumentEventArgs
                                                 {
                                                     CurrentDocument = document,
@@ -1702,23 +1346,21 @@ namespace Chem4Word.Core
         }
 
         /// <summary>
-        /// Called whenever user creates a content control in the document - 
-        /// regardless of whether or not it is a chemzone. 
+        ///   Called whenever user creates a content control in the document - 
+        ///   regardless of whether or not it is a chemzone. 
         /// 
-        /// If it *is* a ChemZone then we handle it. 
-        /// (it is only a chemzone if the title is set to "Chemistry" 
-        /// which is how molecules from the Gallery get added.
+        ///   If it *is* a ChemZone then we handle it. 
+        ///   (it is only a chemzone if the title is set to "Chemistry" 
+        ///   which is how molecules from the Gallery get added.
         /// 
-        /// When we create content controls (ie for new 2D or 1D zone) we 
-        /// don't already have the title set so this method does not 
-        /// handles them.
+        ///   When we create content controls (ie for new 2D or 1D zone) we 
+        ///   don't already have the title set so this method does not 
+        ///   handles them.
         /// </summary>
-        /// <param name="newContentControl"></param>
-        /// <param name="inUndoRedo"></param>
-        private void ActiveDocumentContentControlAfterAdd(ContentControl newContentControl, bool inUndoRedo)
-        {
-            if (inUndoRedo)
-            {
+        /// <param name = "newContentControl"></param>
+        /// <param name = "inUndoRedo"></param>
+        private void ActiveDocumentContentControlAfterAdd(ContentControl newContentControl, bool inUndoRedo) {
+            if (inUndoRedo) {
                 // TODO JAT only show this message if high level alerts are turned on
                 MessageBox.Show("You have now unbound the backing CML from the on screen representation",
                                 Resources.CHEM_4_WORD_MESSAGE_BOX_TITLE, MessageBoxButton.OK, MessageBoxImage.Stop);
@@ -1726,16 +1368,13 @@ namespace Chem4Word.Core
                 newContentControl.Tag = null;
                 newContentControl.XMLMapping.CustomXMLNode.Delete();
             }
-            try
-            {
+            try {
                 // Check if the added content control is Chemistry Zone
-                if (Properties.Resources.ChemistryZoneAlias.Equals(newContentControl.Title))
-                {
+                if (Properties.Resources.ChemistryZoneAlias.Equals(newContentControl.Title)) {
                     // Get the CML associated with the GUID of the Content saved in the Gallery (the tag)
                     string cmlString = galleryDictionaryManager.GetCmlString(newContentControl.Tag + string.Empty);
                     XDocument cml = new XDocument();
-                    if (cmlString.Trim() != string.Empty)
-                    {
+                    if (cmlString.Trim() != string.Empty) {
                         cml = XDocument.Parse(cmlString);
                         newContentControl.XMLMapping.Delete();
                     }
@@ -1752,7 +1391,8 @@ namespace Chem4Word.Core
                                                                                              Setting.
                                                                                                  NavigatorPreferedDepiction);
                     ChemistryZoneProperties chemistryZoneProperties =
-                        new ChemistryZoneProperties(documentDepictionOption, navigatorDepictionOption, Setting.CollapseNavigatorDepiction);
+                        new ChemistryZoneProperties(documentDepictionOption, navigatorDepictionOption,
+                                                    Setting.CollapseNavigatorDepiction);
 
                     // because the imported content control is a picture we now need to change the depictions to the preferred setting
                     Range range = wordApp.ActiveDocument.ActiveWindow.Selection.Range;
@@ -1761,34 +1401,24 @@ namespace Chem4Word.Core
                     ActiveChemistryDocument.EventTurnOn = false;
                     newContentControl.Delete(true);
                     ActiveChemistryDocument.EventTurnOn = true;
-                    //AddNewContextObjectToDocument(range, contextObject,
-                    //                              documentDepictionOption,
-                    //                              navigatorDepictionOption);
                     AddNewContextObjectToDocument(range, contextObject,
                                                   chemistryZoneProperties);
                 }
-            }
-            catch (Exception ex)
-            {
+            } catch (Exception ex) {
                 MessageBox.Show(ex.Message, Resources.CHEM_4_WORD_MESSAGE_BOX_TITLE, MessageBoxButton.OK,
                                 MessageBoxImage.Stop);
             }
         }
 
         /// <summary>
-        /// 
         /// </summary>
-        /// <param name="doc"></param>
-        /// <param name="cancel"></param>
-        private void WordAppDocumentBeforeClose(Document doc, ref bool cancel)
-        {
-            foreach (KeyValuePair<Document, IChemistryDocument> keyValue in documentDictionary)
-            {
-                if (keyValue.Value.WordDocument == doc)
-                {
+        /// <param name = "doc"></param>
+        /// <param name = "cancel"></param>
+        private void WordAppDocumentBeforeClose(Document doc, ref bool cancel) {
+            foreach (KeyValuePair<Document, IChemistryDocument> keyValue in documentDictionary) {
+                if (keyValue.Value.WordDocument == doc) {
                     // Fire Event
-                    if (DocumentBeforeClose != null)
-                    {
+                    if (DocumentBeforeClose != null) {
                         DocumentBeforeClose(
                             this,
                             new ChemistryDocumentEventArgs
@@ -1803,30 +1433,24 @@ namespace Chem4Word.Core
         }
 
         /// <summary>
-        /// 
         /// </summary>
         /// <returns></returns>
-        public IChemistryZone OpsinLookUpClick()
-        {
+        public IChemistryZone OpsinLookUpClick() {
             string searchTerm = string.Empty;
             if (wordApp.Selection.ContentControls.Count == 0 &&
-                wordApp.Selection.Range.Start != wordApp.Selection.Range.End)
-            {
+                wordApp.Selection.Range.Start != wordApp.Selection.Range.End) {
                 searchTerm = wordApp.Selection.Text;
             }
             return OpsinLookUpSearch(searchTerm);
         }
 
-        public IChemistryZone OpsinLookUpSearch(string searchTerm)
-        {
+        public IChemistryZone OpsinLookUpSearch(string searchTerm) {
             IChemistryZone chemistryZone = null;
             var opsinLookUp = new OpsinLookUp {SearchTerm = searchTerm};
-            if (opsinLookUp.ShowDialog() == true)
-            {
+            if (opsinLookUp.ShowDialog() == true) {
                 ImportMediator importMediator = new ImportMediator();
                 importMediator.Start(opsinLookUp.ResultDocument);
-                if (importMediator.Worked())
-                {
+                if (importMediator.Worked()) {
                     ContextObject contextObject = Cid.RemoveMoleculeBoldNumberLabels(importMediator.GetContextObject(),
                                                                                      importMediator.GetContextObject().
                                                                                          Cml.
@@ -1838,88 +1462,94 @@ namespace Chem4Word.Core
                     DepictionOption navigatorDepictionOption = GetPreferedNavigatorDepiction(contextObject,
                                                                                              Setting.
                                                                                                  NavigatorPreferedDepiction);
-                    var chemistryZoneProperties = new ChemistryZoneProperties(documentDepictionOption,navigatorDepictionOption,Setting.CollapseNavigatorDepiction);
+                    var chemistryZoneProperties = new ChemistryZoneProperties(documentDepictionOption,
+                                                                              navigatorDepictionOption,
+                                                                              Setting.CollapseNavigatorDepiction);
 
                     Range range = wordApp.ActiveDocument.ActiveWindow.Selection.Range;
                     //chemistryZone = AddNewContextObjectToDocument(range, contextObject,
                     //                                              documentDepictionOption,
-                                                                  //navigatorDepictionOption);
+                    //navigatorDepictionOption);
                     chemistryZone = AddNewContextObjectToDocument(range, contextObject,
-                                                                 chemistryZoneProperties);
+                                                                  chemistryZoneProperties);
                 }
             }
             return chemistryZone;
         }
 
-         public IChemistryZone  PubChemLookUpSearch(string searchTerm)
-         {
-             IChemistryZone chemistryZone = null;
-             var pubChemLookUp = new PubChemSearch {SearchTerm = searchTerm};
-             if (pubChemLookUp.ShowDialog() == true)
-             {
-                 ImportMediator importMediator = new ImportMediator();
-                 importMediator.Start(pubChemLookUp.ResultDocument);
-                 if (importMediator.Worked())
-                 {
-                     ContextObject contextObject = Cid.RemoveMoleculeBoldNumberLabels(importMediator.GetContextObject(),
-                                                                                      importMediator.GetContextObject().
-                                                                                          Cml.
-                                                                                          Root);
+        public IChemistryZone PubChemLookUpSearch(string searchTerm) {
+            IChemistryZone chemistryZone = null;
+            var pubChemLookUp = new PubChemSearch {SearchTerm = searchTerm};
+            if (pubChemLookUp.ShowDialog() == true) {
+                ImportMediator importMediator = new ImportMediator();
+                importMediator.Start(pubChemLookUp.ResultDocument);
+                if (importMediator.Worked()) {
+                    ContextObject contextObject = Cid.RemoveMoleculeBoldNumberLabels(importMediator.GetContextObject(),
+                                                                                     importMediator.GetContextObject().
+                                                                                         Cml.
+                                                                                         Root);
 
-                     DepictionOption documentDepictionOption = GetPreferedDocumentDepiction(contextObject,
-                                                                                            Setting.
-                                                                                                DocumentPreferedDepiction);
-                     DepictionOption navigatorDepictionOption = GetPreferedNavigatorDepiction(contextObject,
-                                                                                              Setting.
-                                                                                                  NavigatorPreferedDepiction);
-                     var chemistryZoneProperties = new ChemistryZoneProperties(documentDepictionOption, navigatorDepictionOption, Setting.CollapseNavigatorDepiction);
+                    DepictionOption documentDepictionOption = GetPreferedDocumentDepiction(contextObject,
+                                                                                           Setting.
+                                                                                               DocumentPreferedDepiction);
+                    DepictionOption navigatorDepictionOption = GetPreferedNavigatorDepiction(contextObject,
+                                                                                             Setting.
+                                                                                                 NavigatorPreferedDepiction);
+                    var chemistryZoneProperties = new ChemistryZoneProperties(documentDepictionOption,
+                                                                              navigatorDepictionOption,
+                                                                              Setting.CollapseNavigatorDepiction);
 
-                     Range range = wordApp.ActiveDocument.ActiveWindow.Selection.Range;
-                     //chemistryZone = AddNewContextObjectToDocument(range, contextObject,
-                     //                                              documentDepictionOption,
-                     //navigatorDepictionOption);
-                     chemistryZone = AddNewContextObjectToDocument(range, contextObject,
+                    Range range = wordApp.ActiveDocument.ActiveWindow.Selection.Range;
+                    //chemistryZone = AddNewContextObjectToDocument(range, contextObject,
+                    //                                              documentDepictionOption,
+                    //navigatorDepictionOption);
+                    chemistryZone = AddNewContextObjectToDocument(range, contextObject,
                                                                   chemistryZoneProperties);
-                 }
-             }
-             return chemistryZone;
-         }
+                }
+            }
+            return chemistryZone;
+        }
 
 
         /// <summary>
-        /// 
         /// </summary>
-        public IChemistryZone PubChemLookUpClick()
-        {
+        public IChemistryZone PubChemLookUpClick() {
             string searchTerm = string.Empty;
             if (wordApp.Selection.ContentControls.Count == 0 &&
-                wordApp.Selection.Range.Start != wordApp.Selection.Range.End)
-            {
+                wordApp.Selection.Range.Start != wordApp.Selection.Range.End) {
                 searchTerm = wordApp.Selection.Text;
             }
             return PubChemLookUpSearch(searchTerm);
         }
 
-        public void DocumentSearch(string searchTerm)
-        {
+        ///<summary>
+        ///</summary>
+        ///<param name = "searchTerm"></param>
+        public void DocumentSearch(string searchTerm) {
             foreach (IChemistryZone chemistryZone in from chemistryZone in ActiveChemistryDocument
-                                                     let depictionOptions = Depiction.PossibleDepictionOptions(new ContextObject(chemistryZone.Cml))
-                                                     where depictionOptions.Any(depictionOption => depictionOption.GetAsLatexFormattedString().Contains(searchTerm))
-                                                     select chemistryZone)
-            {
+                                                     let depictionOptions =
+                                                         Depiction.PossibleDepictionOptions(
+                                                             chemistryZone.AsContextObject())
+                                                     where
+                                                         depictionOptions.Any(
+                                                             depictionOption =>
+                                                             depictionOption.GetAsLatexFormattedString().Contains(
+                                                                 searchTerm))
+                                                     select chemistryZone) {
                 chemistryZone.Choose();
                 return;
             }
         }
 
-        public DepictionOption AddNewLabel()
-        {
-            try
-            {
-
+        ///<summary>
+        ///</summary>
+        ///<returns></returns>
+        ///<exception cref = "Exception"></exception>
+        public DepictionOption AddNewLabel() {
+            try {
                 IChemistryZone chemistryZone = ActiveChemistryDocument.SelectedChemistryZone;
                 ICollection<IChemistryZone> commonBindingZones = GetAllChemistryZonesBindingToTheCmlInThis(chemistryZone);
-                ContextObject contextObject = new ContextObject(chemistryZone.Cml);
+                ContextObject contextObject = chemistryZone.AsContextObject();
 
 
                 Dictionary<DepictionOption, ICollection<IChemistryZone>> documentDepictionOptionsInUse =
@@ -1933,44 +1563,40 @@ namespace Chem4Word.Core
                 EditLabels editLabels = new EditLabels(contextObject, documentDepictionOptionsInUse,
                                                        navigatorDepictionOptionsInUse);
                 editLabels.AddNewLabel();
-                if (editLabels.ShowDialog() == true)
-                {
+                if (editLabels.ShowDialog() == true) {
                     chemistryZone.Cml = editLabels.ContextObject.Cml;
                     IEnumerable<DepictionOption> newDepictionOptions =
                         Depiction.PossibleDepictionOptions(editLabels.ContextObject);
-                    foreach (DepictionOption newDepictionOption in newDepictionOptions)
-                    {
-                        if (!currentDepictionOptions.Contains(newDepictionOption))
-                        {
-                            return newDepictionOption;
-                        }
+                    foreach (DepictionOption newDepictionOption in
+                        newDepictionOptions.Where(
+                            newDepictionOption => !currentDepictionOptions.Contains(newDepictionOption))) {
+                        return newDepictionOption;
                     }
-
                 }
-            }
-
-            catch (ArgumentNullException e)
-            {
+            } catch (ArgumentNullException e) {
                 throw new Exception("Chemistry Object was broken:\n Cannot find custom CML.", e);
-            }
-            catch (Exception e)
-            {
+            } catch (Exception e) {
                 throw new Exception("Error Editing Label:\n" + e.Message, e);
             }
             return null;
         }
-
     }
 
-    internal class ContextObjectAndDialogResultHolder
-    {
-        internal readonly ContextObject contextObject;
-        internal bool? dialogResult;
+    internal class ContextObjectAndDialogResultHolder {
+        private readonly ContextObject contextObject;
+        private readonly bool dialogResult;
 
-        internal ContextObjectAndDialogResultHolder(ContextObject contextObject, bool? dialogResult)
-        {
+        internal ContextObjectAndDialogResultHolder(ContextObject contextObject, bool dialogResult) {
             this.contextObject = contextObject;
             this.dialogResult = dialogResult;
+        }
+
+        internal ContextObject GetContextObject() {
+            return contextObject;
+        }
+
+        internal bool GetDialogResult() {
+            return dialogResult;
         }
     }
 }
