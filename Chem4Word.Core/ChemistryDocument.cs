@@ -144,12 +144,12 @@ namespace Chem4Word.Core
                                                                                                newChemistryZoneProperties
                                                                                                    .
                                                                                                    DocumentDepictionOptionXPath);
-            /// before the current content control is deleted we must get the CML out of it
-            /// (the deletion causes the links to the CML to be broken)
-            ContextObject contextObject = new ContextObject(chemistryZone.Cml);
+            // before the current content control is deleted we must get the CML out of it
+            // (the deletion causes the links to the CML to be broken)
+            ContextObject contextObject = chemistryZone.AsContextObject();
 
-            /// the new depiction requires a *new* picture content control or is a text content control 
-            /// which means we have to remove whatever is currently in the existing content control
+            // the new depiction requires a *new* picture content control or is a text content control 
+            // which means we have to remove whatever is currently in the existing content control
             EventTurnOn = false;
             chemistryZone.ContentControl.Delete(true);
             EventTurnOn = true;
@@ -182,8 +182,8 @@ namespace Chem4Word.Core
             }
             else
             {
-                object range = this.WordDocument.Application.Selection.Range;
-                contentControl = this.WordDocument.ContentControls.Add(WdContentControlType.wdContentControlRichText,
+                object range = WordDocument.Application.Selection.Range;
+                contentControl = WordDocument.ContentControls.Add(WdContentControlType.wdContentControlRichText,
                                                                        ref range);
                 core.CreateOneDZoneContent(ref contentControl, newDocumentDepictionOption);
             }

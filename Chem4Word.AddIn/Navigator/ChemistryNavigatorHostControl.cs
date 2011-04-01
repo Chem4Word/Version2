@@ -8,18 +8,15 @@ using System.Windows.Forms;
 using Chem4Word.Api;
 using Chem4Word.UI.Navigator;
 
-namespace Chem4Word.AddIn.Navigator
-{
+namespace Chem4Word.AddIn.Navigator {
     /// <summary>
-    /// Winform user control for hosting WPF Navigator control.
+    ///   Winform user control for hosting WPF Navigator control.
     /// </summary>
-    public partial class ChemistryNavigatorHostControl : UserControl
-    {
+    public partial class ChemistryNavigatorHostControl : UserControl {
         /// <summary>
-        /// Initializes a new instance of the ChemistryNavigatorHostControl class.
+        ///   Initializes a new instance of the ChemistryNavigatorHostControl class.
         /// </summary>
-        public ChemistryNavigatorHostControl(IChemistryDocument document)
-        {
+        public ChemistryNavigatorHostControl(IChemistryDocument document) {
             InitializeComponent();
 
             innerUI.Child = new ChemistryNavigator(document);

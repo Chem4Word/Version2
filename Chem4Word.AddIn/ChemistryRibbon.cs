@@ -39,14 +39,12 @@ using Version = System.Version;
 
 [assembly: CLSCompliant(true)]
 
-namespace Chem4Word.AddIn
-{
+namespace Chem4Word.AddIn {
     /// <summary>
-    /// Derives ChemistryRibon class from Office.IRibbonExtensibility
+    ///   Derives ChemistryRibon class from Office.IRibbonExtensibility
     /// </summary>
     [ComVisible(true)]
-    public class ChemistryRibbon : IRibbonExtensibility, IDisposable
-    {
+    public class ChemistryRibbon : IRibbonExtensibility, IDisposable {
         private static readonly string defaultSearchBoxText = "Search term";
         private static readonly string searchAreaDocument = "Document";
         private static readonly string searchAreaOpsin = "OPSIN";
@@ -78,21 +76,18 @@ namespace Chem4Word.AddIn
         private bool viewOptionEnable;
 
         /// <summary>
-        /// Initializes a new instance of the ChemistryRibbon class.Default Constructor
+        ///   Initializes a new instance of the ChemistryRibbon class.Default Constructor
         /// </summary>
-        public ChemistryRibbon()
-        {
-        }
+        public ChemistryRibbon() {}
 
         /// <summary>
-        /// Initializes a new instance of the ChemistryRibbon class.
+        ///   Initializes a new instance of the ChemistryRibbon class.
         /// </summary>
-        /// <param name="chemistryCore">controller between Chem4Word UI and Word API</param>
-        /// <param name="customTaskPanes">Collection of custom task panes in application</param>
-        /// <param name="wordApp">Word application</param>
+        /// <param name = "chemistryCore">controller between Chem4Word UI and Word API</param>
+        /// <param name = "customTaskPanes">Collection of custom task panes in application</param>
+        /// <param name = "wordApp">Word application</param>
         public ChemistryRibbon(Core.CoreClass chemistryCore, CustomTaskPaneCollection customTaskPanes,
-                               Application wordApp)
-        {
+                               Application wordApp) {
             core = chemistryCore;
             this.customTaskPanes = customTaskPanes;
             this.wordApp = wordApp;
@@ -104,13 +99,10 @@ namespace Chem4Word.AddIn
             core.DocumentBeforeClose += CoreDocumentBeforeClose;
         }
 
-        private bool ViewOptionEnable
-        {
+        private bool ViewOptionEnable {
             get { return viewOptionEnable; }
-            set
-            {
-                if (value)
-                {
+            set {
+                if (value) {
                     ActivateChemsitryTab();
                 }
                 viewOptionEnable = value;
@@ -119,11 +111,9 @@ namespace Chem4Word.AddIn
             }
         }
 
-        private bool SearchBoxEnable
-        {
+        private bool SearchBoxEnable {
             get { return searchBoxEnable; }
-            set
-            {
+            set {
                 searchBoxEnable = value;
                 //ribbon.Invalidate();
                 ribbon.InvalidateControl("searchBox");
@@ -131,47 +121,38 @@ namespace Chem4Word.AddIn
             }
         }
 
-        private bool ImportCmlFileEnable
-        {
+        private bool ImportCmlFileEnable {
             get { return importCmlEnable; }
-            set
-            {
+            set {
                 importCmlEnable = value;
                 ribbon.InvalidateControl("importDropDown");
             }
         }
 
-        private bool InlineChemTextEnable
-        {
+        private bool InlineChemTextEnable {
             get { return inlineChemEnable; }
-            set
-            {
+            set {
                 inlineChemEnable = value;
                 //ribbon.InvalidateControl("inlineText");
                 ribbon.Invalidate();
             }
         }
 
-        private bool OPSINLookUpServerAvailable
-        {
+        private bool OPSINLookUpServerAvailable {
             get { return opsinLookUpServerAvailable; }
         }
 
-        private bool PubChemSearchAvailable
-        {
+        private bool PubChemSearchAvailable {
             get { return pubChemSearchAvailable; }
-            set
-            {
+            set {
                 pubChemSearchAvailable = value;
                 ribbon.InvalidateControl("importDropDown");
             }
         }
 
-        private bool SaveSelectionButtonEnable
-        {
+        private bool SaveSelectionButtonEnable {
             get { return saveSelEnable; }
-            set
-            {
+            set {
                 saveSelEnable = value;
                 ImportCmlFileEnable = !value;
                 ribbon.InvalidateControl("saveSelection");
@@ -182,41 +163,33 @@ namespace Chem4Word.AddIn
             }
         }
 
-        private bool EditEnable
-        {
+        private bool EditEnable {
             get { return editEnable; }
-            set
-            {
+            set {
                 editEnable = value;
                 ribbon.InvalidateControl("splitButton");
             }
         }
 
-        private bool Tweak2DButtonEnable
-        {
+        private bool Tweak2DButtonEnable {
             get { return tweak2DEnable; }
-            set
-            {
+            set {
                 tweak2DEnable = value;
                 ribbon.InvalidateControl("tweak2D");
             }
         }
 
-        private bool NavigatorButtonVisible
-        {
+        private bool NavigatorButtonVisible {
             get { return navVisible; }
-            set
-            {
+            set {
                 navVisible = value;
                 ribbon.InvalidateControl("navigator");
             }
         }
 
-        public string SearchLocation
-        {
+        public string SearchLocation {
             get { return searchLocation; }
-            private set
-            {
+            private set {
                 searchLocation = value;
                 ribbon.InvalidateControl("searchLocationMenu");
                 PerformSearch();
@@ -226,10 +199,9 @@ namespace Chem4Word.AddIn
         #region IDisposable Members
 
         /// <summary>
-        /// Default dispose method
+        ///   Default dispose method
         /// </summary>
-        public void Dispose()
-        {
+        public void Dispose() {
             Dispose(true);
         }
 
@@ -238,107 +210,89 @@ namespace Chem4Word.AddIn
         #region IRibbonExtensibility Members
 
         /// <summary>
-        /// Get the XML that describes the format of the Chemistry Ribbon
+        ///   Get the XML that describes the format of the Chemistry Ribbon
         /// </summary>
-        /// <param name="ribbonID">ID of the ribbon</param>
+        /// <param name = "ribbonID">ID of the ribbon</param>
         /// <returns>Chemistry Ribbon XML</returns>
-        public string GetCustomUI(string ribbonID)
-        {
+        public string GetCustomUI(string ribbonID) {
             return GetResourceText("Chem4Word.AddIn.ChemistryRibbon.xml");
         }
 
         #endregion
 
-        public string GetContent(IRibbonControl control)
-        {
+        public string GetContent(IRibbonControl control) {
             var myStringBuilder =
                 new StringBuilder(@"<menu xmlns=""http://schemas.microsoft.com/office/2006/01/customui"" >");
-            try
-            {
-                XDocument cml = core.ActiveChemistryDocument.SelectedChemistryZone.Cml;
-
+            try {
+//                XDocument cml = core.ActiveChemistryDocument.SelectedChemistryZone.Cml;
+                var chemistryZone = core.ActiveChemistryDocument.SelectedChemistryZone;
                 var currentDepictionOption =
-                    DepictionOption.CreateDepictionOption(cml,
-                                                          core.ActiveChemistryDocument.SelectedChemistryZone.Properties.
+                    DepictionOption.CreateDepictionOption(chemistryZone.Cml,
+                                                          chemistryZone.Properties.
                                                               DocumentDepictionOptionXPath);
-                depictionOptions = Depiction.PossibleDepictionOptions(new ContextObject(cml), cml.Root);
-                for (int i = 0; i < depictionOptions.Count(); i++)
-                {
+                var contextObject = chemistryZone.AsContextObject();
+                depictionOptions = Depiction.PossibleDepictionOptions(contextObject, contextObject.Cml.Root);
+                for (int i = 0; i < depictionOptions.Count(); i++) {
                     DepictionOption depictionOption = depictionOptions.ElementAt(i);
                     string label = Depiction.Is2D(depictionOption) ? "2D" : depictionOption.GetAsLatexFormattedString();
                     string type = depictionOption.HumanUnderstandableOption;
                     myStringBuilder.Append(
-                        string.Format(CultureInfo.InvariantCulture, 
-                            "<button id=\"button{0}\" tag=\"{0}\" label=\"{1}\" onAction=\"OnAction\" screentip=\"change to this representation\" supertip=\"{2}\" ",
-                            i, label, type));
-                    if (currentDepictionOption == depictionOption)
-                    {
-                        myStringBuilder.Append(string.Format(CultureInfo.InvariantCulture, "imageMso=\"MenuAcceptInvitation\""));
+                        string.Format(CultureInfo.InvariantCulture,
+                                      "<button id=\"button{0}\" tag=\"{0}\" label=\"{1}\" onAction=\"OnAction\" screentip=\"change to this representation\" supertip=\"{2}\" ",
+                                      i, label, type));
+                    if (currentDepictionOption == depictionOption) {
+                        myStringBuilder.Append(string.Format(CultureInfo.InvariantCulture,
+                                                             "imageMso=\"MenuAcceptInvitation\""));
                     }
                     myStringBuilder.Append(string.Format(CultureInfo.InvariantCulture, "/>"));
 
-                    if (string.Equals("2D", label, StringComparison.OrdinalIgnoreCase))
-                    {
+                    if (string.Equals("2D", label, StringComparison.OrdinalIgnoreCase)) {
                         myStringBuilder.Append(string.Format(CultureInfo.InvariantCulture, "<menuSeparator />"));
                     }
                 }
-            }
-            catch (Exception ex)
-            {
+            } catch (Exception ex) {
                 MessageBox.Show(ex.Message, Resources.CHEM_4_WORD_MESSAGE_BOX_TITLE,
                                 MessageBoxButton.OK, MessageBoxImage.Stop);
             }
             myStringBuilder.Append(
-                string.Format(CultureInfo.InvariantCulture, 
-                    "<button id=\"addNewDepictionOptionButton\" tag=\"addNewDepictionOption\" label=\"Other ...\" onAction=\"AddNewDepictionOption\"/>"));
+                string.Format(CultureInfo.InvariantCulture,
+                              "<button id=\"addNewDepictionOptionButton\" tag=\"addNewDepictionOption\" label=\"Other ...\" onAction=\"AddNewDepictionOption\"/>"));
             myStringBuilder.Append(string.Format(CultureInfo.InvariantCulture, "</menu>"));
             return myStringBuilder.ToString();
         }
 
-        public void AddNewDepictionOption(IRibbonControl control)
-        {
+        public void AddNewDepictionOption(IRibbonControl control) {
             DepictionOption newDepictionOption = core.AddNewLabel();
-            if (newDepictionOption != null)
-            {
+            if (newDepictionOption != null) {
                 core.ChangeExistingDocumentDepiction(core.ActiveChemistryDocument.SelectedChemistryZone,
                                                      newDepictionOption, false);
             }
             ribbon.InvalidateControl("dynamicViewMenu");
         }
 
-        public void OnAction(IRibbonControl control)
-        {
-            try
-            {
+        public void OnAction(IRibbonControl control) {
+            try {
                 int position;
-                if (int.TryParse(control.Tag, out position))
-                {
+                if (int.TryParse(control.Tag, out position)) {
                     var newDepictionOption = depictionOptions.ElementAt(position);
                     core.ChangeExistingDocumentDepiction(core.ActiveChemistryDocument.SelectedChemistryZone,
                                                          newDepictionOption, true);
                 }
-            }
-            catch (Exception ex)
-            {
+            } catch (Exception ex) {
                 MessageBox.Show(ex.Message, Resources.CHEM_4_WORD_MESSAGE_BOX_TITLE,
                                 MessageBoxButton.OK, MessageBoxImage.Stop);
             }
         }
 
-        private void ActivateChemsitryTab()
-        {
+        private void ActivateChemsitryTab() {
             ribbon.ActivateTab("chemistryTab");
             ribbon.InvalidateControl("chemistryTab");
         }
 
-        private void SetTweak2DButton(IChemistryZone chemistryZone)
-        {
-            if (chemistryZone == null)
-            {
+        private void SetTweak2DButton(IChemistryZone chemistryZone) {
+            if (chemistryZone == null) {
                 Tweak2DButtonEnable = false;
-            }
-            else
-            {
+            } else {
                 DepictionOption depictionOption = DepictionOption.CreateDepictionOption(chemistryZone.Cml,
                                                                                         chemistryZone.Properties.
                                                                                             DocumentDepictionOptionXPath);
@@ -348,53 +302,40 @@ namespace Chem4Word.AddIn
         }
 
         /// <summary>
-        /// Check the type of chemistry zone whether it is in 2D mode or text mode.
-        /// Open the Editors respectively depending on the type of the Chemistr Zone.
+        ///   Check the type of chemistry zone whether it is in 2D mode or text mode.
+        ///   Open the Editors respectively depending on the type of the Chemistr Zone.
         /// </summary>
-        /// <param name="sender"></param>
-        public void EditClick(IRibbonControl sender)
-        {
-            try
-            {
+        /// <param name = "sender"></param>
+        public void EditClick(IRibbonControl sender) {
+            try {
                 var chemistryZone = core.ActiveChemistryDocument.SelectedChemistryZone;
                 core.LoadAppropriateEditor(chemistryZone);
-            }
-            catch (Exception ex)
-            {
+            } catch (Exception ex) {
                 MessageBox.Show(ex.Message, Resources.CHEM_4_WORD_MESSAGE_BOX_TITLE,
                                 MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
-        public void HelpClick(IRibbonControl sender)
-        {
+        public void HelpClick(IRibbonControl sender) {
             var helpFileName = Path.Combine(core.GetAssemblyDirectory, "Chemistry_Add-in_for_Word_User_Guide.docx");
-            if (File.Exists(helpFileName))
-            {
+            if (File.Exists(helpFileName)) {
                 Process.Start(helpFileName);
-            }
-            else
-            {
-                MessageBox.Show(Properties.Resources.FILE_NOT_FOUND_MESSAGE, Resources.CHEM_4_WORD_MESSAGE_BOX_TITLE, MessageBoxButton.OK, MessageBoxImage.Error);
+            } else {
+                MessageBox.Show(Properties.Resources.FILE_NOT_FOUND_MESSAGE, Resources.CHEM_4_WORD_MESSAGE_BOX_TITLE,
+                                MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
-        private void CoreWindowActivate(object sender, ChemistryDocumentEventArgs e)
-        {
+        private void CoreWindowActivate(object sender, ChemistryDocumentEventArgs e) {
             wordApp.ActiveDocument.ContentControlBeforeDelete += ActiveDocumentContentControlBeforeDelete;
             // Refresh Navigator visible state
             navVisible = false;
-            foreach (CustomTaskPane custTaskPane in customTaskPanes)
-            {
-                try
-                {
-                    if (custTaskPane.Window == e.CurrentWindow)
-                    {
+            foreach (CustomTaskPane custTaskPane in customTaskPanes) {
+                try {
+                    if (custTaskPane.Window == e.CurrentWindow) {
                         navVisible = custTaskPane.Visible;
                     }
-                }
-                catch (ArgumentNullException nullException)
-                {
+                } catch (ArgumentNullException nullException) {
                     // When use create a new ChemistryDocument (Ctrl + N) and close the window,
                     // this senario cause error when we trying to access taskPane.Window.
                     // So that we need to prevent this Error by ignore the exception.
@@ -406,8 +347,7 @@ namespace Chem4Word.AddIn
             // Refresh Save Selection button visible state
             IChemistryZone chemistryZone = core.ActiveChemistryDocument.SelectedChemistryZone;
             SetTweak2DButton(chemistryZone);
-            if (core.ActiveChemistryDocument.SelectedChemistryZone != null)
-            {
+            if (core.ActiveChemistryDocument.SelectedChemistryZone != null) {
                 SaveSelectionButtonEnable = true;
                 SearchBoxEnable = false;
                 Tweak2DButtonEnable =
@@ -416,25 +356,21 @@ namespace Chem4Word.AddIn
                 InlineChemTextEnable = false;
                 ViewOptionEnable = true;
                 EditEnable = true;
-            }
-            else
-            {
+            } else {
                 SearchBoxEnable = true;
                 SaveSelectionButtonEnable = false;
                 Tweak2DButtonEnable = false;
                 ViewOptionEnable = false;
                 EditEnable = false;
             }
-            if (searchAreaDocument.Equals(searchLocation))
-            {
+            if (searchAreaDocument.Equals(searchLocation)) {
                 SearchBoxEnable = true;
             }
 
             ribbon.InvalidateControl("chemistryTab");
         }
 
-        private void ActiveDocumentContentControlBeforeDelete(ContentControl oldContentControl, bool inUndoRedo)
-        {
+        private void ActiveDocumentContentControlBeforeDelete(ContentControl oldContentControl, bool inUndoRedo) {
             EditEnable = false;
             ViewOptionEnable = false;
         }
@@ -442,131 +378,100 @@ namespace Chem4Word.AddIn
         //Create callback methods here. For more information about adding callback methods, select the Ribbon XML item in Solution Explorer and then press F1
 
         /// <summary>
-        /// Save the ribbon interface pointer locally
+        ///   Save the ribbon interface pointer locally
         /// </summary>
-        /// <param name="ribbonUI">pointer to ribbon interface</param>
-        public void RibbonLoad(IRibbonUI ribbonUI)
-        {
+        /// <param name = "ribbonUI">pointer to ribbon interface</param>
+        public void RibbonLoad(IRibbonUI ribbonUI) {
             ribbon = ribbonUI;
         }
 
         /// <summary>
-        /// Respond to Choose Depiction Option pick on ribbon
+        ///   Respond to Choose Depiction Option pick on ribbon
         /// </summary>
-        /// <param name="sender">ID of ribbon control picked</param>
-        public void ViewOptionClick(IRibbonControl sender)
-        {
-            try
-            {
+        /// <param name = "sender">ID of ribbon control picked</param>
+        public void ViewOptionClick(IRibbonControl sender) {
+            try {
                 core.SwitchViewOptions();
-            }
-            catch (Exception ex)
-            {
+            } catch (Exception ex) {
                 MessageBox.Show(ex.Message, Resources.CHEM_4_WORD_MESSAGE_BOX_TITLE,
                                 MessageBoxButton.OK, MessageBoxImage.Stop);
             }
         }
 
         /// <summary>
-        /// Get whether the Depiction Option button in the Ribbon is enabled or not
+        ///   Get whether the Depiction Option button in the Ribbon is enabled or not
         /// </summary>
-        /// <param name="control">ID of ribbon control</param>
+        /// <param name = "control">ID of ribbon control</param>
         /// <returns>true if enabled, false otherwise</returns>
-        public bool GetDepictionOptionEnable(IRibbonControl control)
-        {
+        public bool GetDepictionOptionEnable(IRibbonControl control) {
             return ViewOptionEnable;
             ribbon.InvalidateControl(control.Id);
         }
 
-        public bool GetSearchBoxEnabled(IRibbonControl control)
-        {
+        public bool GetSearchBoxEnabled(IRibbonControl control) {
             return SearchBoxEnable;
         }
 
-        public bool GetImportCmlFileEnable(IRibbonControl control)
-        {
+        public bool GetImportCmlFileEnable(IRibbonControl control) {
             return ImportCmlFileEnable;
         }
 
-        public void SearchBoxChange(IRibbonControl control, string text)
-        {
-            if (text.Trim().Length > 0)
-            {
+        public void SearchBoxChange(IRibbonControl control, string text) {
+            if (text.Trim().Length > 0) {
                 searchBoxText = text;
                 PerformSearch();
             }
         }
 
-        public string SearchBoxText(IRibbonControl control)
-        {
+        public string SearchBoxText(IRibbonControl control) {
             return (searchBoxText.Trim().Length > 0) ? searchBoxText : defaultSearchBoxText;
         }
 
-        private void PerformSearch()
-        {
-            if ((!defaultSearchBoxText.Equals(searchBoxText)) && searchBoxText.Trim().Length > 0)
-            {
-                try
-                {
-                    if (searchAreaOpsin.Equals(searchLocation))
-                    {
+        private void PerformSearch() {
+            if ((!defaultSearchBoxText.Equals(searchBoxText)) && searchBoxText.Trim().Length > 0) {
+                try {
+                    if (searchAreaOpsin.Equals(searchLocation)) {
                         core.OpsinLookUpSearch(searchBoxText.Trim());
-                    }
-                    else if (searchAreaPubChem.Equals(searchLocation))
-                    {
+                    } else if (searchAreaPubChem.Equals(searchLocation)) {
                         core.PubChemLookUpSearch(searchBoxText.Trim());
-                    }
-                    else
-                    {
+                    } else {
                         core.DocumentSearch(searchBoxText.Trim());
                     }
-                }
-                catch (Exception ex)
-                {
+                } catch (Exception ex) {
                     Log.Error(ex);
                     MessageBox.Show(ex.Message, Resources.CHEM_4_WORD_MESSAGE_BOX_TITLE, MessageBoxButton.OK,
                                     MessageBoxImage.Stop);
-                }
-                finally
-                {
+                } finally {
                     searchBoxText = (searchBoxText.Trim().Length > 0) ? searchBoxText : defaultSearchBoxText;
                     ribbon.InvalidateControl("searchBox");
                 }
             }
         }
 
-        public string SearchLocationMenuLabel(IRibbonControl control)
-        {
+        public string SearchLocationMenuLabel(IRibbonControl control) {
             return SearchLocation;
         }
 
-        public void SearchDocumentButton(IRibbonControl control)
-        {
+        public void SearchDocumentButton(IRibbonControl control) {
             SearchLocation = searchAreaDocument;
         }
 
-        public void SearchPubChemButton(IRibbonControl control)
-        {
+        public void SearchPubChemButton(IRibbonControl control) {
             SearchLocation = searchAreaPubChem;
         }
 
-        public void SearchOpsinButton(IRibbonControl control)
-        {
+        public void SearchOpsinButton(IRibbonControl control) {
             SearchLocation = searchAreaOpsin;
         }
 
         ///<summary>
-        /// Respond to click of Load from... OPSIN ribbon button
+        ///  Respond to click of Load from... OPSIN ribbon button
         ///</summary>
-        ///<param name="sender">ID of ribbon control</param>
-        public void OpsinLookUpClick(IRibbonControl sender)
-        {
-            try
-            {
+        ///<param name = "sender">ID of ribbon control</param>
+        public void OpsinLookUpClick(IRibbonControl sender) {
+            try {
                 core.OpsinLookUpClick();
-            }
-            catch (Exception ex)
-            {
+            } catch (Exception ex) {
                 Log.Error(ex);
                 MessageBox.Show(ex.Message, Resources.CHEM_4_WORD_MESSAGE_BOX_TITLE, MessageBoxButton.OK,
                                 MessageBoxImage.Stop);
@@ -574,17 +479,13 @@ namespace Chem4Word.AddIn
         }
 
         ///<summary>
-        /// Respond to click of Load from... PubChem ribbon button
+        ///  Respond to click of Load from... PubChem ribbon button
         ///</summary>
-        ///<param name="sender">ID of ribbon control</param>
-        public void PubChemLookUpClick(IRibbonControl sender)
-        {
-            try
-            {
+        ///<param name = "sender">ID of ribbon control</param>
+        public void PubChemLookUpClick(IRibbonControl sender) {
+            try {
                 core.PubChemLookUpClick();
-            }
-            catch (Exception ex)
-            {
+            } catch (Exception ex) {
                 Log.Error(ex);
                 MessageBox.Show(ex.Message, Resources.CHEM_4_WORD_MESSAGE_BOX_TITLE, MessageBoxButton.OK,
                                 MessageBoxImage.Stop);
@@ -592,13 +493,11 @@ namespace Chem4Word.AddIn
         }
 
         /// <summary>
-        /// Respond to pick of Import CML button on ribbon
+        ///   Respond to pick of Import CML button on ribbon
         /// </summary>
-        /// <param name="sender">ID of ribbon control</param>
-        public void ImportCmlFileClick(IRibbonControl sender)
-        {
-            try
-            {
+        /// <param name = "sender">ID of ribbon control</param>
+        public void ImportCmlFileClick(IRibbonControl sender) {
+            try {
                 OpenFileDialog dialog = new OpenFileDialog
                                             {
                                                 InitialDirectory =
@@ -611,16 +510,13 @@ namespace Chem4Word.AddIn
                                                 RestoreDirectory = false
                                             };
 
-                if (dialog.ShowDialog() == DialogResult.OK)
-                {
+                if (dialog.ShowDialog() == DialogResult.OK) {
                     string fileName = dialog.SafeFileName;
                     curDir = dialog.FileName.Replace(fileName, "");
                     core.ImportCmlFile(dialog.FileName);
                     Log.Error("file imported: " + dialog.FileName);
                 }
-            }
-            catch (Exception ex)
-            {
+            } catch (Exception ex) {
                 Log.Error(ex);
                 MessageBox.Show(ex.Message, Resources.CHEM_4_WORD_MESSAGE_BOX_TITLE, MessageBoxButton.OK,
                                 MessageBoxImage.Stop);
@@ -628,13 +524,10 @@ namespace Chem4Word.AddIn
         }
 
         /// <summary>
-        /// 
         /// </summary>
-        /// <param name="sender"></param>
-        public void InlineControlClick(IRibbonControl sender)
-        {
-            try
-            {
+        /// <param name = "sender"></param>
+        public void InlineControlClick(IRibbonControl sender) {
+            try {
                 OpenFileDialog dialog = new OpenFileDialog
                                             {
                                                 InitialDirectory =
@@ -647,93 +540,74 @@ namespace Chem4Word.AddIn
                                                 RestoreDirectory = false
                                             };
 
-                if (dialog.ShowDialog() == DialogResult.OK)
-                {
+                if (dialog.ShowDialog() == DialogResult.OK) {
                     string fileName = dialog.SafeFileName;
                     curDir = dialog.FileName.Replace(fileName, "");
                     core.CreateInlineControl(dialog.FileName);
                 }
-            }
-            catch (Exception ex)
-            {
+            } catch (Exception ex) {
                 MessageBox.Show(ex.Message, Resources.CHEM_4_WORD_MESSAGE_BOX_TITLE, MessageBoxButton.OK,
                                 MessageBoxImage.Stop);
             }
         }
 
         /// <summary>
-        /// Respond to pick of Save Selection in Gallery button on ribbon
+        ///   Respond to pick of Save Selection in Gallery button on ribbon
         /// </summary>
-        /// <param name="sender">ID of ribbon control</param>
-        public void SaveSelectionClick(IRibbonControl sender)
-        {
-            try
-            {
+        /// <param name = "sender">ID of ribbon control</param>
+        public void SaveSelectionClick(IRibbonControl sender) {
+            try {
                 var input = new InputString {ShowInTaskbar = false, TopLevel = true};
-                if (input.ShowDialog() == DialogResult.OK)
-                {
+                if (input.ShowDialog() == DialogResult.OK) {
                     var galleryName = input.GalleryName.Text.Trim();
-                    if (galleryName != string.Empty)
-                    {
+                    if (galleryName != string.Empty) {
                         core.SaveSelectionIntoGallery(galleryName);
                     }
                 }
-            }
-            catch (Exception ex)
-            {
+            } catch (Exception ex) {
                 MessageBox.Show(ex.Message, Resources.CHEM_4_WORD_MESSAGE_BOX_TITLE, MessageBoxButton.OK,
                                 MessageBoxImage.Stop);
             }
         }
 
         /// <summary>
-        /// 
         /// </summary>
-        /// <param name="control"></param>
+        /// <param name = "control"></param>
         /// <returns></returns>
-        public bool GetInlineChemTextEnable(IRibbonControl control)
-        {
+        public bool GetInlineChemTextEnable(IRibbonControl control) {
             return InlineChemTextEnable;
         }
 
         /// <summary>
-        /// Get whether the Save Selection button in the Ribbon is enabled or not
+        ///   Get whether the Save Selection button in the Ribbon is enabled or not
         /// </summary>
-        /// <param name="control">ID of ribbon control</param>
+        /// <param name = "control">ID of ribbon control</param>
         /// <returns>true if enabled, false otherwise</returns>
-        public bool GetSaveSelectionEnable(IRibbonControl control)
-        {
+        public bool GetSaveSelectionEnable(IRibbonControl control) {
             return SaveSelectionButtonEnable;
         }
 
-        public bool OpsinLookUpEnable(IRibbonControl control)
-        {
+        public bool OpsinLookUpEnable(IRibbonControl control) {
             return OPSINLookUpServerAvailable;
         }
 
-        private bool PubChemSearchEnable(IRibbonControl control)
-        {
+        private bool PubChemSearchEnable(IRibbonControl control) {
             return PubChemSearchAvailable;
         }
 
-        private void ActiveDocumentContentControlSelectionChanged(object sender, ContentControlEventArgs e)
-        {
+        private void ActiveDocumentContentControlSelectionChanged(object sender, ContentControlEventArgs e) {
             PubChemSearchAvailable = true;
-            IChemistryZone chemistryZone = core.ActiveChemistryDocument.SelectedChemistryZone;
-            SetTweak2DButton(chemistryZone);
-            if (e.Action)
-            {
+            if (e.Action) {
+                IChemistryZone chemistryZone = core.ActiveChemistryDocument.SelectedChemistryZone;
+                SetTweak2DButton(chemistryZone);
                 if (chemistryZone != null)
                 {
-                    if (core.FetchItem == null)
-                    {
+                    if (core.FetchItem == null) {
                         IDataObject iObject = Clipboard.GetDataObject();
-                        if (iObject.GetDataPresent("Object Descriptor"))
-                        {
+                        if (iObject.GetDataPresent("Object Descriptor")) {
                             core.FetchItem = iObject.GetData("Object Descriptor");
                             MemoryStream ms = (MemoryStream) core.FetchItem;
-                            if (ms.CanRead)
-                            {
+                            if (ms.CanRead) {
                                 core.GetCml = core.ActiveChemistryDocument.SelectedChemistryZone.Cml;
                             }
                         }
@@ -747,96 +621,74 @@ namespace Chem4Word.AddIn
                     EditEnable = true;
                     if (
                         WdContentControlType.wdContentControlPicture.Equals(
-                            core.ActiveChemistryDocument.SelectedChemistryZone.ContentControl.Type))
-                    {
+                            core.ActiveChemistryDocument.SelectedChemistryZone.ContentControl.Type)) {
                         Tweak2DButtonEnable = true;
                     }
                 }
-            }
-            else
-            {
+            } else {
                 SaveSelectionButtonEnable = false;
                 SearchBoxEnable = true;
                 ViewOptionEnable = false;
                 Tweak2DButtonEnable = false;
                 EditEnable = false;
                 if (wordApp.Selection.ContentControls.Count == 0 &&
-                    wordApp.Selection.Range.Start != wordApp.Selection.Range.End)
-                {
+                    wordApp.Selection.Range.Start != wordApp.Selection.Range.End) {
                     InlineChemTextEnable = true;
-                }
-                else
-                {
+                } else {
                     InlineChemTextEnable = false;
                 }
             }
-            if (searchAreaDocument.Equals(searchLocation))
-            {
+            if (searchAreaDocument.Equals(searchLocation)) {
                 SearchBoxEnable = true;
             }
             ribbon.InvalidateControl("searchBox");
         }
 
         /// <summary>
-        /// Respond to pick of Tweak 2D Chemistry Zone button on ribbon
+        ///   Respond to pick of Tweak 2D Chemistry Zone button on ribbon
         /// </summary>
-        /// <param name="sender">ID of ribbon control</param>
-        public void Tweak2DClick(IRibbonControl sender)
-        {
-            try
-            {
+        /// <param name = "sender">ID of ribbon control</param>
+        public void Tweak2DClick(IRibbonControl sender) {
+            try {
                 core.Tweak2D(core.ActiveChemistryDocument.SelectedChemistryZone);
-            }
-            catch (Exception ex)
-            {
+            } catch (Exception ex) {
                 MessageBox.Show(ex.Message, Resources.CHEM_4_WORD_MESSAGE_BOX_TITLE, MessageBoxButton.OK,
                                 MessageBoxImage.Stop);
             }
         }
 
-        public bool GetEditEnable(IRibbonControl control)
-        {
+        public bool GetEditEnable(IRibbonControl control) {
             return EditEnable;
         }
 
-        public void OptionClick(IRibbonControl sender)
-        {
-            try
-            {
+        public void OptionClick(IRibbonControl sender) {
+            try {
                 core.InvokeUserSetting();
-            }
-            catch (Exception ex)
-            {
+            } catch (Exception ex) {
                 MessageBox.Show(ex.Message, Resources.CHEM_4_WORD_MESSAGE_BOX_TITLE, MessageBoxButton.OK,
                                 MessageBoxImage.Stop);
             }
         }
 
-        public void CheckForUpdateClick(IRibbonControl sender)
-        {
-            try
-            {
+        public void CheckForUpdateClick(IRibbonControl sender) {
+            try {
                 Process.Start(Properties.Resources.UPDATE_SITE_ADDRESS);
-            }
-            catch (Exception ex)
-            {
+            } catch (Exception ex) {
                 MessageBox.Show(ex.Message, Resources.CHEM_4_WORD_MESSAGE_BOX_TITLE, MessageBoxButton.OK,
                                 MessageBoxImage.Stop);
             }
         }
 
         /// <summary>
-        /// Get whether the Tweak 2-D Zone button in the Ribbon is enabled or not
+        ///   Get whether the Tweak 2-D Zone button in the Ribbon is enabled or not
         /// </summary>
-        /// <param name="control">ID of ribbon control</param>
+        /// <param name = "control">ID of ribbon control</param>
         /// <returns>true if enabled, false otherwise</returns>
-        public bool GetTweak2DEnable(IRibbonControl control)
-        {
+        public bool GetTweak2DEnable(IRibbonControl control) {
             return Tweak2DButtonEnable;
         }
 
-        public void AboutClick(IRibbonControl sender)
-        {
+        public void AboutClick(IRibbonControl sender) {
             aboutBox = new AboutBox();
             Version procuctVersion = Assembly.GetExecutingAssembly().GetName().Version;
             aboutBox.GetVersion = procuctVersion.ToString();
@@ -848,115 +700,87 @@ namespace Chem4Word.AddIn
         }
 
         /// <summary>
-        /// Respond to user attempted to edit depiction options
+        ///   Respond to user attempted to edit depiction options
         /// </summary>
-        /// <param name="sender"></param>
-        public void EditLabelsClick(IRibbonControl sender)
-        {
-            try
-            {
+        /// <param name = "sender"></param>
+        public void EditLabelsClick(IRibbonControl sender) {
+            try {
                 core.EditLabels(core.ActiveChemistryDocument.SelectedChemistryZone);
-            }
-            catch (Exception ex)
-            {
+            } catch (Exception ex) {
                 MessageBox.Show(ex.Message, Resources.CHEM_4_WORD_MESSAGE_BOX_TITLE, MessageBoxButton.OK,
                                 MessageBoxImage.Stop);
             }
         }
 
         /// <summary>
-        /// Respond to user attempted to view CML
+        ///   Respond to user attempted to view CML
         /// </summary>
-        /// <param name="sender"></param>
-        public void ViewCmlClick(IRibbonControl sender)
-        {
-            try
-            {
+        /// <param name = "sender"></param>
+        public void ViewCmlClick(IRibbonControl sender) {
+            try {
                 core.ViewCml(core.ActiveChemistryDocument.SelectedChemistryZone);
-            }
-            catch (Exception ex)
-            {
+            } catch (Exception ex) {
                 MessageBox.Show(ex.Message, Resources.CHEM_4_WORD_MESSAGE_BOX_TITLE, MessageBoxButton.OK,
                                 MessageBoxImage.Stop);
             }
         }
 
         /// <summary>
-        /// Respond to pick of Create Inline Chemistry Zone button on ribbon
+        ///   Respond to pick of Create Inline Chemistry Zone button on ribbon
         /// </summary>
-        /// <param name="sender">ID of ribbon control</param>
-        public void InlineChemTextClick(IRibbonControl sender)
-        {
-            try
-            {
+        /// <param name = "sender">ID of ribbon control</param>
+        public void InlineChemTextClick(IRibbonControl sender) {
+            try {
                 core.AddInlineChemText();
-            }
-            catch (Exception ex)
-            {
+            } catch (Exception ex) {
                 MessageBox.Show(ex.Message, Resources.CHEM_4_WORD_MESSAGE_BOX_TITLE, MessageBoxButton.OK,
                                 MessageBoxImage.Stop);
             }
         }
 
         /// <summary>
-        /// Respond to pick of Navigator button on ribbon
+        ///   Respond to pick of Navigator button on ribbon
         /// </summary>
-        /// <param name="sender">ID of ribbon control</param>
-        /// <param name="pressed">whether the Navigator button in the ribbon was pressed to generate this call</param>
-        public void NavigatorClick(IRibbonControl sender, bool pressed)
-        {
+        /// <param name = "sender">ID of ribbon control</param>
+        /// <param name = "pressed">whether the Navigator button in the ribbon was pressed to generate this call</param>
+        public void NavigatorClick(IRibbonControl sender, bool pressed) {
             CustomTaskPane custTaskPane = null;
-            foreach (CustomTaskPane taskPane in customTaskPanes)
-            {
-                if (wordApp.ActiveWindow == taskPane.Window)
-                {
+            foreach (CustomTaskPane taskPane in customTaskPanes) {
+                if (wordApp.ActiveWindow == taskPane.Window) {
                     custTaskPane = taskPane;
                 }
             }
 
-            if (pressed)
-            {
-                if (custTaskPane == null)
-                {
+            if (pressed) {
+                if (custTaskPane == null) {
                     navCustControl = new ChemistryNavigatorHostControl(core.ActiveChemistryDocument);
                     custTaskPane = customTaskPanes.Add(navCustControl, Properties.Resources.CHEMISTRY_NAVIGATOR_TITLE,
                                                        wordApp.ActiveWindow);
                     custTaskPane.Visible = true;
-                    foreach (CustomTaskPane taskPane in customTaskPanes)
-                    {
+                    foreach (CustomTaskPane taskPane in customTaskPanes) {
                         //if (Properties.Resources.CHEMISTRY_NAVIGATOR_TITLE.Equals(custTaskPane.Title))
-                        if (Properties.Resources.CHEMISTRY_NAVIGATOR_TITLE.Equals(taskPane.Title))
-                        {
+                        if (Properties.Resources.CHEMISTRY_NAVIGATOR_TITLE.Equals(taskPane.Title)) {
                             custTaskPane.Width = 270;
                         }
                     }
                     custTaskPane.VisibleChanged += TaskPaneVisibleChanged;
-                }
-                else
-                {
+                } else {
                     custTaskPane.Visible = true;
                 }
-            }
-            else
-            {
-                if (custTaskPane != null)
-                {
+            } else {
+                if (custTaskPane != null) {
                     custTaskPane.Visible = false;
                 }
             }
         }
 
-        private void CoreDocumentBeforeClose(object sender, ChemistryDocumentEventArgs e)
-        {
-            foreach (CustomTaskPane taskPane in customTaskPanes)
-            {
-                if (taskPane.Control is ChemistryNavigatorHostControl)
-                {
+        private void CoreDocumentBeforeClose(object sender, ChemistryDocumentEventArgs e) {
+            foreach (CustomTaskPane taskPane in customTaskPanes) {
+                if (taskPane.Control is ChemistryNavigatorHostControl) {
                     ChemistryNavigatorHostControl navHost =
                         taskPane.Control as ChemistryNavigatorHostControl;
                     ChemistryNavigator chemNavigator = navHost.innerUI.Child as ChemistryNavigator;
-                    if (e.CurrentDocument == chemNavigator.ChemistryDocument.WordDocument)
-                    {
+                    if (e.CurrentDocument == chemNavigator.ChemistryDocument.WordDocument) {
                         taskPane.Visible = false;
                         customTaskPanes.Remove(taskPane);
                         break;
@@ -966,30 +790,26 @@ namespace Chem4Word.AddIn
         }
 
         /// <summary>
-        /// Get whether the Navigator button in the Ribbon is enabled or not
+        ///   Get whether the Navigator button in the Ribbon is enabled or not
         /// </summary>
-        /// <param name="sender">ID of ribbon control</param>
+        /// <param name = "sender">ID of ribbon control</param>
         /// <returns>true if enabled, false otherwise</returns>
-        public bool GetNavigatorPressed(IRibbonControl sender)
-        {
+        public bool GetNavigatorPressed(IRibbonControl sender) {
             return NavigatorButtonVisible;
         }
 
-        private void TaskPaneVisibleChanged(object sender, EventArgs e)
-        {
+        private void TaskPaneVisibleChanged(object sender, EventArgs e) {
             var custTaskPane = (CustomTaskPane) sender;
             NavigatorButtonVisible = custTaskPane.Visible;
         }
 
-        private static string GetResourceText(string resourceName)
-        {
+        private static string GetResourceText(string resourceName) {
             var asm = Assembly.GetExecutingAssembly();
             var resourceNames = asm.GetManifestResourceNames();
             foreach (var t in
                 resourceNames.Where(t => string.Equals(resourceName, t, StringComparison.OrdinalIgnoreCase))) {
                 using (
-                    var resourceReader = new StreamReader(asm.GetManifestResourceStream(t)))
-                {
+                    var resourceReader = new StreamReader(asm.GetManifestResourceStream(t))) {
                     return resourceReader.ReadToEnd();
                 }
             }
@@ -997,16 +817,13 @@ namespace Chem4Word.AddIn
         }
 
         /// <summary>
-        /// Dispose method with a bool value
+        ///   Dispose method with a bool value
         /// </summary>
-        /// <param name="disposing">boolean argument</param>
-        protected virtual void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
+        /// <param name = "disposing">boolean argument</param>
+        protected virtual void Dispose(bool disposing) {
+            if (disposing) {
                 // free managed resources
-                if (navCustControl != null)
-                {
+                if (navCustControl != null) {
                     navCustControl.Dispose();
                     navCustControl = null;
                 }
@@ -1016,77 +833,65 @@ namespace Chem4Word.AddIn
         #region GetImageButton
 
         /// <summary>
-        /// Load Import CML image
+        ///   Load Import CML image
         /// </summary>
-        /// <param name="control">ID of ribbon control to associate image with</param>
+        /// <param name = "control">ID of ribbon control to associate image with</param>
         /// <returns>pointer to the image</returns>
-        public IPictureDisp GetChemImage(IRibbonControl control)
-        {
+        public IPictureDisp GetChemImage(IRibbonControl control) {
             return ImageConverter.Convert(Properties.Resources.Chem4Word_Icon);
         }
 
-        public IPictureDisp GetFromFileImage(IRibbonControl control)
-        {
+        public IPictureDisp GetFromFileImage(IRibbonControl control) {
             return ImageConverter.Convert(Properties.Resources.From_File);
         }
 
-        public IPictureDisp GetEditLabelsImage(IRibbonControl control)
-        {
+        public IPictureDisp GetEditLabelsImage(IRibbonControl control) {
             return ImageConverter.Convert(Properties.Resources.Edit_Labels);
         }
 
-        public IPictureDisp GetViewAsXmlImage(IRibbonControl control)
-        {
+        public IPictureDisp GetViewAsXmlImage(IRibbonControl control) {
             return ImageConverter.Convert(Properties.Resources.xml);
         }
 
-        public IPictureDisp GetViewOptionsImage(IRibbonControl control)
-        {
+        public IPictureDisp GetViewOptionsImage(IRibbonControl control) {
             return ImageConverter.Convert(Properties.Resources.view);
         }
 
-        public IPictureDisp GetDocumentStylesImage(IRibbonControl control)
-        {
+        public IPictureDisp GetDocumentStylesImage(IRibbonControl control) {
             return ImageConverter.Convert(Properties.Resources.DocumentStyles);
         }
 
-        public IPictureDisp GetOptionsImage(IRibbonControl control)
-        {
+        public IPictureDisp GetOptionsImage(IRibbonControl control) {
             return ImageConverter.Convert(Properties.Resources.Options);
         }
 
-        public IPictureDisp GetNavigatorImage(IRibbonControl control)
-        {
+        public IPictureDisp GetNavigatorImage(IRibbonControl control) {
             return ImageConverter.Convert(Properties.Resources.molecule_navigation);
         }
 
-        public IPictureDisp GetHelpImage(IRibbonControl control)
-        {
+        public IPictureDisp GetHelpImage(IRibbonControl control) {
             return ImageConverter.Convert(Properties.Resources.help);
         }
 
-        public IPictureDisp GetEditImage(IRibbonControl control)
-        {
+        public IPictureDisp GetEditImage(IRibbonControl control) {
             return ImageConverter.Convert(Properties.Resources.edit);
         }
 
         /// <summary>
-        /// Load Create 1-D Chemical Zone image
+        ///   Load Create 1-D Chemical Zone image
         /// </summary>
-        /// <param name="control">ID of ribbon control to associate image with</param>
+        /// <param name = "control">ID of ribbon control to associate image with</param>
         /// <returns>pointer to the image</returns>
-        public IPictureDisp Get1DChemZoneImage(IRibbonControl control)
-        {
+        public IPictureDisp Get1DChemZoneImage(IRibbonControl control) {
             return ImageConverter.Convert(Properties.Resources.OneDChemZone);
         }
 
         /// <summary>
-        /// Load Create 1-D Chemical Zone image
+        ///   Load Create 1-D Chemical Zone image
         /// </summary>
-        /// <param name="control">ID of ribbon control to associate image with</param>
+        /// <param name = "control">ID of ribbon control to associate image with</param>
         /// <returns>pointer to the image</returns>
-        public IPictureDisp GetOpsinImage(IRibbonControl control)
-        {
+        public IPictureDisp GetOpsinImage(IRibbonControl control) {
             return ImageConverter.Convert(Properties.Resources.Search);
         }
 

@@ -29,7 +29,7 @@
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <ManifestCertificateThumbprint>C2CA1E77BDF58187378BCE9D84EE96F062509611</ManifestCertificateThumbprint>
     <ManifestKeyFile>Chem4Word.AddIn_TemporaryKey.pfx</ManifestKeyFile>
-    <SignManifests>true</SignManifests>
+    <SignManifests>false</SignManifests>
     <SccProjectName>
     </SccProjectName>
     <SccLocalPath>
@@ -314,9 +314,11 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Gallery\InputString.resx">
       <DependentUpon>InputString.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Navigator\ChemistryNavigatorHostControl.resx">
       <DependentUpon>ChemistryNavigatorHostControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

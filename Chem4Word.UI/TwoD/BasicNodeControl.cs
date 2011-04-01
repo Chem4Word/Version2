@@ -41,10 +41,10 @@ namespace Chem4Word.UI.TwoD
         {
             #region FOR EDIT
 
-            /// should this be be using RichText boxes / System.Windows.Shapes.Line etc
-            /// rather than DrawingVisuals
-            /// these would surely be better for serialising to disk if we wanted to?
-            if (null != this.principalNodeText)
+            // should this be be using RichText boxes / System.Windows.Shapes.Line etc
+            // rather than DrawingVisuals
+            // these would surely be better for serialising to disk if we wanted to?
+            if (null != principalNodeText)
             {
                 children.Remove(principalNodeText);
             }
@@ -56,15 +56,13 @@ namespace Chem4Word.UI.TwoD
                                          new Typeface("Verdana"),
                                          11, Brushes.DarkGray);
 
-            /// QUESTION 
-            /// can we do this conversion to screen better?
-            double x = this.canvas.ToScreenX(this.CmlAtom.Point2.X);
-
-            double y = this.canvas.ToScreenY(this.CmlAtom.Point2.Y);
-            
-            this.Attachment = new Point(x, y);
-            double textOffsetHeight = text.Height/2;
-            double textOffsetWidth = text.Width/2;
+            // QUESTION 
+            // can we do this conversion to screen better?
+            var x = canvas.ToScreenX(CmlAtom.Point2.X);
+            var y = canvas.ToScreenY(CmlAtom.Point2.Y);
+            Attachment = new Point(x, y);
+            var textOffsetHeight = text.Height/2;
+            var textOffsetWidth = text.Width/2;
 
             drawingContext.DrawText(text, new Point(x - textOffsetWidth, y - textOffsetHeight));
 

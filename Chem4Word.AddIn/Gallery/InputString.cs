@@ -6,18 +6,15 @@
 // -----------------------------------------------------------------------
 using System.Windows.Forms;
 
-namespace Chem4Word.AddIn.Gallery
-{
+namespace Chem4Word.AddIn.Gallery {
     /// <summary>
-    /// Derived class from Form to support name input for Gallery
+    ///   Derived class from Form to support name input for Gallery
     /// </summary>
-    public partial class InputString : Form
-    {
+    public partial class InputString : Form {
         /// <summary>
-        /// Initialize InputString Form
+        ///   Initialize InputString Form
         /// </summary>
-        public InputString()
-        {
+        public InputString() {
             InitializeComponent();
         }
     }

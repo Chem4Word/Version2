@@ -7,6 +7,7 @@
 using System;
 using System.Xml.Linq;
 using Microsoft.Office.Interop.Word;
+using Numbo.Coa;
 
 namespace Chem4Word.Api
 {
@@ -48,6 +49,8 @@ namespace Chem4Word.Api
         /// 
         /// </summary>
         void Choose();
+
+        ContextObject AsContextObject();
 
         /// <summary>
         /// 

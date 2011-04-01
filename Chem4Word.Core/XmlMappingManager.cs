@@ -22,6 +22,7 @@ namespace Chem4Word.Core
         private const string ChemistryZonePropertiesRootElementName = "ChemistryZone";
         private const string DocumentDepictionOptionXPathElementName = "DocumentDepictionOptionXPath";
         private const string NavigatorDepictionOptionXPathElementName = "NavigatorDepictionOptionXPath";
+        private const string ViewBoxXPathElementName = "ViewBox";
         private readonly ChemistryDocument chemistryDocument;
 
         /// <summary>
@@ -38,12 +39,12 @@ namespace Chem4Word.Core
         private void DocumentContentControlBeforeDelete(object sender, ContentControlEventArgs e)
         {
             CustomXMLPart xPart;
-            IChemistryZone oldZone = e.ContentChemistryZone;
+            var oldZone = e.ContentChemistryZone;
             // If the deleted Chemistry Zone is the last control which bind to Custom Xml Part,
             // Remove the Custom Xml Part.
             if (GetOtherCommonBindingZones(oldZone).Count == 0)
             {
-                string refValue = GetCmlRefValueByZone(oldZone);
+                var refValue = GetCmlRefValueByZone(oldZone);
                 xPart = chemistryDocument.WordDocument.CustomXMLParts.SelectByID(refValue);
                 if (xPart != null)
                 {
@@ -68,8 +69,7 @@ namespace Chem4Word.Core
         /// <param name="cml"></param>
         internal void UpdateCmlByZone(IChemistryZone chemZone, XDocument cml)
         {
-            string refValue = GetCmlRefValueByZone(chemZone);
-
+            var refValue = GetCmlRefValueByZone(chemZone);
             if (refValue == null)
             {
                 UpdateZoneProperties(chemZone, null);
@@ -79,25 +79,25 @@ namespace Chem4Word.Core
             {
                 if (refValue == string.Empty)
                 {
-                    object missing = Type.Missing;
-                    CustomXMLPart xPart = chemistryDocument.WordDocument.CustomXMLParts.Add(cml.ToString(),
+                    var missing = Type.Missing;
+                    var xPart = chemistryDocument.WordDocument.CustomXMLParts.Add(cml.ToString(),
                                                                                             missing);
                     UpdateCmlRefByZone(chemZone, xPart.Id);
                 }
                 else
                 {
-                    CustomXMLPart xPart = chemistryDocument.WordDocument.CustomXMLParts.SelectByID(refValue);
+                    var xPart = chemistryDocument.WordDocument.CustomXMLParts.SelectByID(refValue);
                     if (xPart != null)
                     {
                         xPart.Delete();
                     }
-                    object missing = Type.Missing;
+                    var missing = Type.Missing;
                     xPart = chemistryDocument.WordDocument.CustomXMLParts.Add(cml.ToString(), missing);
                     // Collect all other Chemistry Zone that bind to the same CML
-                    ICollection<IChemistryZone> otherChemZones = GetOtherCommonBindingZones(chemZone);
+                    var otherChemZones = GetOtherCommonBindingZones(chemZone);
                     otherChemZones.Add(chemZone);
                     // Loop: rebind the collected Chemistry Zone to the CML
-                    foreach (IChemistryZone chemZoneCursor in otherChemZones)
+                    foreach (var chemZoneCursor in otherChemZones)
                     {
                         UpdateCmlRefByZone(chemZoneCursor, xPart.Id);
                         chemZoneCursor.Refresh();
@@ -116,35 +116,39 @@ namespace Chem4Word.Core
             if (chemZoneProperties == null)
             {
                 // Construct Empty Chemistry Zone Xml Mapping
-                XDocument newChemZonePropertiesDocument =
-                    CreateChemZonePropertiesDocument(string.Empty, string.Empty, true, string.Empty,
-                                                     chemZone.ContentControl.ID);
+                var newChemistryZoneProperties = new ChemistryZoneProperties();
 
-                CustomXMLPart xPart = GetChemZoneXPart(chemZone);
+//                var newChemZonePropertiesDocument =
+//                    CreateChemZonePropertiesDocument(string.Empty, string.Empty, true, string.Empty,
+//                                                     chemZone.ContentControl.ID);
+
+                var xPart = GetChemZoneXPart(chemZone);
                 if (xPart != null)
                 {
                     xPart.Delete();
                 }
                 object missing = Type.Missing;
-                chemistryDocument.WordDocument.CustomXMLParts.Add(newChemZonePropertiesDocument.ToString(), missing);
+//                chemistryDocument.WordDocument.CustomXMLParts.Add(newChemZonePropertiesDocument.ToString(), missing);
+                chemistryDocument.WordDocument.CustomXMLParts.Add(newChemistryZoneProperties.ToXDocument(string.Empty,
+                                                                                           chemZone.ContentControl.ID).ToString(), missing);
             }
             else
             {
-                string refValue = GetCmlRefValueByZone(chemZone) + string.Empty;
-
+                var refValue = GetCmlRefValueByZone(chemZone) + string.Empty;
                 // Construct new Chemistry Zone Xml Mapping
-                XDocument newChemZonePropertiesDocument =
-                    CreateChemZonePropertiesDocument(chemZoneProperties.DocumentDepictionOptionXPath,
-                                                     chemZoneProperties.NavigatorDepictionOptionXPath, chemZoneProperties.CollapseNavigatorDepiction, refValue,
-                                                     chemZone.ContentControl.ID);
+//                var newChemZonePropertiesDocument =
+//                                        CreateChemZonePropertiesDocument(chemZoneProperties.DocumentDepictionOptionXPath,
+//                                                                         chemZoneProperties.NavigatorDepictionOptionXPath, chemZoneProperties.CollapseNavigatorDepiction, refValue,
+//                                                                         chemZone.ContentControl.ID);
 
-                CustomXMLPart xPart = GetChemZoneXPart(chemZone);
+                var xPart = GetChemZoneXPart(chemZone);
                 if (xPart != null)
                 {
                     xPart.Delete();
                 }
-                object missing = Type.Missing;
-                chemistryDocument.WordDocument.CustomXMLParts.Add(newChemZonePropertiesDocument.ToString(), missing);
+                var missing = Type.Missing;
+//                chemistryDocument.WordDocument.CustomXMLParts.Add(newChemZonePropertiesDocument.ToString(), missing);
+                chemistryDocument.WordDocument.CustomXMLParts.Add(chemZoneProperties.ToXDocument(refValue,chemZone.ContentControl.ID).ToString(), missing);
             }
         }
 
@@ -159,26 +163,30 @@ namespace Chem4Word.Core
             string navigatorDepictionOptionXPath = string.Empty;
             bool collapseNavigatorDepition = false;
             CustomXMLPart xPart = GetChemZoneXPart(chemZone);
+            var chemistryZoneProperties = new ChemistryZoneProperties();
             if (xPart != null)
             {
-                string xml = xPart.XML + string.Empty;
-                XDocument xmlMapping = XDocument.Parse(xml);
-                foreach (XElement element in xmlMapping.Root.Elements())
-                {
-                    switch (element.Name.LocalName)
-                    {
-                        case DocumentDepictionOptionXPathElementName:
-                            documentDepictionOptionXPath = element.Attribute("value").Value;
-                            break;
-                        case NavigatorDepictionOptionXPathElementName:
-                            navigatorDepictionOptionXPath = element.Attribute("value").Value;
-                            bool.TryParse(element.Attribute("collapsed").Value, out collapseNavigatorDepition);
-                            break;
-                    }
-                }
+                var xml = xPart.XML + string.Empty;
+                var xmlMapping = XDocument.Parse(xml);
+                chemistryZoneProperties = new ChemistryZoneProperties(xmlMapping);
+
+//                foreach (var element in xmlMapping.Root.Elements())
+//                {
+//                    switch (element.Name.LocalName)
+//                    {
+//                        case DocumentDepictionOptionXPathElementName:
+//                            documentDepictionOptionXPath = element.Attribute("value").Value;
+//                            break;
+//                        case NavigatorDepictionOptionXPathElementName:
+//                            navigatorDepictionOptionXPath = element.Attribute("value").Value;
+//                            bool.TryParse(element.Attribute("collapsed").Value, out collapseNavigatorDepition);
+//                            break;
+//                    }
+//                }
             }
 
-            return new ChemistryZoneProperties(documentDepictionOptionXPath, navigatorDepictionOptionXPath, collapseNavigatorDepition);
+//            return new ChemistryZoneProperties(documentDepictionOptionXPath, navigatorDepictionOptionXPath, collapseNavigatorDepition);
+            return chemistryZoneProperties;
         }
 
         /// <summary>
@@ -208,10 +216,10 @@ namespace Chem4Word.Core
         {
             ChemistryZoneProperties chemZoneProperties = ReadZonePropertiesByZone(chemZone);
             // Construct new Chemistry Zone Xml Mapping
-            XDocument newChemZonePropertiesDocument =
-                CreateChemZonePropertiesDocument(chemZoneProperties.DocumentDepictionOptionXPath,
-                                                 chemZoneProperties.NavigatorDepictionOptionXPath, chemZoneProperties.CollapseNavigatorDepiction, refValue,
-                                                 chemZone.ContentControl.ID);
+//            XDocument newChemZonePropertiesDocument =
+//                CreateChemZonePropertiesDocument(chemZoneProperties.DocumentDepictionOptionXPath,
+//                                                 chemZoneProperties.NavigatorDepictionOptionXPath, chemZoneProperties.CollapseNavigatorDepiction, refValue,
+//                                                 chemZone.ContentControl.ID);
 
             CustomXMLPart xPart = GetChemZoneXPart(chemZone);
             if (xPart != null)
@@ -219,37 +227,56 @@ namespace Chem4Word.Core
                 xPart.Delete();
             }
             object missing = Type.Missing;
-            chemistryDocument.WordDocument.CustomXMLParts.Add(newChemZonePropertiesDocument.ToString(), missing);
+//            chemistryDocument.WordDocument.CustomXMLParts.Add(newChemZonePropertiesDocument.ToString(), missing);
+            chemistryDocument.WordDocument.CustomXMLParts.Add(chemZoneProperties.ToXDocument(refValue,chemZone.ContentControl.ID).ToString(), missing);
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="documentDepictionOptionXPath"></param>
-        /// <param name="navigatorDepictionOptionXPath"></param>
-        /// <param name="collapseNavigatorDepiction">Should the image part of the navigator depcition be collapsed</param>
-        /// <param name="refValue"></param>
-        /// <param name="contentControlID"></param>
-        /// <returns></returns>
-        private XDocument CreateChemZonePropertiesDocument(string documentDepictionOptionXPath,
-                                                           string navigatorDepictionOptionXPath, 
-                                                           bool collapseNavigatorDepiction, string refValue,
-                                                           string contentControlID)
-        {
-            XElement chemZonePropertiesElement = new XElement(ChemistryZonePropertiesRootElementName);
-            XDocument chemZonePropertiesDocument = new XDocument(chemZonePropertiesElement);
-            XElement documentDepictionXElement = new XElement(DocumentDepictionOptionXPathElementName);
-            documentDepictionXElement.Add(new XAttribute("value", documentDepictionOptionXPath));
-            chemZonePropertiesElement.Add(documentDepictionXElement);
-            XElement navigatorDepictionXElement = new XElement(NavigatorDepictionOptionXPathElementName);
-            navigatorDepictionXElement.Add(new XAttribute("value", navigatorDepictionOptionXPath));
-            navigatorDepictionXElement.Add(new XAttribute("collapsed", collapseNavigatorDepiction.ToString()));
-            chemZonePropertiesElement.Add(navigatorDepictionXElement);
-            XElement refElement = new XElement("ref",
-                                               new XAttribute("cml", refValue), new XAttribute("cc", contentControlID));
-            chemZonePropertiesElement.Add(refElement);
-            return chemZonePropertiesDocument;
-        }
+//        /// <summary>
+//        /// 
+//        /// </summary>
+//        /// <param name="chemistryZoneProperties"></param>
+//        /// <param name="refValue"></param>
+//        /// <param name="contentControlId"></param>
+//        /// <returns></returns>
+//        private XDocument CreateChemZonePropertiesDocument(ChemistryZoneProperties chemistryZoneProperties, string refValue, string contentControlId) {
+//            var chemZonePropertiesElement = new XElement(ChemistryZonePropertiesRootElementName);
+//            var chemZonePropertiesDocument = new XDocument(chemZonePropertiesElement);
+//
+//            var refElement = new XElement("ref",
+//                                               new XAttribute("cml", refValue), new XAttribute("cc", contentControlId));
+//            chemZonePropertiesElement.Add(refElement);
+//            return chemZonePropertiesDocument;
+//        }
+
+
+//        /// <summary>
+//        /// 
+//        /// </summary>
+//        /// <param name="documentDepictionOptionXPath"></param>
+//        /// <param name="navigatorDepictionOptionXPath"></param>
+//        /// <param name="collapseNavigatorDepiction">Should the image part of the navigator depcition be collapsed</param>
+//        /// <param name="refValue"></param>
+//        /// <param name="contentControlID"></param>
+//        /// <returns></returns>
+//        private XDocument CreateChemZonePropertiesDocument(string documentDepictionOptionXPath,
+//                                                           string navigatorDepictionOptionXPath, 
+//                                                           bool collapseNavigatorDepiction, string refValue,
+//                                                           string contentControlID)
+//        {
+//            XElement chemZonePropertiesElement = new XElement(ChemistryZonePropertiesRootElementName);
+//            XDocument chemZonePropertiesDocument = new XDocument(chemZonePropertiesElement);
+//            XElement documentDepictionXElement = new XElement(DocumentDepictionOptionXPathElementName);
+//            documentDepictionXElement.Add(new XAttribute("value", documentDepictionOptionXPath));
+//            chemZonePropertiesElement.Add(documentDepictionXElement);
+//            XElement navigatorDepictionXElement = new XElement(NavigatorDepictionOptionXPathElementName);
+//            navigatorDepictionXElement.Add(new XAttribute("value", navigatorDepictionOptionXPath));
+//            navigatorDepictionXElement.Add(new XAttribute("collapsed", collapseNavigatorDepiction.ToString()));
+//            chemZonePropertiesElement.Add(navigatorDepictionXElement);
+//            XElement refElement = new XElement("ref",
+//                                               new XAttribute("cml", refValue), new XAttribute("cc", contentControlID));
+//            chemZonePropertiesElement.Add(refElement);
+//            return chemZonePropertiesDocument;
+//        }
 
         /// <summary>
         /// 

@@ -78,13 +78,10 @@ namespace Chem4Word.UI.TwoD
                                          new Typeface("Verdana"),
                                          11, Brushes.DarkGray);
 
-            /// QUESTION 
-            /// can we do this conversion to screen better?
-            double x = canvas.ToScreenX(CmlAtom.Point2.X);
-
-            double y = canvas.ToScreenY(CmlAtom.Point2.Y);
-
-            //System.Console.WriteLine("id {0} x, y: {1}, {2} X, Y: {3} {4}",this.CmlAtom.Id, x, y, this.CmlAtom.Point2.X, this.CmlAtom.Point2.Y);
+            // QUESTION 
+            // can we do this conversion to screen better?
+            var x = canvas.ToScreenX(CmlAtom.Point2.X);
+            var y = canvas.ToScreenY(CmlAtom.Point2.Y);
 
             Attachment = new Point(x, y);
             double textOffsetHeight = text.Height/2;
