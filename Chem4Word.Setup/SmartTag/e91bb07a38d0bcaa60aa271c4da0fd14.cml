@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<cml:cml convention="conventions:molecular" xmlns:cml="http://www.xml-cml.org/schema" xmlns:conventions="http://www.xml-cml.org/convention/" xmlns:cmlDict="http://www.xml-cml.org/dictionary/cml/" xmlns:nameDict="http://www.xml-cml.org/dictionary/cml/name/">
+  <cml:molecule id="m1">
+    <cml:name dictRef="nameDict:generic">ester</cml:name>
+    <cml:name dictRef="nameDict:iupac">methyl acetate</cml:name>
+    <cml:formula inline="AcOMe" concise="C 2 H 6 O 2" />
+    <cml:atomArray>
+      <cml:atom id="a1" elementType="C" x2="-19.90999984741211" y2="0.550000011920929" />
+      <cml:atom id="a2" elementType="C" x2="-18.576320725584075" y2="1.3200000119209285" />
+      <cml:atom id="a3" elementType="O" x2="-17.24264160375604" y2="0.550000011920929" />
+      <cml:atom id="a4" elementType="C" x2="-15.908962481928006" y2="1.3200000119209283" />
+      <cml:atom id="a5" elementType="O" x2="-18.576320725584075" y2="2.8600000119209286" />
+      <cml:atom id="a6" elementType="H" x2="-20.67999984741211" y2="1.8836791337489642" />
+      <cml:atom id="a7" elementType="H" x2="-21.243678969240143" y2="-0.21999998807907128" />
+      <cml:atom id="a8" elementType="H" x2="-19.13999984741211" y2="-0.7836791099071065" />
+      <cml:atom id="a9" elementType="H" x2="-15.138962481928006" y2="-0.013679109907107634" />
+      <cml:atom id="a10" elementType="H" x2="-14.57528336009997" y2="2.0900000119209277" />
+      <cml:atom id="a11" elementType="H" x2="-16.678962481928004" y2="2.6536791337489642" />
+    </cml:atomArray>
+    <cml:bondArray>
+      <cml:bond atomRefs2="a1 a2" order="1" id="b1" />
+      <cml:bond atomRefs2="a2 a3" order="1" id="b2" />
+      <cml:bond atomRefs2="a3 a4" order="1" id="b3" />
+      <cml:bond atomRefs2="a2 a5" order="2" id="b4" />
+      <cml:bond atomRefs2="a1 a6" order="1" id="b5" />
+      <cml:bond atomRefs2="a1 a7" order="1" id="b6" />
+      <cml:bond atomRefs2="a1 a8" order="1" id="b7" />
+      <cml:bond atomRefs2="a4 a9" order="1" id="b8" />
+      <cml:bond atomRefs2="a4 a10" order="1" id="b9" />
+      <cml:bond atomRefs2="a4 a11" order="1" id="b10" />
+    </cml:bondArray>
+  </cml:molecule>
+</cml:cml>

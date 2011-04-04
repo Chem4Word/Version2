@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<cml convention="conventions:molecular" xmlns="http://www.xml-cml.org/schema" xmlns:conventions="http://www.xml-cml.org/convention/" xmlns:nameDict="http://www.xml-cml.org/dictionary/cml/name/">
+  <molecule id="m8003" formalCharge="0" spinMultiplicity="1" xmlns:pubchem="http://www.ncbi.nlm.nih.gov">
+    <name dictRef="pubchem:cid">8003</name>
+    <atomArray>
+      <atom id="a1" elementType="C" x2="3.7321" y2="-0.25" />
+      <atom id="a2" elementType="C" x2="4.5981" y2="0.25" />
+      <atom id="a3" elementType="C" x2="2.866" y2="0.25" />
+      <atom id="a4" elementType="C" x2="5.4641" y2="-0.25" />
+      <atom id="a5" elementType="C" x2="2.0" y2="-0.25" />
+      <atom id="a6" elementType="H" x2="3.3335" y2="-0.7249" />
+      <atom id="a7" elementType="H" x2="4.1306" y2="-0.7249" />
+      <atom id="a8" elementType="H" x2="4.9966" y2="0.7249" />
+      <atom id="a9" elementType="H" x2="4.1996" y2="0.7249" />
+      <atom id="a10" elementType="H" x2="3.2646" y2="0.7249" />
+      <atom id="a11" elementType="H" x2="2.4675" y2="0.7249" />
+      <atom id="a12" elementType="H" x2="5.1541" y2="-0.7869" />
+      <atom id="a13" elementType="H" x2="6.001" y2="-0.56" />
+      <atom id="a14" elementType="H" x2="5.7741" y2="0.2869" />
+      <atom id="a15" elementType="H" x2="1.69" y2="0.2869" />
+      <atom id="a16" elementType="H" x2="1.4631" y2="-0.56" />
+      <atom id="a17" elementType="H" x2="2.31" y2="-0.7869" />
+    </atomArray>
+    <bondArray>
+      <bond atomRefs2="a1 a2" order="S" id="a1_a2"  />
+      <bond atomRefs2="a1 a3" order="S" id="a1_a3"  />
+      <bond atomRefs2="a1 a6" order="S" id="a1_a6"  />
+      <bond atomRefs2="a1 a7" order="S" id="a1_a7"  />
+      <bond atomRefs2="a2 a4" order="S" id="a2_a4"  />
+      <bond atomRefs2="a2 a8" order="S" id="a2_a8"  />
+      <bond atomRefs2="a2 a9" order="S" id="a2_a9"  />
+      <bond atomRefs2="a3 a5" order="S" id="a3_a5"  />
+      <bond atomRefs2="a3 a10" order="S" id="a3_a10"  />
+      <bond atomRefs2="a3 a11" order="S" id="a3_a11"  />
+      <bond atomRefs2="a4 a12" order="S" id="a4_a12"  />
+      <bond atomRefs2="a4 a13" order="S" id="a4_a13"  />
+      <bond atomRefs2="a4 a14" order="S" id="a4_a14"  />
+      <bond atomRefs2="a5 a15" order="S" id="a5_a15"  />
+      <bond atomRefs2="a5 a16" order="S" id="a5_a16"  />
+      <bond atomRefs2="a5 a17" order="S" id="a5_a17"  />
+    </bondArray>
+    <name dictRef="pubchem:Allowed">pentane</name>
+    <name dictRef="nameDict:cas">pentane</name>
+    <name dictRef="pubchem:Preferred">pentane</name>
+    <name dictRef="nameDict:systematic">pentane</name>
+    <name dictRef="pubchem:Traditional">n-pentane</name>
+    <formula convention="pubchem:formula" inline="C5H12" concise="C 5 H 12" />
+    <formula convention="pubchem:CanonicalSmiles" inline="CCCCC" concise="C 5 H 12" />
+    <formula convention="pubchem:IsomericSmiles" inline="CCCCC" concise="C 5 H 12" />
+  </molecule>
+</cml>

@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<cml convention="conventions:molecular" xmlns="http://www.xml-cml.org/schema" xmlns:conventions="http://www.xml-cml.org/convention/" xmlns:nameDict="http://www.xml-cml.org/dictionary/cml/name/">
+  <molecule id="m6338" formalCharge="0" spinMultiplicity="1" xmlns:pubchem="http://www.ncbi.nlm.nih.gov">
+    <name dictRef="pubchem:cid">6338</name>
+    <atomArray>
+      <atom id="a1" elementType="Cl" x2="3.7321" y2="0.25" />
+      <atom id="a2" elementType="C" x2="2.866" y2="-0.25" />
+      <atom id="a3" elementType="C" x2="2.0" y2="0.25" />
+      <atom id="a4" elementType="H" x2="2.866" y2="-0.87" />
+      <atom id="a5" elementType="H" x2="2.0" y2="0.87" />
+      <atom id="a6" elementType="H" x2="1.4631" y2="-0.06" />
+    </atomArray>
+    <bondArray>
+      <bond atomRefs2="a1 a2" order="S" id="a1_a2"  />
+      <bond atomRefs2="a2 a3" order="D" id="a2_a3"  />
+      <bond atomRefs2="a2 a4" order="S" id="a2_a4"  />
+      <bond atomRefs2="a3 a5" order="S" id="a3_a5"  />
+      <bond atomRefs2="a3 a6" order="S" id="a3_a6"  />
+    </bondArray>
+    <name dictRef="pubchem:Allowed">chloroethylene</name>
+    <name dictRef="nameDict:cas">chloroethylene</name>
+    <name dictRef="pubchem:Preferred">chloroethene</name>
+    <name dictRef="nameDict:systematic">chloroethene</name>
+    <name dictRef="pubchem:Traditional">chloroethylene</name>
+    <formula convention="pubchem:formula" inline="C2H3Cl" concise="C 2 H 3 Cl 1" />
+    <formula convention="pubchem:CanonicalSmiles" inline="C=CCl" concise="C 2 H 3 Cl 1" />
+    <formula convention="pubchem:IsomericSmiles" inline="C=CCl" concise="C 2 H 3 Cl 1" />
+  </molecule>
+</cml>

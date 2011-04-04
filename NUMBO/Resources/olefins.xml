@@ -1,0 +1,347 @@
+<?xml version='1.0'?>
+<cml:cml xmlns:cml='http://www.xml-cml.org/schema' id='o'>
+  <cml:cml convention='cmlDict:cmllite' xmlns:cml='http://www.xml-cml.org/schema' xmlns:cmlDict='http://www.xml-cml.org/dictionary/cml/' xmlns:nameDict='http://www.xml-cml.org/dictionary/cml/name/'>
+    <cml:molecule id='m1' formalCharge='0' spinMultiplicity='1'>
+      <cml:name dictRef='nameDict:systematic'>vinylalcohol</cml:name>
+      <cml:formula concise='C 2 H 3 Cl 1 R 2' />
+      <cml:atomArray>
+        <cml:atom id='a1' elementType='R' x2='0.0' y2='0.0'>
+          <cml:label value='o:t' dictRef='cmlx:groupPointer' />
+        </cml:atom>
+        <cml:atom id='a2' elementType='C' x2='1.2' y2='0.8'>
+          <cml:label value='o:h' dictRef='cmlx:group' />
+        </cml:atom>
+        <cml:atom id='a5' elementType='O' x2='1.2' y2='2.3'></cml:atom>
+        <cml:atom id='a2_h2' elementType='H' x2='1.2' y2='-0.3'></cml:atom>
+        <cml:atom id='a3' elementType='C' x2='2.4' y2='0.0'>
+          <cml:label value='o:t' dictRef='cmlx:group' />
+        </cml:atom>
+        <cml:atom id='a3_h1' elementType='H' x2='2.4' y2='1.2'></cml:atom>
+        <cml:atom id='a3_h2' elementType='H' x2='2.4' y2='-1.5'></cml:atom>
+        <cml:atom id='a4' elementType='R' x2='3.6' y2='0.8'>
+          <cml:label value='o:h' dictRef='cmlx:groupPointer' />
+        </cml:atom>
+        <cml:atom id='a9' elementType='H' x2='2.13802043207475' y2='3.10416345659799' />
+      </cml:atomArray>
+      <cml:bondArray>
+        <cml:bond atomRefs2='a1 a2' order='S' id='b1' />
+        <cml:bond atomRefs2='a2 a5' order='S' id='b1a' />
+        <cml:bond atomRefs2='a2 a2_h2' order='S' id='b1b' />
+        <cml:bond atomRefs2='a2 a3' order='S' id='b2' />
+        <cml:bond atomRefs2='a3 a3_h1' order='S' id='b2a' />
+        <cml:bond atomRefs2='a3 a3_h2' order='S' id='b2b' />
+        <cml:bond atomRefs2='a3 a4' order='S' id='b3' />
+        <cml:bond atomRefs2='a5 a9' id='a5_a9' order='S' />
+      </cml:bondArray>
+      <cml:name dictRef='nameDict:abbreviation'>VinylAlcohol</cml:name>
+    </cml:molecule>
+  </cml:cml>
+  <cml:cml convention='cmlDict:cmllite' xmlns:cml='http://www.xml-cml.org/schema' xmlns:cmlDict='http://www.xml-cml.org/dictionary/cml/' xmlns:nameDict='http://www.xml-cml.org/dictionary/cml/name/'>
+    <cml:molecule id='m1' formalCharge='0' spinMultiplicity='1'>
+      <cml:name dictRef='nameDict:systematic'>acrylicacid</cml:name>
+      <cml:formula concise='C 2 H 3 Cl 1 R 2' />
+      <cml:atomArray>
+        <cml:atom id='a1' elementType='R' x2='0.0' y2='0.0'>
+          <cml:label value='o:t' dictRef='cmlx:groupPointer' />
+        </cml:atom>
+        <cml:atom id='a2' elementType='C' x2='1.2' y2='0.8'>
+          <cml:label value='o:h' dictRef='cmlx:group' />
+        </cml:atom>
+        <cml:atom id='a2_h2' elementType='H' x2='1.2' y2='-0.3'></cml:atom>
+        <cml:atom id='a3' elementType='C' x2='2.4' y2='0.0'>
+          <cml:label value='o:t' dictRef='cmlx:group' />
+        </cml:atom>
+        <cml:atom id='a3_h1' elementType='H' x2='2.4' y2='1.2'></cml:atom>
+        <cml:atom id='a3_h2' elementType='H' x2='2.4' y2='-1.5'></cml:atom>
+        <cml:atom id='a4' elementType='R' x2='3.6' y2='0.8'>
+          <cml:label value='o:h' dictRef='cmlx:groupPointer' />
+        </cml:atom>
+        <cml:atom id='a7' elementType='C' x2='1.2' y2='2.3' formalCharge='1' />
+        <cml:atom id='a8' elementType='O' x2='2.53367912182807' y2='3.06999999999998' />
+        <cml:atom id='a9' elementType='O' x2='-0.13367912182803' y2='3.07' />
+        <cml:atom id='a10' elementType='H' x2='2.53367912182807' y2='4.60999999999998' />
+      </cml:atomArray>
+      <cml:bondArray>
+        <cml:bond atomRefs2='a1 a2' order='S' id='b1' />
+        <cml:bond atomRefs2='a2 a2_h2' order='S' id='b1b' />
+        <cml:bond atomRefs2='a2 a3' order='S' id='b2' />
+        <cml:bond atomRefs2='a3 a3_h1' order='S' id='b2a' />
+        <cml:bond atomRefs2='a3 a3_h2' order='S' id='b2b' />
+        <cml:bond atomRefs2='a3 a4' order='S' id='b3' />
+        <cml:bond atomRefs2='a2 a7' id='a2_a7' order='S' />
+        <cml:bond atomRefs2='a7 a8' order='S' id='a7_a8' />
+        <cml:bond atomRefs2='a7 a9' order='D' id='a7_a9' />
+        <cml:bond atomRefs2='a8 a10' order='S' id='a8_a10' />
+      </cml:bondArray>
+      <cml:name dictRef='nameDict:abbreviation'>AcrylicAcid</cml:name>
+    </cml:molecule>
+  </cml:cml>
+  <cml:cml convention='cmlDict:cmllite' xmlns:cml='http://www.xml-cml.org/schema' xmlns:cmlDict='http://www.xml-cml.org/dictionary/cml/' xmlns:nameDict='http://www.xml-cml.org/dictionary/cml/name/'>
+    <cml:molecule id='m1' formalCharge='0' spinMultiplicity='1'>
+      <cml:name dictRef='nameDict:systematic'>methylacrylate</cml:name>
+      <cml:formula concise='C 2 H 3 Cl 1 R 2' />
+      <cml:atomArray>
+        <cml:atom id='a1' elementType='R' x2='0.0' y2='0.0'>
+          <cml:label value='o:t' dictRef='cmlx:groupPointer' />
+        </cml:atom>
+        <cml:atom id='a2' elementType='C' x2='1.2' y2='0.8'>
+          <cml:label value='o:h' dictRef='cmlx:group' />
+        </cml:atom>
+        <cml:atom id='a2_h2' elementType='H' x2='1.2' y2='-0.3'></cml:atom>
+        <cml:atom id='a3' elementType='C' x2='2.4' y2='0.0'>
+          <cml:label value='o:t' dictRef='cmlx:group' />
+        </cml:atom>
+        <cml:atom id='a3_h1' elementType='H' x2='2.4' y2='1.2'></cml:atom>
+        <cml:atom id='a3_h2' elementType='H' x2='2.4' y2='-1.5'></cml:atom>
+        <cml:atom id='a4' elementType='R' x2='3.6' y2='0.8'>
+          <cml:label value='o:h' dictRef='cmlx:groupPointer' />
+        </cml:atom>
+        <cml:atom id='a7' elementType='C' x2='1.2' y2='2.3' formalCharge='1' />
+        <cml:atom id='a8' elementType='O' x2='2.53367912182807' y2='3.06999999999998' />
+        <cml:atom id='a9' elementType='O' x2='-0.13367912182803' y2='3.07' />
+        <cml:atom id='a10' elementType='C' x2='2.53367912182807' y2='4.60999999999998' formalCharge='0' />
+        <cml:atom id='a12' elementType='H' x2='4.07367912182807' y2='4.60999999999998' />
+        <cml:atom id='a13' elementType='H' x2='2.53367912182807' y2='6.14999999999998' />
+        <cml:atom id='a14' elementType='H' x2='0.993679121828071' y2='4.60999999999998' />
+      </cml:atomArray>
+      <cml:bondArray>
+        <cml:bond atomRefs2='a1 a2' order='S' id='b1' />
+        <cml:bond atomRefs2='a2 a2_h2' order='S' id='b1b' />
+        <cml:bond atomRefs2='a2 a3' order='S' id='b2' />
+        <cml:bond atomRefs2='a3 a3_h1' order='S' id='b2a' />
+        <cml:bond atomRefs2='a3 a3_h2' order='S' id='b2b' />
+        <cml:bond atomRefs2='a3 a4' order='S' id='b3' />
+        <cml:bond atomRefs2='a2 a7' id='a2_a7' order='S' />
+        <cml:bond atomRefs2='a7 a8' order='S' id='a7_a8' />
+        <cml:bond atomRefs2='a7 a9' order='D' id='a7_a9' />
+        <cml:bond atomRefs2='a8 a10' order='S' id='a8_a10' />
+        <cml:bond atomRefs2='a10 a12' id='a10_a12' order='S' />
+        <cml:bond atomRefs2='a10 a13' id='a10_a13' order='S' />
+        <cml:bond atomRefs2='a10 a14' id='a10_a14' order='S' />
+      </cml:bondArray>
+      <cml:name dictRef='nameDict:abbreviation'>MA</cml:name>
+    </cml:molecule>
+  </cml:cml>
+  <cml:cml convention='cmlDict:cmllite' xmlns:cml='http://www.xml-cml.org/schema' xmlns:cmlDict='http://www.xml-cml.org/dictionary/cml/' xmlns:nameDict='http://www.xml-cml.org/dictionary/cml/name/'>
+    <cml:molecule id='m1' formalCharge='0' spinMultiplicity='1'>
+      <cml:name dictRef='nameDict:systematic'>methylmethacrylate</cml:name>
+      <cml:formula concise='C 3 H 5 Cl 1 R 2' />
+      <cml:atomArray>
+        <cml:atom id='a1' elementType='R' x2='0.0' y2='0.0'>
+          <cml:label value='o:t' dictRef='cmlx:groupPointer' />
+        </cml:atom>
+        <cml:atom id='a2' elementType='C' x2='1.2' y2='0.8'>
+          <cml:label value='o:h' dictRef='cmlx:group' />
+        </cml:atom>
+        <cml:atom id='a3' elementType='C' x2='2.4' y2='0.0'>
+          <cml:label value='o:t' dictRef='cmlx:group' />
+        </cml:atom>
+        <cml:atom id='a3_h1' elementType='H' x2='2.4' y2='1.2'></cml:atom>
+        <cml:atom id='a3_h2' elementType='H' x2='2.4' y2='-1.5'></cml:atom>
+        <cml:atom id='a4' elementType='R' x2='3.6' y2='0.8'>
+          <cml:label value='o:h' dictRef='cmlx:groupPointer' />
+        </cml:atom>
+        <cml:atom id='a7' elementType='C' x2='1.2' y2='-0.300000000000001' />
+        <cml:atom id='a10' elementType='H' x2='2.6875257724852' y2='0.0985813294577991' />
+        <cml:atom id='a11' elementType='H' x2='1.5985813294577' y2='-1.7875257724851' />
+        <cml:atom id='a12' elementType='H' x2='-0.133679121828099' y2='-1.0699999999999' />
+        <cml:atom id='a14' elementType='C' x2='1.2' y2='2.3' formalCharge='1' />
+        <cml:atom id='a15' elementType='O' x2='2.53367912182807' y2='3.06999999999998' />
+        <cml:atom id='a16' elementType='O' x2='-0.13367912182803' y2='3.07' />
+        <cml:atom id='a17' elementType='C' x2='2.53367912182807' y2='4.60999999999998' formalCharge='0' />
+        <cml:atom id='a18' elementType='H' x2='4.07367912182807' y2='4.60999999999998' />
+        <cml:atom id='a19' elementType='H' x2='2.53367912182807' y2='6.14999999999998' />
+        <cml:atom id='a20' elementType='H' x2='0.993679121828071' y2='4.60999999999998' />
+      </cml:atomArray>
+      <cml:bondArray>
+        <cml:bond atomRefs2='a1 a2' order='S' id='b1' />
+        <cml:bond atomRefs2='a2 a3' order='S' id='b2' />
+        <cml:bond atomRefs2='a3 a3_h1' order='S' id='b2a' />
+        <cml:bond atomRefs2='a3 a3_h2' order='S' id='b2b' />
+        <cml:bond atomRefs2='a3 a4' order='S' id='b3' />
+        <cml:bond atomRefs2='a2 a7' id='a2_a7' order='S' />
+        <cml:bond atomRefs2='a7 a10' id='a7_a10' order='S' />
+        <cml:bond order='S' atomRefs2='a7 a11' id='a7_a11' />
+        <cml:bond atomRefs2='a7 a12' id='a7_a12' order='S' />
+        <cml:bond atomRefs2='a2 a14' id='a2_a14' order='S' />
+        <cml:bond atomRefs2='a14 a15' order='S' id='a14_a15' />
+        <cml:bond atomRefs2='a14 a16' order='D' id='a14_a16' />
+        <cml:bond atomRefs2='a15 a17' order='S' id='a15_a17' />
+        <cml:bond atomRefs2='a17 a18' id='a17_a18' order='S' />
+        <cml:bond atomRefs2='a17 a19' id='a17_a19' order='S' />
+        <cml:bond atomRefs2='a17 a20' id='a17_a20' order='S' />
+      </cml:bondArray>
+      <cml:name dictRef='nameDict:abbreviation'>VinylCl</cml:name>
+    </cml:molecule>
+  </cml:cml>
+  <cml:cml convention='cmlDict:cmllite' xmlns:cml='http://www.xml-cml.org/schema' xmlns:cmlDict='http://www.xml-cml.org/dictionary/cml/' xmlns:nameDict='http://www.xml-cml.org/dictionary/cml/name/'>
+    <cml:molecule id='m1' formalCharge='0' spinMultiplicity='1'>
+      <cml:name dictRef='nameDict:systematic'>vinychloride</cml:name>
+      <cml:formula concise='C 2 H 3 Cl 1 R 2' />
+      <cml:atomArray>
+        <cml:atom id='a1' elementType='R' x2='0.0' y2='0.0'>
+          <cml:label value='o:t' dictRef='cmlx:groupPointer' />
+        </cml:atom>
+        <cml:atom id='a2' elementType='C' x2='1.2' y2='0.8'>
+          <cml:label value='o:h' dictRef='cmlx:group' />
+        </cml:atom>
+        <cml:atom id='a5' elementType='Cl' x2='1.2' y2='2.3'></cml:atom>
+        <cml:atom id='a2_h2' elementType='H' x2='1.2' y2='-0.3'></cml:atom>
+        <cml:atom id='a3' elementType='C' x2='2.4' y2='0.0'>
+          <cml:label value='o:t' dictRef='cmlx:group' />
+        </cml:atom>
+        <cml:atom id='a3_h1' elementType='H' x2='2.4' y2='1.2'></cml:atom>
+        <cml:atom id='a3_h2' elementType='H' x2='2.4' y2='-1.5'></cml:atom>
+        <cml:atom id='a4' elementType='R' x2='3.6' y2='0.8'>
+          <cml:label value='o:h' dictRef='cmlx:groupPointer' />
+        </cml:atom>
+      </cml:atomArray>
+      <cml:bondArray>
+        <cml:bond atomRefs2='a1 a2' order='S' id='b1' />
+        <cml:bond atomRefs2='a2 a5' order='S' id='b1a' />
+        <cml:bond atomRefs2='a2 a2_h2' order='S' id='b1b' />
+        <cml:bond atomRefs2='a2 a3' order='S' id='b2' />
+        <cml:bond atomRefs2='a3 a3_h1' order='S' id='b2a' />
+        <cml:bond atomRefs2='a3 a3_h2' order='S' id='b2b' />
+        <cml:bond atomRefs2='a3 a4' order='S' id='b3' />
+      </cml:bondArray>
+      <cml:name dictRef='nameDict:abbreviation'>VC</cml:name>
+    </cml:molecule>
+  </cml:cml>
+  <cml:cml convention='cmlDict:cmllite' xmlns:cml='http://www.xml-cml.org/schema' xmlns:cmlDict='http://www.xml-cml.org/dictionary/cml/' xmlns:nameDict='http://www.xml-cml.org/dictionary/cml/name/'>
+    <cml:molecule id='m1' formalCharge='0' spinMultiplicity='1'>
+      <cml:name dictRef='nameDict:systematic'>ethylene</cml:name>
+      <cml:formula concise='C 2 H 4 R 2' />
+      <cml:atomArray>
+        <cml:atom id='a1' elementType='R' x2='0.0' y2='0.0'>
+          <cml:label value='o:t' dictRef='cmlx:groupPointer' />
+        </cml:atom>
+        <cml:atom id='a2' elementType='C' x2='1.2' y2='0.8'>
+          <cml:label value='o:h' dictRef='cmlx:group' />
+        </cml:atom>
+        <cml:atom id='a2_h1' elementType='H' x2='1.2' y2='2.3'></cml:atom>
+        <cml:atom id='a2_h2' elementType='H' x2='1.2' y2='-0.3'></cml:atom>
+        <cml:atom id='a3' elementType='C' x2='2.4' y2='0.0'>
+          <cml:label value='o:t' dictRef='cmlx:group' />
+        </cml:atom>
+        <cml:atom id='a3_h1' elementType='H' x2='2.4' y2='1.2'></cml:atom>
+        <cml:atom id='a3_h2' elementType='H' x2='2.4' y2='-1.5'></cml:atom>
+        <cml:atom id='a4' elementType='R' x2='3.6' y2='0.8'>
+          <cml:label value='o:h' dictRef='cmlx:groupPointer' />
+        </cml:atom>
+      </cml:atomArray>
+      <cml:bondArray>
+        <cml:bond atomRefs2='a1 a2' order='S' id='b1' />
+        <cml:bond atomRefs2='a2 a2_h1' order='S' id='b1a' />
+        <cml:bond atomRefs2='a2 a2_h2' order='S' id='b1b' />
+        <cml:bond atomRefs2='a2 a3' order='S' id='b2' />
+        <cml:bond atomRefs2='a3 a3_h1' order='S' id='b2a' />
+        <cml:bond atomRefs2='a3 a3_h2' order='S' id='b2b' />
+        <cml:bond atomRefs2='a3 a4' order='S' id='b3' />
+      </cml:bondArray>
+      <cml:name dictRef='nameDict:abbreviation'>E</cml:name>
+    </cml:molecule>
+  </cml:cml>
+  <cml:cml convention='cmlDict:cmllite' xmlns:cml='http://www.xml-cml.org/schema' xmlns:cmlDict='http://www.xml-cml.org/dictionary/cml/' xmlns:nameDict='http://www.xml-cml.org/dictionary/cml/name/'>
+    <cml:molecule id='m1' formalCharge='0' spinMultiplicity='1'>
+      <cml:name dictRef='nameDict:systematic'>vinylacetate</cml:name>
+      <cml:formula concise='C 2 H 3 Cl 1 R 2' />
+      <cml:atomArray>
+        <cml:atom id='a1' elementType='R' x2='0.0' y2='0.0'>
+          <cml:label value='o:t' dictRef='cmlx:groupPointer' />
+        </cml:atom>
+        <cml:atom id='a2' elementType='C' x2='1.2' y2='0.8'>
+          <cml:label value='o:h' dictRef='cmlx:group' />
+        </cml:atom>
+        <cml:atom id='a2_h2' elementType='H' x2='1.2' y2='-0.3'></cml:atom>
+        <cml:atom id='a3' elementType='C' x2='2.4' y2='0.0'>
+          <cml:label value='o:t' dictRef='cmlx:group' />
+        </cml:atom>
+        <cml:atom id='a3_h1' elementType='H' x2='2.4' y2='1.2'></cml:atom>
+        <cml:atom id='a3_h2' elementType='H' x2='2.4' y2='-1.5'></cml:atom>
+        <cml:atom id='a4' elementType='R' x2='3.6' y2='0.8'>
+          <cml:label value='o:h' dictRef='cmlx:groupPointer' />
+        </cml:atom>
+        <cml:atom id='a6' elementType='C' x2='2.53367912182807' y2='4.60999999999998' />
+        <cml:atom id='a7' elementType='C' x2='2.53367912182807' y2='3.06999999999999' />
+        <cml:atom id='a8' elementType='O' x2='1.2' y2='2.3' />
+        <cml:atom id='a9' elementType='O' x2='3.8673582436561' y2='2.29999999999999' />
+        <cml:atom id='a11' elementType='H' x2='4.0736791218281' y2='4.60999999999998' />
+        <cml:atom id='a12' elementType='H' x2='2.53367912182807' y2='6.14999999999998' />
+        <cml:atom id='a13' elementType='H' x2='0.993679121828071' y2='4.60999999999999' />
+      </cml:atomArray>
+      <cml:bondArray>
+        <cml:bond atomRefs2='a1 a2' order='S' id='b1' />
+        <cml:bond atomRefs2='a2 a2_h2' order='S' id='b1b' />
+        <cml:bond atomRefs2='a2 a3' order='S' id='b2' />
+        <cml:bond atomRefs2='a3 a3_h1' order='S' id='b2a' />
+        <cml:bond atomRefs2='a3 a3_h2' order='S' id='b2b' />
+        <cml:bond atomRefs2='a3 a4' order='S' id='b3' />
+        <cml:bond atomRefs2='a2 a8' id='a2_a8' order='S' />
+        <cml:bond atomRefs2='a6 a7' order='S' id='a6_a7' />
+        <cml:bond atomRefs2='a7 a8' order='S' id='a7_a8' />
+        <cml:bond atomRefs2='a7 a9' order='D' id='a7_a9' />
+        <cml:bond atomRefs2='a6 a11' order='S' id='a6_a11' />
+        <cml:bond atomRefs2='a6 a12' order='S' id='a6_a12' />
+        <cml:bond atomRefs2='a6 a13' order='S' id='a6_a13' />
+      </cml:bondArray>
+      <cml:name dictRef='nameDict:abbreviation'>VinylAcetate</cml:name>
+    </cml:molecule>
+  </cml:cml>
+  <cml:cml convention='cmlDict:cmllite' xmlns:cml='http://www.xml-cml.org/schema' xmlns:cmlDict='http://www.xml-cml.org/dictionary/cml/' xmlns:nameDict='http://www.xml-cml.org/dictionary/cml/name/'>
+    <cml:molecule id='m1' formalCharge='0' spinMultiplicity='1'>
+      <cml:name dictRef='nameDict:systematic'>vinylbenzene</cml:name>
+      <cml:formula concise='C 2 H 3 Cl 1 R 2' />
+      <cml:atomArray>
+        <cml:atom id='a1' elementType='R' x2='0.0' y2='0.0'>
+          <cml:label value='o:t' dictRef='cmlx:groupPointer' />
+        </cml:atom>
+        <cml:atom id='a2' elementType='C' x2='1.2' y2='0.8'>
+          <cml:label value='o:h' dictRef='cmlx:group' />
+        </cml:atom>
+        <cml:atom id='a2_h2' elementType='H' x2='1.2' y2='-0.3'></cml:atom>
+        <cml:atom id='a3' elementType='C' x2='2.4' y2='0.0'>
+          <cml:label value='o:t' dictRef='cmlx:group' />
+        </cml:atom>
+        <cml:atom id='a3_h1' elementType='H' x2='2.4' y2='1.2'></cml:atom>
+        <cml:atom id='a3_h2' elementType='H' x2='2.4' y2='-1.5'></cml:atom>
+        <cml:atom id='a4' elementType='R' x2='3.6' y2='0.8'>
+          <cml:label value='o:h' dictRef='cmlx:groupPointer' />
+        </cml:atom>
+        <cml:atom id='a6' elementType='C' x2='-0.133684012137232' y2='3.06999152967389' />
+        <cml:atom id='a7' elementType='C' x2='2.53371335415379' y2='3.07000847004658' />
+        <cml:atom id='a8' elementType='C' x2='1.20005868403311' y2='5.37999999944094' />
+        <cml:atom id='a9' elementType='C' x2='-0.133654670120675' y2='4.60999152939436' />
+        <cml:atom id='a11' elementType='H' x2='3.86742670830757' y2='5.37999999944094' />
+        <cml:atom id='a12' elementType='H' x2='-1.46736802427446' y2='2.3' />
+        <cml:atom id='a13' elementType='H' x2='3.86738269520204' y2='2.29999152948754' />
+        <cml:atom id='a14' elementType='H' x2='-1.27799705527527' y2='5.64052213627809' />
+        <cml:atom id='a15' elementType='H' x2='0.87991530561046' y2='6.88635593920157' />
+        <cml:atom id='a16' elementType='C' x2='1.2' y2='2.3' />
+        <cml:atom id='a17' elementType='C' x2='2.53374269617034' y2='4.61000846976705' />
+      </cml:atomArray>
+      <cml:bondArray>
+        <cml:bond atomRefs2='a1 a2' order='S' id='b1' />
+        <cml:bond atomRefs2='a2 a2_h2' order='S' id='b1b' />
+        <cml:bond atomRefs2='a2 a3' order='S' id='b2' />
+        <cml:bond atomRefs2='a3 a3_h1' order='S' id='b2a' />
+        <cml:bond atomRefs2='a3 a3_h2' order='S' id='b2b' />
+        <cml:bond atomRefs2='a3 a4' order='S' id='b3' />
+        <cml:bond atomRefs2='a2 a16' id='a2_a16' order='S' />
+        <cml:bond id='a17_a8' atomRefs2='a17 a8' order='S' />
+        <cml:bond id='a17_a7' atomRefs2='a17 a7' order='D' />
+        <cml:bond id='a9_a6' atomRefs2='a9 a6' order='S' />
+        <cml:bond id='a6_a16' atomRefs2='a6 a16' order='D' />
+        <cml:bond id='a16_a7' atomRefs2='a16 a7' order='S' />
+        <cml:bond id='a15_a8' atomRefs2='a15 a8' order='S' />
+        <cml:bond id='a9_a8' atomRefs2='a9 a8' order='D' />
+        <cml:bond id='a14_a9' atomRefs2='a14 a9' order='S' />
+        <cml:bond id='a6_a12' atomRefs2='a6 a12' order='S' />
+        <cml:bond id='a7_a13' atomRefs2='a7 a13' order='S' />
+        <cml:bond id='a17_a11' atomRefs2='a17 a11' order='S' />
+      </cml:bondArray>
+      <cml:name dictRef='nameDict:abbreviation'>Styrene</cml:name>
+      <cml:name dictRef='nameDict:trivial'>Styrene</cml:name>
+    </cml:molecule>
+  </cml:cml>
+</cml:cml>

@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<cml convention="conventions:molecular" xmlns="http://www.xml-cml.org/schema" xmlns:conventions="http://www.xml-cml.org/convention/" xmlns:nameDict="http://www.xml-cml.org/dictionary/cml/name/">
+  <molecule id="m6328200" formalCharge="0" spinMultiplicity="1" xmlns:pubchem="http://www.ncbi.nlm.nih.gov">
+    <name dictRef="pubchem:cid">6328200</name>
+    <atomArray>
+      <atom id="a1" elementType="B" x2="2.0" y2="0.0" />
+      <atom id="a2" elementType="B" x2="3.0" y2="0.0" />
+    </atomArray>
+    <bondArray>
+      <bond atomRefs2="a1 a2" order="T" id="a1_a2"  />
+    </bondArray>
+    <name dictRef="pubchem:Allowed">boranylidyneborane</name>
+    <name dictRef="nameDict:cas">boranylidyneborane</name>
+    <name dictRef="pubchem:Preferred">boranylidyneborane</name>
+    <name dictRef="nameDict:systematic">boranylidyneborane</name>
+    <name dictRef="pubchem:Traditional">borylidyneborane</name>
+    <formula convention="pubchem:formula" inline="B2" concise="B 2" />
+    <formula convention="pubchem:CanonicalSmiles" inline="B#B" concise="B 2" />
+    <formula convention="pubchem:IsomericSmiles" inline="B#B" concise="B 2" />
+  </molecule>
+</cml>

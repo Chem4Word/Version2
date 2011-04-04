@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<cml convention="conventions:molecular" xmlns="http://www.xml-cml.org/schema" xmlns:conventions="http://www.xml-cml.org/convention/" xmlns:nameDict="http://www.xml-cml.org/dictionary/cml/name/">
+  <molecule id="m5950" formalCharge="0" spinMultiplicity="1" xmlns:pubchem="http://www.ncbi.nlm.nih.gov">
+    <name dictRef="pubchem:cid">5950</name>
+    <atomArray>
+      <atom id="a1" elementType="O" x2="5.135" y2="-0.25" />
+      <atom id="a2" elementType="O" x2="4.269" y2="1.25" />
+      <atom id="a3" elementType="N" x2="2.5369" y2="0.25" />
+      <atom id="a4" elementType="C" x2="3.403" y2="-0.25">
+        <atomParity atomRefs4="a3 a5 a6 a7">1.0</atomParity>
+      </atom>
+      <atom id="a5" elementType="C" x2="3.403" y2="-1.25" />
+      <atom id="a6" elementType="C" x2="4.269" y2="0.25" />
+      <atom id="a7" elementType="H" x2="3.403" y2="0.37" />
+      <atom id="a8" elementType="H" x2="2.783" y2="-1.25" />
+      <atom id="a9" elementType="H" x2="3.403" y2="-1.87" />
+      <atom id="a10" elementType="H" x2="4.023" y2="-1.25" />
+      <atom id="a11" elementType="H" x2="2.0" y2="-0.06" />
+      <atom id="a12" elementType="H" x2="2.5369" y2="0.87" />
+      <atom id="a13" elementType="H" x2="5.672" y2="0.06" />
+    </atomArray>
+    <bondArray>
+      <bond atomRefs2="a1 a6" order="S" id="a1_a6"  />
+      <bond atomRefs2="a1 a13" order="S" id="a1_a13"  />
+      <bond atomRefs2="a2 a6" order="D" id="a2_a6"  />
+      <bond atomRefs2="a3 a4" order="S" id="a3_a4" >
+        <bondStereo>H</bondStereo>
+      </bond>
+      <bond atomRefs2="a3 a11" order="S" id="a3_a11"  />
+      <bond atomRefs2="a3 a12" order="S" id="a3_a12"  />
+      <bond atomRefs2="a4 a5" order="S" id="a4_a5"  />
+      <bond atomRefs2="a4 a6" order="S" id="a4_a6"  />
+      <bond atomRefs2="a4 a7" order="S" id="a4_a7"  />
+      <bond atomRefs2="a5 a8" order="S" id="a5_a8"  />
+      <bond atomRefs2="a5 a9" order="S" id="a5_a9"  />
+      <bond atomRefs2="a5 a10" order="S" id="a5_a10"  />
+    </bondArray>
+    <name dictRef="pubchem:Allowed">(2S)-2-aminopropanoic acid</name>
+    <name dictRef="nameDict:cas">(2S)-2-aminopropanoic acid</name>
+    <name dictRef="pubchem:Preferred">(2S)-2-aminopropanoic acid</name>
+    <name dictRef="nameDict:systematic">(2S)-2-azanylpropanoic acid</name>
+    <name dictRef="pubchem:Traditional">(2S)-2-aminopropionic acid</name>
+    <formula convention="pubchem:formula" inline="C3H7NO2" concise="C 3 H 7 N 1 O 2" />
+    <formula convention="pubchem:CanonicalSmiles" inline="CC(C(=O)O)N" concise="C 3 H 7 N 1 O 2" />
+    <formula convention="pubchem:IsomericSmiles" inline="C[C@@H](C(=O)O)N" concise="C 3 H 7 N 1 O 2" />
+  </molecule>
+</cml>

@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<cml convention="conventions:molecular" xmlns="http://www.xml-cml.org/schema" xmlns:conventions="http://www.xml-cml.org/convention/" xmlns:nameDict="http://www.xml-cml.org/dictionary/cml/name/">
+  <molecule id="m11029" formalCharge="0" spinMultiplicity="1" xmlns:pubchem="http://www.ncbi.nlm.nih.gov">
+    <name dictRef="pubchem:cid">11029</name>
+    <atomArray>
+      <atom id="a1" elementType="Mg" formalCharge="2" x2="2.0" y2="0.853553414344788" />
+      <atom id="a2" elementType="O" formalCharge="-1" x2="3.0" y2="0.853553414344788" />
+      <atom id="a3" elementType="O" formalCharge="-1" x2="2.0" y2="-0.146446615457535" />
+      <atom id="a4" elementType="O" x2="3.7071068286896" y2="-0.853553414344788" />
+      <atom id="a5" elementType="C" x2="3.0" y2="-0.146446615457535" />
+    </atomArray>
+    <bondArray>
+      <bond atomRefs2="a2 a5" order="S" id="a2_a5"  />
+      <bond atomRefs2="a3 a5" order="S" id="a3_a5"  />
+      <bond atomRefs2="a4 a5" order="D" id="a4_a5"  />
+    </bondArray>
+    <name dictRef="pubchem:Allowed">magnesium carbonate</name>
+    <name dictRef="nameDict:cas">magnesium carbonate</name>
+    <name dictRef="pubchem:Preferred">magnesium carbonate</name>
+    <name dictRef="nameDict:systematic">magnesium carbonate</name>
+    <name dictRef="pubchem:Traditional">magnesium carbonate</name>
+    <formula convention="pubchem:formula" inline="CMgO3" concise="C 1 Mg 1 O 3" />
+    <formula convention="pubchem:CanonicalSmiles" inline="C(=O)([O-])[O-].[Mg+2]" concise="C 1 Mg 1 O 3" />
+    <formula convention="pubchem:IsomericSmiles" inline="C(=O)([O-])[O-].[Mg+2]" concise="C 1 Mg 1 O 3" />
+  </molecule>
+</cml>

@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<cml convention="conventions:molecular" xmlns="http://www.xml-cml.org/schema" xmlns:conventions="http://www.xml-cml.org/convention/" xmlns:nameDict="http://www.xml-cml.org/dictionary/cml/name/">
+  <molecule id="m588" formalCharge="0" spinMultiplicity="1" xmlns:pubchem="http://www.ncbi.nlm.nih.gov">
+    <name dictRef="pubchem:cid">588</name>
+    <atomArray>
+      <atom id="a1" elementType="O" x2="2.0" y2="1.6739" />
+      <atom id="a2" elementType="N" x2="3.0878" y2="-0.6739" />
+      <atom id="a3" elementType="N" x2="3.5878" y2="0.8649" />
+      <atom id="a4" elementType="N" x2="4.8479" y2="-0.3952" />
+      <atom id="a5" elementType="C" x2="2.2788" y2="-0.0861" />
+      <atom id="a6" elementType="C" x2="3.8968" y2="-0.0861" />
+      <atom id="a7" elementType="C" x2="2.5878" y2="0.8649" />
+      <atom id="a8" elementType="C" x2="3.0878" y2="-1.6739" />
+      <atom id="a9" elementType="H" x2="1.7124" y2="0.166" />
+      <atom id="a10" elementType="H" x2="1.9688" y2="-0.6231" />
+      <atom id="a11" elementType="H" x2="2.4678" y2="-1.6739" />
+      <atom id="a12" elementType="H" x2="3.0878" y2="-2.2939" />
+      <atom id="a13" elementType="H" x2="3.7078" y2="-1.6739" />
+      <atom id="a14" elementType="H" x2="5.3086" y2="0.0197" />
+      <atom id="a15" elementType="H" x2="4.9768" y2="-1.0016" />
+    </atomArray>
+    <bondArray>
+      <bond atomRefs2="a1 a7" order="D" id="a1_a7"  />
+      <bond atomRefs2="a2 a5" order="S" id="a2_a5"  />
+      <bond atomRefs2="a2 a6" order="S" id="a2_a6"  />
+      <bond atomRefs2="a2 a8" order="S" id="a2_a8"  />
+      <bond atomRefs2="a3 a6" order="D" id="a3_a6"  />
+      <bond atomRefs2="a3 a7" order="S" id="a3_a7"  />
+      <bond atomRefs2="a4 a6" order="S" id="a4_a6"  />
+      <bond atomRefs2="a4 a14" order="S" id="a4_a14"  />
+      <bond atomRefs2="a4 a15" order="S" id="a4_a15"  />
+      <bond atomRefs2="a5 a7" order="S" id="a5_a7"  />
+      <bond atomRefs2="a5 a9" order="S" id="a5_a9"  />
+      <bond atomRefs2="a5 a10" order="S" id="a5_a10"  />
+      <bond atomRefs2="a8 a11" order="S" id="a8_a11"  />
+      <bond atomRefs2="a8 a12" order="S" id="a8_a12"  />
+      <bond atomRefs2="a8 a13" order="S" id="a8_a13"  />
+    </bondArray>
+    <name dictRef="pubchem:Allowed">2-amino-3-methyl-4H-imidazol-5-one</name>
+    <name dictRef="nameDict:cas">2-amino-3-methyl-4H-imidazol-5-one</name>
+    <name dictRef="pubchem:Preferred">2-amino-3-methyl-4H-imidazol-5-one</name>
+    <name dictRef="nameDict:systematic">2-azanyl-3-methyl-4H-imidazol-5-one</name>
+    <name dictRef="pubchem:Traditional">2-amino-1-methyl-2-imidazolin-4-one</name>
+    <formula convention="pubchem:formula" inline="C4H7N3O" concise="C 4 H 7 N 3 O 1" />
+    <formula convention="pubchem:CanonicalSmiles" inline="CN1CC(=O)N=C1N" concise="C 4 H 7 N 3 O 1" />
+    <formula convention="pubchem:IsomericSmiles" inline="CN1CC(=O)N=C1N" concise="C 4 H 7 N 3 O 1" />
+  </molecule>
+</cml>
