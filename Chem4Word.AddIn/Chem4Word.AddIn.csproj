@@ -29,7 +29,7 @@
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <ManifestCertificateThumbprint>C2CA1E77BDF58187378BCE9D84EE96F062509611</ManifestCertificateThumbprint>
     <ManifestKeyFile>Chem4Word.AddIn_TemporaryKey.pfx</ManifestKeyFile>
-    <SignManifests>false</SignManifests>
+    <SignManifests>true</SignManifests>
     <SccProjectName>
     </SccProjectName>
     <SccLocalPath>

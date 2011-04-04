@@ -21,6 +21,7 @@ using Chem4Word.Api.Events;
 using Chem4Word.UI.ManageView;
 using Chem4Word.UI.Tools;
 using Chem4Word.UI.TwoD;
+using log4net;
 using Numbo.Cml;
 using Numbo.Coa;
 using Image = System.Windows.Controls.Image;
@@ -32,6 +33,9 @@ namespace Chem4Word.UI.Navigator
     /// </summary>
     public partial class NavigatorItem : INotifyPropertyChanged
     {
+        private static readonly ILog Log = LogManager.GetLogger(typeof(NavigatorItem));
+
+
         private readonly IChemistryZone chemistryZone;
         private bool hasImage;
 
@@ -302,6 +306,7 @@ namespace Chem4Word.UI.Navigator
 
         private void LinkedMenuItemClick(object sender, RoutedEventArgs e)
         {
+            Log.Info("linked menu item clicked");
             if (InsertLinkAs != null)
             {
                 var menuItem = (DepictionMenuItem)sender;

@@ -850,13 +850,13 @@ namespace Chem4Word.UI.TwoD {
             Log.Debug(string.Format("x offset {0} y offset {1}", StandardXOffset, StandardYOffset));
 
 
-            var currentViewBox = ContextObject.CoViewBox;
+            var currentViewBox = ContextObject.ViewBoxDimensions;
 
             if (currentViewBox.X.Equals(0d) && currentViewBox.Y.Equals(0d) && currentViewBox.Width.Equals(0d) && currentViewBox.Height.Equals(0d))
             {
 //                viewBox = new Rect(xmin, ymax, molWidthScreenCoords, molHeightScreenCoords);
                
-                ContextObject.CoViewBox = new Rect(xmin-0.5, ymax+0.5, Math.Abs(xmax - xmin)+1, Math.Abs(ymax - ymin)+1);
+                ContextObject.ViewBoxDimensions = new Rect(xmin-0.5, ymax+0.5, Math.Abs(xmax - xmin)+1, Math.Abs(ymax - ymin)+1);
             }
 
             Log.Debug(string.Format("xmax {0} xmin {1} ymax {2} ymin {3}", xmax, xmin, ymax, ymin));
@@ -923,21 +923,21 @@ namespace Chem4Word.UI.TwoD {
 
 //            tg.Children.Add(new TranslateTransform(ToScreenX(-xmin), ToScreenY(-ymax)));
 
-            tg.Children.Add(new TranslateTransform(ToScreenX(-ContextObject.CoViewBox.X), ToScreenY(-ContextObject.CoViewBox.Y)));
+            tg.Children.Add(new TranslateTransform(ToScreenX(-ContextObject.ViewBoxDimensions.X), ToScreenY(-ContextObject.ViewBoxDimensions.Y)));
 
             Log.Info(string.Format("Xmin {0} Xmax {1} Ymin {2} Ymax {3}", xmin,xmax,ymin,ymax));
-            Log.Info(string.Format("View Box X {0} Y {1} W {2} H {3}", ContextObject.CoViewBox.X, ContextObject.CoViewBox.Y, ContextObject.CoViewBox.Width, ContextObject.CoViewBox.Height));
+            Log.Info(string.Format("View Box X {0} Y {1} W {2} H {3}", ContextObject.ViewBoxDimensions.X, ContextObject.ViewBoxDimensions.Y, ContextObject.ViewBoxDimensions.Width, ContextObject.ViewBoxDimensions.Height));
 
-            Log.Info(string.Format("X ToScreen old {0} new ToScreen {1}", ToScreenX(-xmin), ToScreenX(-ContextObject.CoViewBox.X)));
-            Log.Info(string.Format("Y ToScreen old {0} new ToScreen {1}\n\n", ToScreenY(-ymax), ToScreenY(-ContextObject.CoViewBox.Y)));
+            Log.Info(string.Format("X ToScreen old {0} new ToScreen {1}", ToScreenX(-xmin), ToScreenX(-ContextObject.ViewBoxDimensions.X)));
+            Log.Info(string.Format("Y ToScreen old {0} new ToScreen {1}\n\n", ToScreenY(-ymax), ToScreenY(-ContextObject.ViewBoxDimensions.Y)));
             //this.RenderTransform = tg;
             standardTransformGroup = tg;
 
 //            Width = molWidthScreenCoords + (2*pngBorder);
 //            Height = molHeightScreenCoords + (2*pngBorder);
 
-            Width = Math.Abs(ToScreenX(ContextObject.CoViewBox.Width));
-            Height = Math.Abs(ToScreenY(ContextObject.CoViewBox.Height));
+            Width = Math.Abs(ToScreenX(ContextObject.ViewBoxDimensions.Width));
+            Height = Math.Abs(ToScreenY(ContextObject.ViewBoxDimensions.Height));
             Log.Info(string.Format("PNG BORDER {0} {1}",FromScreenX(2), FromScreenY(20)));
         }
 
@@ -1114,7 +1114,7 @@ namespace Chem4Word.UI.TwoD {
 
         private void ViewBoxChangedEvent(object sender, CmlChangedEventArgs cmlChangedEventArgs) {
             ContextObject = cmlChangedEventArgs.ContextObject;
-            Log.Debug(string.Format("new ContextObject viewbox x {0} y {1} w {2} h {3} ", ContextObject.CoViewBox.X, ContextObject.CoViewBox.Y, ContextObject.CoViewBox.Width, ContextObject.CoViewBox.Height));
+            Log.Debug(string.Format("new ContextObject viewbox x {0} y {1} w {2} h {3} ", ContextObject.ViewBoxDimensions.X, ContextObject.ViewBoxDimensions.Y, ContextObject.ViewBoxDimensions.Width, ContextObject.ViewBoxDimensions.Height));
             Refresh();
         }
 
@@ -1405,16 +1405,16 @@ namespace Chem4Word.UI.TwoD {
                 var x = FromScreenX(mousePos.X - StandardXOffset);
                 var y = FromScreenY(mousePos.Y - StandardYOffset);
                 var co = ContextObject;
-                var newViewBox = ContextObject.CoViewBox;
+                var newViewBox = ContextObject.ViewBoxDimensions;
                 switch (viewBoxDraggingPosition) {
                     case ViewBoxDraggingPosition.West:
                         {
-                            var dx = x - ContextObject.CoViewBox.Left;
-                            var newWidth = ContextObject.CoViewBox.Width - dx;
+                            var dx = x - ContextObject.ViewBoxDimensions.Left;
+                            var newWidth = ContextObject.ViewBoxDimensions.Width - dx;
                             if (newWidth > FromScreenX(ViewBox.MininumWidth)) {
                                 newViewBox.X += dx;
                                 newViewBox.Width = newWidth;
-                                co.CoViewBox = newViewBox;
+                                co.ViewBoxDimensions = newViewBox;
                                 ViewBoxChangedEvent(null, new CmlChangedEventArgs(co));
                                 return;
                             }
@@ -1422,11 +1422,11 @@ namespace Chem4Word.UI.TwoD {
                         }
                     case ViewBoxDraggingPosition.East:
                         {
-                            var dx = x - ContextObject.CoViewBox.Right;
-                            var newWidth = ContextObject.CoViewBox.Width + dx;
+                            var dx = x - ContextObject.ViewBoxDimensions.Right;
+                            var newWidth = ContextObject.ViewBoxDimensions.Width + dx;
                             if (newWidth > FromScreenX(ViewBox.MininumWidth)) {
                                 newViewBox.Width = newWidth;
-                                co.CoViewBox = newViewBox;
+                                co.ViewBoxDimensions = newViewBox;
                                 ViewBoxChangedEvent(null, new CmlChangedEventArgs(co));
                                 return;
                             }
@@ -1434,12 +1434,12 @@ namespace Chem4Word.UI.TwoD {
                         }
                     case ViewBoxDraggingPosition.North:
                         {
-                            var dy = y - ContextObject.CoViewBox.Top;
-                            var newHeight = ContextObject.CoViewBox.Height + dy;
+                            var dy = y - ContextObject.ViewBoxDimensions.Top;
+                            var newHeight = ContextObject.ViewBoxDimensions.Height + dy;
                             if (newHeight > Math.Abs(FromScreenY(ViewBox.MininumHeight))) {
                                 newViewBox.Y += dy;
                                 newViewBox.Height = newHeight;
-                                co.CoViewBox = newViewBox;
+                                co.ViewBoxDimensions = newViewBox;
                                 ViewBoxChangedEvent(null, new CmlChangedEventArgs(co));
                                 return;
                             }
@@ -1447,11 +1447,11 @@ namespace Chem4Word.UI.TwoD {
                         }
                     case ViewBoxDraggingPosition.South:
                         {
-                            var dy = y - (ContextObject.CoViewBox.Y - ContextObject.CoViewBox.Height);
-                            var newHeight = ContextObject.CoViewBox.Height - dy;
+                            var dy = y - (ContextObject.ViewBoxDimensions.Y - ContextObject.ViewBoxDimensions.Height);
+                            var newHeight = ContextObject.ViewBoxDimensions.Height - dy;
                             if (newHeight > Math.Abs(FromScreenY(ViewBox.MininumHeight))) {
                                 newViewBox.Height = newHeight;
-                                co.CoViewBox = newViewBox;
+                                co.ViewBoxDimensions = newViewBox;
                                 ViewBoxChangedEvent(null, new CmlChangedEventArgs(co));
                                 return;
                             }
@@ -1459,11 +1459,11 @@ namespace Chem4Word.UI.TwoD {
                         }
                     case ViewBoxDraggingPosition.NorthWest:
                         {
-                            var dx = x - ContextObject.CoViewBox.Left;
-                            var newWidth = ContextObject.CoViewBox.Width - dx;
+                            var dx = x - ContextObject.ViewBoxDimensions.Left;
+                            var newWidth = ContextObject.ViewBoxDimensions.Width - dx;
 
-                            var dy = y - ContextObject.CoViewBox.Top;
-                            var newHeight = ContextObject.CoViewBox.Height + dy;
+                            var dy = y - ContextObject.ViewBoxDimensions.Top;
+                            var newHeight = ContextObject.ViewBoxDimensions.Height + dy;
 
                             if (newWidth > FromScreenX(ViewBox.MininumWidth) && newHeight > Math.Abs(FromScreenY(ViewBox.MininumHeight)))
                             {
@@ -1471,7 +1471,7 @@ namespace Chem4Word.UI.TwoD {
                                 newViewBox.Width = newWidth;
                                 newViewBox.Y += dy;
                                 newViewBox.Height = newHeight;
-                                co.CoViewBox = newViewBox;
+                                co.ViewBoxDimensions = newViewBox;
                                 ViewBoxChangedEvent(null, new CmlChangedEventArgs(co));
                                 return;
                             }
@@ -1479,11 +1479,11 @@ namespace Chem4Word.UI.TwoD {
                         }
                     case ViewBoxDraggingPosition.NorthEast:
                         {
-                            var dx = x - ContextObject.CoViewBox.Right;
-                            var newWidth = ContextObject.CoViewBox.Width + dx;
+                            var dx = x - ContextObject.ViewBoxDimensions.Right;
+                            var newWidth = ContextObject.ViewBoxDimensions.Width + dx;
 
-                            var dy = y - ContextObject.CoViewBox.Top;
-                            var newHeight = ContextObject.CoViewBox.Height + dy;
+                            var dy = y - ContextObject.ViewBoxDimensions.Top;
+                            var newHeight = ContextObject.ViewBoxDimensions.Height + dy;
 
                             if (newWidth > FromScreenX(ViewBox.MininumWidth) && newHeight > Math.Abs(FromScreenY(ViewBox.MininumHeight)))
                             {
@@ -1491,7 +1491,7 @@ namespace Chem4Word.UI.TwoD {
                                 newViewBox.Y += dy;
                                 newViewBox.Height = newHeight;
 
-                                co.CoViewBox = newViewBox;
+                                co.ViewBoxDimensions = newViewBox;
                                 ViewBoxChangedEvent(null, new CmlChangedEventArgs(co));
                                 return;
                             }
@@ -1499,17 +1499,17 @@ namespace Chem4Word.UI.TwoD {
                         }
                     case ViewBoxDraggingPosition.SouthWest:
                         {
-                                                        var dx = x - ContextObject.CoViewBox.Left;
-                            var newWidth = ContextObject.CoViewBox.Width - dx;
-                            var dy = y - (ContextObject.CoViewBox.Y - ContextObject.CoViewBox.Height);
-                            var newHeight = ContextObject.CoViewBox.Height - dy;
+                                                        var dx = x - ContextObject.ViewBoxDimensions.Left;
+                            var newWidth = ContextObject.ViewBoxDimensions.Width - dx;
+                            var dy = y - (ContextObject.ViewBoxDimensions.Y - ContextObject.ViewBoxDimensions.Height);
+                            var newHeight = ContextObject.ViewBoxDimensions.Height - dy;
 
                             if (newWidth > FromScreenX(ViewBox.MininumWidth) && newHeight > Math.Abs(FromScreenY(ViewBox.MininumHeight)))
                             {
                                 newViewBox.X += dx;
                                 newViewBox.Width = newWidth;
                                 newViewBox.Height = newHeight;
-                                co.CoViewBox = newViewBox;
+                                co.ViewBoxDimensions = newViewBox;
                                 ViewBoxChangedEvent(null, new CmlChangedEventArgs(co));
                                 return;
                             }
@@ -1517,17 +1517,17 @@ namespace Chem4Word.UI.TwoD {
                         }
                     case ViewBoxDraggingPosition.SouthEast :
                         {
-                            var dx = x - ContextObject.CoViewBox.Right;
-                            var newWidth = ContextObject.CoViewBox.Width + dx;
+                            var dx = x - ContextObject.ViewBoxDimensions.Right;
+                            var newWidth = ContextObject.ViewBoxDimensions.Width + dx;
 
-                            var dy = y - (ContextObject.CoViewBox.Y - ContextObject.CoViewBox.Height);
-                            var newHeight = ContextObject.CoViewBox.Height - dy;
+                            var dy = y - (ContextObject.ViewBoxDimensions.Y - ContextObject.ViewBoxDimensions.Height);
+                            var newHeight = ContextObject.ViewBoxDimensions.Height - dy;
 
                             if (newWidth > FromScreenX(ViewBox.MininumWidth) && newHeight > Math.Abs(FromScreenY(ViewBox.MininumHeight)))
                             {
                                 newViewBox.Width = newWidth;
                                 newViewBox.Height = newHeight;
-                                co.CoViewBox = newViewBox;
+                                co.ViewBoxDimensions = newViewBox;
                                 ViewBoxChangedEvent(null, new CmlChangedEventArgs(co));
                                 return;
                             }

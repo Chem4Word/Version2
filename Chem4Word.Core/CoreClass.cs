@@ -363,7 +363,7 @@ namespace Chem4Word.Core {
             if (wordApp.Selection.Range.ContentControls.Count > 0) {
                 for (int indx = 1; indx <= wordApp.Selection.Range.ContentControls.Count; indx++) {
                     object objIndex = indx;
-                    ContentControl contentControl = wordApp.Selection.Range.ContentControls.Item[objIndex];
+                    ContentControl contentControl = wordApp.Selection.Range.ContentControls.get_Item(ref objIndex);
 
                     if (Properties.Resources.ChemistryZoneAlias.Equals(contentControl.Title)) {
                         MessageBox.Show(
@@ -377,9 +377,6 @@ namespace Chem4Word.Core {
             }
             DepictionOption documentDepictionOption =
                 DepictionOption.CreateDepictionOption(chemZone.Cml, chemistryZoneProperties.DocumentDepictionOptionXPath);
-            DepictionOption navigatorDepictionOption =
-                DepictionOption.CreateDepictionOption(chemZone.Cml,
-                                                      chemistryZoneProperties.NavigatorDepictionOptionXPath);
             ContentControl control;
             if (Depiction.Is2D(documentDepictionOption)) {
                 // zone is 2D - therefore a picture content control is necessary  
