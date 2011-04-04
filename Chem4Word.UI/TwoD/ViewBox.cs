@@ -91,7 +91,7 @@ namespace Chem4Word.UI.TwoD {
             var drawingContext =
                 drawingVisual.RenderOpen();
 
-            var initialRect = theCanvas.ContextObject.CoViewBox;
+            var initialRect = theCanvas.ContextObject.ViewBoxDimensions;
 
            var rect = new Rect(theCanvas.ToScreenX(initialRect.X), theCanvas.ToScreenY(initialRect.Y),
                                 theCanvas.ToScreenX(initialRect.Width),

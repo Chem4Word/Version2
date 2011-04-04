@@ -79,7 +79,7 @@ namespace Chem4Word.Core {
         }
 
         public ContextObject AsContextObject() {
-            var contextObject = new ContextObject(Cml) {CoViewBox = Properties.ViewBox};
+            var contextObject = new ContextObject(Cml) {ViewBoxDimensions = Properties.ViewBox};
             return contextObject;
         }
 
