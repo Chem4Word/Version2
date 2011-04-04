@@ -832,7 +832,8 @@
       </xsl:otherwise>
     </xsl:choose>
 
-    <!--ASSERT -->
+    
+    <!--ASSERT 
     <xsl:choose>
       <xsl:when test="@convention" />
       <xsl:otherwise>
@@ -846,6 +847,7 @@
         </svrl:failed-assert>
       </xsl:otherwise>
     </xsl:choose>
+    -->
     <xsl:variable name="cmlDict" select="name(namespace::*[.='http://www.xml-cml.org/dictionary/cml/'])" />
     <xsl:variable name="prefix" select="substring-before(@convention, ':')" />
     <xsl:variable name="value" select="substring-after(@convention, ':')" />
