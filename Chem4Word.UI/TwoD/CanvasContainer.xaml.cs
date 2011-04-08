@@ -86,6 +86,10 @@ namespace Chem4Word.UI.TwoD
             get { return this.originalContextObject.Cml; }
         }
 
+        public ContextObject ContextObject {
+            get { return chemCanvas.ContextObject; }
+        }
+
         /// <summary>
         /// 
         /// </summary>
@@ -156,9 +160,18 @@ namespace Chem4Word.UI.TwoD
                 child.RenderTransform = null;
             }
 
+            var width = Math.Abs(surface.ToScreenX(surface.ContextObject.ViewBoxDimensions.Width));
+            var height = Math.Abs(surface.ToScreenY(surface.ContextObject.ViewBoxDimensions.Height));
+
             // Get the size of canvas
-            Size size = new Size(this.chemCanvas.Width, this.chemCanvas.Height);
+            Log.Info(string.Format("SIZE width: {0} height {1}", width, height));
+
+//            Size size = new Size(chemCanvas.Width, chemCanvas.Height);
+
+            Size size = new Size(width,height);
+
             // Measure and arrange the surface
+
             // VERY IMPORTANT
             surface.Measure(size);
             surface.Arrange(new Rect(size));

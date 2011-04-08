@@ -5,7 +5,9 @@
 //  the root directory of the distribution.
 // -----------------------------------------------------------------------
 using System;
+using System.Windows;
 using System.Xml.Linq;
+using log4net;
 
 namespace Numbo.Coa
 {
@@ -14,8 +16,8 @@ namespace Numbo.Coa
     /// </summary>
     public class ContextObject : ICloneable
     {
-        // private ChemSS globalChemSS;
-        // private ChemsSS czChemSS;
+
+        private static readonly ILog Log = LogManager.GetLogger(typeof(ContextObject));
 
         ///<summary>
         ///</summary>
@@ -48,11 +50,14 @@ namespace Numbo.Coa
 
         public ContextObject Clone()
         {
-            ContextObject newObj = new ContextObject(XDocument.Parse(Cml.ToString()))
+            var newObj = new ContextObject(XDocument.Parse(Cml.ToString()))
                                        {
-                                           DisplayHydrogenIsotopeNumber = DisplayHydrogenIsotopeNumber
+                                           DisplayHydrogenIsotopeNumber = DisplayHydrogenIsotopeNumber,
+                                             ViewBoxDimensions = ViewBoxDimensions
                                        };
             return newObj;
         }
+
+        public Rect ViewBoxDimensions { get; set; }
     }
 }

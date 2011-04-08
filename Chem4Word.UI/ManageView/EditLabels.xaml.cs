@@ -56,7 +56,7 @@ namespace Chem4Word.UI.ManageView
             if (contextObject == null)
             {
                 CmlCml cml = new CmlCml();
-                cml.DelegateElement.Add();
+//                cml.DelegateElement.Add();
                 XDocument cmlXDocument = new XDocument(cml.DelegateElement);
                 contextObject = new ContextObject(cmlXDocument);
             }

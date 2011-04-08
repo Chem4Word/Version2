@@ -315,9 +315,11 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Gallery\InputString.resx">
       <DependentUpon>InputString.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Navigator\ChemistryNavigatorHostControl.resx">
       <DependentUpon>ChemistryNavigatorHostControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

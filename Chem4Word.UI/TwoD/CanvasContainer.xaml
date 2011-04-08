@@ -15,5 +15,5 @@
 	<Border Width="51" Margin="8,8,8,8" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="116" Background="#00A8CDF1" BorderBrush="#FFA8CDF1" BorderThickness="3,3,3,3" CornerRadius="10,10,10,10" x:Name="zoomSlider">
 		<Slider Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="0,5,0,10" Foreground="#FFA8CDF1" Minimum="1" Maximum="2" Value="{Binding ZoomFactor, ElementName=chemCanvas, Mode=Default, UpdateSourceTrigger=PropertyChanged}" />
 	</Border>
-	<c4w:DragControl Margin="67,8,8,15" Width="100" Height="100" VerticalAlignment="Bottom" HorizontalAlignment="Left" ChemCanvas="{Binding ., ElementName=chemCanvas}" />
+<!--	<c4w:DragControl Margin="67,8,8,15" Width="100" Height="100" VerticalAlignment="Bottom" HorizontalAlignment="Left" ChemCanvas="{Binding ., ElementName=chemCanvas}" />-->
 </Grid>
