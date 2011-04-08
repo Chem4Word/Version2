@@ -1,0 +1,13 @@
+﻿<Window x:Class="TwoDUITest.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="MainWindow" Height="600" Width="800">
+    <DockPanel>
+        <StackPanel Orientation="Vertical" DockPanel.Dock="Left">
+            <Button Content="Open" Click="Button_Click" />
+            <Button Content="Choose Element" Click="Button_Click_1" />
+            <Button Content="View CML" Name="ViewCMLButton" Click="ViewCMLButton_Click" />
+        </StackPanel>
+        <Grid x:Name="chemCanvasHost" Focusable="True" />
+    </DockPanel>
+</Window>

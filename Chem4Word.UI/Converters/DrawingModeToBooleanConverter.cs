@@ -16,7 +16,6 @@ namespace Chem4Word.UI.Converters
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            Debug.WriteLine("Drawing: " + value);
             if (parameter != null)
             {
                 if (parameter.ToString().Equals("Atom"))
@@ -35,28 +34,15 @@ namespace Chem4Word.UI.Converters
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            Debug.WriteLine("Drawing: " + value);
             if (parameter != null)
             {
-                bool val = (bool) value;
-                if (parameter.ToString().Equals("Atom"))
-                {
-                    if (val)
-                    {
-                        return CanvasContainer.DrawingMode.Select;
-                    }
-
-                    return CanvasContainer.DrawingMode.BondSelect;
+                var val = (bool) value;
+                if (parameter.ToString().Equals("Atom")) {
+                    return val ? CanvasContainer.DrawingMode.Select : CanvasContainer.DrawingMode.BondSelect;
                 }
 
-                if (parameter.ToString().Equals("Bond"))
-                {
-                    if (val)
-                    {
-                        return CanvasContainer.DrawingMode.BondSelect;
-                    }
-
-                    return CanvasContainer.DrawingMode.Select;
+                if (parameter.ToString().Equals("Bond")) {
+                    return val ? CanvasContainer.DrawingMode.BondSelect : CanvasContainer.DrawingMode.Select;
                 }
             }
 

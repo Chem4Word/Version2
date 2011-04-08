@@ -210,6 +210,7 @@
     </Compile>
     <Compile Include="TwoD\RadialPanel.cs" />
     <Compile Include="TwoD\TripleEdgeControl.cs" />
+    <Compile Include="TwoD\ViewBox.cs" />
     <Compile Include="TwoD\WavyEdgeControl.cs" />
     <Compile Include="TwoD\WedgeEdgeControl.cs" />
     <Compile Include="UIControls\SearchTextBox.cs" />

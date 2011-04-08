@@ -21,6 +21,7 @@ using Chem4Word.Api.Events;
 using Chem4Word.UI.ManageView;
 using Chem4Word.UI.Tools;
 using Chem4Word.UI.TwoD;
+using log4net;
 using Numbo.Cml;
 using Numbo.Coa;
 using Image = System.Windows.Controls.Image;
@@ -32,6 +33,9 @@ namespace Chem4Word.UI.Navigator
     /// </summary>
     public partial class NavigatorItem : INotifyPropertyChanged
     {
+        private static readonly ILog Log = LogManager.GetLogger(typeof(NavigatorItem));
+
+
         private readonly IChemistryZone chemistryZone;
         private bool hasImage;
 
@@ -150,7 +154,7 @@ namespace Chem4Word.UI.Navigator
             copyMenuItem.Items.Clear();
             foreach (
                 var depictionOption in
-                    Depiction.PossibleDepictionOptions(new ContextObject(ChemistryZone.Cml)))
+                    Depiction.PossibleDepictionOptions(ContextObjectProperty))
             {
                 var linkDepictionMenuItem = new DepictionMenuItem(ContextObjectProperty, depictionOption);
                 linkDepictionMenuItem.Click += LinkedMenuItemClick;
@@ -192,22 +196,13 @@ namespace Chem4Word.UI.Navigator
         {
             expander.IsExpanded = true;
             thumbnailGrid.Children.Clear();
-            var contextObject = new ContextObject(ChemistryZone.Cml);
             var parent = new CmlMolecule((XElement)twoDDepictionOption.MachineUnderstandableOption);
 
-            //ChemCanvas chemCanvas = new ChemCanvas(contextObject, parent);
-            //chemCanvas.Refresh(true);
-            ////chemCanvas.HorizontalAlignment = HorizontalAlignment.Center;
-            ////chemCanvas.VerticalAlignment = VerticalAlignment.Center;
-            //chemCanvas.Margin = new Thickness(1);
-            //chemCanvas.Background = System.Windows.Media.Brushes.Bisque;
-            //thumbnailGrid.Children.Add(chemCanvas);
-
-            var editor = new CanvasContainer(contextObject, parent);
+            var editor = new CanvasContainer(ContextObjectProperty, parent);
             
             editor.GeneratePng(true);
 
-            Image img = new Image
+            var img = new Image
             {
                 Source = ToBitmapSource(new Bitmap(editor.PngFileOutput)),
                 Height = 71,
@@ -237,7 +232,7 @@ namespace Chem4Word.UI.Navigator
         private void Refresh()
         {
             collapseNavigatorDepiction = chemistryZone.Properties.CollapseNavigatorDepiction;
-            ContextObjectProperty = new ContextObject(ChemistryZone.Cml);
+            ContextObjectProperty = ChemistryZone.AsContextObject();
             DepictionOption navigatorDepictionOption = DepictionOption.CreateDepictionOption(ChemistryZone.Cml,
                                                                                              ChemistryZone.
                                                                                                  Properties.
@@ -291,7 +286,7 @@ namespace Chem4Word.UI.Navigator
         private DepictionOption GetNewDepictionOption()
         {
             var currentDepictionOptions = Depiction.PossibleDepictionOptions(ContextObjectProperty);
-            var editLabels = new EditLabels(this.ContextObjectProperty, null, null);
+            var editLabels = new EditLabels(ContextObjectProperty, null, null);
             editLabels.AddNewLabel();
             if (editLabels.ShowDialog() == true)
             {
@@ -311,6 +306,7 @@ namespace Chem4Word.UI.Navigator
 
         private void LinkedMenuItemClick(object sender, RoutedEventArgs e)
         {
+            Log.Info("linked menu item clicked");
             if (InsertLinkAs != null)
             {
                 var menuItem = (DepictionMenuItem)sender;
@@ -361,11 +357,10 @@ namespace Chem4Word.UI.Navigator
         private void TitleMouseRightButtonDown(object sender, MouseButtonEventArgs e)
         {
             navigatorItemTitleDepictionOptionsMenu.Items.Clear();
-            var contextObject = new ContextObject(ChemistryZone.Cml);
             var possibleDepictionOptions =
-                Depiction.PossibleDepictionOptions(contextObject).SkipWhile(Depiction.Is2D);
+                Depiction.PossibleDepictionOptions(ContextObjectProperty).SkipWhile(Depiction.Is2D);
             foreach (var titleMenuItem in
-                possibleDepictionOptions.Select(depictionOption => new DepictionMenuItem(contextObject, depictionOption)))
+                possibleDepictionOptions.Select(depictionOption => new DepictionMenuItem(ContextObjectProperty, depictionOption)))
             {
                 navigatorItemTitleDepictionOptionsMenu.Items.Add(titleMenuItem);
                 titleMenuItem.Click += TitleMenuItemClick;
