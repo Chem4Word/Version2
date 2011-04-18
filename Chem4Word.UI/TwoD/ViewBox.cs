@@ -9,20 +9,9 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
-using log4net;
 
 namespace Chem4Word.UI.TwoD {
     public class ViewBox : FrameworkElement {
-        private static double VisibleStrokeWidth {get { return 0.75;}}
-        private static double HiddenStrokeWidth { get { return 10; } }
-        private static double HalfHiddenStrokeWidth {
-            get {return HiddenStrokeWidth/2;}
-        }
-
-        private static double TwiceHiddenStrokeWidth {get {return 2*HiddenStrokeWidth; }}
-        private static double QuadrupleHiddenStrokeWidth { get { return 4 * HiddenStrokeWidth; } }
-
-
         private readonly Pen emptyPen = new Pen(Brushes.Transparent, 0);
 
         /// <summary>
@@ -34,11 +23,11 @@ namespace Chem4Word.UI.TwoD {
         private readonly Pen visibleStrokePen = new Pen(Brushes.Red, VisibleStrokeWidth) {DashStyle = DashStyles.Dash};
         public EventHandler EastControlMouseDown;
         public EventHandler NorthControlMouseDown;
-        public EventHandler NorthWestControlMouseDown;
         public EventHandler NorthEastControlMouseDown;
-        public EventHandler SouthWestControlMouseDown;
-        public EventHandler SouthEastControlMouseDown;
+        public EventHandler NorthWestControlMouseDown;
         public EventHandler SouthControlMouseDown;
+        public EventHandler SouthEastControlMouseDown;
+        public EventHandler SouthWestControlMouseDown;
         public EventHandler WestControlMouseDown;
 
         /// <summary>
@@ -58,12 +47,32 @@ namespace Chem4Word.UI.TwoD {
         public ViewBox(ChemCanvas chemCanvas) {
             children = new VisualCollection(this);
             theCanvas = chemCanvas;
-            var toolTip = new ToolTip
-            {
-                Content = "move this box around to define the view in the document"
-            };
-            this.ToolTip = toolTip;
+            ToolTip = new ToolTip
+                          {
+                              Content = "This box defines what will be shown in the document.\n"+
+                                        "Move this box around to change the document and navigator representation."
+                          };
             Refresh();
+        }
+
+        private static double VisibleStrokeWidth {
+            get { return 0.75; }
+        }
+
+        private static double HiddenStrokeWidth {
+            get { return 10; }
+        }
+
+        private static double HalfHiddenStrokeWidth {
+            get { return HiddenStrokeWidth/2; }
+        }
+
+        private static double TwiceHiddenStrokeWidth {
+            get { return 2*HiddenStrokeWidth; }
+        }
+
+        private static double QuadrupleHiddenStrokeWidth {
+            get { return 4*HiddenStrokeWidth; }
         }
 
         public static double MininumWidth {
@@ -81,11 +90,6 @@ namespace Chem4Word.UI.TwoD {
             get { return children.Count; }
         }
 
-        public double X { get; private set; }
-        public double Y { get; private set; }
-        public double W { get; private set; }
-        public double H { get; private set; }
-
         private void Refresh() {
             var drawingVisual = new DrawingVisual();
             var drawingContext =
@@ -93,29 +97,22 @@ namespace Chem4Word.UI.TwoD {
 
             var initialRect = theCanvas.ContextObject.ViewBoxDimensions;
 
-           var rect = new Rect(theCanvas.ToScreenX(initialRect.X), theCanvas.ToScreenY(initialRect.Y),
+            var rect = new Rect(theCanvas.ToScreenX(initialRect.X), theCanvas.ToScreenY(initialRect.Y),
                                 theCanvas.ToScreenX(initialRect.Width),
                                 Math.Abs(theCanvas.ToScreenY(initialRect.Height)));
 
-            if (rect.Width <(4 * HiddenStrokeWidth + 2 * VisibleStrokeWidth)) {
-                rect.Width = 4 * HiddenStrokeWidth + 2 * VisibleStrokeWidth;
+            if (rect.Width < (4*HiddenStrokeWidth + 2*VisibleStrokeWidth)) {
+                rect.Width = 4*HiddenStrokeWidth + 2*VisibleStrokeWidth;
             }
-            if (rect.Height < (4 * HiddenStrokeWidth + 2 * VisibleStrokeWidth))
-            {
-                rect.Height = 4 * HiddenStrokeWidth + 2 * VisibleStrokeWidth;
+            if (rect.Height < (4*HiddenStrokeWidth + 2*VisibleStrokeWidth)) {
+                rect.Height = 4*HiddenStrokeWidth + 2*VisibleStrokeWidth;
             }
 
 
             rect.X -= VisibleStrokeWidth;
             rect.Y -= VisibleStrokeWidth;
-            rect.Width += TwiceHiddenStrokeWidth;
-            rect.Height += TwiceHiddenStrokeWidth;
-
-            X = theCanvas.FromScreenX(rect.X);
-            Y = theCanvas.FromScreenY(rect.Y);
-            W = Math.Abs(
-               theCanvas.FromScreenX(rect.Width));
-            H = Math.Abs(theCanvas.FromScreenY(rect.Height));
+            rect.Width += VisibleStrokeWidth;
+            rect.Height += VisibleStrokeWidth;
 
             var rectangleGeometry = new RectangleGeometry(rect);
             drawingContext.DrawGeometry(null, visibleStrokePen, rectangleGeometry);
@@ -162,7 +159,6 @@ namespace Chem4Word.UI.TwoD {
             southEastCorner = new EllipseGeometry(rect.BottomRight, TwiceHiddenStrokeWidth, TwiceHiddenStrokeWidth);
             drawingContext.DrawGeometry(Brushes.Transparent, emptyPen, southEastCorner);
 
-            
 
             drawingContext.Close();
             children.Add(drawingVisual);
@@ -212,54 +208,23 @@ namespace Chem4Word.UI.TwoD {
                 if (NorthWestControlMouseDown != null) {
                     NorthWestControlMouseDown(this, EventArgs.Empty);
                 }
-            }
-            else if (southWestCorner.Bounds.Contains(position))
-            {
-                if (SouthWestControlMouseDown != null)
-                {
+            } else if (southWestCorner.Bounds.Contains(position)) {
+                if (SouthWestControlMouseDown != null) {
                     SouthWestControlMouseDown(this, EventArgs.Empty);
                 }
-            }
-            else if (northEastCorner.Bounds.Contains(position))
-            {
-                if (NorthEastControlMouseDown != null)
-                {
+            } else if (northEastCorner.Bounds.Contains(position)) {
+                if (NorthEastControlMouseDown != null) {
                     NorthEastControlMouseDown(this, EventArgs.Empty);
                 }
-            }
-            else if (southEastCorner.Bounds.Contains(position))
-            {
-                if (SouthEastControlMouseDown != null)
-                {
+            } else if (southEastCorner.Bounds.Contains(position)) {
+                if (SouthEastControlMouseDown != null) {
                     SouthEastControlMouseDown(this, EventArgs.Empty);
                 }
             }
 
             e.Handled = true;
         }
-
-        protected override void OnMouseRightButtonDown(MouseButtonEventArgs e)
-        {
-            base.OnMouseLeftButtonDown(e);
-            var position = e.GetPosition(this);
-            if (westSide.Bounds.Contains(position) ||eastSide.Bounds.Contains(position)||northSide.Bounds.Contains(position)||southSide.Bounds.Contains(position)
-                ||northWestCorner.Bounds.Contains(position)||southWestCorner.Bounds.Contains(position)||northEastCorner.Bounds.Contains(position)||southEastCorner.Bounds.Contains(position)) {
-
-                // show a help box
-//                var contextMenu = new ContextMenu();
-//                var menuItem = new MenuItem();
-//                menuItem.Header = ;
-//                contextMenu.Items.Add(menuItem);
-//                this.ContextMenu=
-//                contextMenu;
-//                this.ContextMenu.BringIntoView();
-            } else {
-                
-            }
-
-            e.Handled = true;
-        }
-
+        
         /// <summary>
         ///   Provide a required override for the GetVisualChild method.
         /// </summary>

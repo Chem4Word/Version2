@@ -547,32 +547,32 @@ namespace Chem4Word.UI.TwoD {
         ///   Gets or sets the PanX property.  This dependency property 
         ///   indicates ....
         /// </summary>
-        public double PanX {
-            get { return (double) GetValue(PanXProperty); }
-            set { SetValue(PanXProperty, value); }
-        }
+//        public double PanX {
+//            get { return (double) GetValue(PanXProperty); }
+//            set { SetValue(PanXProperty, value); }
+//        }
 
         #endregion
 
-        #region PanY
-
-        /// <summary>
-        ///   PanY Dependency Property
-        /// </summary>
-        public static readonly DependencyProperty PanYProperty =
-            DependencyProperty.Register("PanY", typeof (double), typeof (ChemCanvas),
-                                        new FrameworkPropertyMetadata(0.0));
-
-        /// <summary>
-        ///   Gets or sets the PanY property.  This dependency property 
-        ///   indicates ....
-        /// </summary>
-        public double PanY {
-            get { return (double) GetValue(PanYProperty); }
-            set { SetValue(PanYProperty, value); }
-        }
-
-        #endregion
+//        #region PanY
+//
+//        /// <summary>
+//        ///   PanY Dependency Property
+//        /// </summary>
+//        public static readonly DependencyProperty PanYProperty =
+//            DependencyProperty.Register("PanY", typeof (double), typeof (ChemCanvas),
+//                                        new FrameworkPropertyMetadata(0.0));
+//
+//        /// <summary>
+//        ///   Gets or sets the PanY property.  This dependency property 
+//        ///   indicates ....
+//        /// </summary>
+//        public double PanY {
+//            get { return (double) GetValue(PanYProperty); }
+//            set { SetValue(PanYProperty, value); }
+//        }
+//
+//        #endregion
 
         #region public methods
 
@@ -841,8 +841,8 @@ namespace Chem4Word.UI.TwoD {
                                        ? molWidthScreenCoords
                                        : molHeightScreenCoords;
 
-            StandardXOffset = border + ToScreenX(-xmin) + (maxBoundScreenCoords - molWidthScreenCoords)/2 + PanX;
-            StandardYOffset = border + ToScreenY(-ymax) + (maxBoundScreenCoords - molHeightScreenCoords)/2 + PanY;
+            StandardXOffset = border + ToScreenX(-xmin) + (maxBoundScreenCoords - molWidthScreenCoords)/2;
+            StandardYOffset = border + ToScreenY(-ymax) + (maxBoundScreenCoords - molHeightScreenCoords)/2;
 
             Log.Debug(string.Format("xmax {0} xmin {1} ymax {2} ymin {3}", xmax, xmin, ymax, ymin));
             Log.Debug(string.Format("mol width (screen): {0} mol height (screen) {1}", molWidthScreenCoords,
@@ -856,7 +856,7 @@ namespace Chem4Word.UI.TwoD {
             {
 //                viewBox = new Rect(xmin, ymax, molWidthScreenCoords, molHeightScreenCoords);
                
-                ContextObject.ViewBoxDimensions = new Rect(xmin-0.5, ymax+0.5, Math.Abs(xmax - xmin)+1, Math.Abs(ymax - ymin)+1);
+                ContextObject.ViewBoxDimensions = new Rect(xmin-1, ymax+1, Math.Abs(xmax - xmin)+2, Math.Abs(ymax - ymin)+2);
             }
 
             Log.Debug(string.Format("xmax {0} xmin {1} ymax {2} ymin {3}", xmax, xmin, ymax, ymin));
@@ -921,8 +921,6 @@ namespace Chem4Word.UI.TwoD {
             //tg.Children.Add(new TranslateTransform(pngBorder, pngBorder));
             // move the molecule to the top left of the area within the border
 
-//            tg.Children.Add(new TranslateTransform(ToScreenX(-xmin), ToScreenY(-ymax)));
-
             tg.Children.Add(new TranslateTransform(ToScreenX(-ContextObject.ViewBoxDimensions.X), ToScreenY(-ContextObject.ViewBoxDimensions.Y)));
 
             Log.Info(string.Format("Xmin {0} Xmax {1} Ymin {2} Ymax {3}", xmin,xmax,ymin,ymax));
@@ -933,12 +931,8 @@ namespace Chem4Word.UI.TwoD {
             //this.RenderTransform = tg;
             standardTransformGroup = tg;
 
-//            Width = molWidthScreenCoords + (2*pngBorder);
-//            Height = molHeightScreenCoords + (2*pngBorder);
-
             Width = Math.Abs(ToScreenX(ContextObject.ViewBoxDimensions.Width));
             Height = Math.Abs(ToScreenY(ContextObject.ViewBoxDimensions.Height));
-            Log.Info(string.Format("PNG BORDER {0} {1}",FromScreenX(2), FromScreenY(20)));
         }
 
         private void HideMenus() {

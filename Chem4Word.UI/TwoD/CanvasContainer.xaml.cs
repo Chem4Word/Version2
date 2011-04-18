@@ -117,21 +117,21 @@ namespace Chem4Word.UI.TwoD
         public void GeneratePng(bool transparentBackground)
         {
             // redraw the molecule with new bounds and using the png border
-            this.chemCanvas.Refresh(true);
-            Brush originalBkg = this.chemCanvas.Background;
+            chemCanvas.Refresh(true);
+            var originalBkg = chemCanvas.Background;
             try
             {
                 if (transparentBackground)
                 {
-                    this.chemCanvas.Background = new SolidColorBrush(Colors.Transparent);
+                    chemCanvas.Background = new SolidColorBrush(Colors.Transparent);
                 }
 
-                this.pngFile = Path.GetTempFileName() + ".png";
-                this.CreatePng(this.pngFile);
+                pngFile = Path.GetTempFileName() + ".png";
+                CreatePng(pngFile);
             }
             finally
             {
-                this.chemCanvas.Background = originalBkg;
+                chemCanvas.Background = originalBkg;
             }
         }
 
@@ -141,7 +141,7 @@ namespace Chem4Word.UI.TwoD
         /// <param name="fileName">PNG image file name.</param>
         internal void CreatePng(string fileName)
         {
-            if (this.chemCanvas == null)
+            if (chemCanvas == null)
             {
                 throw new Exception("Surface was not initialized.");
             }
@@ -164,11 +164,7 @@ namespace Chem4Word.UI.TwoD
             var height = Math.Abs(surface.ToScreenY(surface.ContextObject.ViewBoxDimensions.Height));
 
             // Get the size of canvas
-            Log.Info(string.Format("SIZE width: {0} height {1}", width, height));
-
-//            Size size = new Size(chemCanvas.Width, chemCanvas.Height);
-
-            Size size = new Size(width,height);
+            var size = new Size(width,height);
 
             // Measure and arrange the surface
 
@@ -177,7 +173,7 @@ namespace Chem4Word.UI.TwoD
             surface.Arrange(new Rect(size));
 
             // Create a render bitmap and push the surface to it
-            RenderTargetBitmap renderBitmap =
+            var renderBitmap =
                 new RenderTargetBitmap(
                     (int) size.Width,
                     (int) size.Height,
@@ -187,15 +183,14 @@ namespace Chem4Word.UI.TwoD
             renderBitmap.Render(surface);
 
             // Create a file stream for saving image
-            using (FileStream outStream = new FileStream(path, FileMode.Create))
+            using (var outStream = new FileStream(path, FileMode.Create))
             {
                 // Use png encoder for our data
-                PngBitmapEncoder encoder = new PngBitmapEncoder();
+                var encoder = new PngBitmapEncoder();
                 // push the rendered bitmap to it
                 encoder.Frames.Add(BitmapFrame.Create(renderBitmap));
                 // save the data to the stream
                 encoder.Save(outStream);
-                outStream.Close();
             }
 
             // Restore previously saved layout
