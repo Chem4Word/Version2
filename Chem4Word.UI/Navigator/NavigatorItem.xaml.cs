@@ -17,7 +17,6 @@ using System.Windows.Interop;
 using System.Windows.Media.Imaging;
 using System.Xml.Linq;
 using Chem4Word.Api;
-using Chem4Word.Api.Events;
 using Chem4Word.UI.ManageView;
 using Chem4Word.UI.Tools;
 using Chem4Word.UI.TwoD;
@@ -184,7 +183,7 @@ namespace Chem4Word.UI.Navigator
             var chemistryZoneSender = sender as IChemistryZone;
             if (chemistryZoneSender != null)
             {
-                if (chemistryZoneSender.ID.Equals(this.chemistryZone.ID))
+                if (chemistryZoneSender.ID.Equals(chemistryZone.ID))
                 {
                     Refresh();
                     UpdateDepicitonOptions();
@@ -222,8 +221,6 @@ namespace Chem4Word.UI.Navigator
 
             // Delete the png file
             File.Delete(editor.PngFileOutput);
-            editor = null;
-
         }
 
         /// <summary>
@@ -233,7 +230,7 @@ namespace Chem4Word.UI.Navigator
         {
             collapseNavigatorDepiction = chemistryZone.Properties.CollapseNavigatorDepiction;
             ContextObjectProperty = ChemistryZone.AsContextObject();
-            DepictionOption navigatorDepictionOption = DepictionOption.CreateDepictionOption(ChemistryZone.Cml,
+            var navigatorDepictionOption = DepictionOption.CreateDepictionOption(ContextObjectProperty.Cml,
                                                                                              ChemistryZone.
                                                                                                  Properties.
                                                                                                  NavigatorDepictionOptionXPath);
@@ -291,15 +288,9 @@ namespace Chem4Word.UI.Navigator
             if (editLabels.ShowDialog() == true)
             {
                 chemistryZone.Cml = editLabels.ContextObject.Cml;
-                IEnumerable<DepictionOption> newDepictionOptions =
+                var newDepictionOptions =
                     Depiction.PossibleDepictionOptions(editLabels.ContextObject);
-                foreach (var newDepictionOption in newDepictionOptions)
-                {
-                    if (!currentDepictionOptions.Contains(newDepictionOption))
-                    {
-                        return newDepictionOption;
-                    }
-                }
+                return newDepictionOptions.FirstOrDefault(newDepictionOption => !currentDepictionOptions.Contains(newDepictionOption));
             }
             return null;
         }
@@ -372,18 +363,8 @@ namespace Chem4Word.UI.Navigator
             var menuItem = sender as DepictionMenuItem;
             if (menuItem != null)
             {
-                //ChemistryZoneProperties oldProp = ChemistryZone.Properties;
-                //DepictionOption documentDepictionOption = DepictionOption.CreateDepictionOption(ChemistryZone.Cml,
-                //                                                                                oldProp.
-                //                                                                                    DocumentDepictionOptionXPath);
-                //DepictionOption navigatorDepictionOption = menuItem.DepictionOption;
-                //ChemistryZoneProperties prop = new ChemistryZoneProperties(documentDepictionOption,
-                //                                                           navigatorDepictionOption);
-
                 var newChemistryZoneProperties = chemistryZone.Properties.Clone();
                 newChemistryZoneProperties.SetNavigatorDepictionOption(menuItem.DepictionOption);
-                
-                //ChemistryZone.Properties = prop;
                 ChemistryZone.Properties= newChemistryZoneProperties;
             }
         }

@@ -161,7 +161,7 @@ namespace Chem4Word.Core
                 editor.GeneratePng(false);
 
                 object missing = Type.Missing;
-                contentControl = this.WordDocument.ContentControls.Add(WdContentControlType.wdContentControlPicture,
+                contentControl = WordDocument.ContentControls.Add(WdContentControlType.wdContentControlPicture,
                                                                        ref missing);
 
                 contentControl.Range.InlineShapes.AddPicture(editor.PngFileOutput, ref missing, ref missing,
@@ -257,8 +257,9 @@ namespace Chem4Word.Core
                 DepictionOption navigatorDepictionOption =
                     DepictionOption.CreateDepictionOption(sourceChemZone.Cml, properties.NavigatorDepictionOptionXPath);
 
-                newChemistryZone.Properties = new ChemistryZoneProperties(documentDepictionOption,
-                                                                          navigatorDepictionOption, newChemistryZoneProperties.CollapseNavigatorDepiction);
+//                newChemistryZone.Properties = new ChemistryZoneProperties(documentDepictionOption,
+//                                                                          navigatorDepictionOption, newChemistryZoneProperties.CollapseNavigatorDepiction);
+                newChemistryZone.Properties = newChemistryZoneProperties;
 
                 string refVal = xmlMappingManager.GetCmlRefValueByZone(sourceChemZone);
                 xmlMappingManager.UpdateCmlRefByZone(newChemistryZone, refVal);

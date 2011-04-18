@@ -142,7 +142,7 @@ namespace Chem4Word.UI.Navigator
         /// <param name="member"> IChemistryZone to be added</param>
         private void MemberAdd(IChemistryZone member)
         {
-            NavigatorItem item = new NavigatorItem(member) {Width = 235};
+            var item = new NavigatorItem(member) {Width = 235};
             DepictionsStack.Children.Add(item);
 
             item.SelectedChanged += NavigatorItemSelectedChanged;
@@ -152,10 +152,10 @@ namespace Chem4Word.UI.Navigator
 
         private void ItemInsertCopyAs(object sender, DepictionOptionEventArgs e)
         {
-            NavigatorItem item = sender as NavigatorItem;
+            var item = sender as NavigatorItem;
             if (item != null)
             {
-                ChemistryZoneProperties chemistryZoneProperties = item.ChemistryZone.Properties;
+                var chemistryZoneProperties = item.ChemistryZone.Properties;
                 chemistryZoneProperties.SetDocumentDepictionOption(e.NewDepictionOption);
                 ChemistryDocument.Core.CreateCopy(item.Source, chemistryZoneProperties);
             }
@@ -163,10 +163,10 @@ namespace Chem4Word.UI.Navigator
 
         private void ItemInsertLinkAs(object sender, DepictionOptionEventArgs e)
         {
-            NavigatorItem item = sender as NavigatorItem;
+            var item = sender as NavigatorItem;
             if (item != null)
             {
-                ChemistryZoneProperties chemistryZoneProperties = item.ChemistryZone.Properties;
+                var chemistryZoneProperties = item.ChemistryZone.Properties;
                 chemistryZoneProperties.SetDocumentDepictionOption(e.NewDepictionOption);
                 ChemistryDocument.Core.CreateLink(item.Source, chemistryZoneProperties);
             }

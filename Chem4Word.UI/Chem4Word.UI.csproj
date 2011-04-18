@@ -193,9 +193,6 @@
     <Compile Include="TwoD\CoordinateTool.cs" />
     <Compile Include="TwoD\DottedEdgeControl.cs" />
     <Compile Include="TwoD\DoubleEdgeControl.cs" />
-    <Compile Include="TwoD\DragControl.xaml.cs">
-      <DependentUpon>DragControl.xaml</DependentUpon>
-    </Compile>
     <Compile Include="TwoD\FAtomNodeControl.cs" />
     <Compile Include="TwoD\GeometryTool.cs" />
     <Compile Include="TwoD\HatchEdgeControl.cs" />
@@ -380,14 +377,6 @@
   </ItemGroup>
   <ItemGroup>
     <Page Include="TwoD\ChemContextMenu.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-  </ItemGroup>
-  <ItemGroup>
-    <Page Include="TwoD\DragControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
