@@ -43,12 +43,10 @@ namespace Chem4Word.UI.TwoD {
         private bool dragging;
         private bool hasMouseDowned;
         private Vector initialRotateVector;
-        //private bool isDirty;
         private bool isRotating;
         private double lastAngle;
         private SortedDictionary<string, AbstractNodeControl> nodes;
         private Point rotationCentreInCanvasSpace;
-        //private Geometry selectionBounds;
         private RectangleGeometry selectionGeometry;
         private TransformGroup standardTransformGroup;
         private ViewBoxDraggingPosition viewBoxDraggingPosition = ViewBoxDraggingPosition.None;
@@ -534,46 +532,6 @@ namespace Chem4Word.UI.TwoD {
 
         #endregion
 
-        #region PanX
-
-        /// <summary>
-        ///   PanX Dependency Property
-        /// </summary>
-        public static readonly DependencyProperty PanXProperty =
-            DependencyProperty.Register("PanX", typeof (double), typeof (ChemCanvas),
-                                        new FrameworkPropertyMetadata(0.0));
-
-        /// <summary>
-        ///   Gets or sets the PanX property.  This dependency property 
-        ///   indicates ....
-        /// </summary>
-//        public double PanX {
-//            get { return (double) GetValue(PanXProperty); }
-//            set { SetValue(PanXProperty, value); }
-//        }
-
-        #endregion
-
-//        #region PanY
-//
-//        /// <summary>
-//        ///   PanY Dependency Property
-//        /// </summary>
-//        public static readonly DependencyProperty PanYProperty =
-//            DependencyProperty.Register("PanY", typeof (double), typeof (ChemCanvas),
-//                                        new FrameworkPropertyMetadata(0.0));
-//
-//        /// <summary>
-//        ///   Gets or sets the PanY property.  This dependency property 
-//        ///   indicates ....
-//        /// </summary>
-//        public double PanY {
-//            get { return (double) GetValue(PanYProperty); }
-//            set { SetValue(PanYProperty, value); }
-//        }
-//
-//        #endregion
-
         #region public methods
 
         public void SetData(ContextObject contextObject, CmlMolecule moleculePointer) {
@@ -645,20 +603,43 @@ namespace Chem4Word.UI.TwoD {
             var contextMenuShown = Children.Contains(chemContextMenu);
 
             Children.Clear();
-            var viewBox = new ViewBox(this);
-            viewBox.WestControlMouseDown += WestControlMouseDown;
-            viewBox.EastControlMouseDown += EastControlMouseDown;
-            viewBox.NorthControlMouseDown += NorthControlMouseDown;
-            viewBox.SouthControlMouseDown += SouthControlMouseDown;
-            viewBox.NorthWestControlMouseDown += NorthWestControlMouseDown;
-            viewBox.NorthEastControlMouseDown += NorthEastControlMouseDown;
-            viewBox.SouthWestControlMouseDown += SouthWestControlMouseDown;
-            viewBox.SouthEastControlMouseDown += SouthEastControlMouseDown;
             if (!forPng) {
+                var viewBox = new ViewBox(this);
+                viewBox.WestControlMouseDown += WestControlMouseDown;
+                viewBox.EastControlMouseDown += EastControlMouseDown;
+                viewBox.NorthControlMouseDown += NorthControlMouseDown;
+                viewBox.SouthControlMouseDown += SouthControlMouseDown;
+                viewBox.NorthWestControlMouseDown += NorthWestControlMouseDown;
+                viewBox.NorthEastControlMouseDown += NorthEastControlMouseDown;
+                viewBox.SouthWestControlMouseDown += SouthWestControlMouseDown;
+                viewBox.SouthEastControlMouseDown += SouthEastControlMouseDown;
                 Children.Add(viewBox);
             }
             if (forPng) {
                 InitForPng();
+                var r1 = CoordinateTool.GetBounds2D(ContextObject, molecule.GetAllAtoms());
+                if (invertYAxis) {
+                    var temp = r1;
+                    r1 = new Rect(temp.X, temp.Bottom, temp.Width, temp.Height);
+                }
+                var viewboxActualLeft = ToScreenX(ContextObject.ViewBoxDimensions.Left);
+                var viewboxActualRight = ToScreenX(ContextObject.ViewBoxDimensions.Right);
+                var viewboxActualTop = ToScreenY(ContextObject.ViewBoxDimensions.Top);
+                var viewboxActualBottom = ToScreenY(ContextObject.ViewBoxDimensions.Bottom);
+
+                var molActualLeft = ToScreenX(r1.Left);
+                var molActualRight = ToScreenX(r1.Right);
+                var molActualTop = ToScreenY(r1.Top);
+                var molActualBottom = ToScreenY(r1.Bottom);
+
+                var viewBoxActual = new Rect(viewboxActualLeft, viewboxActualTop, viewboxActualRight - viewboxActualLeft,
+                                             Math.Abs(viewboxActualTop - viewboxActualBottom));
+                var molActual = new Rect(molActualLeft, molActualTop, molActualRight - molActualLeft,
+                                         Math.Abs(molActualTop - molActualBottom));
+                if (!viewBoxActual.Contains(molActual)) {
+                    var displayBox = new DisplayBox(this);
+                    Children.Add(displayBox);
+                }
             }
 
 
@@ -764,6 +745,11 @@ namespace Chem4Word.UI.TwoD {
         private readonly Stack<ContextObject> undoStack = new Stack<ContextObject>();
 
         /// <summary>
+        ///   The ContextObject which contains the chemistry to draw.
+        /// </summary>
+        private ContextObject _co;
+
+        /// <summary>
         ///   The list of atoms currently selected.
         ///   This may have to move to an ordered set - so that we know directionality of the users
         ///   choice (ie which end of the bond was chosen first)
@@ -782,15 +768,13 @@ namespace Chem4Word.UI.TwoD {
             set { selectedBonds = value; }
         }
 
-        /// <summary>
-        ///   The ContextObject which contains the chemistry to draw.
-        /// </summary>
-        /// 
-        private ContextObject _co;
-        public ContextObject ContextObject { get { return _co; } internal set {
-            Log.Info("setting CO"); 
-            _co = value;
-        } }
+        public ContextObject ContextObject {
+            get { return _co; }
+            internal set {
+                Log.Info("setting CO");
+                _co = value;
+            }
+        }
 
         /// <summary>
         ///   Get the canvas to which to add UIElements.
@@ -846,17 +830,18 @@ namespace Chem4Word.UI.TwoD {
 
             Log.Debug(string.Format("xmax {0} xmin {1} ymax {2} ymin {3}", xmax, xmin, ymax, ymin));
             Log.Debug(string.Format("mol width (screen): {0} mol height (screen) {1}", molWidthScreenCoords,
-                                   molHeightScreenCoords));
+                                    molHeightScreenCoords));
             Log.Debug(string.Format("x offset {0} y offset {1}", StandardXOffset, StandardYOffset));
 
 
             var currentViewBox = ContextObject.ViewBoxDimensions;
 
-            if (currentViewBox.X.Equals(0d) && currentViewBox.Y.Equals(0d) && currentViewBox.Width.Equals(0d) && currentViewBox.Height.Equals(0d))
-            {
+            if (currentViewBox.X.Equals(0d) && currentViewBox.Y.Equals(0d) && currentViewBox.Width.Equals(0d) &&
+                currentViewBox.Height.Equals(0d)) {
 //                viewBox = new Rect(xmin, ymax, molWidthScreenCoords, molHeightScreenCoords);
-               
-                ContextObject.ViewBoxDimensions = new Rect(xmin-1, ymax+1, Math.Abs(xmax - xmin)+2, Math.Abs(ymax - ymin)+2);
+
+                ContextObject.ViewBoxDimensions = new Rect(xmin - 1, ymax + 1, Math.Abs(xmax - xmin) + 2,
+                                                           Math.Abs(ymax - ymin) + 2);
             }
 
             Log.Debug(string.Format("xmax {0} xmin {1} ymax {2} ymin {3}", xmax, xmin, ymax, ymin));
@@ -917,18 +902,10 @@ namespace Chem4Word.UI.TwoD {
             InitialiseCoords();
 
             TransformGroup tg = new TransformGroup();
-            // ensure that molecule has border if required
-            //tg.Children.Add(new TranslateTransform(pngBorder, pngBorder));
             // move the molecule to the top left of the area within the border
+            tg.Children.Add(new TranslateTransform(ToScreenX(-ContextObject.ViewBoxDimensions.X),
+                                                   ToScreenY(-ContextObject.ViewBoxDimensions.Y)));
 
-            tg.Children.Add(new TranslateTransform(ToScreenX(-ContextObject.ViewBoxDimensions.X), ToScreenY(-ContextObject.ViewBoxDimensions.Y)));
-
-            Log.Info(string.Format("Xmin {0} Xmax {1} Ymin {2} Ymax {3}", xmin,xmax,ymin,ymax));
-            Log.Info(string.Format("View Box X {0} Y {1} W {2} H {3}", ContextObject.ViewBoxDimensions.X, ContextObject.ViewBoxDimensions.Y, ContextObject.ViewBoxDimensions.Width, ContextObject.ViewBoxDimensions.Height));
-
-            Log.Info(string.Format("X ToScreen old {0} new ToScreen {1}", ToScreenX(-xmin), ToScreenX(-ContextObject.ViewBoxDimensions.X)));
-            Log.Info(string.Format("Y ToScreen old {0} new ToScreen {1}\n\n", ToScreenY(-ymax), ToScreenY(-ContextObject.ViewBoxDimensions.Y)));
-            //this.RenderTransform = tg;
             standardTransformGroup = tg;
 
             Width = Math.Abs(ToScreenX(ContextObject.ViewBoxDimensions.Width));
@@ -1108,7 +1085,9 @@ namespace Chem4Word.UI.TwoD {
 
         private void ViewBoxChangedEvent(object sender, CmlChangedEventArgs cmlChangedEventArgs) {
             ContextObject = cmlChangedEventArgs.ContextObject;
-            Log.Debug(string.Format("new ContextObject viewbox x {0} y {1} w {2} h {3} ", ContextObject.ViewBoxDimensions.X, ContextObject.ViewBoxDimensions.Y, ContextObject.ViewBoxDimensions.Width, ContextObject.ViewBoxDimensions.Height));
+            Log.Debug(string.Format("new ContextObject viewbox x {0} y {1} w {2} h {3} ",
+                                    ContextObject.ViewBoxDimensions.X, ContextObject.ViewBoxDimensions.Y,
+                                    ContextObject.ViewBoxDimensions.Width, ContextObject.ViewBoxDimensions.Height));
             Refresh();
         }
 
@@ -1459,8 +1438,8 @@ namespace Chem4Word.UI.TwoD {
                             var dy = y - ContextObject.ViewBoxDimensions.Top;
                             var newHeight = ContextObject.ViewBoxDimensions.Height + dy;
 
-                            if (newWidth > FromScreenX(ViewBox.MininumWidth) && newHeight > Math.Abs(FromScreenY(ViewBox.MininumHeight)))
-                            {
+                            if (newWidth > FromScreenX(ViewBox.MininumWidth) &&
+                                newHeight > Math.Abs(FromScreenY(ViewBox.MininumHeight))) {
                                 newViewBox.X += dx;
                                 newViewBox.Width = newWidth;
                                 newViewBox.Y += dy;
@@ -1479,8 +1458,8 @@ namespace Chem4Word.UI.TwoD {
                             var dy = y - ContextObject.ViewBoxDimensions.Top;
                             var newHeight = ContextObject.ViewBoxDimensions.Height + dy;
 
-                            if (newWidth > FromScreenX(ViewBox.MininumWidth) && newHeight > Math.Abs(FromScreenY(ViewBox.MininumHeight)))
-                            {
+                            if (newWidth > FromScreenX(ViewBox.MininumWidth) &&
+                                newHeight > Math.Abs(FromScreenY(ViewBox.MininumHeight))) {
                                 newViewBox.Width = newWidth;
                                 newViewBox.Y += dy;
                                 newViewBox.Height = newHeight;
@@ -1493,13 +1472,13 @@ namespace Chem4Word.UI.TwoD {
                         }
                     case ViewBoxDraggingPosition.SouthWest:
                         {
-                                                        var dx = x - ContextObject.ViewBoxDimensions.Left;
+                            var dx = x - ContextObject.ViewBoxDimensions.Left;
                             var newWidth = ContextObject.ViewBoxDimensions.Width - dx;
                             var dy = y - (ContextObject.ViewBoxDimensions.Y - ContextObject.ViewBoxDimensions.Height);
                             var newHeight = ContextObject.ViewBoxDimensions.Height - dy;
 
-                            if (newWidth > FromScreenX(ViewBox.MininumWidth) && newHeight > Math.Abs(FromScreenY(ViewBox.MininumHeight)))
-                            {
+                            if (newWidth > FromScreenX(ViewBox.MininumWidth) &&
+                                newHeight > Math.Abs(FromScreenY(ViewBox.MininumHeight))) {
                                 newViewBox.X += dx;
                                 newViewBox.Width = newWidth;
                                 newViewBox.Height = newHeight;
@@ -1509,7 +1488,7 @@ namespace Chem4Word.UI.TwoD {
                             }
                             break;
                         }
-                    case ViewBoxDraggingPosition.SouthEast :
+                    case ViewBoxDraggingPosition.SouthEast:
                         {
                             var dx = x - ContextObject.ViewBoxDimensions.Right;
                             var newWidth = ContextObject.ViewBoxDimensions.Width + dx;
@@ -1517,17 +1496,16 @@ namespace Chem4Word.UI.TwoD {
                             var dy = y - (ContextObject.ViewBoxDimensions.Y - ContextObject.ViewBoxDimensions.Height);
                             var newHeight = ContextObject.ViewBoxDimensions.Height - dy;
 
-                            if (newWidth > FromScreenX(ViewBox.MininumWidth) && newHeight > Math.Abs(FromScreenY(ViewBox.MininumHeight)))
-                            {
+                            if (newWidth > FromScreenX(ViewBox.MininumWidth) &&
+                                newHeight > Math.Abs(FromScreenY(ViewBox.MininumHeight))) {
                                 newViewBox.Width = newWidth;
                                 newViewBox.Height = newHeight;
                                 co.ViewBoxDimensions = newViewBox;
                                 ViewBoxChangedEvent(null, new CmlChangedEventArgs(co));
                                 return;
                             }
-                            break; 
+                            break;
                         }
-
                 }
             }
 

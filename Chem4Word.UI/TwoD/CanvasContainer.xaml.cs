@@ -34,9 +34,6 @@ namespace Chem4Word.UI.TwoD
         #endregion
 
         private static readonly ILog Log = LogManager.GetLogger(typeof (CanvasContainer));
-        private double _initialPanX;
-        private double _initialPanY;
-        private Point _mouseDown;
 
         private ContextObject originalContextObject;
         private string pngFile = "";
@@ -70,7 +67,7 @@ namespace Chem4Word.UI.TwoD
         /// </summary>
         public string PngFileOutput
         {
-            get { return this.pngFile; }
+            get { return pngFile; }
         }
 
         public ChemCanvas Canvas
@@ -114,8 +111,8 @@ namespace Chem4Word.UI.TwoD
         /// <summary>
         /// Generate PNG image froma givent temporary file name.
         /// </summary>
-        public void GeneratePng(bool transparentBackground)
-        {
+        public void GeneratePng(bool transparentBackground) {
+            Log.Info("drawing (transparent = "+transparentBackground+")");
             // redraw the molecule with new bounds and using the png border
             chemCanvas.Refresh(true);
             var originalBkg = chemCanvas.Background;
@@ -126,7 +123,7 @@ namespace Chem4Word.UI.TwoD
                     chemCanvas.Background = new SolidColorBrush(Colors.Transparent);
                 }
 
-                pngFile = Path.GetTempFileName() + ".png";
+                pngFile = Path.GetTempFileName();
                 CreatePng(pngFile);
             }
             finally
