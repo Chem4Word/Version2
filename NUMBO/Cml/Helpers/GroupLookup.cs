@@ -50,7 +50,7 @@ namespace Numbo.Cml.Helpers
         /// <returns>group or null</returns>
         public CmlMolecule GetGroup(string abbreviation)
         {
-            CmlMolecule group = null;
+            CmlMolecule group;
             dictionary.TryGetValue(abbreviation, out group);
             return group;
         }

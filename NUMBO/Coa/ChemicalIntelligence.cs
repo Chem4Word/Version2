@@ -1134,32 +1134,7 @@ namespace Numbo.Coa
             }
             return point;
         }
-
-        /// <summary>
-        /// Checks the semantics of the chemistry below and including the pointer.
-        /// </summary>
-        /// <param name="contextObject">the ContextObject containing the pointer</param>
-        /// <param name="pointer">a pointer to the eldest element which should be validated</param>
-        /// <returns>true, if there are any chemical rules warnings</returns>
-        public static bool AnnotateViolationsOfCurrentChemicalRules(ContextObject contextObject, XElement pointer)
-        {
-            if (contextObject == null)
-            {
-                throw new ArgumentNullException("contextObject");
-            }
-            if (pointer == null)
-            {
-                throw new ArgumentNullException("pointer");
-            }
-            bool check = false;
-            if (CmlMolecule.IsMolecule(pointer))
-            {
-                CmlMolecule molecule = new CmlMolecule(pointer);
-                check = molecule.AnnotateViolationsOfCurrentChemicalRules();
-            }
-            return check;
-        }
-
+        
         /// <summary>
         /// Get a list of the atoms which are downstream from the current bond starting with atomPointer 
         /// </summary>

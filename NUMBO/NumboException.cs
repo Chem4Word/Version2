@@ -34,7 +34,7 @@ namespace Numbo
         public NumboException(string message)
             : base(message)
         {
-            this.errorMessage = message;
+            errorMessage = message;
         }
 
         /// <summary>
@@ -50,7 +50,7 @@ namespace Numbo
         public NumboException(string message, Exception innerException)
             : base(message, innerException)
         {
-            this.errorMessage = message;
+            errorMessage = message;
         }
 
         /// <summary>
@@ -74,7 +74,7 @@ namespace Numbo
         /// </summary>
         public string ErrorMessage
         {
-            get { return this.errorMessage; }
+            get { return errorMessage; }
         }
     }
 }

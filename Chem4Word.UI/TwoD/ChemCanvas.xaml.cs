@@ -179,10 +179,6 @@ namespace Chem4Word.UI.TwoD {
 
         private void ChemContextMenuCustomChargeSelected(int charge) {
             TakeSnapshotOfContextObject();
-            if (!CmlAtom.IsValidCharge(charge)) {
-                MessageBox.Show(Window.GetWindow(this), charge + " is not a valid charge for this atom.",
-                                "Invalid Chemistry", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
             Cid.EditOrSetCharge(ContextObject, SelectedAtoms.ToArray()[0].Value.DelegateElement, charge);
             Refresh();
         }

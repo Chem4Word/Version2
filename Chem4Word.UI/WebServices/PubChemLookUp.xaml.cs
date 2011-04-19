@@ -124,7 +124,7 @@ namespace Chem4Word.UI.WebServices
                                              "http://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pccompound&term={0}&retmode=xml",
                                              SearchTerm));
             request.Timeout = 1000;
-            HttpWebResponse response = null;
+            HttpWebResponse response;
             try
             {
                 response = (HttpWebResponse) request.GetResponse();
@@ -255,7 +255,7 @@ namespace Chem4Word.UI.WebServices
                                          "http://pubchem.ncbi.nlm.nih.gov/summary/summary.cgi?cid={0}&disopt=DisplayXML",
                                              id));
             request.Timeout = 1000;
-            HttpWebResponse response = null;
+            HttpWebResponse response;
             try
             {
                 response = (HttpWebResponse)request.GetResponse();
