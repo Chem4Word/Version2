@@ -55,7 +55,7 @@ namespace Chem4Word.UI.TwoD {
             Refresh();
         }
 
-        private static double VisibleStrokeWidth {
+        internal static double VisibleStrokeWidth {
             get { return 0.75; }
         }
 

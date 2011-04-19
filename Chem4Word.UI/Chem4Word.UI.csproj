@@ -157,6 +157,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="TwoD\DisplayBox.cs" />
     <Compile Include="TwoD\ExtendedRadioButton.cs" />
     <Compile Include="TwoD\NewEditorWindow.xaml.cs">
       <DependentUpon>NewEditorWindow.xaml</DependentUpon>

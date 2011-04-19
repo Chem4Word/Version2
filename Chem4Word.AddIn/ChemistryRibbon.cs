@@ -754,6 +754,7 @@ namespace Chem4Word.AddIn {
             if (pressed) {
                 if (custTaskPane == null) {
                     navCustControl = new ChemistryNavigatorHostControl(core.ActiveChemistryDocument);
+
                     custTaskPane = customTaskPanes.Add(navCustControl, Properties.Resources.CHEMISTRY_NAVIGATOR_TITLE,
                                                        wordApp.ActiveWindow);
                     custTaskPane.Visible = true;
@@ -775,17 +776,15 @@ namespace Chem4Word.AddIn {
         }
 
         private void CoreDocumentBeforeClose(object sender, ChemistryDocumentEventArgs e) {
-            foreach (CustomTaskPane taskPane in customTaskPanes) {
-                if (taskPane.Control is ChemistryNavigatorHostControl) {
-                    ChemistryNavigatorHostControl navHost =
-                        taskPane.Control as ChemistryNavigatorHostControl;
-                    ChemistryNavigator chemNavigator = navHost.innerUI.Child as ChemistryNavigator;
-                    if (e.CurrentDocument == chemNavigator.ChemistryDocument.WordDocument) {
-                        taskPane.Visible = false;
-                        customTaskPanes.Remove(taskPane);
-                        break;
-                    }
-                }
+            foreach (var taskPane in from taskPane in customTaskPanes
+                                                where taskPane.Control is ChemistryNavigatorHostControl
+                                                let navHost = taskPane.Control as ChemistryNavigatorHostControl
+                                                let chemNavigator = navHost.innerUI.Child as ChemistryNavigator
+                                                where e.CurrentDocument == chemNavigator.ChemistryDocument.WordDocument
+                                                select taskPane) {
+                taskPane.Visible = false;
+                customTaskPanes.Remove(taskPane);
+                break;
             }
         }
 
