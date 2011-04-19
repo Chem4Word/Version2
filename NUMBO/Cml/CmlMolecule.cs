@@ -287,20 +287,8 @@ namespace Numbo.Cml
         /// <returns>atoms</returns>
         public ICollection<CmlAtom> GetAllAtoms()
         {
-            ICollection<CmlMolecule> molecules = GetChildMoleculeList();
-            if (molecules.Count() == 0)
-            {
-                return GetAtoms();
-            }
-            List<CmlAtom> atoms = new List<CmlAtom>();
-            foreach (CmlMolecule molecule in molecules)
-            {
-                foreach (CmlAtom atom in molecule.GetAtoms())
-                {
-                    atoms.Add(atom);
-                }
-            }
-            return atoms;
+            var molecules = GetChildMoleculeList();
+            return molecules.Count() == 0 ? GetAtoms() : molecules.SelectMany(molecule => molecule.GetAtoms()).ToList();
         }
 
         /// <summary>
@@ -312,13 +300,10 @@ namespace Numbo.Cml
         {
             CmlAtomArray atomArray = GetAtomArray();
             List<string> atomList = new List<string>();
-            if (atomArray != null)
-            {
+            if (atomArray != null) {
                 IEnumerable<XElement> atomsX =
                     atomArray.DelegateElement.Elements(CmlConstants.CmlxNamespace + CmlAtom.Tag);
-                foreach (XElement atomX in atomsX)
-                {
-                    XAttribute attribute = atomX.Attribute(CmlAttribute.ID);
+                foreach (XAttribute attribute in atomsX.Select(atomX => atomX.Attribute(CmlAttribute.ID))) {
                     if (attribute == null)
                     {
                         throw new NumboException("null atom id");
@@ -338,14 +323,10 @@ namespace Numbo.Cml
         {
             CmlBondArray bondArray = GetBondArray();
             List<CmlBond> bondList = new List<CmlBond>();
-            if (bondArray != null)
-            {
+            if (bondArray != null) {
                 IEnumerable<XElement> bondsX =
                     bondArray.DelegateElement.Elements(CmlConstants.CmlxNamespace + CmlBond.Tag);
-                foreach (XElement bondX in bondsX)
-                {
-                    bondList.Add(new CmlBond(bondX));
-                }
+                bondList.AddRange(bondsX.Select(bondX => new CmlBond(bondX)));
             }
             return bondList;
         }
@@ -361,15 +342,7 @@ namespace Numbo.Cml
             {
                 return GetBonds();
             }
-            List<CmlBond> bonds = new List<CmlBond>();
-            foreach (CmlMolecule molecule in molecules)
-            {
-                foreach (CmlBond bond in molecule.GetBonds())
-                {
-                    bonds.Add(bond);
-                }
-            }
-            return bonds;
+            return molecules.SelectMany(molecule => molecule.GetBonds()).ToList();
         }
 
         /// <summary>
@@ -811,26 +784,7 @@ namespace Numbo.Cml
             }
             return medianLength;
         }
-
-        /// <summary>
-        /// returns false if any atoms break the rules
-        /// </summary>
-        /// <returns></returns>
-        public bool AnnotateViolationsOfCurrentChemicalRules()
-        {
-            bool check = true;
-            IEnumerable<CmlAtom> atomList = GetAllAtoms();
-            foreach (CmlAtom atom in atomList)
-            {
-                if (!atom.AnnotateViolationsOfCurrentChemicalRules())
-                {
-                    check = false;
-                    break;
-                }
-            }
-            return check;
-        }
-
+        
         /// <summary>
         /// adds atom and ensures unique id
         /// checks for duplicates first

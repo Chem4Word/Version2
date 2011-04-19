@@ -1,6 +1,0 @@
-Refactor tests to normalize molecules
-Normalize after every significant operation
-validate after every significant operation
-cmlx:forced
-cmlx:nonchemistry max/min coord electron count charge forced
-==R (ylidene substituents)

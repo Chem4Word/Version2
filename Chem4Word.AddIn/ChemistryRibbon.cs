@@ -15,7 +15,6 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows;
 using System.Windows.Forms;
-using System.Xml.Linq;
 using Chem4Word.AddIn.Gallery;
 using Chem4Word.AddIn.Navigator;
 using Chem4Word.Api;

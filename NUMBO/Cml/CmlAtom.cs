@@ -575,7 +575,7 @@ namespace Numbo.Cml
 
         public void ForceSubstituteElement(PeriodicTable.Element newElement)
         {
-            this.ElementType = newElement.ToString();
+            ElementType = newElement.ToString();
         }
 
         private void DeleteHydrogenLigandsAndBonds()
@@ -729,21 +729,21 @@ namespace Numbo.Cml
             }
             else if (atomParity == null)
             {
-                this.ComputeParityFromBondStereoOfLigands();
+                ComputeParityFromBondStereoOfLigands();
             }
             else
             {
-                bool areCompatible = this.CheckParityAndBondStereo(atomParity);
+                bool areCompatible = CheckParityAndBondStereo(atomParity);
                 if (!areCompatible)
                 {
-                    throw new NumboException("Inconsistent atomParity on atom (" + this.Id + ")");
+                    throw new NumboException("Inconsistent atomParity on atom (" + Id + ")");
                 }
             }
         }
 
         private void AddFirstWedgeableBondValue(CmlAtomParity atomParity)
         {
-            var wedgeableBond = this.GetFirstWedgeableBond();
+            var wedgeableBond = GetFirstWedgeableBond();
             if (wedgeableBond != null)
             {
                 var bondStereoIndicator = atomParity.CalculateBondStereoIndicator(wedgeableBond);
@@ -860,29 +860,24 @@ namespace Numbo.Cml
             return wedgeableBond;
         }
 
-        public PeriodicTable.Element GetElement()
-        {
-            return (ElementType == null) ? PeriodicTable.Element.Null : PeriodicTable.GetElement(ElementType);
-        }
-
         internal void ChangeElementTypeAndFixHydrogensForCommonElements(string newElementType)
         {
-            PeriodicTable.Element newElement = PeriodicTable.GetElement(newElementType);
-            PeriodicTable.Element thisElement = PeriodicTable.GetElement(this.ElementType);
+            var newElement = PeriodicTable.GetElement(newElementType);
+            var thisElement = PeriodicTable.GetElement(this.ElementType);
             // change within common set
             if (CmlMolecule.CommonElementSet.Contains(thisElement) &&
                 CmlMolecule.CommonElementSet.Contains(newElement))
             {
-                int nHyd = PeriodicTable.CalculateCommonGroupDifference(newElement, thisElement);
+                var nHyd = PeriodicTable.CalculateCommonGroupDifference(newElement, thisElement);
                 if (nHyd > 0)
                 {
                     AddNakedHydrogensAndAdjustCoordinates(nHyd);
-                    this.ElementType = newElementType;
+                    ElementType = newElementType;
                 }
-                else if (this.GetHydrogenLigands().Count() >= -nHyd)
+                else if (GetHydrogenLigands().Count() >= -nHyd)
                 {
-                    this.DeleteHydrogen(-nHyd);
-                    this.ElementType = newElementType;
+                    DeleteHydrogen(-nHyd);
+                    ElementType = newElementType;
                 }
             }
                 // change to R or NextCommon
@@ -891,22 +886,22 @@ namespace Numbo.Cml
             {
                 // clear everything
                 ClearProperties();
-                this.ElementType = newElementType;
+                ElementType = newElementType;
             }
                 // everything else
             else
             {
                 // clear everything
                 ClearProperties();
-                this.ElementType = newElementType;
+                ElementType = newElementType;
             }
         }
 
         private void ClearProperties()
         {
-            this.DeleteHydrogenLigandsAndBonds();
-            this.FormalCharge = 0;
-            this.RemoveIsotope();
+            DeleteHydrogenLigandsAndBonds();
+            FormalCharge = 0;
+            RemoveIsotope();
         }
 
         /// <summary>
@@ -914,9 +909,9 @@ namespace Numbo.Cml
         /// </summary>
         internal void CreateOrAdjustHydrogenCoordinates()
         {
-            IEnumerable<CmlAtom> hydrogens = this.GetHydrogenLigands();
-            IEnumerable<CmlAtom> nonHydrogens = this.GetNonHydrogenLigands();
-            this.ComputeAndAdd2DCoordinates(nonHydrogens, hydrogens);
+            IEnumerable<CmlAtom> hydrogens = GetHydrogenLigands();
+            IEnumerable<CmlAtom> nonHydrogens = GetNonHydrogenLigands();
+            ComputeAndAdd2DCoordinates(nonHydrogens, hydrogens);
         }
 
         /// <summary>
@@ -1028,133 +1023,7 @@ namespace Numbo.Cml
             this.Point2.Add(vector);
             return Point2;
         }
-
-        /// <summary>
-        /// annotate atom with warning if any rule broken
-        /// </summary>
-        /// <returns>true if any violation</returns>
-        public bool AnnotateViolationsOfCurrentChemicalRules()
-        {
-            return HasViolationsOfCurrentChemicalRules(true);
-        }
-
-        /// <summary>
-        /// annotate atom with warning if any rule broken
-        /// </summary>
-        /// <param name="annotate">annotae if has warnings</param>
-        /// <returns></returns>
-        public bool HasViolationsOfCurrentChemicalRules(bool annotate)
-        {
-            bool hasViolation = false;
-            if (!this.HasAllowedElectronCount())
-            {
-                hasViolation = true;
-                if (annotate)
-                {
-                    this.AddCmlxAttribute(CmlConstants.CmlxWarning,
-                                          CmlConstants.UnusualValenceElectronCount + this.GetValenceElectronCount());
-                }
-            }
-            if (!this.HasAllowedCoordinationNumber())
-            {
-                hasViolation = true;
-                if (annotate)
-                {
-                    this.AddCmlxAttribute(CmlConstants.CmlxWarning,
-                                          CmlConstants.UnusualCoordinationNumber + this.GetLigands().Count());
-                }
-            }
-            if (!this.HasAllowedFormalCharge())
-            {
-                hasViolation = true;
-                if (annotate)
-                {
-                    this.AddCmlxAttribute(CmlConstants.CmlxWarning,
-                                          CmlConstants.UnusualCharge + this.FormalCharge);
-                }
-            }
-            if (!this.HasAllowedSpinMultiplicity())
-            {
-                hasViolation = true;
-                if (annotate)
-                {
-                    this.AddCmlxAttribute(CmlConstants.CmlxWarning,
-                                          CmlConstants.UnusualSpinMultiplicity + this.SpinMultiplicity);
-                }
-            }
-            return hasViolation;
-        }
-
-        /// <summary>
-        /// check if in range 1-2
-        /// </summary>
-        /// <returns></returns>
-        private bool HasAllowedSpinMultiplicity()
-        {
-            int spin = this.SpinMultiplicity ?? 1;
-            return (spin >= 1 &&
-                    spin <= 2);
-        }
-
-        private bool HasAllowedFormalCharge()
-        {
-            int charge = this.FormalCharge ?? 0;
-            PeriodicTable.Element element = PeriodicTable.GetElement(this.ElementType);
-            return (charge >= PeriodicTable.GetMinCharge(element) &&
-                    charge <= PeriodicTable.GetMaxCharge(element));
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        private bool HasAllowedCoordinationNumber()
-        {
-            int coordinationNumber = this.GetLigands().Count();
-            PeriodicTable.Element element = PeriodicTable.GetElement(this.ElementType);
-            return (coordinationNumber >= PeriodicTable.GetMinCoordinationNumber(element) &&
-                    coordinationNumber <= PeriodicTable.GetMaxCoordinationNumber(element));
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        private bool HasAllowedElectronCount()
-        {
-            bool check = false;
-            int? electronCount = this.GetValenceElectronCount();
-            if (electronCount != null)
-            {
-                PeriodicTable.Element element = PeriodicTable.GetElement(this.ElementType);
-                check = (electronCount.Value >= PeriodicTable.GetMinValenceElectronCount(element) &&
-                         electronCount.Value <= PeriodicTable.GetMaxValenceElectronCount(element));
-            }
-            return check;
-        }
-
-        public int? GetValenceElectronCount()
-        {
-            PeriodicTable.Element el = PeriodicTable.GetElement(this.ElementType);
-            int? count = null;
-            int? bondOrderSum = this.GetBondOrderSum();
-            if (bondOrderSum != null)
-            {
-                count = bondOrderSum;
-                if (FormalCharge != null)
-                {
-                    count -= (int) FormalCharge;
-                }
-                if (SpinMultiplicity != null)
-                {
-                    count += (int) SpinMultiplicity - 1;
-                }
-            }
-            int valenceCount = PeriodicTable.GetValenceElectronCount(el);
-            count += valenceCount;
-            return count;
-        }
-
+       
         /// <summary>
         /// force delete hydrogens and their bonds
         /// H atoms are selected in unpredictable order
@@ -1216,42 +1085,7 @@ namespace Numbo.Cml
             }
             return ok;
         }
-
-        /// <summary>
-        /// checks for incorrect valency
-        /// (a) bad coordination number
-        /// (b) bad bondsum
-        /// (c) non-octet structure
-        /// </summary>
-        /// <returns></returns>
-        internal bool HasUnpairedElectron()
-        {
-            bool unpaired = false;
-            int? valenceElectronCount = this.GetValenceElectronCount();
-            if (valenceElectronCount != null)
-            {
-                // odd electrons
-                if ((int) valenceElectronCount%2 != 0)
-                {
-                    unpaired = true;
-                }
-            }
-            return unpaired;
-        }
-
-        /// <summary>
-        /// removes atomParity child
-        /// does not affect any bondStereo
-        /// </summary>
-        public void ClearParity()
-        {
-            CmlAtomParity atomParity = this.GetAtomParity();
-            if (atomParity != null)
-            {
-                CmlUtils.Remove(atomParity);
-            }
-        }
-
+        
         /// <summary>
         /// can the atom be substituted by a group
         /// requires a single non-hydorgen ligand with acyclic bond
@@ -1579,34 +1413,9 @@ namespace Numbo.Cml
             List<XElement> elements = null;
             if (atoms != null)
             {
-                elements = new List<XElement>();
-                foreach (CmlAtom atom in atoms)
-                {
-                    elements.Add(atom.DelegateElement);
-                }
+                elements = atoms.Select(atom => atom.DelegateElement).ToList();
             }
             return elements;
-        }
-
-        public static bool IsValidCharge(string text)
-        {
-            if (text == null)
-            {
-                return false;
-            }
-            int charge;
-            if (int.TryParse(text, out charge))
-            {
-                IsValidCharge(charge);
-            }
-            return false;
-        }
-
-        public static bool IsValidCharge(int charge)
-        {
-            /// TODO needs chemistry added - when is a charge not valid? When there 
-            /// is higher +ve than no of neutrons
-            return true;
         }
 
         public static bool IsValidIsotopeNumber(int isotopeNumber)

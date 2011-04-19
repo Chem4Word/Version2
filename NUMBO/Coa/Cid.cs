@@ -1746,33 +1746,7 @@ namespace Numbo.Coa
             }
             return contextObject;
         }
-
-        /// <summary>
-        /// Checks the semantics of the chemistry below and including the pointer
-        /// and marks (cmlx:warning="isotopeNumber") for example.
-        /// </summary>
-        /// <param name="contextObject">the ContextObject containing the pointer</param>
-        /// <param name="pointer">a pointer to the eldest element which should be validated</param>
-        /// <returns>the context object annotated with possible chemical rule violations</returns>
-        public static ContextObject AnnotateViolationsOfCurrentChemicalRules(
-            ContextObject contextObject, XElement pointer)
-        {
-            if (contextObject == null)
-            {
-                throw new ArgumentNullException("contextObject");
-            }
-            if (pointer == null)
-            {
-                throw new ArgumentNullException("pointer");
-            }
-            if (CmlMolecule.IsMolecule(pointer))
-            {
-                CmlMolecule molecule = new CmlMolecule(pointer);
-                molecule.AnnotateViolationsOfCurrentChemicalRules();
-            }
-            return contextObject;
-        }
-
+        
         /// <summary>
         /// Convenience method which applies the 2D transform to each of the elements. 
         /// This should check that the elements are from the contextObject supplied, that each has 2D coordinates 
@@ -1804,9 +1778,9 @@ namespace Numbo.Coa
 
             foreach (XElement e in elements)
             {
-                /// TODO eventally this should not look like this - it should use 
-                /// a programmatic accessor for example Point2 p = e as IHas2DCoords
-                /// if (p != null) continue
+                // TODO eventally this should not look like this - it should use 
+                // a programmatic accessor for example Point2 p = e as IHas2DCoords
+                // if (p != null) continue
                 XAttribute x2 = e.Attribute("x2");
                 XAttribute y2 = e.Attribute("y2");
 

@@ -37,6 +37,7 @@ namespace Numbo.Cml
         ///</summary>
         public const string Cmlns = "http://www.xml-cml.org/schema";
 
+        ///<summary>
         /// The CMLX dictionary namespace.
         /// Uncontrolled (semi-controlled) vocabulary for CML extensions
         ///</summary>
@@ -76,28 +77,18 @@ namespace Numbo.Cml
         public const string RemoveHdot = "-H.";
         public const string RemoveProton = "-H+";
         public const string SColon = ":";
-
-        public const string UnusualCharge = "unusual charge";
-        public const string UnusualCoordinationNumber = "unusual coordinationNumber";
-        public const string UnusualSpinMultiplicity = "unusual spinMultiplicity";
-        public const string UnusualValenceElectronCount = "unusual valenceElectronCount";
-
-        ///<summary>
-        /// The xmlns prefix
-        ///</summary>
-        public const string Xmlns = "xmlns";
-
+        
         ///<summary>
         /// The CML namesapce as an XNamespace to use in LINQ
         ///</summary>
-        public static XNamespace CmlxNamespace = Cmlns;
+        public static readonly XNamespace CmlxNamespace = Cmlns;
 
         /// <summary>
         /// The CMLX Xnamespace for Linq
         /// </summary>
-        public static XNamespace CmlxXNamespace = CmlxNS;
+        public static readonly XNamespace CmlxXNamespace = CmlxNS;
 
-        public static string Outdated = "outdated";
+        public static readonly string Outdated = "outdated";
 
         /// <summary>
         /// Dummy Constructor to avoid public constructor initialization.
