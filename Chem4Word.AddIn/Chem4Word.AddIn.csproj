@@ -172,7 +172,7 @@
     <Reference Include="Accessibility" />
     <Reference Include="Chem4Word.Font, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Libs\Chem4Word.Font.dll</HintPath>
+      <HintPath>C:\Program Files\Chemistry Add-in for Word\Chem4Word.Font.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Office.Interop.Word, Version=14.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c">
       <EmbedInteropTypes>True</EmbedInteropTypes>

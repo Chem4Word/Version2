@@ -19,6 +19,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chem4Word.UI", "Chem4Word.U
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TwoDUITest", "TwoDUITest\TwoDUITest.csproj", "{73F8D0DF-E3CE-43E5-BB94-FB51C21F71C6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chem4Word.Installer.CustomActions", "Chem4Word.Installer.CustomActions\Chem4Word.Installer.CustomActions.csproj", "{34AB0A73-3FAD-492E-ADD8-526FC976E63A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -165,6 +167,21 @@ Global
 		{73F8D0DF-E3CE-43E5-BB94-FB51C21F71C6}.Release|Mixed Platforms.ActiveCfg = Release|x86
 		{73F8D0DF-E3CE-43E5-BB94-FB51C21F71C6}.Release|x86.ActiveCfg = Release|x86
 		{73F8D0DF-E3CE-43E5-BB94-FB51C21F71C6}.Release|x86.Build.0 = Release|x86
+		{34AB0A73-3FAD-492E-ADD8-526FC976E63A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{34AB0A73-3FAD-492E-ADD8-526FC976E63A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{34AB0A73-3FAD-492E-ADD8-526FC976E63A}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{34AB0A73-3FAD-492E-ADD8-526FC976E63A}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{34AB0A73-3FAD-492E-ADD8-526FC976E63A}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{34AB0A73-3FAD-492E-ADD8-526FC976E63A}.Release with Code Analysis|Any CPU.ActiveCfg = Release|Any CPU
+		{34AB0A73-3FAD-492E-ADD8-526FC976E63A}.Release with Code Analysis|Any CPU.Build.0 = Release|Any CPU
+		{34AB0A73-3FAD-492E-ADD8-526FC976E63A}.Release with Code Analysis|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{34AB0A73-3FAD-492E-ADD8-526FC976E63A}.Release with Code Analysis|Mixed Platforms.Build.0 = Release|Any CPU
+		{34AB0A73-3FAD-492E-ADD8-526FC976E63A}.Release with Code Analysis|x86.ActiveCfg = Release|Any CPU
+		{34AB0A73-3FAD-492E-ADD8-526FC976E63A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{34AB0A73-3FAD-492E-ADD8-526FC976E63A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{34AB0A73-3FAD-492E-ADD8-526FC976E63A}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{34AB0A73-3FAD-492E-ADD8-526FC976E63A}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{34AB0A73-3FAD-492E-ADD8-526FC976E63A}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

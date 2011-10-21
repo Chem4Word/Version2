@@ -309,16 +309,27 @@ namespace Chem4Word.Core {
         private string GetAssemblyDirectoryName() {
             string addInInstallPath = String.Empty;
 
-            using (RegistryKey addInKey = Registry.CurrentUser.OpenSubKey(AddInRegistryKeyPath, false)) {
-                if (addInKey != null) {
+            RegistryKey addInKey = addInKey = Registry.CurrentUser.OpenSubKey(AddInRegistryKeyPath, false);
+
+            if (addInKey == null)
+            {
+                addInKey = Registry.LocalMachine.OpenSubKey(AddInRegistryKeyPath, false);
+            }
+
+            using (addInKey)
+            {
+                if (addInKey != null)
+                {
                     var registryValue = addInKey.GetValue(AddInManifestKeyName);
 
-                    if (registryValue != null) {
+                    if (registryValue != null)
+                    {
                         var registryPath = registryValue.ToString();
 
                         // Path might contain "|vstolocal". "|" is an invalid character and needs to be removed.
                         int invalidCharPosition = registryPath.IndexOfAny(Path.GetInvalidPathChars());
-                        while (invalidCharPosition > -1) {
+                        while (invalidCharPosition > -1)
+                        {
                             registryPath = registryPath.Remove(invalidCharPosition, 1);
                             invalidCharPosition = registryPath.IndexOfAny(Path.GetInvalidPathChars());
                         }
