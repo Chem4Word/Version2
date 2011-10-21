@@ -1,0 +1,255 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ADDINDESCRIPTION" xml:space="preserve">
+    <value>Chemistry Add-in for Word for Word 2007 and 2010</value>
+  </data>
+  <data name="ADDINNAME" xml:space="preserve">
+    <value>Chemistry Add-in for Word</value>
+  </data>
+  <data name="ADDIN_REG_KEY" xml:space="preserve">
+    <value>Addins</value>
+  </data>
+  <data name="CLOSE_APPLICATIONS_DURING_INSTALL" xml:space="preserve">
+    <value>The following applications should be closed before continuing the install:</value>
+  </data>
+  <data name="CLOSE_APPLICATIONS_DURING_UNINSTALL" xml:space="preserve">
+    <value>The following applications should be closed before continuing the un-install:</value>
+  </data>
+  <data name="DESCRIPTIONSTRING" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="FRIENDLYNAME" xml:space="preserve">
+    <value>FriendlyName</value>
+  </data>
+  <data name="LOADBEHAVIORSTRING" xml:space="preserve">
+    <value>LoadBehavior</value>
+  </data>
+  <data name="Manifest" xml:space="preserve">
+    <value>Manifest</value>
+  </data>
+  <data name="MESSAGEBOXCAPTION" xml:space="preserve">
+    <value>Chemistry Add-in for Word</value>
+  </data>
+  <data name="REGISTRYERROR" xml:space="preserve">
+    <value>Error occurred while working with registry</value>
+  </data>
+  <data name="REGKEYNAME" xml:space="preserve">
+    <value>Chemistry Add-in for Word</value>
+  </data>
+  <data name="WINWORD" xml:space="preserve">
+    <value>WINWORD</value>
+  </data>
+  <data name="WORD_APPLICATION_TITLE" xml:space="preserve">
+    <value>Microsoft Office Word</value>
+  </data>
+  <data name="WORD_REGISTRY_KEY" xml:space="preserve">
+    <value>Word</value>
+  </data>
+  <data name="ADD_IN_REG_KEY" xml:space="preserve">
+    <value>SOFTWARE\Microsoft\Office\Word\Addins\Chemistry Add-in for Word</value>
+  </data>
+  <data name="ADD_IN_DLL_NAME" xml:space="preserve">
+    <value>Chem4Word.AddIn.dll</value>
+  </data>
+  <data name="ChemistryWordAddInManifest" xml:space="preserve">
+    <value>Chem4Word.AddIn.vsto</value>
+  </data>
+  <data name="PATH" xml:space="preserve">
+    <value>Path</value>
+  </data>
+  <data name="SLASH" xml:space="preserve">
+    <value>\</value>
+  </data>
+  <data name="VSTOLocal" xml:space="preserve">
+    <value>vstolocal</value>
+  </data>
+  <data name="ADDINTITLE" xml:space="preserve">
+    <value>Chemistry Add-in for Word</value>
+  </data>
+  <data name="BEFOREINSTALLMSG" xml:space="preserve">
+    <value>Installing</value>
+  </data>
+  <data name="BEFOREUNINSTALLMSG" xml:space="preserve">
+    <value>Uninstalling</value>
+  </data>
+  <data name="CHECKMACHINETYPERROR" xml:space="preserve">
+    <value>Failed to check machine type (64 or 32 bit)</value>
+  </data>
+  <data name="ERRORAPPLICATIONOPEN" xml:space="preserve">
+    <value>Error occurred while checking live Word and InfoPath applications instances.</value>
+  </data>
+  <data name="ERRORBEFOREINSTALL" xml:space="preserve">
+    <value>Error occurred while preparing for installation.</value>
+  </data>
+  <data name="ERRORBEFOREUNINSTALL" xml:space="preserve">
+    <value>Error occurred while preparing for un-installation.</value>
+  </data>
+  <data name="ERRORCOMMIT" xml:space="preserve">
+    <value>Error occurred while committing changes to the system.</value>
+  </data>
+  <data name="ERRORINSTALL" xml:space="preserve">
+    <value>Error occurred while installing Chemistry Add-in for Word for Word.</value>
+  </data>
+  <data name="ERRORUNINSTALL" xml:space="preserve">
+    <value>Error occurred while un-installing Chemistry Add-in for Word.</value>
+  </data>
+  <data name="EX_CATEGORY" xml:space="preserve">
+    <value>Category:</value>
+  </data>
+  <data name="EX_INFORMATION" xml:space="preserve">
+    <value>Information:</value>
+  </data>
+  <data name="EX_MESSAGE" xml:space="preserve">
+    <value>Error Message:</value>
+  </data>
+  <data name="EX_STACKTRACE" xml:space="preserve">
+    <value>Stack Trace:</value>
+  </data>
+  <data name="EX_TYPE" xml:space="preserve">
+    <value>Exception Type:</value>
+  </data>
+  <data name="CHEMISTRY_ADDIN_FOLDER_PATH_NONVISTA" xml:space="preserve">
+    <value>\Application Data\Chemistry Add-in for Word</value>
+  </data>
+  <data name="CHEMISTRY_WORD_ADDIN_FOLDER_PATH_VISTA" xml:space="preserve">
+    <value>\AppData\Local\Chemistry Add-in for Word</value>
+  </data>
+  <data name="DELSETTINGFORALLERR" xml:space="preserve">
+    <value>Failed to delete settings file from all user’s profile</value>
+  </data>
+  <data name="DOCUMENTS_AND_SETTINGS" xml:space="preserve">
+    <value>:\Documents and Settings\</value>
+  </data>
+  <data name="GETOSNAMEERR" xml:space="preserve">
+    <value>Failed to get type of operating system</value>
+  </data>
+  <data name="REMOVESETTINGFILEERR" xml:space="preserve">
+    <value>Error occurred while  removing settings file</value>
+  </data>
+  <data name="UNINSTALLACTION" xml:space="preserve">
+    <value>Uninstall</value>
+  </data>
+  <data name="USERS_PATH" xml:space="preserve">
+    <value>:\Users\</value>
+  </data>
+  <data name="VISTA_OS_NAME" xml:space="preserve">
+    <value>Vista</value>
+  </data>
+</root>
