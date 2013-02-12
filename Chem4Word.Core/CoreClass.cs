@@ -41,6 +41,7 @@ using WordTools = Microsoft.Office.Tools.Word;
 using Office = Microsoft.Office.Core;
 using Shape = Microsoft.Office.Interop.Word.Shape;
 using Window = Microsoft.Office.Interop.Word.Window;
+using System.Text.RegularExpressions;
 
 namespace Chem4Word.Core {
     /// <summary>
@@ -61,6 +62,11 @@ namespace Chem4Word.Core {
         internal readonly string localAppDataFolder;
         private readonly ChemistrySmartTag smartTag;
         private readonly Application wordApp;
+
+        private static List<String> _chemistryZoneNames;
+        private static List<ChemistryZoneMatch> _zoneMatches;
+
+        private static TermDictionaryManager _termDictionary;
 
         static CoreClass() {
             // Required to initialise the WPF context, prevents a bug in the RibbonControl.
@@ -1035,17 +1041,168 @@ namespace Chem4Word.Core {
         /// <summary>
         ///   Create chemistry from the currently selected text in the document.
         /// </summary>
+      
         public void AddInlineChemText() {
+            ChemistryZoneMatch selectedMatch = null;
+            _chemistryZoneNames = new List<string>();
+            _zoneMatches = new List<ChemistryZoneMatch>();
+
             Range range = wordApp.ActiveDocument.ActiveWindow.Selection.Range;
             string latex = TextTools.ConvertWordMarkupToLatexStyle(range);
-            ContextObject contextObject = Cid.CreateChemistryFromUnknownOrigin(latex);
-            DepictionOption onlyDepictionOption = Depiction.PossibleDepictionOptions(contextObject).FirstOrDefault();
-            ChemistryZoneProperties chemistryZoneProperties = new ChemistryZoneProperties(onlyDepictionOption,
-                                                                                          onlyDepictionOption, true);
-            //AddNewContextObjectToDocument(range, contextObject, onlyDepictionOption,
-            //                              onlyDepictionOption);
-            AddNewContextObjectToDocument(range, contextObject, chemistryZoneProperties);
+
+
+            //Load dictionary
+         
+                _termDictionary = new TermDictionaryManager(assemblyDirectoryName + @"\SmartTag");
+                _termDictionary.LoadLocalDictionary(localAppDataFolder + @"\SmartTag");
+            
+            
+            Recognize(latex, 0, 0, true);
+            selectedMatch = _zoneMatches.Find(match => match.Text == latex);
+            if (string.IsNullOrEmpty(Convert.ToString(selectedMatch)))
+            {
+                ContextObject contextObject = Cid.CreateChemistryFromUnknownOrigin(latex);
+                DepictionOption onlyDepictionOption = Depiction.PossibleDepictionOptions(contextObject).FirstOrDefault();
+                ChemistryZoneProperties chemistryZoneProperties = new ChemistryZoneProperties(onlyDepictionOption,
+                                                                                              onlyDepictionOption, true);
+                //AddNewContextObjectToDocument(range, contextObject, onlyDepictionOption,
+                //                              onlyDepictionOption);
+                AddNewContextObjectToDocument(range, contextObject, chemistryZoneProperties);
+            }
+            else
+            {
+                MarkAsRecognizedChemistryZone(latex, selectedMatch, range);
+            }
+            
         }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="selectedText"></param>
+        /// <param name="selectionRange"></param>
+       
+
+        private void MarkAsRecognizedChemistryZone(string id, ChemistryZoneMatch selectedText,
+                                                         Range selectionRange)
+        {
+            XDocument cml = XDocument.Parse(_termDictionary.GetValue(selectedText.MoleculeId));
+            ImportMediator m = new ImportMediator();
+            switch (Setting.Import)
+            {
+                case ImportSetting.StrictFail:
+                    m.ParseSeverity = ImportMediator.Severity.Strict;
+                    break;
+                case ImportSetting.Prompt:
+                    m.ParseSeverity = ImportMediator.Severity.Prompt;
+                    break;
+                case ImportSetting.Auto:
+                    m.ParseSeverity = ImportMediator.Severity.Auto;
+                    break;
+            }
+            m.Start(cml);
+
+            if (m.Worked())
+            {
+                DepictionOption documentDepictionOption = null;
+                IEnumerable<DepictionOption> possibleDepictionOptions =
+                    Depiction.PossibleDepictionOptions(m.GetContextObject());
+                foreach (DepictionOption option in possibleDepictionOptions)
+                {
+                    if (
+                        string.Compare(option.GetAsLatexFormattedString(), selectedText.Text,
+                                       StringComparison.OrdinalIgnoreCase) == 0)
+                    {
+                        documentDepictionOption = option;
+                        break;
+                    }
+                }
+                if (documentDepictionOption == null)
+                {
+                    documentDepictionOption = CoreClass.GetPreferedDocumentDepiction(m.GetContextObject(),
+                                                                                     Setting.
+                                                                                         DocumentPreferedDepiction);
+                }
+
+                DepictionOption navigatorDepictionOption =
+                    CoreClass.GetPreferedNavigatorDepiction(m.GetContextObject(),
+                                                            Setting.NavigatorPreferedDepiction);
+
+                //_core.AddNewContextObjectToDocument(selectionRange, m.GetContextObject(), documentDepictionOption,
+                //                                    navigatorDepictionOption);
+
+                var chemistryZoneProperties = new ChemistryZoneProperties(documentDepictionOption,
+                                                                                 navigatorDepictionOption, true);
+                //_core.AddNewContextObjectToDocument(selectionRange, m.GetContextObject(), documentDepictionOption,
+                //                                    navigatorDepictionOption);
+               AddNewContextObjectToDocument(selectionRange, m.GetContextObject(), chemistryZoneProperties);
+
+               }
+        }
+        
+        private static void AddToChemistryZoneList(string selectionText, string moleculeId, int startIndex, int endIndex)
+        {
+            ChemistryZoneMatch zoneMatch = new ChemistryZoneMatch
+            {
+                Text = selectionText,
+                MoleculeId = (moleculeId == null) ? String.Empty : moleculeId,
+                ContentId = Guid.NewGuid().ToString(),
+                StartIndex = startIndex,
+                EndIndex = endIndex
+            };
+
+            // to avoid duplicates entry
+            if (!_chemistryZoneNames.Contains(selectionText.Trim()))
+            {
+                _zoneMatches.Add(zoneMatch);
+                _chemistryZoneNames.Add(selectionText);
+            }
+        }
+
+
+        private static void Recognize(string paragraphText, int selectionRangeStart, int cursorPosition,
+                                    bool isSelection)
+        {
+            paragraphText = paragraphText.Trim();
+
+            if (!String.IsNullOrEmpty(paragraphText))
+            {
+                try
+                {
+                    foreach (Term term in _termDictionary)
+                    {
+                        Regex r = new Regex("(?i)\\b" + Regex.Escape(term.Value) + "\\b");
+                        Match m = r.Match(paragraphText);
+                        while (m.Success)
+                        {
+                            int startIndex = selectionRangeStart + m.Index;
+                            int endIndex = selectionRangeStart + m.Index + m.Length;
+
+                            //SetIndex(m, ref startIndex, ref endIndex);
+
+                            if ((startIndex <= cursorPosition) && (endIndex >= cursorPosition) || isSelection)
+                            {
+                                AddToChemistryZoneList(m.Value, term.MoleculeId, startIndex, endIndex);
+                            }
+
+                            m = m.NextMatch();
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message,
+                                    UI.Properties.Resources.CHEM_4_WORD_MESSAGE_BOX_TITLE, MessageBoxButton.OK,
+                                    MessageBoxImage.Error);
+                }
+            }
+        }
+
+
+
+
 
         /// <summary>
         ///   Gets the DepictionOption for the document or propmts the user for the information
