@@ -220,7 +220,9 @@ namespace Chem4Word.UI.WebServices
                                                          {
                                                              Id = id.Value,
                                                              Name = name.Value,
-                                                             Smiles = smiles.Value,
+                                                             //Smiles=smiles.Value,
+                                                             //smiles.Value is NULL and throws object reference not set to an instance of an object exception
+                                                             Smiles = string.Empty,
                                                              Formula = formula.Value
                                                          });
 
