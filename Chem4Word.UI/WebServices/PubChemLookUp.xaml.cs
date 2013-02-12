@@ -123,7 +123,7 @@ namespace Chem4Word.UI.WebServices
                                          string.Format(CultureInfo.InvariantCulture, 
                                              "http://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pccompound&term={0}&retmode=xml",
                                              SearchTerm));
-            request.Timeout = 1000;
+            request.Timeout = 5000;
             HttpWebResponse response;
             try
             {
@@ -197,7 +197,7 @@ namespace Chem4Word.UI.WebServices
                                          string.Format(CultureInfo.InvariantCulture, 
                                              "http://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi?db=pccompound&id={0}&retmode=xml",
                                              idlist));
-            request.Timeout = 1000;
+            request.Timeout = 5000;
             HttpWebResponse response;
             try
             {
@@ -254,7 +254,7 @@ namespace Chem4Word.UI.WebServices
                                          string.Format(CultureInfo.InvariantCulture, 
                                          "http://pubchem.ncbi.nlm.nih.gov/summary/summary.cgi?cid={0}&disopt=DisplayXML",
                                              id));
-            request.Timeout = 1000;
+            request.Timeout = 5000;
             HttpWebResponse response;
             try
             {
@@ -353,5 +353,7 @@ namespace Chem4Word.UI.WebServices
                 Import(SelectedItem.Id);
             }
         }
+
+      
     }
 }
