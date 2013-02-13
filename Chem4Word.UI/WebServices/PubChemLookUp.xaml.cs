@@ -23,6 +23,8 @@ using System.Xml.XPath;
 using System.Xml.Xsl;
 using Chem4Word.UI.Tools;
 
+
+
 namespace Chem4Word.UI.WebServices
 {
     /// <summary>
@@ -221,7 +223,7 @@ namespace Chem4Word.UI.WebServices
                                                              Id = id.Value,
                                                              Name = name.Value,
                                                              //Smiles=smiles.Value,
-                                                             //smiles.Value is NULL and throws object reference not set to an instance of an object exception
+                                                             //Changed it to string.empty as it was throwing Null exception
                                                              Smiles = string.Empty,
                                                              Formula = formula.Value
                                                          });
