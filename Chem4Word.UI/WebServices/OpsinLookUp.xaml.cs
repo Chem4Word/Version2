@@ -158,6 +158,8 @@ namespace Chem4Word.UI.WebServices
             }
         }
 
+
+
         private bool PerformSearch()
         {
             Cursor originalCursor = Cursor;
