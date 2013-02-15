@@ -14,6 +14,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Security.AccessControl;
 using Microsoft.Build.Utilities;
+using System.Reflection;
 
 namespace CustomInstaller
 {
@@ -73,6 +74,7 @@ namespace CustomInstaller
         public CustomInstaller()
         {
             InitializeComponent();
+          
         }
 
         #region Install Event Handlers
@@ -152,18 +154,26 @@ namespace CustomInstaller
 
         [SecurityPermission(SecurityAction.LinkDemand, Flags = SecurityPermissionFlag.UnmanagedCode)]
         protected override void OnCommitted(IDictionary savedState)
-        {            
+        {
             try
             {  
                 base.OnCommitted(savedState);
 
                 try
                 {
+                    bool launchUserGuideSelected = string.Equals(this.Context.Parameters["launchUserGuide"], "1");
+                    if (launchUserGuideSelected)
+                    {
+                        string userGuideFileName = "Chemistry_Add-in_for_Word_User_Guide.docx";
+                        Process.Start(Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), userGuideFileName));
+                    }
+
                     if (eventLogger != null)
                     {
                         eventLogger.Dispose();
                         eventLogger = null;
                     }
+
                 }
                 catch (Exception)
                 {
@@ -280,6 +290,8 @@ namespace CustomInstaller
                 eventLogger.WriteToLog(LogCategory.Installer, Resource.ERRORUNINSTALL, ex.StackTrace);
             }
         }
+
+
 
         #endregion
 
