@@ -44,6 +44,7 @@ using Office = Microsoft.Office.Core;
 using Shape = Microsoft.Office.Interop.Word.Shape;
 using Window = Microsoft.Office.Interop.Word.Window;
 using System.Text.RegularExpressions;
+using System.Timers;
 
 namespace Chem4Word.Core {
     /// <summary>
@@ -69,6 +70,9 @@ namespace Chem4Word.Core {
         private static List<ChemistryZoneMatch> _zoneMatches;
 
         private static TermDictionaryManager _termDictionary;
+
+        static Timer _timerToDeleteContexCtrl;
+        ContentControl controlToTimer;
 
         static CoreClass() {
             // Required to initialise the WPF context, prevents a bug in the RibbonControl.
@@ -1564,10 +1568,21 @@ namespace Chem4Word.Core {
                     // because the imported content control is a picture we now need to change the depictions to the preferred setting
                     Range range = wordApp.ActiveDocument.ActiveWindow.Selection.Range;
 
-                    newContentControl.Title = string.Empty;
-                    ActiveChemistryDocument.EventTurnOn = false;
-                    newContentControl.Delete(true);
-                    ActiveChemistryDocument.EventTurnOn = true;
+                    //TODO: move delete code to event when gallery is clicked. 
+                    //newContentControl.Title = string.Empty;
+                    //ActiveChemistryDocument.EventTurnOn = false;
+                    //newContentControl.Delete(true);
+                    //ActiveChemistryDocument.EventTurnOn = true;
+
+                    //Temp workaround for delete
+                    newContentControl.Title = "CONTENTCONTROL_FLAGGED_FOR_DELETE";
+
+                    _timerToDeleteContexCtrl = new Timer(300);
+                    _timerToDeleteContexCtrl.Elapsed += new ElapsedEventHandler(_timerToDeleteContexCtrl_Elapsed);
+                    controlToTimer = newContentControl;
+                    _timerToDeleteContexCtrl.Start();
+
+                    
                     AddNewContextObjectToDocument(range, contextObject,
                                                   chemistryZoneProperties);
                 }
@@ -1575,6 +1590,16 @@ namespace Chem4Word.Core {
                 MessageBox.Show(ex.Message, Resources.CHEM_4_WORD_MESSAGE_BOX_TITLE, MessageBoxButton.OK,
                                 MessageBoxImage.Stop);
             }
+        }
+
+        void _timerToDeleteContexCtrl_Elapsed(object sender, ElapsedEventArgs e)
+        {
+            foreach (ContentControl item in wordApp.ActiveDocument.ContentControls)
+            {
+                if (item.Title.CompareTo("CONTENTCONTROL_FLAGGED_FOR_DELETE") == 0)
+                    item.Delete(true);
+            }
+            _timerToDeleteContexCtrl.Elapsed -= _timerToDeleteContexCtrl_Elapsed;
         }
 
         /// <summary>
