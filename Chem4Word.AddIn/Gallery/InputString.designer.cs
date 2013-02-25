@@ -51,9 +51,10 @@ namespace Chem4Word.AddIn.Gallery
             // 
             // GalleryName
             // 
-            this.GalleryName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.GalleryName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.GalleryName.Location = new System.Drawing.Point(94, 21);
+            this.GalleryName.MaxLength = 32;
             this.GalleryName.Name = "GalleryName";
             this.GalleryName.Size = new System.Drawing.Size(280, 20);
             this.GalleryName.TabIndex = 1;
