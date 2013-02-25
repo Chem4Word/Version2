@@ -168,7 +168,7 @@ namespace Chem4Word.UI.WebServices
 
             HttpWebRequest request = (HttpWebRequest)
                                      WebRequest.Create(builder.Uri);
-            request.Timeout = 5000;
+            request.Timeout = 30000;
             request.Accept = "chemical/x-cml";
             HttpWebResponse response;
             try
