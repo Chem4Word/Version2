@@ -15,6 +15,30 @@
     {
         "Entry"
         {
+        "MsmKey" = "8:_026BC9EE10BB56BF346327F7EFC7B175"
+        "OwnerKey" = "8:_A7DCF03AD1C5A4748CE488E6A5A3ED2F"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_026BC9EE10BB56BF346327F7EFC7B175"
+        "OwnerKey" = "8:_5099AE5C7DFE492A9C9DF1CA4C9470E9"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_026BC9EE10BB56BF346327F7EFC7B175"
+        "OwnerKey" = "8:_B2500A3A1E670760BD5B7B039625DE29"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_026BC9EE10BB56BF346327F7EFC7B175"
+        "OwnerKey" = "8:_1C0825D10CA3E3A451125E3752CF5735"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_03BB35FC6D164BF0AE1397D71D8AC43D"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -23,30 +47,6 @@
         {
         "MsmKey" = "8:_0551188CA52E48CEA0544BB3B4FB020F"
         "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_06592689CEEAEF4C19F92760EDE9CD7F"
-        "OwnerKey" = "8:_53BF7CF6497C4AB3532D08CF61A08DB3"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_06592689CEEAEF4C19F92760EDE9CD7F"
-        "OwnerKey" = "8:_5099AE5C7DFE492A9C9DF1CA4C9470E9"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_06592689CEEAEF4C19F92760EDE9CD7F"
-        "OwnerKey" = "8:_94DA0F7EBF90562BE792D16290F232A6"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_06592689CEEAEF4C19F92760EDE9CD7F"
-        "OwnerKey" = "8:_7B21D4E963F02B64696CC35044BD8A5E"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -177,6 +177,18 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_1C0825D10CA3E3A451125E3752CF5735"
+        "OwnerKey" = "8:_B2500A3A1E670760BD5B7B039625DE29"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_1C0825D10CA3E3A451125E3752CF5735"
+        "OwnerKey" = "8:_5099AE5C7DFE492A9C9DF1CA4C9470E9"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_1C3327D0F9299E9B0474ADA312B7640C"
         "OwnerKey" = "8:_5099AE5C7DFE492A9C9DF1CA4C9470E9"
         "MsmSig" = "8:_UNDEFINED"
@@ -202,7 +214,7 @@
         "Entry"
         {
         "MsmKey" = "8:_1EA43CA64CB4FE0F1F1211AF761E0ADF"
-        "OwnerKey" = "8:_94DA0F7EBF90562BE792D16290F232A6"
+        "OwnerKey" = "8:_B2500A3A1E670760BD5B7B039625DE29"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -227,6 +239,24 @@
         {
         "MsmKey" = "8:_21639AA45DF840FEADA9E3D1B74F4EAC"
         "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_217396F1AF852E6F13AAADDD7F9B76B5"
+        "OwnerKey" = "8:_026BC9EE10BB56BF346327F7EFC7B175"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_217396F1AF852E6F13AAADDD7F9B76B5"
+        "OwnerKey" = "8:_5099AE5C7DFE492A9C9DF1CA4C9470E9"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_217396F1AF852E6F13AAADDD7F9B76B5"
+        "OwnerKey" = "8:_1C0825D10CA3E3A451125E3752CF5735"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -435,6 +465,18 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_3FB006117D440096546B3AB40F495F6B"
+        "OwnerKey" = "8:_B2500A3A1E670760BD5B7B039625DE29"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_3FB006117D440096546B3AB40F495F6B"
+        "OwnerKey" = "8:_CD1AEA5FB41F076F29850710EFE3FF71"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_3FE1B3D55DEC4AF2AC983AE96883B696"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -591,24 +633,6 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_53BF7CF6497C4AB3532D08CF61A08DB3"
-        "OwnerKey" = "8:_5099AE5C7DFE492A9C9DF1CA4C9470E9"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_53BF7CF6497C4AB3532D08CF61A08DB3"
-        "OwnerKey" = "8:_7B21D4E963F02B64696CC35044BD8A5E"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_53BF7CF6497C4AB3532D08CF61A08DB3"
-        "OwnerKey" = "8:_94DA0F7EBF90562BE792D16290F232A6"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_56882403B8564C91B91E1BE788035942"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -635,6 +659,12 @@
         {
         "MsmKey" = "8:_57B6671F3FB4416CADBE86CE353F3945"
         "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_5A35B1445E8B1DDFE0E97F3E9AE3085B"
+        "OwnerKey" = "8:_5099AE5C7DFE492A9C9DF1CA4C9470E9"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -754,13 +784,13 @@
         "Entry"
         {
         "MsmKey" = "8:_6DE508F331C2CB31A44F409C739E9DAE"
-        "OwnerKey" = "8:_94DA0F7EBF90562BE792D16290F232A6"
+        "OwnerKey" = "8:_1C3327D0F9299E9B0474ADA312B7640C"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_6DE508F331C2CB31A44F409C739E9DAE"
-        "OwnerKey" = "8:_1C3327D0F9299E9B0474ADA312B7640C"
+        "OwnerKey" = "8:_B2500A3A1E670760BD5B7B039625DE29"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -885,18 +915,6 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_7B21D4E963F02B64696CC35044BD8A5E"
-        "OwnerKey" = "8:_94DA0F7EBF90562BE792D16290F232A6"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_7B21D4E963F02B64696CC35044BD8A5E"
-        "OwnerKey" = "8:_5099AE5C7DFE492A9C9DF1CA4C9470E9"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_7C3F13D447544AAFA9EE2262A1B20270"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -935,30 +953,6 @@
         {
         "MsmKey" = "8:_82BDADEBABBA47D8B187891B8C366F36"
         "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_849E212925772AFE5A2B8E0B8712D773"
-        "OwnerKey" = "8:_5099AE5C7DFE492A9C9DF1CA4C9470E9"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_849E212925772AFE5A2B8E0B8712D773"
-        "OwnerKey" = "8:_94DA0F7EBF90562BE792D16290F232A6"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_849E212925772AFE5A2B8E0B8712D773"
-        "OwnerKey" = "8:_7B21D4E963F02B64696CC35044BD8A5E"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_849E212925772AFE5A2B8E0B8712D773"
-        "OwnerKey" = "8:_06592689CEEAEF4C19F92760EDE9CD7F"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -1024,7 +1018,7 @@
         "Entry"
         {
         "MsmKey" = "8:_8907A4AFC115E801D5139B4ABBDFF924"
-        "OwnerKey" = "8:_94DA0F7EBF90562BE792D16290F232A6"
+        "OwnerKey" = "8:_B2500A3A1E670760BD5B7B039625DE29"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -1037,12 +1031,6 @@
         {
         "MsmKey" = "8:_898AD77857FC4E9080236080451E1F74"
         "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_8A72E95A43CDFB026AADC021D7F4C4CB"
-        "OwnerKey" = "8:_5099AE5C7DFE492A9C9DF1CA4C9470E9"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -1078,7 +1066,7 @@
         "Entry"
         {
         "MsmKey" = "8:_90D31D18DB1B685A48AFD060C5473310"
-        "OwnerKey" = "8:_94DA0F7EBF90562BE792D16290F232A6"
+        "OwnerKey" = "8:_B2500A3A1E670760BD5B7B039625DE29"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -1113,12 +1101,6 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_94DA0F7EBF90562BE792D16290F232A6"
-        "OwnerKey" = "8:_5099AE5C7DFE492A9C9DF1CA4C9470E9"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_95242D217E3642FE97E0F28C85FA399C"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -1133,6 +1115,30 @@
         {
         "MsmKey" = "8:_977742ED51134C0E967BA0F98755DC38"
         "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_98A26A6404B33DE2B8805810A049BB2D"
+        "OwnerKey" = "8:_026BC9EE10BB56BF346327F7EFC7B175"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_98A26A6404B33DE2B8805810A049BB2D"
+        "OwnerKey" = "8:_5099AE5C7DFE492A9C9DF1CA4C9470E9"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_98A26A6404B33DE2B8805810A049BB2D"
+        "OwnerKey" = "8:_B2500A3A1E670760BD5B7B039625DE29"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_98A26A6404B33DE2B8805810A049BB2D"
+        "OwnerKey" = "8:_1C0825D10CA3E3A451125E3752CF5735"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -1191,6 +1197,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_A2DA37947554449A9D1F3B8D0478C0E7"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_A30F4843BD794F3AB9221F7E8E5B0F1E"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -1211,6 +1223,24 @@
         {
         "MsmKey" = "8:_A6E79E0BEC724B08A69C4F1B4D91E525"
         "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_A7DCF03AD1C5A4748CE488E6A5A3ED2F"
+        "OwnerKey" = "8:_5099AE5C7DFE492A9C9DF1CA4C9470E9"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_A7DCF03AD1C5A4748CE488E6A5A3ED2F"
+        "OwnerKey" = "8:_1C0825D10CA3E3A451125E3752CF5735"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_A7DCF03AD1C5A4748CE488E6A5A3ED2F"
+        "OwnerKey" = "8:_B2500A3A1E670760BD5B7B039625DE29"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -1269,6 +1299,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_B2500A3A1E670760BD5B7B039625DE29"
+        "OwnerKey" = "8:_5099AE5C7DFE492A9C9DF1CA4C9470E9"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_B2839DEC9C7C2763A3DCC26EFD7202EF"
         "OwnerKey" = "8:_B80CD3A0897583C67D47AA1107AA6CA1"
         "MsmSig" = "8:_UNDEFINED"
@@ -1318,19 +1354,19 @@
         "Entry"
         {
         "MsmKey" = "8:_B80CD3A0897583C67D47AA1107AA6CA1"
-        "OwnerKey" = "8:_7B21D4E963F02B64696CC35044BD8A5E"
+        "OwnerKey" = "8:_A7DCF03AD1C5A4748CE488E6A5A3ED2F"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_B80CD3A0897583C67D47AA1107AA6CA1"
-        "OwnerKey" = "8:_94DA0F7EBF90562BE792D16290F232A6"
+        "OwnerKey" = "8:_1C0825D10CA3E3A451125E3752CF5735"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_B80CD3A0897583C67D47AA1107AA6CA1"
-        "OwnerKey" = "8:_53BF7CF6497C4AB3532D08CF61A08DB3"
+        "OwnerKey" = "8:_B2500A3A1E670760BD5B7B039625DE29"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -1395,24 +1431,6 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_C1BEACA9C857FF2E68B63C543F4638AB"
-        "OwnerKey" = "8:_06592689CEEAEF4C19F92760EDE9CD7F"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_C1BEACA9C857FF2E68B63C543F4638AB"
-        "OwnerKey" = "8:_5099AE5C7DFE492A9C9DF1CA4C9470E9"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_C1BEACA9C857FF2E68B63C543F4638AB"
-        "OwnerKey" = "8:_7B21D4E963F02B64696CC35044BD8A5E"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_C1FCC23E78B84FBDA82C2C66A92D0271"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -1455,12 +1473,6 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_CAA621B259BB43DE8EE97BA369CB88E8"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_CB4020B67FB84B67B3A4CB78388EF1F1"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -1492,7 +1504,7 @@
         "Entry"
         {
         "MsmKey" = "8:_CD1AEA5FB41F076F29850710EFE3FF71"
-        "OwnerKey" = "8:_94DA0F7EBF90562BE792D16290F232A6"
+        "OwnerKey" = "8:_B2500A3A1E670760BD5B7B039625DE29"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -1677,7 +1689,7 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_EEA9A46C0D824FECB38CFD28F5FBF131"
+        "MsmKey" = "8:_EEA78625EB80403E90C4F1AD70B0D3A6"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -1762,37 +1774,55 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_7B21D4E963F02B64696CC35044BD8A5E"
+        "OwnerKey" = "8:_8F22B3A684A44287909010CB7AD11E41"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_94DA0F7EBF90562BE792D16290F232A6"
+        "OwnerKey" = "8:_5A35B1445E8B1DDFE0E97F3E9AE3085B"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_C1BEACA9C857FF2E68B63C543F4638AB"
+        "OwnerKey" = "8:_3FB006117D440096546B3AB40F495F6B"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_06592689CEEAEF4C19F92760EDE9CD7F"
+        "OwnerKey" = "8:_1C0825D10CA3E3A451125E3752CF5735"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_53BF7CF6497C4AB3532D08CF61A08DB3"
+        "OwnerKey" = "8:_B2500A3A1E670760BD5B7B039625DE29"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_8A72E95A43CDFB026AADC021D7F4C4CB"
+        "OwnerKey" = "8:_98A26A6404B33DE2B8805810A049BB2D"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_217396F1AF852E6F13AAADDD7F9B76B5"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_026BC9EE10BB56BF346327F7EFC7B175"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_A7DCF03AD1C5A4748CE488E6A5A3ED2F"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -1817,24 +1847,6 @@
         {
         "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_CD424432027CAFC3CE4A0B6A03CCB45D"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_90D31D18DB1B685A48AFD060C5473310"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_8F22B3A684A44287909010CB7AD11E41"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_849E212925772AFE5A2B8E0B8712D773"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -1879,6 +1891,12 @@
         "OwnerKey" = "8:_6DE508F331C2CB31A44F409C739E9DAE"
         "MsmSig" = "8:_UNDEFINED"
         }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_90D31D18DB1B685A48AFD060C5473310"
+        "MsmSig" = "8:_UNDEFINED"
+        }
     }
     "Configurations"
     {
@@ -1887,7 +1905,7 @@
         "DisplayName" = "8:Debug"
         "IsDebugOnly" = "11:TRUE"
         "IsReleaseOnly" = "11:FALSE"
-        "OutputFilename" = "8:Debug\\Chem4Word.Setup.msi"
+        "OutputFilename" = "8:..\\..\\bin\\Setup\\Chem4Word.Setup.msi"
         "PackageFilesAs" = "3:2"
         "PackageFileSize" = "3:-2147483648"
         "CabType" = "3:1"
@@ -1929,7 +1947,7 @@
         "DisplayName" = "8:Release"
         "IsDebugOnly" = "11:FALSE"
         "IsReleaseOnly" = "11:TRUE"
-        "OutputFilename" = "8:Release\\Chem4Word.Setup.msi"
+        "OutputFilename" = "8:..\\..\\bin\\Setup\\Chem4Word.Setup.msi"
         "PackageFilesAs" = "3:2"
         "PackageFileSize" = "3:-2147483648"
         "CabType" = "3:1"
@@ -2033,7 +2051,7 @@
                 {
                 "Name" = "8:.NET Framework"
                 "Message" = "8:[VSDNETMSG]"
-                "FrameworkVersion" = "8:3.5.30729               "
+                "FrameworkVersion" = "8:3.5.30729                "
                 "AllowLaterVersions" = "11:FALSE"
                 "InstallUrl" = "8:http://go.microsoft.com/fwlink/?LinkId=76617"
                 }
@@ -2041,6 +2059,37 @@
         }
         "File"
         {
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_026BC9EE10BB56BF346327F7EFC7B175"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:Numbo, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_026BC9EE10BB56BF346327F7EFC7B175"
+                    {
+                    "Name" = "8:Numbo.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:Numbo.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_C6FE2119F56A4D78B16BD5DE715E195C"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_03BB35FC6D164BF0AE1397D71D8AC43D"
             {
             "SourcePath" = "8:..\\Chem4Word.AddIn\\Log4NetConfig.xml"
@@ -2079,37 +2128,6 @@
             "Register" = "3:1"
             "Exclude" = "11:FALSE"
             "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_06592689CEEAEF4C19F92760EDE9CD7F"
-            {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:Numbo, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL"
-                "ScatterAssemblies"
-                {
-                    "_06592689CEEAEF4C19F92760EDE9CD7F"
-                    {
-                    "Name" = "8:Numbo.dll"
-                    "Attributes" = "3:512"
-                    }
-                }
-            "SourcePath" = "8:Numbo.dll"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_C6FE2119F56A4D78B16BD5DE715E195C"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_06671AF80E0243EB9B91E8573F5B383A"
@@ -2532,6 +2550,37 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_1C0825D10CA3E3A451125E3752CF5735"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:Chem4Word.UI, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_1C0825D10CA3E3A451125E3752CF5735"
+                    {
+                    "Name" = "8:Chem4Word.UI.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:Chem4Word.UI.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_C6FE2119F56A4D78B16BD5DE715E195C"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_1C3327D0F9299E9B0474ADA312B7640C"
             {
             "AssemblyRegister" = "3:1"
@@ -2692,6 +2741,37 @@
             "Register" = "3:1"
             "Exclude" = "11:FALSE"
             "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_217396F1AF852E6F13AAADDD7F9B76B5"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:Euclid, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_217396F1AF852E6F13AAADDD7F9B76B5"
+                    {
+                    "Name" = "8:Euclid.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:Euclid.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_C6FE2119F56A4D78B16BD5DE715E195C"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_22C284C1DBA440C7AE5F915B7207B819"
@@ -3365,6 +3445,37 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_3FB006117D440096546B3AB40F495F6B"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:Microsoft.Office.Interop.SmartTag, Version=12.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c"
+                "ScatterAssemblies"
+                {
+                    "_3FB006117D440096546B3AB40F495F6B"
+                    {
+                    "Name" = "8:Microsoft.Office.Interop.SmartTag.DLL"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:Microsoft.Office.Interop.SmartTag.DLL"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_C6FE2119F56A4D78B16BD5DE715E195C"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_3FE1B3D55DEC4AF2AC983AE96883B696"
             {
             "SourcePath" = "8:SmartTag\\948.cml"
@@ -3865,37 +3976,6 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_53BF7CF6497C4AB3532D08CF61A08DB3"
-            {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:Chem4Word.Api, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL"
-                "ScatterAssemblies"
-                {
-                    "_53BF7CF6497C4AB3532D08CF61A08DB3"
-                    {
-                    "Name" = "8:Chem4Word.Api.dll"
-                    "Attributes" = "3:512"
-                    }
-                }
-            "SourcePath" = "8:Chem4Word.Api.dll"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_C6FE2119F56A4D78B16BD5DE715E195C"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:TRUE"
-            "IsolateTo" = "8:"
-            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_56882403B8564C91B91E1BE788035942"
             {
             "SourcePath" = "8:SmartTag\\6255.cml"
@@ -3994,6 +4074,37 @@
             "Register" = "3:1"
             "Exclude" = "11:FALSE"
             "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_5A35B1445E8B1DDFE0E97F3E9AE3085B"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:Chem4Word.Font, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_5A35B1445E8B1DDFE0E97F3E9AE3085B"
+                    {
+                    "Name" = "8:Chem4Word.Font.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:Chem4Word.Font.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_C6FE2119F56A4D78B16BD5DE715E195C"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_5A95EA47D1314FE4B8C6FA3B009294E9"
@@ -4707,37 +4818,6 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_7B21D4E963F02B64696CC35044BD8A5E"
-            {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:Chem4Word.UI, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL"
-                "ScatterAssemblies"
-                {
-                    "_7B21D4E963F02B64696CC35044BD8A5E"
-                    {
-                    "Name" = "8:Chem4Word.UI.dll"
-                    "Attributes" = "3:512"
-                    }
-                }
-            "SourcePath" = "8:Chem4Word.UI.dll"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_C6FE2119F56A4D78B16BD5DE715E195C"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:TRUE"
-            "IsolateTo" = "8:"
-            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_7C3F13D447544AAFA9EE2262A1B20270"
             {
             "SourcePath" = "8:SmartTag\\11029.cml"
@@ -4876,37 +4956,6 @@
             "Register" = "3:1"
             "Exclude" = "11:FALSE"
             "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_849E212925772AFE5A2B8E0B8712D773"
-            {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=1b44e1d426115821, processorArchitecture=MSIL"
-                "ScatterAssemblies"
-                {
-                    "_849E212925772AFE5A2B8E0B8712D773"
-                    {
-                    "Name" = "8:log4net.dll"
-                    "Attributes" = "3:512"
-                    }
-                }
-            "SourcePath" = "8:log4net.dll"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_C6FE2119F56A4D78B16BD5DE715E195C"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_84AB5505DD034A53BBA0C7E25E54BC7E"
@@ -5140,37 +5189,6 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_8A72E95A43CDFB026AADC021D7F4C4CB"
-            {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:Chem4Word.Font, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL"
-                "ScatterAssemblies"
-                {
-                    "_8A72E95A43CDFB026AADC021D7F4C4CB"
-                    {
-                    "Name" = "8:Chem4Word.Font.dll"
-                    "Attributes" = "3:512"
-                    }
-                }
-            "SourcePath" = "8:Chem4Word.Font.dll"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_C6FE2119F56A4D78B16BD5DE715E195C"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:TRUE"
-            "IsolateTo" = "8:"
-            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_8DE44A11934E46A3B79FBA0D2D8351C8"
             {
             "SourcePath" = "8:SmartTag\\379.cml"
@@ -5362,37 +5380,6 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_94DA0F7EBF90562BE792D16290F232A6"
-            {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:Chem4Word.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL"
-                "ScatterAssemblies"
-                {
-                    "_94DA0F7EBF90562BE792D16290F232A6"
-                    {
-                    "Name" = "8:Chem4Word.Core.dll"
-                    "Attributes" = "3:512"
-                    }
-                }
-            "SourcePath" = "8:Chem4Word.Core.dll"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_C6FE2119F56A4D78B16BD5DE715E195C"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:TRUE"
-            "IsolateTo" = "8:"
-            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_95242D217E3642FE97E0F28C85FA399C"
             {
             "SourcePath" = "8:SmartTag\\3345.cml"
@@ -5451,6 +5438,37 @@
             "Register" = "3:1"
             "Exclude" = "11:FALSE"
             "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_98A26A6404B33DE2B8805810A049BB2D"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=1b44e1d426115821, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_98A26A6404B33DE2B8805810A049BB2D"
+                    {
+                    "Name" = "8:log4net.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:log4net.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_C6FE2119F56A4D78B16BD5DE715E195C"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_994F5C3DCE594C8AB698D48F81A093DE"
@@ -5633,6 +5651,26 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_A2DA37947554449A9D1F3B8D0478C0E7"
+            {
+            "SourcePath" = "8:..\\..\\bin\\Chem4Word.AddIn.vsto"
+            "TargetName" = "8:Chem4Word.AddIn.vsto"
+            "Tag" = "8:"
+            "Folder" = "8:_C6FE2119F56A4D78B16BD5DE715E195C"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_A30F4843BD794F3AB9221F7E8E5B0F1E"
             {
             "SourcePath" = "8:SmartTag\\681.cml"
@@ -5711,6 +5749,37 @@
             "Register" = "3:1"
             "Exclude" = "11:FALSE"
             "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_A7DCF03AD1C5A4748CE488E6A5A3ED2F"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:Chem4Word.Api, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_A7DCF03AD1C5A4748CE488E6A5A3ED2F"
+                    {
+                    "Name" = "8:Chem4Word.Api.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:Chem4Word.Api.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_C6FE2119F56A4D78B16BD5DE715E195C"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_A92F5CE1ED7C4980AEA08BC310BD2F15"
@@ -5891,6 +5960,37 @@
             "Register" = "3:1"
             "Exclude" = "11:FALSE"
             "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_B2500A3A1E670760BD5B7B039625DE29"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:Chem4Word.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_B2500A3A1E670760BD5B7B039625DE29"
+                    {
+                    "Name" = "8:Chem4Word.Core.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:Chem4Word.Core.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_C6FE2119F56A4D78B16BD5DE715E195C"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_B2839DEC9C7C2763A3DCC26EFD7202EF"
@@ -6295,37 +6395,6 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_C1BEACA9C857FF2E68B63C543F4638AB"
-            {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:Euclid, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL"
-                "ScatterAssemblies"
-                {
-                    "_C1BEACA9C857FF2E68B63C543F4638AB"
-                    {
-                    "Name" = "8:Euclid.dll"
-                    "Attributes" = "3:512"
-                    }
-                }
-            "SourcePath" = "8:Euclid.dll"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_C6FE2119F56A4D78B16BD5DE715E195C"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:TRUE"
-            "IsolateTo" = "8:"
-            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_C1FCC23E78B84FBDA82C2C66A92D0271"
             {
             "SourcePath" = "8:..\\Chem4Word.AddIn\\Resources\\CREDITS.txt"
@@ -6452,26 +6521,6 @@
             "TargetName" = "8:297.cml"
             "Tag" = "8:"
             "Folder" = "8:_00B359562F0A4D6CB4FF723319366F4B"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_CAA621B259BB43DE8EE97BA369CB88E8"
-            {
-            "SourcePath" = "8:..\\Chem4Word.AddIn\\bin\\Debug\\Chem4Word.AddIn.dll.manifest"
-            "TargetName" = "8:Chem4Word.AddIn.dll.manifest"
-            "Tag" = "8:"
-            "Folder" = "8:_C6FE2119F56A4D78B16BD5DE715E195C"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -7159,10 +7208,10 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_EEA9A46C0D824FECB38CFD28F5FBF131"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_EEA78625EB80403E90C4F1AD70B0D3A6"
             {
-            "SourcePath" = "8:..\\Chem4Word.AddIn\\bin\\Debug\\Chem4Word.AddIn.vsto"
-            "TargetName" = "8:Chem4Word.AddIn.vsto"
+            "SourcePath" = "8:..\\..\\bin\\Chem4Word.AddIn.dll.manifest"
+            "TargetName" = "8:Chem4Word.AddIn.dll.manifest"
             "Tag" = "8:"
             "Folder" = "8:_C6FE2119F56A4D78B16BD5DE715E195C"
             "Condition" = "8:"
@@ -7562,7 +7611,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Chemistry Add-in for Word"
         "ProductCode" = "8:{45B92257-603B-49C1-943F-EC27367D7CE4}"
-        "PackageCode" = "8:{1777C835-45E6-4163-A9DC-73848EFCCA59}"
+        "PackageCode" = "8:{9921760F-7AA7-4E85-99D1-3453958E7B30}"
         "UpgradeCode" = "8:{5DD696D5-5339-41F7-B081-3A556855D260}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
@@ -8697,7 +8746,7 @@
         {
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_5099AE5C7DFE492A9C9DF1CA4C9470E9"
             {
-            "SourcePath" = "8:..\\Chem4Word.AddIn\\obj\\Release\\Chem4Word.AddIn.dll"
+            "SourcePath" = "8:..\\Chem4Word.AddIn\\obj\\Debug\\Chem4Word.AddIn.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_C6FE2119F56A4D78B16BD5DE715E195C"
@@ -8725,7 +8774,7 @@
             }
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_8F22B3A684A44287909010CB7AD11E41"
             {
-            "SourcePath" = "8:..\\Chem4Word.Installer.CustomActions\\obj\\Release\\CustomInstaller.dll"
+            "SourcePath" = "8:..\\Chem4Word.Installer.CustomActions\\obj\\Debug\\CustomInstaller.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_C6FE2119F56A4D78B16BD5DE715E195C"
