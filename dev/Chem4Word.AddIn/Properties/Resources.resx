@@ -170,12 +170,11 @@
     <value>CML files (*.cml;*.xml)|*.cml;*.xml|All files (*.*)|*.*</value>
   </data>
   <data name="COPYRIGHT_YEAR" xml:space="preserve">
-    <value>2010</value>
+    <value>2013</value>
   </data>
   <data name="FILE_NOT_FOUND_MESSAGE" xml:space="preserve">
     <value>File not found</value>
   </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="CREDITS" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\CREDITS.txt;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
