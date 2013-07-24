@@ -27,7 +27,7 @@
     <RootNamespace>Chem4Word.AddIn</RootNamespace>
     <AssemblyName>Chem4Word.AddIn</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
-    <ManifestCertificateThumbprint>3B5F2B02ED13051DED766CD5F571E4BF9DD52136</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>44A29751283A8F2B5E6957D7894F390669B23BDA</ManifestCertificateThumbprint>
     <ManifestKeyFile>Chem4Word.AddIn_TemporaryKey.pfx</ManifestKeyFile>
     <SignManifests>true</SignManifests>
     <SccProjectName>
@@ -165,14 +165,16 @@
     <PostBuildEvent>
     </PostBuildEvent>
   </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
   <!--
     This section specifies references for the project.
   -->
   <ItemGroup>
     <Reference Include="Accessibility" />
-    <Reference Include="Chem4Word.Font, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\bin\Chem4Word.Font.dll</HintPath>
+    <Reference Include="Chem4Word.Font">
+      <HintPath>..\Libs\Chem4Word.Font.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Office.Interop.Word, Version=14.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c">
       <EmbedInteropTypes>True</EmbedInteropTypes>
