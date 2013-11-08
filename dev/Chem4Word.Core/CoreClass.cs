@@ -45,6 +45,7 @@ using Shape = Microsoft.Office.Interop.Word.Shape;
 using Window = Microsoft.Office.Interop.Word.Window;
 using System.Text.RegularExpressions;
 using System.Timers;
+using Chem4Word.UI.ChemDoodle;
 
 namespace Chem4Word.Core {
     /// <summary>
@@ -807,10 +808,66 @@ namespace Chem4Word.Core {
         ///   This function could be called after user selected one Chemistry Zone.
         ///   This function will go away once the chemistry canvas are inlined
         /// </summary>
-        public void Tweak2D(IChemistryZone selectedZone) {
+        public void TweakDoodleClick(IChemistryZone selectedZone)
+        {
+            //var co = selectedZone.AsContextObject();
+            //var originalContextObject = co.Clone();
+            try
+            {
+                TweakChemDoodle tcd = new TweakChemDoodle();
+                tcd.Before_CML = selectedZone.Cml.ToString();
+                tcd.Before_JSON = Chem4Word.UI.Converters.Cml.ToJson(selectedZone.Cml.ToString());
+
+                //DepictionOption depictionOption = DepictionOption.CreateDepictionOption(co.Cml,
+                //                                                                        selectedZone.Properties.
+                //                                                                            DocumentDepictionOptionXPath);
+                //DepictionOption associatedTwoDDepictionOption = depictionOption.GetAssociatedTwoDDepictionOption();
+                //ChemistryZoneProperties newChemistryZoneProperties = selectedZone.Properties.Clone();
+                //newChemistryZoneProperties.SetDocumentDepictionOption(depictionOption);
+                //var newChemistryZone = ActiveChemistryDocument.RebindDocumentContentControl(selectedZone,
+                //                                                                        newChemistryZoneProperties);
+
+                System.Windows.Forms.DialogResult r = tcd.ShowDialog();
+                if (r == System.Windows.Forms.DialogResult.OK)
+                {
+                    tcd.After_CML = Chem4Word.UI.Converters.Json.ToCML(tcd.After_JSON);
+                    XDocument doc = XDocument.Parse(tcd.After_CML);
+                    //var chemZoneProperties = selectedZone.Properties;
+                    // ToDo Calculate size of ViewBox ??
+                    //var contextObject = originalContextObject;
+                    //chemZoneProperties.ViewBox = contextObject.ViewBoxDimensions;
+                    //selectedZone.Properties = chemZoneProperties;
+                    selectedZone.Cml = doc;
+                    //newChemistryZone.Cml = doc;
+                    //var contentControl = newChemistryZone.ContentControl;
+                    //// Select the Chemistry Zone.
+                    //newChemistryZone.Choose();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new NumboException("Error in TweakDoodle:\n" + ex.Message, ex);
+            }
+            finally
+            {
+                // Sometimes the the open state of the file is not update quickly enough,
+                // So that we need to invoke GC to refresh the environment states.
+                GC.Collect();
+                GC.WaitForPendingFinalizers();
+            }
+        }
+
+        /// <summary>
+        ///   Tweak 2D by showing 2D Editor, so that user can alter Chemistry diagram.
+        ///   This function could be called after user selected one Chemistry Zone.
+        ///   This function will go away once the chemistry canvas are inlined
+        /// </summary>
+        public void Tweak2D(IChemistryZone selectedZone)
+        {
             var co = selectedZone.AsContextObject();
             var originalContextObject = co.Clone();
-            try {
+            try
+            {
                 DepictionOption depictionOption = DepictionOption.CreateDepictionOption(co.Cml,
                                                                                         selectedZone.Properties.
                                                                                             DocumentDepictionOptionXPath);
@@ -823,7 +880,8 @@ namespace Chem4Word.Core {
                 depictionOption = null;
                 bool? dialogResult = dialog2DEditing.ShowDialog();
 
-                if (dialogResult == true) {
+                if (dialogResult == true)
+                {
                     var continueProcessing = true;
                     // get the updated contextObject from the 2d editor
                     // var contextObject = new ContextObject(dialog2DEditing.CmlOutput);
@@ -833,11 +891,12 @@ namespace Chem4Word.Core {
                                                                                           xpathToTwoDDepictionOption);
                     var outdated =
                         (bool)
-                        ((XElement) associatedTwoDDepictionOption.MachineUnderstandableOption).XPathEvaluate(
+                        ((XElement)associatedTwoDDepictionOption.MachineUnderstandableOption).XPathEvaluate(
                             "count(.//@*[local-name()='" + CmlConstants.Outdated + "' and namespace-uri()='" +
                             CmlConstants.CmlxNS + "']) > 0");
 
-                    if (outdated) {
+                    if (outdated)
+                    {
                         ICollection<IChemistryZone> commonBindingZones =
                             GetAllChemistryZonesBindingToTheCmlInThis(selectedZone);
                         Dictionary<DepictionOption, ICollection<IChemistryZone>> documentDepictionOptionsInUse =
@@ -850,24 +909,32 @@ namespace Chem4Word.Core {
                                                                                      navigatorDepictionOptionsInUse);
 
 
-                        if (resultHolder.GetDialogResult()) {
+                        if (resultHolder.GetDialogResult())
+                        {
                             contextObject = resultHolder.GetContextObject();
-                        } else {
+                        }
+                        else
+                        {
                             continueProcessing = false;
                             contextObject = originalContextObject;
                         }
                     }
 
-                    if (continueProcessing) {
+                    if (continueProcessing)
+                    {
                         var chemZoneProperties = selectedZone.Properties;
                         chemZoneProperties.ViewBox = contextObject.ViewBoxDimensions;
                         selectedZone.Properties = chemZoneProperties;
                         selectedZone.Cml = contextObject.Cml;
                     }
                 }
-            } catch (Exception ex) {
-                throw new NumboException("Error Tweak 2D:\n" + ex.Message, ex);
-            } finally {
+            }
+            catch (Exception ex)
+            {
+                throw new NumboException("Error in Tweak2D:\n" + ex.Message, ex);
+            }
+            finally
+            {
                 // Sometimes the the open state of the file is not update quickly enough,
                 // So that we need to invoke GC to refresh the environment states.
                 GC.Collect();

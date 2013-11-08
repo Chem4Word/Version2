@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <!-- http://hub.chemdoodle.com/cwc/latest -->
+    <!-- http://hub.chemdoodle.com/cwc/5.2.2 -->
+	<!-- Make .Net WebBrowser component work -->
+	<meta http-equiv="X-UA-Compatible" content="IE=9" />
+	<!-- these four are required by the ChemDoodle Web Components library -->
+	<meta http-equiv="X-UA-Compatible" content="chrome=1" />
+	<link rel="stylesheet" href="http://hub.chemdoodle.com/cwc/latest/ChemDoodleWeb.css" type="text/css" />
+	<script type="text/javascript" src="http://hub.chemdoodle.com/cwc/latest/ChemDoodleWeb-libs.js" ></script>
+	<script type="text/javascript" src="http://hub.chemdoodle.com/cwc/latest/ChemDoodleWeb.js" ></script>
+	<!-- these three are required by the SketcherCanvas plugin -->
+	<link rel="stylesheet" href="http://hub.chemdoodle.com/cwc/latest/sketcher/jquery-ui-1.9.2.custom.css" type="text/css" />
+	<script type="text/javascript" src="http://hub.chemdoodle.com/cwc/latest/sketcher/jquery-ui-1.9.2.custom.min.js" ></script>
+	<script type="text/javascript" src="http://hub.chemdoodle.com/cwc/latest/sketcher/ChemDoodleWeb-sketcher.js" ></script>
+	
+	<!-- Our bits to hide unwanted buttons -->
+	<link rel="stylesheet" href="Chem4Word.css" type="text/css" />
+
+	<title>Chem Doodle</title>
+  </head>
+
+  <body onresize="resize_canvas()" onload="resize_canvas()" style="background-color:White">
+
+	<canvas id="sketcher"/>
+
+	<script type="text/javascript">
+		var X_OFFSET = 20;
+		var Y_OFFSET = 100;
+
+		function resize_canvas(){
+		    //canvas = document.getElementById("sketcher");
+            //canvas.width  = window.innerWidth -16;
+            //canvas.height = window.innerHeight -16;
+			sketcher.resize(window.innerWidth - X_OFFSET, window.innerHeight - Y_OFFSET);
+		}
+
+		function SetMolFile(molFile, length) {
+			var mol = ChemDoodle.readMOL(molFile);
+			var len = parseInt(length);
+			mol.scaleToAverageBondLength(len);
+			sketcher.loadMolecule(mol);
+		}
+
+		function SetJSON(molFile, length) {
+			var jsonMol = JSON.parse(molFile);
+			var mol = new ChemDoodle.io.JSONInterpreter().molFrom(jsonMol);
+			var len = parseInt(length);
+			mol.scaleToAverageBondLength(len);
+			sketcher.loadMolecule(mol);
+		}
+
+		function GetMolFile() {
+			var mol = sketcher.getMolecule();
+			var molFile = new ChemDoodle.io.MOLInterpreter().write(mol);
+			return molFile;
+		}
+
+		function GetJSON() {
+			var mol = sketcher.getMolecule();
+			var jsonMol = new ChemDoodle.io.JSONInterpreter().molTo(mol);
+			var asString = JSON.stringify(jsonMol);
+			return asString;
+		}
+
+		function GetVersion() {
+			return ChemDoodle.getVersion();
+		}
+
+		// Initialise ChemDoodle and Sketcher
+
+		// changes the default JMol color of hydrogen to black so it appears on white backgrounds
+		ChemDoodle.ELEMENT['H'].jmolColor = 'black';
+		// darkens the default JMol color of sulphur so it appears on white backgrounds
+		ChemDoodle.ELEMENT['S'].jmolColor = '#B9A130';
+		// initializes the SketcherCanvas
+		var sketcher = new ChemDoodle.SketcherCanvas('sketcher', window.innerWidth - X_OFFSET, window.innerHeight - Y_OFFSET, {useServices:false, oneMolecule:true, includeToolbar:true});
+		// sets terminal carbon labels to display
+		sketcher.specs.atoms_displayTerminalCarbonLabels_2D = true;
+		// sets atom labels to be colored by JMol colors, which are easy to recognize
+		sketcher.specs.atoms_useJMOLColors = true;
+		// enables overlap clear widths, so that some depth is introduced to overlapping bonds
+		sketcher.specs.bonds_clearOverlaps_2D = true;
+		// sets the shape color to improve contrast when drawing figures
+		sketcher.specs.shapes_color = 'c10000';
+		// because we do not load any content, we need to repaint the sketcher, otherwise we would just see an empty area with the toolbar
+		// however, you can instead use one of the Canvas.load... functions to pre-populate the canvas with content, then you don't need to call repaint
+		sketcher.repaint();
+		// Show Version Number
+		document.title = "ChemDoodle Web v" + ChemDoodle.getVersion();
+	</script>
+
+  </body>
+</html>

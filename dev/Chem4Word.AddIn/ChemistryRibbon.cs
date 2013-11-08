@@ -647,16 +647,35 @@ namespace Chem4Word.AddIn {
         ///   Respond to pick of Tweak 2D Chemistry Zone button on ribbon
         /// </summary>
         /// <param name = "sender">ID of ribbon control</param>
-        public void Tweak2DClick(IRibbonControl sender) {
+        public void TweakDoodleClick(IRibbonControl sender)
+        {
             try {
-                core.Tweak2D(core.ActiveChemistryDocument.SelectedChemistryZone);
+                core.TweakDoodleClick(core.ActiveChemistryDocument.SelectedChemistryZone);
             } catch (Exception ex) {
                 MessageBox.Show(ex.Message, Resources.CHEM_4_WORD_MESSAGE_BOX_TITLE, MessageBoxButton.OK,
                                 MessageBoxImage.Stop);
             }
         }
 
-        public bool GetEditEnable(IRibbonControl control) {
+        /// <summary>
+        ///   Respond to pick of Tweak 2D Chemistry Zone button on ribbon
+        /// </summary>
+        /// <param name = "sender">ID of ribbon control</param>
+        public void Tweak2DClick(IRibbonControl sender)
+        {
+            try
+            {
+                core.Tweak2D(core.ActiveChemistryDocument.SelectedChemistryZone);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, Resources.CHEM_4_WORD_MESSAGE_BOX_TITLE, MessageBoxButton.OK,
+                                MessageBoxImage.Stop);
+            }
+        }
+
+        public bool GetEditEnable(IRibbonControl control)
+        {
             return EditEnable;
         }
 
