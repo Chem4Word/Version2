@@ -61,6 +61,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\..\Program Files (x86)\Reference Assemblies\Microsoft\VSTO\v9.0\Microsoft.Office.Tools.Word.v9.0.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libs\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="PresentationCore">
       <RequiredTargetFramework>3.0</RequiredTargetFramework>
     </Reference>
@@ -107,9 +111,11 @@
     </Compile>
     <Compile Include="Converters\BackgroundConverter.cs" />
     <Compile Include="Converters\BooleanToOpacityConverter.cs" />
+    <Compile Include="Converters\Cml.cs" />
     <Compile Include="Converters\DrawingModeToBooleanConverter.cs" />
     <Compile Include="Converters\HasImageAndIsExpandedToVisibilityConverter.cs" />
     <Compile Include="Converters\IsMouseOverHasImageToVisibilityConverter.cs" />
+    <Compile Include="Converters\Json.cs" />
     <Compile Include="Converters\NullOrEmptyStringToBooleanConverter.cs" />
     <Compile Include="Converters\NullToBooleanConverter.cs" />
     <Compile Include="Converters\ObservableCollectionToBooleanConverter.cs" />
@@ -156,6 +162,12 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="ChemDoodle\TweakChemDoodle.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ChemDoodle\TweakChemDoodle.Designer.cs">
+      <DependentUpon>TweakChemDoodle.cs</DependentUpon>
     </Compile>
     <Compile Include="TwoD\DisplayBox.cs" />
     <Compile Include="TwoD\ExtendedRadioButton.cs" />
@@ -451,6 +463,10 @@
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ChemDoodle\TweakChemDoodle.resx">
+      <DependentUpon>TweakChemDoodle.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
@@ -549,6 +565,11 @@
   <ItemGroup>
     <Resource Include="Resources\Images\Select_All.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\ChemDoodle\Chem4Word.css" />
+    <Content Include="Resources\ChemDoodle\HotLink-Latest.htm" />
+  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
