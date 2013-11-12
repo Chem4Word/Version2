@@ -27,12 +27,13 @@ namespace Chem4Word.UI.Converters
 
                 #region Construct empty CML file
                 StringBuilder sb = new StringBuilder();
-                sb.Append("<cml:cml convention='conventions:molecular'");
-                sb.Append(" xmlns:p7='http://www.xml-cml.org/dictionary/cmlx/'");
+                sb.Append("<cml:cml");
+                sb.Append(" convention='conventions:molecular'");
                 sb.Append(" xmlns:conventions='http://www.xml-cml.org/convention/'");
                 sb.Append(" xmlns:cml='http://www.xml-cml.org/schema'");
                 sb.Append(" xmlns:cmlDict='http://www.xml-cml.org/dictionary/cml/'");
                 sb.Append(" xmlns:nameDict='http://www.xml-cml.org/dictionary/cml/name/'");
+                //sb.Append(" xmlns:p7='http://www.xml-cml.org/dictionary/cmlx/'");
                 sb.Append(">");
                 sb.Append("<cml:molecule id='m1'>");
                 sb.Append("  <cml:atomArray>");

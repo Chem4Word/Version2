@@ -810,38 +810,49 @@ namespace Chem4Word.Core {
         /// </summary>
         public void TweakDoodleClick(IChemistryZone selectedZone)
         {
-            //var co = selectedZone.AsContextObject();
-            //var originalContextObject = co.Clone();
             try
             {
                 TweakChemDoodle tcd = new TweakChemDoodle();
                 tcd.Before_CML = selectedZone.Cml.ToString();
                 tcd.Before_JSON = Chem4Word.UI.Converters.Cml.ToJson(selectedZone.Cml.ToString());
 
-                //DepictionOption depictionOption = DepictionOption.CreateDepictionOption(co.Cml,
-                //                                                                        selectedZone.Properties.
-                //                                                                            DocumentDepictionOptionXPath);
-                //DepictionOption associatedTwoDDepictionOption = depictionOption.GetAssociatedTwoDDepictionOption();
-                //ChemistryZoneProperties newChemistryZoneProperties = selectedZone.Properties.Clone();
-                //newChemistryZoneProperties.SetDocumentDepictionOption(depictionOption);
-                //var newChemistryZone = ActiveChemistryDocument.RebindDocumentContentControl(selectedZone,
-                //                                                                        newChemistryZoneProperties);
-
                 System.Windows.Forms.DialogResult r = tcd.ShowDialog();
                 if (r == System.Windows.Forms.DialogResult.OK)
                 {
                     tcd.After_CML = Chem4Word.UI.Converters.Json.ToCML(tcd.After_JSON);
-                    XDocument doc = XDocument.Parse(tcd.After_CML);
-                    //var chemZoneProperties = selectedZone.Properties;
+
                     // ToDo Calculate size of ViewBox ??
-                    //var contextObject = originalContextObject;
-                    //chemZoneProperties.ViewBox = contextObject.ViewBoxDimensions;
-                    //selectedZone.Properties = chemZoneProperties;
+
+                    XmlDocument docBefore = new XmlDocument();
+                    docBefore.LoadXml(selectedZone.Cml.ToString());
+                    XmlNamespaceManager nsmgr1 = new XmlNamespaceManager(docBefore.NameTable);
+                    nsmgr1.AddNamespace("cml", "http://www.xml-cml.org/schema");
+
+                    XmlDocument docAfter = new XmlDocument();
+                    docAfter.LoadXml(tcd.After_CML);
+                    XmlNamespaceManager nsmgr2 = new XmlNamespaceManager(docAfter.NameTable);
+                    nsmgr2.AddNamespace("cml", "http://www.xml-cml.org/schema");
+
+                    System.Xml.XmlNode beforeMolecule = docBefore.SelectSingleNode("//cml:molecule", nsmgr1);
+                    System.Xml.XmlNode afterMolecule = docAfter.SelectSingleNode("//cml:molecule", nsmgr2);
+
+                    foreach (System.Xml.XmlNode node in beforeMolecule)
+                    {
+                        if (!((node.Name.Contains("atomArray")) || (node.Name.Contains("bondArray"))))
+                        {
+                            System.Diagnostics.Debug.WriteLine("Copying element " + node.Name);
+                            System.Xml.XmlElement e = docAfter.CreateElement(node.Name);
+                            e.InnerText = node.InnerText;
+                            foreach (System.Xml.XmlAttribute att in node.Attributes)
+                            {
+                                e.SetAttribute(att.Name, att.Value);
+                            }
+                            afterMolecule.AppendChild(e);
+                        }
+                    }
+
+                    XDocument doc = XDocument.Parse(docAfter.InnerXml);
                     selectedZone.Cml = doc;
-                    //newChemistryZone.Cml = doc;
-                    //var contentControl = newChemistryZone.ContentControl;
-                    //// Select the Chemistry Zone.
-                    //newChemistryZone.Choose();
                 }
             }
             catch (Exception ex)
