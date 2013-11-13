@@ -19,10 +19,12 @@ namespace Chem4Word.UI.ChemDoodle
         private string ms_AppTitle = "Chem4Word Editor Using ChemDoodle Web V";
 
         public string Before_CML { get; set; }
+        public string Before_MolFile { get; set; }
         public string Before_JSON { get; set; }
         public string Before_Inchi { get; set; }
 
         public string After_CML { get; set; }
+        public string After_MolFile { get; set; }
         public string After_JSON { get; set; }
         public string After_Inchi { get; set; }
 
@@ -54,6 +56,13 @@ namespace Chem4Word.UI.ChemDoodle
             this.Text = ms_AppTitle + ExecuteJavaScript("GetVersion");
 
             ExecuteJavaScript("SetJSON", Before_JSON, 25);
+
+            object mol = null;
+            string temp = null;
+
+            mol = ExecuteJavaScript("GetMolFile");
+            temp = mol.ToString();
+            Before_MolFile = temp;
         }
 
         private object ExecuteJavaScript(string p_FunctionName, params object[] p_Args)
@@ -64,11 +73,16 @@ namespace Chem4Word.UI.ChemDoodle
         private void btnOk_Click(object sender, EventArgs e)
         {
             object mol = null;
+            string temp = null;
 
             mol = ExecuteJavaScript("GetJSON");
-            string temp = mol.ToString();
+            temp = mol.ToString();
             JToken molJson = JObject.Parse(temp);
             After_JSON = molJson.ToString();
+
+            mol = ExecuteJavaScript("GetMolFile");
+            temp = mol.ToString();
+            After_MolFile = temp;
 
             DialogResult = System.Windows.Forms.DialogResult.OK;
         }

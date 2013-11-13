@@ -836,6 +836,17 @@ namespace Chem4Word.Core {
                     System.Xml.XmlNode beforeMolecule = docBefore.SelectSingleNode("//cml:molecule", nsmgr1);
                     System.Xml.XmlNode afterMolecule = docAfter.SelectSingleNode("//cml:molecule", nsmgr2);
 
+                    // Copy molecule attributes
+                    foreach (System.Xml.XmlAttribute att in beforeMolecule.Attributes)
+                    {
+                        if (!att.Name.Equals("id"))
+                        {
+                            System.Xml.XmlElement newMolecule = afterMolecule as System.Xml.XmlElement;
+                            newMolecule.SetAttribute(att.Name, att.Value);
+                        }
+                    }
+
+                    // Copy other elements
                     foreach (System.Xml.XmlNode node in beforeMolecule)
                     {
                         if (!((node.Name.Contains("atomArray")) || (node.Name.Contains("bondArray"))))
