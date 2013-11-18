@@ -97,8 +97,6 @@ namespace Chem4Word.UI.Converters
                         XmlElement cmlBond = doc.CreateElement("cml:bond", "http://www.xml-cml.org/schema");
                         cmlBond.SetAttribute("id", "b" + bondCounter);
                         cmlBond.SetAttribute("atomRefs2", "a" + begin + " a" + end);
-                        cmlBond.SetAttribute("cyclic", "Acyclic");
-                        cmlBond.SetAttribute("p7", "http://www.xml-cml.org/dictionary/cmlx");
 
                         if (order != null)
                         {
@@ -115,6 +113,10 @@ namespace Chem4Word.UI.Converters
                             cmlStereo.InnerText = StereoToString(stereo);
                             cmlBond.AppendChild(cmlStereo);
                         }
+
+                        //cmlBond.SetAttribute("cyclic", "Acyclic");
+                        //cmlBond.SetAttribute("p7", "http://www.xml-cml.org/dictionary/cmlx");
+
                         cmlBonds.AppendChild(cmlBond);
                         bondCounter++;
                     }
