@@ -804,7 +804,7 @@ namespace Chem4Word.Core {
         }
 
         /// <summary>
-        ///   Tweak 2D by showing 2D Editor, so that user can alter Chemistry diagram.
+        ///   Tweak 2D by showing ChemDoodle Editor, so that user can alter Chemistry diagram.
         ///   This function could be called after user selected one Chemistry Zone.
         ///   This function will go away once the chemistry canvas are inlined
         /// </summary>
@@ -852,7 +852,7 @@ namespace Chem4Word.Core {
                         if (!((node.Name.Contains("atomArray")) || (node.Name.Contains("bondArray"))))
                         {
                             System.Diagnostics.Debug.WriteLine("Copying element " + node.Name);
-                            System.Xml.XmlElement e = docAfter.CreateElement(node.Name);
+                            System.Xml.XmlElement e = docAfter.CreateElement(node.Name, "http://www.xml-cml.org/schema");
                             e.InnerText = node.InnerText;
                             foreach (System.Xml.XmlAttribute att in node.Attributes)
                             {
