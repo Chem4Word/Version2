@@ -75,14 +75,15 @@ namespace Chem4Word.UI.ChemDoodle
             object mol = null;
             string temp = null;
 
+            // Get molfile first as GetJSON set scale
+            mol = ExecuteJavaScript("GetMolFile");
+            temp = mol.ToString();
+            After_MolFile = temp;
+
             mol = ExecuteJavaScript("GetJSON");
             temp = mol.ToString();
             JToken molJson = JObject.Parse(temp);
             After_JSON = molJson.ToString();
-
-            mol = ExecuteJavaScript("GetMolFile");
-            temp = mol.ToString();
-            After_MolFile = temp;
 
             DialogResult = System.Windows.Forms.DialogResult.OK;
         }
