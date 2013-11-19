@@ -821,8 +821,6 @@ namespace Chem4Word.Core {
                 {
                     tcd.After_CML = Chem4Word.UI.Converters.Json.ToCML(tcd.After_JSON);
 
-                    // ToDo Calculate size of ViewBox ??
-
                     XmlDocument docBefore = new XmlDocument();
                     docBefore.LoadXml(selectedZone.Cml.ToString());
                     XmlNamespaceManager nsmgr1 = new XmlNamespaceManager(docBefore.NameTable);
@@ -836,10 +834,15 @@ namespace Chem4Word.Core {
                     System.Xml.XmlNode beforeMolecule = docBefore.SelectSingleNode("//cml:molecule", nsmgr1);
                     System.Xml.XmlNode afterMolecule = docAfter.SelectSingleNode("//cml:molecule", nsmgr2);
 
+                    XDocument doc = XDocument.Parse(docAfter.InnerXml);
+                    CmlMolecule molecule = CmlUtils.GetFirstDescendentMolecule(doc);
+                    string newConciseFormula = CmlFormula.CalculateConciseFormula(molecule);
+                    string oldConsiseFormula = "";
+
                     // Copy molecule attributes
                     foreach (System.Xml.XmlAttribute att in beforeMolecule.Attributes)
                     {
-                        if (!att.Name.Equals("id"))
+                        if (!att.Name.Equals(CmlAttribute.ID))
                         {
                             System.Xml.XmlElement newMolecule = afterMolecule as System.Xml.XmlElement;
                             newMolecule.SetAttribute(att.Name, att.Value);
@@ -849,22 +852,35 @@ namespace Chem4Word.Core {
                     // Copy other elements
                     foreach (System.Xml.XmlNode node in beforeMolecule)
                     {
-                        if (!((node.Name.Contains("atomArray")) || (node.Name.Contains("bondArray"))))
+
+                        if (!((node.Name.EndsWith(CmlAtomArray.Tag)) || (node.Name.EndsWith(CmlBondArray.Tag))))
                         {
                             System.Diagnostics.Debug.WriteLine("Copying element " + node.Name);
                             System.Xml.XmlElement e = docAfter.CreateElement(node.Name, "http://www.xml-cml.org/schema");
                             e.InnerText = node.InnerText;
                             foreach (System.Xml.XmlAttribute att in node.Attributes)
                             {
-                                e.SetAttribute(att.Name, att.Value);
+                                if (node.Name.EndsWith(CmlFormula.Tag) && att.Name.Equals(CmlAttribute.Concise))
+                                {
+                                    oldConsiseFormula = att.Value;
+                                    e.SetAttribute(att.Name, newConciseFormula);
+                                }
+                                else
+                                {
+                                    e.SetAttribute(att.Name, att.Value);
+                                }
                             }
                             afterMolecule.AppendChild(e);
                         }
                     }
 
-                    XDocument doc = XDocument.Parse(docAfter.InnerXml);
+                    doc = XDocument.Parse(docAfter.InnerXml);
                     // ToDo - Detect if molecule has changed
                     selectedZone.Cml = doc;
+                    if (!oldConsiseFormula.Equals(newConciseFormula))
+                    {
+                        EditLabels(selectedZone);
+                    }
                 }
             }
             catch (Exception ex)

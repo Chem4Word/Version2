@@ -68,7 +68,12 @@ namespace Chem4Word.UI.ManageView
             {
                 if (Depiction.Is2D(depictionOption) || Depiction.IsConciseFormula(depictionOption))
                 {
-                    // we don't show 2D or concise formulae at the moment
+                    // we don't show 2D formula at the moment
+                    if (Depiction.IsConciseFormula(depictionOption))
+                    {
+                        // SHow concise formula in window title
+                        this.Title += " for '" + depictionOption.HumanUnderstandableOption + "'";
+                    }
                 }
                 else
                 {
