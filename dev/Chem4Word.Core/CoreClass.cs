@@ -863,6 +863,7 @@ namespace Chem4Word.Core {
                     }
 
                     XDocument doc = XDocument.Parse(docAfter.InnerXml);
+                    // ToDo - Detect if molecule has changed
                     selectedZone.Cml = doc;
                 }
             }

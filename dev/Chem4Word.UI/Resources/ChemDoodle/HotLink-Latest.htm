@@ -37,7 +37,8 @@
 		}
 
 		function SetMolFile(molFile, length) {
-			var mol = ChemDoodle.readMOL(molFile);
+		    var mol = ChemDoodle.readMOL(molFile);
+		    //var x = getAverageBondLength();
 			var len = parseInt(length);
 			mol.scaleToAverageBondLength(len);
 			sketcher.loadMolecule(mol);
@@ -46,19 +47,22 @@
 		function SetJSON(molFile, length) {
 			var jsonMol = JSON.parse(molFile);
 			var mol = new ChemDoodle.io.JSONInterpreter().molFrom(jsonMol);
+			//var x = getAverageBondLength();
 			var len = parseInt(length);
 			mol.scaleToAverageBondLength(len);
 			sketcher.loadMolecule(mol);
 		}
 
 		function GetMolFile() {
-			var mol = sketcher.getMolecule();
+		    var mol = sketcher.getMolecule();
 			var molFile = new ChemDoodle.io.MOLInterpreter().write(mol);
 			return molFile;
 		}
 
 		function GetJSON() {
-			var mol = sketcher.getMolecule();
+		    var mol = sketcher.getMolecule();
+            // Re-Scale to 1.54 for Chem4Word rendering
+		    mol.scaleToAverageBondLength(1.54);
 			var jsonMol = new ChemDoodle.io.JSONInterpreter().molTo(mol);
 			var asString = JSON.stringify(jsonMol);
 			return asString;
