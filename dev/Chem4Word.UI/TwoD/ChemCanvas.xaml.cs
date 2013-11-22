@@ -814,8 +814,8 @@ namespace Chem4Word.UI.TwoD {
             avbondlen = bonds.Any() ? GeometryTool.GetMedianBondLength2D(bonds) : 1.54;
             scaleFactor = defaultBondLength/avbondlen;
 
-            molWidthScreenCoords = (xmax - xmin)*(scaleFactor*zoomFactor);
-            molHeightScreenCoords = (ymax - ymin)*(scaleFactor*zoomFactor);
+            molWidthScreenCoords = Math.Abs(xmax - xmin)*(scaleFactor*zoomFactor);
+            molHeightScreenCoords = Math.Abs(ymax - ymin)*(scaleFactor*zoomFactor);
 
             maxBoundScreenCoords = (molWidthScreenCoords > molHeightScreenCoords)
                                        ? molWidthScreenCoords

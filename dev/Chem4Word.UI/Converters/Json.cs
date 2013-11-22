@@ -12,6 +12,29 @@ namespace Chem4Word.UI.Converters
 {
     public static class Json
     {
+        public static string InvertY(string p_JsonIn)
+        {
+            string result = p_JsonIn;
+
+            Debug.WriteLine("JSON.InvertY()");
+            if (p_JsonIn.StartsWith("{"))
+            {
+                JToken molJson = JObject.Parse(p_JsonIn);
+
+                JToken atoms = molJson.SelectToken("a");
+                foreach (JToken atom in atoms)
+                {
+                    double y = (double)atom.SelectToken("y");
+                    double newY = -y;
+                    JValue yy = (JValue)atom.SelectToken("y");
+                    yy.Value = newY.ToString();
+                }
+                result = molJson.ToString();
+            }
+
+            return result;
+        }
+
         public static string ToCML(string p_JsonIn)
         {
             Debug.WriteLine("JSON.ToCML()");

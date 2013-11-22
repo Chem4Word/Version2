@@ -814,12 +814,18 @@ namespace Chem4Word.Core {
             {
                 TweakChemDoodle tcd = new TweakChemDoodle();
                 tcd.Before_CML = selectedZone.Cml.ToString();
-                tcd.Before_JSON = Chem4Word.UI.Converters.Cml.ToJson(selectedZone.Cml.ToString());
+                //tcd.Before_JSON = Chem4Word.UI.Converters.Cml.ToJson(selectedZone.Cml.ToString());
+                string normal = Chem4Word.UI.Converters.Cml.ToJson(selectedZone.Cml.ToString());
+                string inverted = Chem4Word.UI.Converters.Json.InvertY(normal);
+                tcd.Before_JSON = inverted;
 
                 System.Windows.Forms.DialogResult r = tcd.ShowDialog();
                 if (r == System.Windows.Forms.DialogResult.OK)
                 {
-                    tcd.After_CML = Chem4Word.UI.Converters.Json.ToCML(tcd.After_JSON);
+                    //tcd.After_CML = Chem4Word.UI.Converters.Json.ToCML(tcd.After_JSON);
+                    inverted = tcd.After_JSON;
+                    normal = Chem4Word.UI.Converters.Json.InvertY(inverted);
+                    tcd.After_CML = Chem4Word.UI.Converters.Json.ToCML(normal);
 
                     XmlDocument docBefore = new XmlDocument();
                     docBefore.LoadXml(selectedZone.Cml.ToString());
