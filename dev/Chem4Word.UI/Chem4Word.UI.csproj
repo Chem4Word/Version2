@@ -79,6 +79,8 @@
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
     <Reference Include="System.Drawing" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Web.Services" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
@@ -163,11 +165,16 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="ChemDoodle\TweakChemDoodle.cs">
+    <Compile Include="ChemDoodle\ChemDoodleEditorForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ChemDoodle\TweakChemDoodle.Designer.cs">
-      <DependentUpon>TweakChemDoodle.cs</DependentUpon>
+    <Compile Include="ChemDoodle\ChemDoodleEditorForm.Designer.cs">
+      <DependentUpon>ChemDoodleEditorForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
     <Compile Include="TwoD\DisplayBox.cs" />
     <Compile Include="TwoD\ExtendedRadioButton.cs" />
@@ -297,6 +304,11 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
     <None Include="Resources\cmllite.xslt" />
     <None Include="Resources\CMLSchema.xsd" />
   </ItemGroup>
@@ -465,8 +477,8 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="ChemDoodle\TweakChemDoodle.resx">
-      <DependentUpon>TweakChemDoodle.cs</DependentUpon>
+    <EmbeddedResource Include="ChemDoodle\ChemDoodleEditorForm.resx">
+      <DependentUpon>ChemDoodleEditorForm.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
@@ -569,7 +581,9 @@
     <Content Include="Resources\ChemDoodle\Chem4Word.css" />
     <Content Include="Resources\ChemDoodle\HotLink-Latest.htm" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

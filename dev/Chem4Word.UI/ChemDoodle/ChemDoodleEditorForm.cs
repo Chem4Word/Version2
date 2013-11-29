@@ -14,21 +14,19 @@ using Newtonsoft.Json.Linq;
 
 namespace Chem4Word.UI.ChemDoodle
 {
-    public partial class TweakChemDoodle : Form
+    public partial class ChemDoodleEditorForm : Form
     {
         private string ms_AppTitle = "Chem4Word Editor Using ChemDoodle Web V";
 
         public string Before_CML { get; set; }
         public string Before_MolFile { get; set; }
         public string Before_JSON { get; set; }
-        public string Before_Inchi { get; set; }
 
         public string After_CML { get; set; }
         public string After_MolFile { get; set; }
         public string After_JSON { get; set; }
-        public string After_Inchi { get; set; }
 
-        public TweakChemDoodle()
+        public ChemDoodleEditorForm()
         {
             InitializeComponent();
         }
