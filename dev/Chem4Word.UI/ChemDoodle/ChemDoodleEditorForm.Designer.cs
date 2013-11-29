@@ -1,6 +1,6 @@
 ﻿namespace Chem4Word.UI.ChemDoodle
 {
-    partial class TweakChemDoodle
+    partial class ChemDoodleEditorForm
     {
         /// <summary>
         /// Required designer variable.

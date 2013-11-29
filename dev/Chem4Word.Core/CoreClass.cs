@@ -814,7 +814,7 @@ namespace Chem4Word.Core {
         {
             try
             {
-                TweakChemDoodle tcd = new TweakChemDoodle();
+                ChemDoodleEditorForm tcd = new ChemDoodleEditorForm();
                 tcd.Before_CML = selectedZone.Cml.ToString();
                 //tcd.Before_JSON = Chem4Word.UI.Converters.Cml.ToJson(selectedZone.Cml.ToString());
                 string normal = Chem4Word.UI.Converters.Cml.ToJson(selectedZone.Cml.ToString());
@@ -844,8 +844,8 @@ namespace Chem4Word.Core {
 
                     XDocument doc = XDocument.Parse(docAfter.InnerXml);
                     CmlMolecule molecule = CmlUtils.GetFirstDescendentMolecule(doc);
-                    string newConciseFormula = CmlFormula.CalculateConciseFormula(molecule);
-                    string oldConsiseFormula = "";
+                    string afterConciseFormula = CmlFormula.CalculateConciseFormula(molecule);
+                    string beforeConsiseFormula = "";
 
                     // Copy molecule attributes
                     foreach (System.Xml.XmlAttribute att in beforeMolecule.Attributes)
@@ -860,7 +860,6 @@ namespace Chem4Word.Core {
                     // Copy other elements
                     foreach (System.Xml.XmlNode node in beforeMolecule)
                     {
-
                         if (!((node.Name.EndsWith(CmlAtomArray.Tag)) || (node.Name.EndsWith(CmlBondArray.Tag))))
                         {
                             System.Diagnostics.Debug.WriteLine("Copying element " + node.Name);
@@ -870,8 +869,8 @@ namespace Chem4Word.Core {
                             {
                                 if (node.Name.EndsWith(CmlFormula.Tag) && att.Name.Equals(CmlAttribute.Concise))
                                 {
-                                    oldConsiseFormula = att.Value;
-                                    e.SetAttribute(att.Name, newConciseFormula);
+                                    beforeConsiseFormula = att.Value;
+                                    e.SetAttribute(att.Name, afterConciseFormula);
                                 }
                                 else
                                 {
@@ -883,9 +882,50 @@ namespace Chem4Word.Core {
                     }
 
                     doc = XDocument.Parse(docAfter.InnerXml);
-                    // ToDo - Detect if molecule has changed
                     selectedZone.Cml = doc;
-                    if (!oldConsiseFormula.Equals(newConciseFormula))
+
+                    // Detect if molecule has changed
+                    bool changed = false;
+                    if (beforeConsiseFormula.Equals(afterConciseFormula))
+                    {
+                        System.Diagnostics.Debug.WriteLine("Consise Formula is same, Getting Inchi-Keys from ChemSpider");
+                        // Same Concise Formula - See if inchi-keys are the sane
+                        com.chemspider.www.InChI i = new com.chemspider.www.InChI();
+                        i.UserAgent = "Chem4Word";
+                        i.Timeout = 500;
+
+                        string beforeInchiKey = null;
+                        string afterInchiKey = null;
+                        bool wsTimeout = false;
+
+                        try
+                        {
+                            beforeInchiKey = i.MolToInChIKey(tcd.Before_MolFile);
+                            afterInchiKey = i.MolToInChIKey(tcd.After_MolFile);
+                        }
+                        catch
+                        {
+                            wsTimeout = true;
+                            changed = true;
+                        }
+
+                        if (!wsTimeout)
+                        {
+                            if (!afterInchiKey.Equals(beforeInchiKey))
+                            {
+                                changed = true;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        // Consise formula has changed
+                        System.Diagnostics.Debug.WriteLine("Consise Formula is different");
+                        changed = true;
+                    }
+
+                    // Show Label Editor
+                    if (changed)
                     {
                         EditLabels(selectedZone);
                     }
@@ -1708,12 +1748,16 @@ namespace Chem4Word.Core {
 
         void _timerToDeleteContexCtrl_Elapsed(object sender, ElapsedEventArgs e)
         {
-            foreach (ContentControl item in wordApp.ActiveDocument.ContentControls)
+            try
             {
-                if (item.Title.CompareTo("CONTENTCONTROL_FLAGGED_FOR_DELETE") == 0)
-                    item.Delete(true);
+                foreach (ContentControl item in wordApp.ActiveDocument.ContentControls)
+                {
+                    if (item.Title.CompareTo("CONTENTCONTROL_FLAGGED_FOR_DELETE") == 0)
+                        item.Delete(true);
+                }
+                _timerToDeleteContexCtrl.Elapsed -= _timerToDeleteContexCtrl_Elapsed;
             }
-            _timerToDeleteContexCtrl.Elapsed -= _timerToDeleteContexCtrl_Elapsed;
+            catch { }
         }
 
         /// <summary>

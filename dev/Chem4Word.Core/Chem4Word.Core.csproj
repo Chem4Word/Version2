@@ -77,6 +77,8 @@
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
     <Reference Include="System.Drawing" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Web.Services" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
@@ -110,6 +112,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
     <Compile Include="SmartTag\ChemistryContextMenuHelper.cs" />
     <Compile Include="SmartTag\ChemistrySmartTag.cs" />
     <Compile Include="SmartTag\ChemistryZoneMatch.cs" />
@@ -119,6 +126,11 @@
     <Compile Include="UserSetting\Setting.cs" />
     <Compile Include="UserSetting\UserSettingOption.xaml.cs">
       <DependentUpon>UserSettingOption.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\com.chemspider.www\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
     </Compile>
     <Compile Include="XmlMappingManager.cs" />
   </ItemGroup>
@@ -153,6 +165,35 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <WebReferences Include="Web References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WebReferenceUrl Include="http://www.chemspider.com/InChI.asmx">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\com.chemspider.www\</RelPath>
+      <UpdateFromURL>http://www.chemspider.com/InChI.asmx</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>Chem4Word_Core_com_chemspider_www_InChI</CachedSettingsPropName>
+    </WebReferenceUrl>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\com.chemspider.www\InChI.disco" />
+    <None Include="Web References\com.chemspider.www\InChI.wsdl" />
+    <None Include="Web References\com.chemspider.www\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
