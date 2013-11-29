@@ -306,8 +306,10 @@ namespace Chem4Word.Core {
                 Depiction.Is2D(
                     DepictionOption.CreateDepictionOption(chemistryZone.Cml,
                                                           chemistryZone.Properties
-                                                              .DocumentDepictionOptionXPath))) {
-                Tweak2D(chemistryZone);
+                                                              .DocumentDepictionOptionXPath)))
+            {
+                //Tweak2D(chemistryZone);
+                TweakDoodle2D(chemistryZone);
             } else {
                 EditLabels(chemistryZone);
             }
@@ -808,7 +810,7 @@ namespace Chem4Word.Core {
         ///   This function could be called after user selected one Chemistry Zone.
         ///   This function will go away once the chemistry canvas are inlined
         /// </summary>
-        public void TweakDoodleClick(IChemistryZone selectedZone)
+        public void TweakDoodle2D(IChemistryZone selectedZone)
         {
             try
             {
