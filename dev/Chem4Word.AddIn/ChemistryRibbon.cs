@@ -650,7 +650,7 @@ namespace Chem4Word.AddIn {
         public void TweakDoodleClick(IRibbonControl sender)
         {
             try {
-                core.TweakDoodleClick(core.ActiveChemistryDocument.SelectedChemistryZone);
+                core.TweakDoodle2D(core.ActiveChemistryDocument.SelectedChemistryZone);
             } catch (Exception ex) {
                 MessageBox.Show(ex.Message, Resources.CHEM_4_WORD_MESSAGE_BOX_TITLE, MessageBoxButton.OK,
                                 MessageBoxImage.Stop);
