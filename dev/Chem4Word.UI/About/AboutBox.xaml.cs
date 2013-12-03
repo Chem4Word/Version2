@@ -63,15 +63,19 @@ namespace Chem4Word.UI.About
             Process.Start("http://chem4word.codeplex.com/");
         }
 
-        private void OkButtonClick(object sender, RoutedEventArgs e)
-        {
-            Close();
-        }
-
         private void HyperlinkClick4(object sender, RoutedEventArgs e)
         {
             Process.Start("http://www.facebook.com/home.php?sk=group_186300551397797");
-            
+        }
+
+        private void HyperlinkClick5(object sender, RoutedEventArgs e)
+        {
+            Process.Start("http://web.chemdoodle.com");
+        }
+
+        private void OkButtonClick(object sender, RoutedEventArgs e)
+        {
+            Close();
         }
     }
 }

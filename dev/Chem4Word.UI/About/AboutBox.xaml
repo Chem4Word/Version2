@@ -1,4 +1,4 @@
-﻿<Window x:Class="Chem4Word.UI.About.AboutBox" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" WindowStartupLocation="CenterScreen" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Loaded="WindowLoaded" Title="About Chemistry Add-in for Word from Microsoft Research" Height="461" Width="490" ResizeMode="NoResize">
+﻿<Window x:Class="Chem4Word.UI.About.AboutBox" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" WindowStartupLocation="CenterScreen" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Loaded="WindowLoaded" Title="About Chemistry Add-in for Word from Microsoft Research" ResizeMode="NoResize" mc:Ignorable="d" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" Height="490" Width="496">
 	<Grid>
 		<Grid.RowDefinitions>
 			<RowDefinition Height="122" />
@@ -22,44 +22,48 @@
 				<Image Source="../Resources/Images/AboutBodydown.png" Stretch="None" HorizontalAlignment="Left" />
 			</StackPanel>
 			<StackPanel>
-				<TextBlock Name="txtBetalabel" Text="Version 1.0 Release" FontFamily="Segoe UI" FontSize="18" Margin="25,2,0,0"></TextBlock>
-				<TextBlock Name="txt1" Margin="25,10,0,0" Text="The Chemistry Add-In for Word has been developed jointly by Microsoft Research and the University of Cambridge in order to enable authorship of chemical information within Microsoft Office Word documents.  The Chem4Word Project aims to demonstrate how semantic information can be captured and retained as a part of document authoring in order to more accurately represent the chemical content, contribute to simpler pre-publication processes and richer information discovery scenarios, as well as to preserve chemical information for archival purposes.using Chemical Markup Language - an open standard" TextWrapping="Wrap" FontSize="11" FontFamily="Microsoft Sans Serif" />
-				<TextBlock Margin="25,5,0,0" FontFamily="Microsoft Sans Serif" FontSize="10">
-					.
+				<TextBlock Name="txtBetalabel" Text="Version 1.2 Release" FontFamily="Segoe UI" FontSize="18" Margin="25,2,0,0"></TextBlock>
+				<TextBlock Name="txt1" Margin="25,10,0,0" Text="The Chemistry Add-In for Word has been developed jointly by Microsoft Research and the University of Cambridge in order to enable authorship of chemical information within Microsoft Office Word documents.  The Chem4Word Project aims to demonstrate how semantic information can be captured and retained as a part of document authoring in order to more accurately represent the chemical content, contribute to simpler pre-publication processes and richer information discovery scenarios, as well as to preserve chemical information for archival purposes using Chemical Markup Language - an open standard." TextWrapping="Wrap" FontSize="11" FontFamily="Microsoft Sans Serif" />
+                <TextBlock Name="txt3" Margin="25,10,0,0" TextWrapping="Wrap" FontSize="11" FontFamily="Microsoft Sans Serif">
+                    Chem4Word incorporates an on-line Open Source HTML5 Chemistry Editor - ChemDoodle Web Components
+                </TextBlock>
+                <TextBlock Margin="25,0,0,5" TextWrapping="Wrap" FontSize="11" FontFamily="Microsoft Sans Serif">
+   					<Hyperlink TextDecorations="None" NavigateUri="http://web.chemdoodle.com" Click="HyperlinkClick5">
+						<Image Source="../Resources/Images/ChemDoodleBadge.png" Height="30" Width="120"></Image>
+					</Hyperlink>
+                </TextBlock>
+                <TextBlock Margin="25,5,0,0" FontFamily="Microsoft Sans Serif" FontSize="10">
 					<Hyperlink NavigateUri="http://research.microsoft.com/en-us/projects/chem4word/" Click="HyperlinkClick">
 						Visit the Microsoft Research Chem4Word Project Website
 					</Hyperlink>
 				</TextBlock>
 				<TextBlock Margin="25,5,0,0" FontFamily="Microsoft Sans Serif" FontSize="10">
-					.
 					<Hyperlink NavigateUri="http://wwmm.ch.cam.ac.uk/wikis/wwmm/index.php/Main_Page" Click="HyperlinkClick1">
 						Visit the University of Cambridge Unilever Centre Website
 					</Hyperlink>
 				</TextBlock>
 				<TextBlock Margin="25,5,0,0" FontFamily="Microsoft Sans Serif" FontSize="10">
-					.
 					<Hyperlink NavigateUri="http://www.outercurve.org/" Click="HyperlinkClick2">
 						Visit the Outercurve Foundation Website
 					</Hyperlink>
 				</TextBlock>
-				<TextBlock Name="txt2" Margin="25,10,0,0" TextWrapping="Wrap" FontSize="11" FontFamily="Microsoft Sans Serif">
+				<TextBlock Name="txt2" Margin="25,10,0,5" TextWrapping="Wrap" FontSize="11" FontFamily="Microsoft Sans Serif">
 					The Chemistry Add-In for Word is available as a free add-in for Word.  Your feedback is important to us.  Discussion board, Issue Tracking, and source code are available at
 					<Hyperlink NavigateUri="http://chem4word.codeplex.com/" Click="HyperlinkClick3">
 						http://chem4word.codeplex.com/
 					</Hyperlink>
 					and check the project website for updates.
 				</TextBlock>
-				<TextBlock Margin="25,5,0,0" FontFamily="Microsoft Sans Serif" FontSize="10">
-					.
+				<TextBlock Margin="25,5,0,5" FontFamily="Microsoft Sans Serif" FontSize="10">
 					<Hyperlink NavigateUri="http://www.facebook.com/home.php?sk=group_186300551397797" Click="HyperlinkClick4">
 						Join our Facebook Group
 					</Hyperlink>
 				</TextBlock>
-				<StackPanel Orientation="Horizontal" Margin="0,50,0,0">
-					<TextBlock TextWrapping="Wrap" Margin="20,0,0,10" Name="labelCopyright" FontSize="11" FontFamily="Microsoft Sans Serif" />
-					<Button Content="OK" Name="okButton" Width="103" Height="23" Margin="90,-5,0,0" Click="OkButtonClick"></Button>
-				</StackPanel>
-			</StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,0">
+                    <TextBlock TextWrapping="Wrap" Margin="25,0,0,5" Name="labelCopyright" FontSize="11" FontFamily="Microsoft Sans Serif" />
+                    <!--Button Content="OK" Name="okButton" Width="103" Height="23" Click="OkButtonClick"></Button-->
+                </StackPanel>
+            </StackPanel>
 		</Grid>
 	</Grid>
 </Window>

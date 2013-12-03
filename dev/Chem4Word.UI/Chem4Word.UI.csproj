@@ -580,6 +580,7 @@
   <ItemGroup>
     <Content Include="Resources\ChemDoodle\Chem4Word.css" />
     <Content Include="Resources\ChemDoodle\HotLink-Latest.htm" />
+    <Resource Include="Resources\Images\ChemDoodleBadge.png" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
