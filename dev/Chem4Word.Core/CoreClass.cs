@@ -814,21 +814,32 @@ namespace Chem4Word.Core {
         {
             try
             {
+                #region Fire up ChemDoodle editor
+                
                 ChemDoodleEditorForm tcd = new ChemDoodleEditorForm();
+
+                #region Convert cml to JSON
                 tcd.Before_CML = selectedZone.Cml.ToString();
                 //tcd.Before_JSON = Chem4Word.UI.Converters.Cml.ToJson(selectedZone.Cml.ToString());
                 string normal = Chem4Word.UI.Converters.Cml.ToJson(selectedZone.Cml.ToString());
                 string inverted = Chem4Word.UI.Converters.Json.InvertY(normal);
                 tcd.Before_JSON = inverted;
+                #endregion
+                
+                System.Windows.Forms.DialogResult chemEditorResult = tcd.ShowDialog();
+                
+                #endregion
 
-                System.Windows.Forms.DialogResult r = tcd.ShowDialog();
-                if (r == System.Windows.Forms.DialogResult.OK)
+                if (chemEditorResult == System.Windows.Forms.DialogResult.OK)
                 {
+                    #region Convert JSON to cml
                     //tcd.After_CML = Chem4Word.UI.Converters.Json.ToCML(tcd.After_JSON);
                     inverted = tcd.After_JSON;
                     normal = Chem4Word.UI.Converters.Json.InvertY(inverted);
                     tcd.After_CML = Chem4Word.UI.Converters.Json.ToCML(normal);
+                    #endregion
 
+                    #region Copy labels to new cml
                     XmlDocument docBefore = new XmlDocument();
                     docBefore.LoadXml(selectedZone.Cml.ToString());
                     XmlNamespaceManager nsmgr1 = new XmlNamespaceManager(docBefore.NameTable);
@@ -880,14 +891,13 @@ namespace Chem4Word.Core {
                             afterMolecule.AppendChild(e);
                         }
                     }
-
-                    doc = XDocument.Parse(docAfter.InnerXml);
-                    selectedZone.Cml = doc;
+                    #endregion
 
                     // Detect if molecule has changed
-                    bool changed = false;
+                    bool formulaHasChanged = false;
                     if (beforeConsiseFormula.Equals(afterConciseFormula))
                     {
+                        #region Fetch Inchi-Keys from ChemSpider
                         System.Diagnostics.Debug.WriteLine("Consise Formula is same, Getting Inchi-Keys from ChemSpider");
                         // Same Concise Formula - See if inchi-keys are the sane
                         com.chemspider.www.InChI i = new com.chemspider.www.InChI();
@@ -901,19 +911,23 @@ namespace Chem4Word.Core {
                         try
                         {
                             beforeInchiKey = i.MolToInChIKey(tcd.Before_MolFile);
+                            System.Diagnostics.Debug.WriteLine("Before Inchi-Key: " + beforeInchiKey);
                             afterInchiKey = i.MolToInChIKey(tcd.After_MolFile);
+                            System.Diagnostics.Debug.WriteLine("After  Inchi-Key: " + afterInchiKey);
                         }
                         catch
                         {
+                            System.Diagnostics.Debug.WriteLine("ChemSpider Timeout");
                             wsTimeout = true;
-                            changed = true;
+                            formulaHasChanged = true;
                         }
+                        #endregion
 
                         if (!wsTimeout)
                         {
                             if (!afterInchiKey.Equals(beforeInchiKey))
                             {
-                                changed = true;
+                                formulaHasChanged = true;
                             }
                         }
                     }
@@ -921,13 +935,40 @@ namespace Chem4Word.Core {
                     {
                         // Consise formula has changed
                         System.Diagnostics.Debug.WriteLine("Consise Formula is different");
-                        changed = true;
+                        formulaHasChanged = true;
                     }
 
-                    // Show Label Editor
-                    if (changed)
+                    if (formulaHasChanged)
                     {
-                        EditLabels(selectedZone);
+                        #region Show Label Editor
+                        // Generate ContextObject for label editor
+                        ContextObject contextObject = new ContextObject(XDocument.Parse(docAfter.InnerXml));
+
+                        // Edit labels
+                        ICollection<IChemistryZone> commonBindingZones =
+                            GetAllChemistryZonesBindingToTheCmlInThis(selectedZone);
+                        Dictionary<DepictionOption, ICollection<IChemistryZone>> documentDepictionOptionsInUse =
+                            GetDocumentDepictionOptionsInUse(contextObject, commonBindingZones);
+                        Dictionary<DepictionOption, ICollection<IChemistryZone>> navigatorDepictionOptionsInUse =
+                            GetNavigatorDepictionOptionsInUse(contextObject, commonBindingZones);
+
+                        ContextObjectAndDialogResultHolder resultHolder = EditLabels(contextObject,
+                                                                                     documentDepictionOptionsInUse,
+                                                                                     navigatorDepictionOptionsInUse);
+
+                        bool labelEditResult = resultHolder.GetDialogResult();
+                        #endregion
+
+                        if (labelEditResult)
+                        {
+                            #region Save the data
+                            contextObject = resultHolder.GetContextObject();
+                            var chemZoneProperties = selectedZone.Properties;
+                            chemZoneProperties.ViewBox = contextObject.ViewBoxDimensions;
+                            selectedZone.Properties = chemZoneProperties;
+                            selectedZone.Cml = contextObject.Cml;
+                            #endregion
+                        }
                     }
                 }
             }
@@ -957,7 +998,7 @@ namespace Chem4Word.Core {
             {
                 DepictionOption depictionOption = DepictionOption.CreateDepictionOption(co.Cml,
                                                                                         selectedZone.Properties.
-                                                                                            DocumentDepictionOptionXPath);
+                                                                                        DocumentDepictionOptionXPath);
                 DepictionOption associatedTwoDDepictionOption = depictionOption.GetAssociatedTwoDDepictionOption();
                 var dialog2DEditing = new NewEditorWindow(selectedZone, co,
                                                                       associatedTwoDDepictionOption.
