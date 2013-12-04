@@ -29,7 +29,7 @@
                 </TextBlock>
                 <TextBlock Margin="25,0,0,5" TextWrapping="Wrap" FontSize="11" FontFamily="Microsoft Sans Serif">
    					<Hyperlink TextDecorations="None" NavigateUri="http://web.chemdoodle.com" Click="HyperlinkClick5">
-						<Image Source="../Resources/Images/ChemDoodleBadge.png" Height="30" Width="120"></Image>
+						<Image Source="../Resources/ChemDoodle/ChemDoodleBadge.png" Height="30" Width="120"></Image>
 					</Hyperlink>
                 </TextBlock>
                 <TextBlock Margin="25,5,0,0" FontFamily="Microsoft Sans Serif" FontSize="10">

@@ -970,6 +970,10 @@ namespace Chem4Word.Core {
                             #endregion
                         }
                     }
+                    else
+                    {
+                        selectedZone.Cml = XDocument.Parse(docAfter.InnerXml);
+                    }
                 }
             }
             catch (Exception ex)

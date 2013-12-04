@@ -39,6 +39,7 @@ namespace Chem4Word.UI.About
         {
             txt1.Foreground = new SolidColorBrush(Color.FromRgb(102, 102, 102));
             txt2.Foreground = new SolidColorBrush(Color.FromRgb(102, 102, 102));
+            txt3.Foreground = new SolidColorBrush(Color.FromRgb(102, 102, 102));
             txtBetalabel.Foreground = new SolidColorBrush(Color.FromRgb(255, 102, 0));
             labelVersion.Text = "V " + productVersion;
             labelCopyright.Text = "©" + productCopyright + " Outercurve Foundation. All rights reserved.";
