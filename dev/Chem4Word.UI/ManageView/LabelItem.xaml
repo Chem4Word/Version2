@@ -182,6 +182,7 @@
 				<ComboBoxItem x:Name="NameAbbreviation">Name - abbreviation</ComboBoxItem>
 				<ComboBoxItem x:Name="NameCas">Name - CAS</ComboBoxItem>
 				<ComboBoxItem x:Name="NameTrivial">Name - trivial</ComboBoxItem>
+                <ComboBoxItem x:Name="NameInchiKey">Name - InchiKey</ComboBoxItem>
 				<ComboBoxItem x:Name="NameUnknown">Name - unknown</ComboBoxItem>
 			</ComboBox>
 			<Grid Grid.Column="2" x:Name="state">
