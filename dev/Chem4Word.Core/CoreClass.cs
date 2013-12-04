@@ -855,8 +855,10 @@ namespace Chem4Word.Core {
 
                     XDocument doc = XDocument.Parse(docAfter.InnerXml);
                     CmlMolecule molecule = CmlUtils.GetFirstDescendentMolecule(doc);
-                    string afterConciseFormula = CmlFormula.CalculateConciseFormula(molecule);
                     string beforeConsiseFormula = "";
+                    string afterConciseFormula = CmlFormula.CalculateConciseFormula(molecule);
+                    string beforeInchiKey = "";
+                    string afterInchiKey = "";
 
                     // Copy molecule attributes
                     foreach (System.Xml.XmlAttribute att in beforeMolecule.Attributes)
@@ -868,77 +870,74 @@ namespace Chem4Word.Core {
                         }
                     }
 
+                    System.Xml.XmlElement inchiKeyElement = null;
                     // Copy other elements
                     foreach (System.Xml.XmlNode node in beforeMolecule)
                     {
                         if (!((node.Name.EndsWith(CmlAtomArray.Tag)) || (node.Name.EndsWith(CmlBondArray.Tag))))
                         {
-                            System.Diagnostics.Debug.WriteLine("Copying element " + node.Name);
-                            System.Xml.XmlElement e = docAfter.CreateElement(node.Name, "http://www.xml-cml.org/schema");
-                            e.InnerText = node.InnerText;
-                            foreach (System.Xml.XmlAttribute att in node.Attributes)
+                            System.Diagnostics.Debug.WriteLine("Element " + node.Name);
+                            if (node.Name.EndsWith(CmlName.Tag)
+                                && node.Attributes[0].Name.Equals(CmlAttribute.DictRef)
+                                && node.Attributes[0].Value.Equals("nameDict:inchikey"))
                             {
-                                if (node.Name.EndsWith(CmlFormula.Tag) && att.Name.Equals(CmlAttribute.Concise))
-                                {
-                                    beforeConsiseFormula = att.Value;
-                                    e.SetAttribute(att.Name, afterConciseFormula);
-                                }
-                                else
-                                {
-                                    e.SetAttribute(att.Name, att.Value);
-                                }
+                                inchiKeyElement = docAfter.CreateElement(node.Name, "http://www.xml-cml.org/schema");
+                                inchiKeyElement.SetAttribute(CmlAttribute.DictRef, "nameDict:inchikey");
                             }
-                            afterMolecule.AppendChild(e);
+                            else
+                            {
+                                System.Xml.XmlElement e = docAfter.CreateElement(node.Name, "http://www.xml-cml.org/schema");
+                                e.InnerText = node.InnerText;
+                                foreach (System.Xml.XmlAttribute att in node.Attributes)
+                                {
+                                    if (node.Name.EndsWith(CmlFormula.Tag) && att.Name.Equals(CmlAttribute.Concise))
+                                    {
+                                        beforeConsiseFormula = att.Value;
+                                        e.SetAttribute(att.Name, afterConciseFormula);
+                                    }
+                                    else
+                                    {
+                                        e.SetAttribute(att.Name, att.Value);
+                                    }
+                                }
+                                afterMolecule.AppendChild(e);
+                            }
                         }
                     }
                     #endregion
 
-                    // Detect if molecule has changed
-                    bool formulaHasChanged = false;
-                    if (beforeConsiseFormula.Equals(afterConciseFormula))
+                    #region Get Inchi-Keys from Chem Spider
+                    if (string.IsNullOrEmpty(beforeInchiKey))
                     {
-                        #region Fetch Inchi-Keys from ChemSpider
-                        System.Diagnostics.Debug.WriteLine("Consise Formula is same, Getting Inchi-Keys from ChemSpider");
-                        // Same Concise Formula - See if inchi-keys are the sane
-                        com.chemspider.www.InChI i = new com.chemspider.www.InChI();
-                        i.UserAgent = "Chem4Word";
-                        i.Timeout = 500;
-
-                        string beforeInchiKey = null;
-                        string afterInchiKey = null;
-                        bool wsTimeout = false;
-
-                        try
-                        {
-                            beforeInchiKey = i.MolToInChIKey(tcd.Before_MolFile);
-                            System.Diagnostics.Debug.WriteLine("Before Inchi-Key: " + beforeInchiKey);
-                            afterInchiKey = i.MolToInChIKey(tcd.After_MolFile);
-                            System.Diagnostics.Debug.WriteLine("After  Inchi-Key: " + afterInchiKey);
-                        }
-                        catch
-                        {
-                            System.Diagnostics.Debug.WriteLine("ChemSpider Timeout");
-                            wsTimeout = true;
-                            formulaHasChanged = true;
-                        }
-                        #endregion
-
-                        if (!wsTimeout)
-                        {
-                            if (!afterInchiKey.Equals(beforeInchiKey))
-                            {
-                                formulaHasChanged = true;
-                            }
-                        }
+                        beforeInchiKey = GetInchiKey(tcd.Before_MolFile);
                     }
-                    else
+                    afterInchiKey = GetInchiKey(tcd.After_MolFile);
+                    #endregion
+
+                    #region Save New Inchi-Key
+                    if (inchiKeyElement == null)
+                    {
+                        inchiKeyElement = docAfter.CreateElement(CmlName.Tag, "http://www.xml-cml.org/schema");
+                        inchiKeyElement.SetAttribute(CmlAttribute.DictRef, "nameDict:inchikey");
+                    }
+                    inchiKeyElement.InnerText = afterInchiKey;
+                    afterMolecule.AppendChild(inchiKeyElement);
+                    #endregion
+
+                    // Detect if molecule has changed and we need to show Label editor
+                    bool showLabelEditor = false;
+                    if (!beforeConsiseFormula.Equals(afterConciseFormula))
                     {
                         // Consise formula has changed
-                        System.Diagnostics.Debug.WriteLine("Consise Formula is different");
-                        formulaHasChanged = true;
+                        showLabelEditor = true;
+                    }
+                    if (!beforeInchiKey.Equals(afterInchiKey))
+                    {
+                        // Inchi-Key has changed;
+                        showLabelEditor = true;
                     }
 
-                    if (formulaHasChanged)
+                    if (showLabelEditor)
                     {
                         #region Show Label Editor
                         // Generate ContextObject for label editor
@@ -961,7 +960,7 @@ namespace Chem4Word.Core {
 
                         if (labelEditResult)
                         {
-                            #region Save the data
+                            #region Save the data with new labels
                             contextObject = resultHolder.GetContextObject();
                             var chemZoneProperties = selectedZone.Properties;
                             chemZoneProperties.ViewBox = contextObject.ViewBoxDimensions;
@@ -972,6 +971,7 @@ namespace Chem4Word.Core {
                     }
                     else
                     {
+                        // No Label changes, simply overwrite Cml which causes refresh of png
                         selectedZone.Cml = XDocument.Parse(docAfter.InnerXml);
                     }
                 }
@@ -987,6 +987,24 @@ namespace Chem4Word.Core {
                 GC.Collect();
                 GC.WaitForPendingFinalizers();
             }
+        }
+
+        private string GetInchiKey(string molfile)
+        {
+            string result = null;
+            try
+            {
+                com.chemspider.www.InChI i = new com.chemspider.www.InChI();
+                i.UserAgent = "Chem4Word";
+                i.Timeout = 500;
+                result = i.MolToInChIKey(molfile);
+                System.Diagnostics.Debug.WriteLine("ChemSpider Result: " + result);
+            }
+            catch
+            {
+                System.Diagnostics.Debug.WriteLine("ChemSpider Timeout");
+            }
+            return result;
         }
 
         /// <summary>
