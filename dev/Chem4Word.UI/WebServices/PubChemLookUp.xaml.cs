@@ -253,12 +253,18 @@ namespace Chem4Word.UI.WebServices
         {
             var originalCursor = Cursor;
             Cursor = Cursors.Wait;
+            /*
+             * Using Pubchem REST PUG search to return compounds
+             */
             var request = (HttpWebRequest)
                                      WebRequest.Create(
-                                         string.Format(CultureInfo.InvariantCulture, 
-                                         "http://pubchem.ncbi.nlm.nih.gov/summary/summary.cgi?cid={0}&disopt=DisplayXML",
+                                         string.Format(CultureInfo.InvariantCulture,
+                                         "http://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/{0}/record/XML",
                                              id));
+            
             request.Timeout = 30000;
+            request.Credentials = CredentialCache.DefaultCredentials;
+
             HttpWebResponse response;
             try
             {
