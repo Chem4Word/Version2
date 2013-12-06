@@ -1,14 +1,14 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0" xmlns:pc="http://www.ncbi.nlm.nih.gov" xmlns:cml="http://www.xml-cml.org/schema">
 
-  <xsl:variable name="compound" select="/pc:PC-Compound" />
+  <xsl:variable name="compound" select="/pc:PC-Compounds/pc:PC-Compound" />
   <xsl:variable name="id" select="$compound/pc:PC-Compound_id" />
   <xsl:variable name="compoundAtoms" select="$compound/pc:PC-Compound_atoms" />
   <xsl:variable name="bonds" select="$compound/pc:PC-Compound_bonds" />
   <xsl:variable name="coords" select="$compound/pc:PC-Compound_coords" />
   <xsl:variable name="conformers" select="$coords/pc:PC-Coordinates/pc:PC-Coordinates_conformers/pc:PC-Conformer" />
-  <xsl:variable name="charge" select="$compound/pc:PC-Compound_charge" />
+  <xsl:variable name="charge" select="/pc:PC-Compounds/pc:PC-Compound/pc:PC-Compound_charge" />
   <xsl:variable name="props" select="$compound/pc:PC-Compound_props" />
   <xsl:variable name="count" select="$compound/pc:PC-Compound_count" />
   <xsl:template match="/">
@@ -18,8 +18,8 @@
       </cml:molecule>
     </cml:cml>
   </xsl:template>
-
-  <xsl:template match="pc:PC-Compound">
+  
+  <xsl:template match="pc:PC-Compounds/pc:PC-Compound">
     <xsl:apply-templates select="$id" />
     <xsl:apply-templates select="$compoundAtoms" />
     <xsl:apply-templates select="$bonds" />
