@@ -123,7 +123,7 @@ namespace Chem4Word.UI.WebServices
             var request = (HttpWebRequest)
                                      WebRequest.Create(
                                          string.Format(CultureInfo.InvariantCulture, 
-                                             "http://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pccompound&term={0}&retmode=xml",
+                                             "http://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pccompound&term={0}&retmode=xml&relevanceorder=on",
                                              SearchTerm));
             request.Timeout = 30000;
             HttpWebResponse response;
