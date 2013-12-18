@@ -492,6 +492,30 @@ namespace Chem4Word.AddIn {
         }
 
         /// <summary>
+        ///   Respond to pick of New Structure button on ribbon
+        /// </summary>
+        /// <param name = "sender">ID of ribbon control</param>
+        public void ImportBlankStructureClick(IRibbonControl sender)
+        {
+            try
+            {
+                string temp = Path.GetTempPath();
+                //temp = @"C:\Temp";
+                string cmlFileContents = Properties.Resources.EmptyStructure;
+                string tempCmlFileName = Path.Combine(temp, "Blank.cml");
+                File.WriteAllText(tempCmlFileName, cmlFileContents);
+                IChemistryZone newZone = core.ImportCmlFile(tempCmlFileName);
+                core.TweakDoodle2D(newZone, true);
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex);
+                MessageBox.Show(ex.Message, Resources.CHEM_4_WORD_MESSAGE_BOX_TITLE, MessageBoxButton.OK,
+                                MessageBoxImage.Stop);
+            }
+        }
+
+        /// <summary>
         ///   Respond to pick of Import CML button on ribbon
         /// </summary>
         /// <param name = "sender">ID of ribbon control</param>
@@ -650,7 +674,7 @@ namespace Chem4Word.AddIn {
         public void TweakDoodleClick(IRibbonControl sender)
         {
             try {
-                core.TweakDoodle2D(core.ActiveChemistryDocument.SelectedChemistryZone);
+                core.TweakDoodle2D(core.ActiveChemistryDocument.SelectedChemistryZone, false);
             } catch (Exception ex) {
                 MessageBox.Show(ex.Message, Resources.CHEM_4_WORD_MESSAGE_BOX_TITLE, MessageBoxButton.OK,
                                 MessageBoxImage.Stop);

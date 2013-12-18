@@ -1,0 +1,17 @@
+<cml:cml convention="conventions:molecular"
+	xmlns:conventions="http://www.xml-cml.org/convention/"
+	xmlns:cml="http://www.xml-cml.org/schema"
+	xmlns:cmlDict="http://www.xml-cml.org/dictionary/cml/"
+	xmlns:nameDict="http://www.xml-cml.org/dictionary/cml/name/">
+  <cml:molecule id="m1">
+    <cml:name dictRef="nameDict:systematic">Unknown</cml:name>
+    <cml:formula concise="C 2" />
+    <cml:atomArray>
+      <cml:atom id="a0" elementType="C" x2="14.938" y2="-8.855"/>
+      <cml:atom id="a1" elementType="C" x2="16.272" y2="-8.085"/>
+    </cml:atomArray>
+    <cml:bondArray>
+      <cml:bond id="b0" atomRefs2="a0 a1" order="S"/>
+    </cml:bondArray>
+  </cml:molecule>
+</cml:cml>
