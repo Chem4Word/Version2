@@ -309,7 +309,7 @@ namespace Chem4Word.Core {
                                                               .DocumentDepictionOptionXPath)))
             {
                 //Tweak2D(chemistryZone);
-                TweakDoodle2D(chemistryZone);
+                TweakDoodle2D(chemistryZone, false);
             } else {
                 EditLabels(chemistryZone);
             }
@@ -810,7 +810,7 @@ namespace Chem4Word.Core {
         ///   This function could be called after user selected one Chemistry Zone.
         ///   This function will go away once the chemistry canvas are inlined
         /// </summary>
-        public void TweakDoodle2D(IChemistryZone selectedZone)
+        public void TweakDoodle2D(IChemistryZone selectedZone, bool newStructure)
         {
             try
             {
@@ -925,7 +925,7 @@ namespace Chem4Word.Core {
                     #endregion
 
                     // Detect if molecule has changed and we need to show Label editor
-                    bool showLabelEditor = false;
+                    bool showLabelEditor = newStructure;
                     if (!beforeConsiseFormula.Equals(afterConciseFormula))
                     {
                         // Consise formula has changed
@@ -973,6 +973,14 @@ namespace Chem4Word.Core {
                     {
                         // No Label changes, simply overwrite Cml which causes refresh of png
                         selectedZone.Cml = XDocument.Parse(docAfter.InnerXml);
+                    }
+                }
+                else
+                {
+                    // User Cancelled edit
+                    if (newStructure)
+                    {
+                        // ToDo - MAW - Delete the unedited structure
                     }
                 }
             }

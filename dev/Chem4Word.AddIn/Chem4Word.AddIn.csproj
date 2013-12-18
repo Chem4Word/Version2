@@ -357,6 +357,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\CREDITS.txt" />
+    <Content Include="Resources\EmptyStructure.xml">
+      <SubType>Designer</SubType>
+    </Content>
     <None Include="Resources\LICENSE.txt" />
     <Resource Include="Resources\Images\xml.png" />
     <Resource Include="Resources\Images\Search.png" />

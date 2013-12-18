@@ -7,10 +7,11 @@
         <group id="importGroup" label="Import">
           <gallery idMso="CustomGallery5" label="Chemistry Gallery" size="normal" />
           <button id="saveSelection" onAction="SaveSelectionClick" getEnabled="GetSaveSelectionEnable" label="Save To Gallery" size="normal" />
-          <menu id="importDropDown" getImage="GetFromFileImage" getEnabled="GetImportCmlFileEnable" label="Load From...">
-            <button id="importCmlFile" onAction="ImportCmlFileClick" label="From File" getImage="GetFromFileImage" />
-            <button id="opsinLookUp" onAction="OpsinLookUpClick" label="OPSIN" getImage="GetOpsinImage" />
-            <button id="pubChemLookUp" onAction="PubChemLookUpClick" label="PubChem" getImage="GetOpsinImage" />
+          <menu id="importDropDown" label="New ..." getImage="GetFromFileImage" getEnabled="GetImportCmlFileEnable">
+            <button id="newChemistry" label="Structure" onAction="ImportBlankStructureClick" getImage="GetFromFileImage"/>
+            <button id="importCmlFile" label="From File" onAction="ImportCmlFileClick" getImage="GetFromFileImage" />
+            <button id="opsinLookUp" label="From OPSIN" onAction="OpsinLookUpClick" getImage="GetOpsinImage" />
+            <button id="pubChemLookUp" label="From PubChem" onAction="PubChemLookUpClick" getImage="GetOpsinImage" />
           </menu>
         </group>
         <group id="chemistryGroup" label="Chemistry">
