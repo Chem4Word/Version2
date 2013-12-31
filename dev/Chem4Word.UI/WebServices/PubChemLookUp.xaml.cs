@@ -126,6 +126,7 @@ namespace Chem4Word.UI.WebServices
                                              "http://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pccompound&term={0}&retmode=xml&relevanceorder=on",
                                              SearchTerm));
             request.Timeout = 30000;
+            request.UserAgent = "Chem4Word";
             HttpWebResponse response;
             try
             {

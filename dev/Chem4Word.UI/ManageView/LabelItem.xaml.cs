@@ -124,6 +124,13 @@ namespace Chem4Word.UI.ManageView
                             Equals(name.DictRef))
                     {
                         comboBox.SelectedItem = NameInchiKey;
+                        this.IsEnabled = false;
+                    }
+                    else if (
+                        string.Format(CultureInfo.InvariantCulture, "{0}:{1}", nameDictPrefix, "chemspider").
+                            Equals(name.DictRef))
+                    {
+                        comboBox.SelectedItem = NameChemspider;
                     }
                     else
                     {
@@ -489,6 +496,10 @@ namespace Chem4Word.UI.ManageView
                     {
                         oldComboBoxItem = NameInchiKey;
                     }
+                    else if (NameChemspider.IsSelected)
+                    {
+                        oldComboBoxItem = NameChemspider;
+                    }
                     else
                     {
                         oldComboBoxItem = NameUnknown;
@@ -640,6 +651,11 @@ namespace Chem4Word.UI.ManageView
             {
                 dictRef = "inchikey";
                 oldComboBoxItem = NameInchiKey;
+            }
+            else if (NameChemspider.IsSelected)
+            {
+                dictRef = "chemspider";
+                oldComboBoxItem = NameChemspider;
             }
             else
             {
@@ -936,6 +952,11 @@ namespace Chem4Word.UI.ManageView
             {
                 dictRef = "inchikey";
                 oldComboBoxItem = NameInchiKey;
+            }
+            else if (NameChemspider.IsSelected)
+            {
+                dictRef = "chemspider";
+                oldComboBoxItem = NameChemspider;
             }
             else
             {
