@@ -46,6 +46,7 @@ using Window = Microsoft.Office.Interop.Word.Window;
 using System.Text.RegularExpressions;
 using System.Timers;
 using Chem4Word.UI.ChemDoodle;
+using System.Net;
 
 namespace Chem4Word.Core {
     /// <summary>
@@ -859,6 +860,7 @@ namespace Chem4Word.Core {
                     string afterConciseFormula = CmlFormula.CalculateConciseFormula(molecule);
                     string beforeInchiKey = "";
                     string afterInchiKey = "";
+                    string beforeSynonym = "";
 
                     // Copy molecule attributes
                     foreach (System.Xml.XmlAttribute att in beforeMolecule.Attributes)
@@ -871,18 +873,27 @@ namespace Chem4Word.Core {
                     }
 
                     System.Xml.XmlElement inchiKeyElement = null;
+                    System.Xml.XmlElement chemSpiderSynonymElement = null;
                     // Copy other elements
                     foreach (System.Xml.XmlNode node in beforeMolecule)
                     {
                         if (!((node.Name.EndsWith(CmlAtomArray.Tag)) || (node.Name.EndsWith(CmlBondArray.Tag))))
                         {
-                            System.Diagnostics.Debug.WriteLine("Element " + node.Name);
+                            //System.Diagnostics.Debug.WriteLine("Element " + node.Name);
                             if (node.Name.EndsWith(CmlName.Tag)
                                 && node.Attributes[0].Name.Equals(CmlAttribute.DictRef)
                                 && node.Attributes[0].Value.Equals("nameDict:inchikey"))
                             {
                                 inchiKeyElement = docAfter.CreateElement(node.Name, "http://www.xml-cml.org/schema");
                                 inchiKeyElement.SetAttribute(CmlAttribute.DictRef, "nameDict:inchikey");
+                            }
+                            else if (node.Name.EndsWith(CmlName.Tag)
+                                && node.Attributes[0].Name.Equals(CmlAttribute.DictRef)
+                                && node.Attributes[0].Value.Equals("nameDict:chemspider"))
+                            {
+                                chemSpiderSynonymElement = docAfter.CreateElement(node.Name, "http://www.xml-cml.org/schema");
+                                chemSpiderSynonymElement.SetAttribute(CmlAttribute.DictRef, "nameDict:chemspider");
+                                beforeSynonym = node.InnerText;
                             }
                             else
                             {
@@ -914,6 +925,11 @@ namespace Chem4Word.Core {
                     afterInchiKey = GetInchiKey(tcd.After_MolFile);
                     #endregion
 
+                    #region Get Synonym from ChemSpider
+                    string afterSynonym = GetSynonymFromChemSpider(afterInchiKey);
+
+                    #endregion
+
                     #region Save New Inchi-Key
                     if (inchiKeyElement == null)
                     {
@@ -922,6 +938,20 @@ namespace Chem4Word.Core {
                     }
                     inchiKeyElement.InnerText = afterInchiKey;
                     afterMolecule.AppendChild(inchiKeyElement);
+                    if (chemSpiderSynonymElement == null)
+                    {
+                        chemSpiderSynonymElement = docAfter.CreateElement(CmlName.Tag, "http://www.xml-cml.org/schema");
+                        chemSpiderSynonymElement.SetAttribute(CmlAttribute.DictRef, "nameDict:chemspider");
+                    }
+                    if (!string.IsNullOrEmpty(afterSynonym))
+                    {
+                        chemSpiderSynonymElement.InnerText = afterSynonym;
+                    }
+                    else
+                    {
+                        chemSpiderSynonymElement.InnerText = beforeSynonym;
+                    }
+                    afterMolecule.AppendChild(chemSpiderSynonymElement);
                     #endregion
 
                     // Detect if molecule has changed and we need to show Label editor
@@ -995,6 +1025,67 @@ namespace Chem4Word.Core {
                 GC.Collect();
                 GC.WaitForPendingFinalizers();
             }
+        }
+
+        private string GetSynonymFromChemSpider(string afterInchiKey)
+        {
+            string result = null;
+
+            if (!string.IsNullOrEmpty(afterInchiKey))
+            {
+                string url = "http://rdf.chemspider.com/" + afterInchiKey;
+                HttpWebRequest request = WebRequest.Create(url) as HttpWebRequest;
+                request.Timeout = 30000;
+                request.UserAgent = "Chem4Word";
+                HttpWebResponse response;
+                try
+                {
+                    response = (HttpWebResponse)request.GetResponse();
+                    if (HttpStatusCode.OK.Equals(response.StatusCode))
+                    {
+                        result = "Unknown";
+                        using (Stream resStream = response.GetResponseStream())
+                        {
+                            XmlTextReader reader = new XmlTextReader(resStream);
+                            bool inSynonym = false;
+                            while (reader.Read())
+                            {
+                                //System.Diagnostics.Debug.WriteLine(reader.Name);
+                                if (reader.Name.Equals("chemdomain:Synonym"))
+                                {
+                                    inSynonym = !inSynonym;
+                                }
+                                if (inSynonym)
+                                {
+                                    if (reader.Name.Equals("chemdomain:hasValue"))
+                                    {
+                                        result = reader.ReadInnerXml();
+                                        //System.Diagnostics.Debug.WriteLine("Found Synonym: " + firstSynonym);
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        System.Diagnostics.Debug.WriteLine("Error - Status code: " + response.StatusCode);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    if (ex.Message.Contains("404"))
+                    {
+                        result = "Not Found";
+                    }
+                    else
+                    {
+                        System.Diagnostics.Debug.WriteLine("Exception - " + ex.Message);
+                    }
+                }
+            }
+
+            return result;
         }
 
         private string GetInchiKey(string molfile)

@@ -4,7 +4,6 @@
 	xmlns:cmlDict="http://www.xml-cml.org/dictionary/cml/"
 	xmlns:nameDict="http://www.xml-cml.org/dictionary/cml/name/">
   <cml:molecule id="m1">
-    <cml:name dictRef="nameDict:systematic">Unknown</cml:name>
     <cml:formula concise="C 2" />
     <cml:atomArray>
       <cml:atom id="a0" elementType="C" x2="14.938" y2="-8.855"/>
