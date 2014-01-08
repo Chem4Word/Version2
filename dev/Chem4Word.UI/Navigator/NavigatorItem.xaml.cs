@@ -283,7 +283,7 @@ namespace Chem4Word.UI.Navigator
         private DepictionOption GetNewDepictionOption()
         {
             var currentDepictionOptions = Depiction.PossibleDepictionOptions(ContextObjectProperty);
-            var editLabels = new EditLabels(ContextObjectProperty, null, null);
+            var editLabels = new EditLabels(ContextObjectProperty, null, null, false);
             editLabels.AddNewLabel();
             if (editLabels.ShowDialog() == true)
             {

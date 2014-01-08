@@ -983,7 +983,8 @@ namespace Chem4Word.Core {
 
                         ContextObjectAndDialogResultHolder resultHolder = EditLabels(contextObject,
                                                                                      documentDepictionOptionsInUse,
-                                                                                     navigatorDepictionOptionsInUse);
+                                                                                     navigatorDepictionOptionsInUse,
+                                                                                     true);
 
                         bool labelEditResult = resultHolder.GetDialogResult();
                         #endregion
@@ -1060,7 +1061,7 @@ namespace Chem4Word.Core {
                                     if (reader.Name.Equals("chemdomain:hasValue"))
                                     {
                                         result = reader.ReadInnerXml();
-                                        //System.Diagnostics.Debug.WriteLine("Found Synonym: " + firstSynonym);
+                                        //System.Diagnostics.Debug.WriteLine("Found Synonym: " + result);
                                         break;
                                     }
                                 }
@@ -1081,6 +1082,7 @@ namespace Chem4Word.Core {
                     else
                     {
                         System.Diagnostics.Debug.WriteLine("Exception - " + ex.Message);
+                        throw new NumboException("Error in GetSynonymFromChemSpider:\n" + ex.Message, ex);
                     }
                 }
             }
@@ -1097,7 +1099,7 @@ namespace Chem4Word.Core {
                 i.UserAgent = "Chem4Word";
                 i.Timeout = 500;
                 result = i.MolToInChIKey(molfile);
-                System.Diagnostics.Debug.WriteLine("ChemSpider Result: " + result);
+                //System.Diagnostics.Debug.WriteLine("ChemSpider Result: " + result);
             }
             catch
             {
@@ -1155,7 +1157,8 @@ namespace Chem4Word.Core {
 
                         ContextObjectAndDialogResultHolder resultHolder = EditLabels(contextObject,
                                                                                      documentDepictionOptionsInUse,
-                                                                                     navigatorDepictionOptionsInUse);
+                                                                                     navigatorDepictionOptionsInUse,
+                                                                                     false);
 
 
                         if (resultHolder.GetDialogResult())
@@ -1304,13 +1307,16 @@ namespace Chem4Word.Core {
                                                                          documentDepictionOptionsInUse,
                                                                      Dictionary
                                                                          <DepictionOption, ICollection<IChemistryZone>>
-                                                                         navigatorDepictionOptionsInUse) {
+                                                                         navigatorDepictionOptionsInUse,
+                                                                    bool showEvaluate) {
             var returnContextObject = contextObject.Clone();
             var result = false;
             EditLabels editLabels;
             try {
-                editLabels = new EditLabels(contextObject, documentDepictionOptionsInUse,
-                                                       navigatorDepictionOptionsInUse);
+                editLabels = new EditLabels(contextObject,
+                                            documentDepictionOptionsInUse,
+                                            navigatorDepictionOptionsInUse,
+                                            showEvaluate);
                 if (editLabels.ShowDialog() == true) {
                     returnContextObject = editLabels.ContextObject;
                     result = true;
@@ -1345,7 +1351,8 @@ namespace Chem4Word.Core {
 
             ContextObjectAndDialogResultHolder resultHolder = EditLabels(contextObject,
                                                                          documentDepictionOptionsInUse,
-                                                                         navigatorDepictionOptionsInUse);
+                                                                         navigatorDepictionOptionsInUse,
+                                                                         false);
             if (resultHolder.GetDialogResult()) {
                 chemistryZone.Cml = resultHolder.GetContextObject().Cml;
             }
@@ -2073,7 +2080,7 @@ namespace Chem4Word.Core {
 
 
                 EditLabels editLabels = new EditLabels(contextObject, documentDepictionOptionsInUse,
-                                                       navigatorDepictionOptionsInUse);
+                                                       navigatorDepictionOptionsInUse, false);
                 editLabels.AddNewLabel();
                 if (editLabels.ShowDialog() == true) {
                     chemistryZone.Cml = editLabels.ContextObject.Cml;
