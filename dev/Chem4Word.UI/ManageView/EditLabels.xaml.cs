@@ -46,12 +46,18 @@ namespace Chem4Word.UI.ManageView
         /// <param name="navigatorDepictionOptionsInUse"></param>
         public EditLabels(ContextObject contextObject,
                           Dictionary<DepictionOption, ICollection<IChemistryZone>> documentDepictionOptionsInUse,
-                          Dictionary<DepictionOption, ICollection<IChemistryZone>> navigatorDepictionOptionsInUse)
+                          Dictionary<DepictionOption, ICollection<IChemistryZone>> navigatorDepictionOptionsInUse,
+                          bool showEvaluate)
             : this()
         {
             this.documentDepictionOptionsInUse = documentDepictionOptionsInUse;
             this.navigatorDepictionOptionsInUse = navigatorDepictionOptionsInUse;
             deletedItems = new List<LabelItem>();
+
+            if (!showEvaluate)
+            {
+                ShowEvaluateText.Visibility = System.Windows.Visibility.Hidden;
+            }
 
             if (contextObject == null)
             {
