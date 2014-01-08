@@ -37,7 +37,15 @@ namespace Chem4Word.UI.WebServices
         private GridViewColumnHeader curSortCol;
         private PubChemResultItem selectedItem;
         private readonly XslCompiledTransform xslt = new XslCompiledTransform();
-        private string errorMessage;  
+        private string errorMessage;
+        private string searchResultsAvailable;
+        private int resultsCount;
+        private string webEnv;
+        private int resultPosition;
+        private int retStart;
+        private bool moreResults;
+        private bool prevResults;
+        private const int numResults = 20;
 
         private XDocument xDocument;
         
@@ -45,6 +53,12 @@ namespace Chem4Word.UI.WebServices
         {
             InitializeComponent();
             ErrorMessage = string.Empty;
+            // Handling Search Results
+            SearchResultsAvailable = string.Empty;
+            // Need to make sure more and prev buttons are hidden
+            prevResults = false;
+            moreResults = false;
+            resultPosition = 0;
             xslt.Load(XmlReader.Create(new StringReader(Properties.Resources.pubchem2cml)));
         }
 
@@ -118,15 +132,16 @@ namespace Chem4Word.UI.WebServices
 
         private void PerformSearch()
         {
+            prevResults = false;
+            moreResults = false;
             var originalCursor = Cursor;
             Cursor = Cursors.Wait;
             var request = (HttpWebRequest)
                                      WebRequest.Create(
                                          string.Format(CultureInfo.InvariantCulture, 
-                                             "http://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pccompound&term={0}&retmode=xml&relevanceorder=on",
-                                             SearchTerm));
+                                             "http://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pccompound&term={0}&retmode=xml&relevanceorder=on&usehistory=y&retmax={1}",
+                                             SearchTerm, numResults));
             request.Timeout = 30000;
-            request.UserAgent = "Chem4Word";
             HttpWebResponse response;
             try
             {
@@ -137,6 +152,26 @@ namespace Chem4Word.UI.WebServices
                         var resStream = response.GetResponseStream())
                     {
                         var resultDocument = XDocument.Load(new StreamReader(resStream));
+                        // Get the count of results
+                        resultsCount = int.Parse(resultDocument.XPathSelectElement("//Count").Value);
+                        // Current position
+                        retStart = int.Parse(resultDocument.XPathSelectElement("//RetStart").Value) + 1;
+                        // Max records
+                        resultPosition = int.Parse(resultDocument.XPathSelectElement("//RetMax").Value);
+                        // WebEnv for history
+                        webEnv = resultDocument.XPathSelectElement("//WebEnv").Value;
+                        // Set flags for More/Prev buttons
+                        PrevResults = false;
+                        if (resultPosition < resultsCount)
+                        {
+                            MoreResults = true;
+                        }
+                        else
+                        {
+                            MoreResults = false;
+                        }
+                        // Set property used for label on form
+                        SearchResultsAvailable = "Displaying " + retStart.ToString() + " to " + resultPosition.ToString() + " of " + resultsCount.ToString() + " results";
                         var ids = resultDocument.XPathSelectElements("//Id");
                         var count = ids.Count();
                         if (count > 0)
@@ -225,7 +260,9 @@ namespace Chem4Word.UI.WebServices
                                                              Name = name.Value,
                                                              //Smiles=smiles.Value,
                                                              //Changed it to string.empty as it was throwing Null exception
-                                                             Smiles = string.Empty,
+                                                             //Smiles = string.Empty,
+                                                             // Debugging
+                                                             Smiles=id.Value,
                                                              Formula = formula.Value
                                                          });
 
@@ -318,6 +355,39 @@ namespace Chem4Word.UI.WebServices
                 OnPropertyChanged("ErrorMessage");
             }
         }
+        /// <summary>
+        ///  Added by ADW
+        /// </summary>
+        public string SearchResultsAvailable
+        {
+            get { return searchResultsAvailable; }
+            set
+            {
+                searchResultsAvailable = value;
+                OnPropertyChanged("SearchResultsAvailable");
+            }
+        }
+
+        public bool MoreResults 
+        { 
+            get {return moreResults;}
+            set
+            {
+                moreResults = value;
+                OnPropertyChanged("MoreResults");
+            }
+        }
+
+        public bool PrevResults
+        {
+            get { return prevResults; }
+            set
+            {
+                prevResults = value;
+                OnPropertyChanged("PrevResults");
+            }
+        }
+        // End of ADW added
 
         private void CancelButtonClick(object sender, RoutedEventArgs e)
         {
@@ -332,10 +402,11 @@ namespace Chem4Word.UI.WebServices
 
         private void PubChemSearchActivated(object sender, EventArgs e)
         {
-            if (SearchTerm.Trim().Length > 0)
+            // Removed by ADW - was resetting the search if user returns to search form
+            /*if (SearchTerm.Trim().Length > 0)
             {
                 PerformSearch();
-            }
+            }*/
         }
         private void OnPropertyChanged(string propertyName)
         {
@@ -362,6 +433,189 @@ namespace Chem4Word.UI.WebServices
             if (Key.Enter.Equals(e.Key))
             {
                 Import(SelectedItem.Id);
+            }
+        }
+
+        private void PrevButton_Click(object sender, RoutedEventArgs e)
+        {
+            PrepareForSearch();
+            prevResults = false;
+            moreResults = false;
+            var originalCursor = Cursor;
+            Cursor = Cursors.Wait;
+            var request = (HttpWebRequest)
+                                     WebRequest.Create(
+                                         string.Format(CultureInfo.InvariantCulture,
+                                             "http://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pccompound&term={0}&retmode=xml&relevanceorder=on&usehistory=y&retmax={1}&WebEnv={2}&RetStart={3}",
+                                             SearchTerm, numResults, webEnv, retStart-numResults-1));
+            request.Timeout = 30000;
+            HttpWebResponse response;
+            try
+            {
+                response = (HttpWebResponse)request.GetResponse();
+                if (HttpStatusCode.OK.Equals(response.StatusCode))
+                {
+                    using (
+                        var resStream = response.GetResponseStream())
+                    {
+                        var resultDocument = XDocument.Load(new StreamReader(resStream));
+                        // Get the count of results
+                        resultsCount = int.Parse(resultDocument.XPathSelectElement("//Count").Value);
+                        // Current position
+                        retStart = int.Parse(resultDocument.XPathSelectElement("//RetStart").Value);
+                        // Reset the value to 1
+                        if (retStart == 0)
+                        {
+                            retStart = 1;
+                        }
+                        // Max records
+                        resultPosition = resultPosition - int.Parse(resultDocument.XPathSelectElement("//RetMax").Value);
+                        if (resultPosition < 20)
+                        {
+                            resultPosition=20;
+                        }
+                        // WebEnv for history
+                        webEnv = resultDocument.XPathSelectElement("//WebEnv").Value;
+                        // Set flags for More/Prev buttons
+                        if (retStart<=1)
+                        {
+                            PrevResults = false;
+                        }
+                        else
+	                    {
+                            PrevResults = true;
+	                    }
+                        if (resultPosition < resultsCount)
+                        {
+                            MoreResults = true;
+                        }
+                        else
+                        {
+                            MoreResults = false;
+                        }
+                        // Set property used for label on form
+                        SearchResultsAvailable = "Displaying " + retStart.ToString() + " to " + resultPosition.ToString() + " of " + resultsCount.ToString() + " results";
+                        var ids = resultDocument.XPathSelectElements("//Id");
+                        var count = ids.Count();
+                        if (count > 0)
+                        {
+                            var sb = new StringBuilder();
+                            for (var i = 0; i < count; i++)
+                            {
+                                var id = ids.ElementAt(i);
+                                if (i > 0)
+                                {
+                                    sb.Append(",");
+                                }
+                                sb.Append(id.Value);
+                            }
+                            GetData(sb.ToString());
+                        }
+                        else
+                        {
+                            ErrorMessage = "Sorry, no results were found.";
+                        }
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Sorry bad request. Status code: " + response.StatusCode, "Name2Structure",
+                                    MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorMessage = "The operation has timed out".Equals(ex.Message)
+                                    ? "Please try again later - the service has timed out"
+                                    : ex.Message;
+            }
+            finally
+            {
+                Cursor = originalCursor;
+            }
+        }
+        
+
+        private void nextButton_Click(object sender, RoutedEventArgs e)
+        {
+            PrepareForSearch();
+            prevResults = false;
+            moreResults = false;
+            var originalCursor = Cursor;
+            Cursor = Cursors.Wait;
+            var request = (HttpWebRequest)
+                                     WebRequest.Create(
+                                         string.Format(CultureInfo.InvariantCulture,
+                                             "http://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pccompound&term={0}&retmode=xml&relevanceorder=on&usehistory=y&retmax={1}&WebEnv={2}&RetStart={3}",
+                                             SearchTerm, numResults, webEnv, resultPosition));
+            request.Timeout = 30000;
+            HttpWebResponse response;
+            try
+            {
+                response = (HttpWebResponse)request.GetResponse();
+                if (HttpStatusCode.OK.Equals(response.StatusCode))
+                {
+                    using (
+                        var resStream = response.GetResponseStream())
+                    {
+                        var resultDocument = XDocument.Load(new StreamReader(resStream));
+                        // Get the count of results
+                        resultsCount = int.Parse(resultDocument.XPathSelectElement("//Count").Value);
+                        // Current position
+                        retStart = int.Parse(resultDocument.XPathSelectElement("//RetStart").Value) + 1;
+                        // Max records
+                        resultPosition = resultPosition + int.Parse(resultDocument.XPathSelectElement("//RetMax").Value);
+                        // WebEnv for history
+                        webEnv = resultDocument.XPathSelectElement("//WebEnv").Value;
+                        // Set flags for More/Prev buttons
+                        PrevResults = true;
+                        if (resultPosition < resultsCount)
+                        {
+                            MoreResults = true;
+                        }
+                        else
+                        {
+                            MoreResults = false;
+                        }
+                        // Set property used for label on form
+                        SearchResultsAvailable = "Displaying " + retStart.ToString() + " to " + resultPosition.ToString() + " of " + resultsCount.ToString() + " results";
+                        var ids = resultDocument.XPathSelectElements("//Id");
+                        var count = ids.Count();
+                        if (count > 0)
+                        {
+                            var sb = new StringBuilder();
+                            for (var i = 0; i < count; i++)
+                            {
+                                var id = ids.ElementAt(i);
+                                if (i > 0)
+                                {
+                                    sb.Append(",");
+                                }
+                                sb.Append(id.Value);
+                            }
+                            GetData(sb.ToString());
+                        }
+                        else
+                        {
+                            ErrorMessage = "Sorry, no results were found.";
+                        }
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Sorry bad request. Status code: " + response.StatusCode, "Name2Structure",
+                                    MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorMessage = "The operation has timed out".Equals(ex.Message)
+                                    ? "Please try again later - the service has timed out"
+                                    : ex.Message;
+            }
+            finally
+            {
+                Cursor = originalCursor;
             }
         }
 
