@@ -24,9 +24,49 @@
 				</DataTrigger>
 			</Style.Triggers>
 		</Style>
+        
+        <Style TargetType="{x:Type Label}" x:Key="mySearchResultsLabel">
+            <Setter Property="Margin" Value="6" />
+            <Setter Property="Content" Value="{Binding ElementName=pubChemSearch, Path=SearchResultsAvailable}" />
+            <Setter Property="Visibility" Value="Collapsed" />
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding ElementName=pubChemSearch, Path=SearchResultsAvailable, Converter={StaticResource myNullOrEmptyStringToBooleanConverter}}" Value="False">
+                    <Setter Property="Visibility" Value="Visible" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+        <Style TargetType="{x:Type Button}" x:Key="myPrevButton">
+            <Setter Property="Margin" Value="6" />
+            <Setter Property="Width" Value="70"/>
+            <Setter Property="Visibility" Value="Collapsed" />
+            <Setter Property="IsEnabled" Value="False"/>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding ElementName=pubChemSearch, Path=SearchResultsAvailable, Converter={StaticResource myNullOrEmptyStringToBooleanConverter}}" Value="False">
+                    <Setter Property="Visibility" Value="Visible" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding ElementName=pubChemSearch, Path=PrevResults}" Value="True">
+                    <Setter Property="IsEnabled" Value="True" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+        <Style TargetType="{x:Type Button}" x:Key="myNextButton">
+            <Setter Property="Margin" Value="6" />
+            <Setter Property="Width" Value="70"/>
+            <Setter Property="Visibility" Value="Collapsed" />
+            <Setter Property="IsEnabled" Value="False"/>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding ElementName=pubChemSearch, Path=SearchResultsAvailable, Converter={StaticResource myNullOrEmptyStringToBooleanConverter}}" Value="False">
+                    <Setter Property="Visibility" Value="Visible" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding ElementName=pubChemSearch, Path=MoreResults}" Value="True">
+                    <Setter Property="IsEnabled" Value="True" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
 
 
-		<Style x:Key="mMyListViewStyle" TargetType="{x:Type ListView}">
+
+        <Style x:Key="mMyListViewStyle" TargetType="{x:Type ListView}">
 			<Setter Property="Margin" Value="6" />
 			<Setter Property="Visibility" Value="Collapsed" />
 			<Style.Triggers>
@@ -47,8 +87,13 @@
 	</Window.Resources>
 	<StackPanel Margin="12" Name="stackPanel1" VerticalAlignment="Top" Orientation="Vertical">
 		<local:SearchTextBox x:Name="searchBox" VerticalAlignment="Top" Margin="6" SearchMode="Delayed" Search="SearchBoxSearch" LabelText="Search Term" />
-		<Label Style="{DynamicResource myLabelStyle}"></Label>
-		<ListView MaxHeight="400" x:Name="resultsView" ItemContainerStyle="{StaticResource myListViewItemStyle}" Style="{DynamicResource mMyListViewStyle}" ItemsSource="{Binding ElementName=pubChemSearch, Path=Results}" SelectionChanged="ResultsViewSelectionChanged" MouseDoubleClick="ResultsViewMouseDoubleClick" KeyUp="ResultsViewKeyUp">
+        <StackPanel Margin="2" Name="resultsInfoPanel" VerticalAlignment="Top" Orientation="Horizontal">
+            <Label Style="{DynamicResource myLabelStyle}"></Label>
+            <Label Style="{DynamicResource mySearchResultsLabel}"></Label>
+            <Button Style="{DynamicResource myPrevButton}" Name="prevButton" Click="PrevButton_Click" Content="&lt; Prev"></Button>
+            <Button Style="{DynamicResource myNextButton}" Name="nextButton" Click="nextButton_Click" Content="Next &gt;"></Button>
+        </StackPanel>
+        <ListView MaxHeight="400" x:Name="resultsView" ItemContainerStyle="{StaticResource myListViewItemStyle}" Style="{DynamicResource mMyListViewStyle}" ItemsSource="{Binding ElementName=pubChemSearch, Path=Results}" SelectionChanged="ResultsViewSelectionChanged" MouseDoubleClick="ResultsViewMouseDoubleClick" KeyUp="ResultsViewKeyUp">
 			<ListView.View>
 				<GridView>
 					<GridViewColumn>
