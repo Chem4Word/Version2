@@ -13,6 +13,7 @@ using System.Linq;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Forms;
 using Chem4Word.AddIn.Gallery;
@@ -214,7 +215,24 @@ namespace Chem4Word.AddIn {
         /// <param name = "ribbonID">ID of the ribbon</param>
         /// <returns>Chemistry Ribbon XML</returns>
         public string GetCustomUI(string ribbonID) {
-            return GetResourceText("Chem4Word.AddIn.ChemistryRibbon.xml");
+            // Need to check which version of Word is loading the ribbon
+            string sVersion = this.wordApp.Version;
+            string sTabLabel = "";
+            switch (sVersion)
+            {
+                case "15.0":
+                    // Word 2013 uses upper case tab labels
+                    sTabLabel = "CHEMISTRY";
+                    break;
+                default:
+                    // Everything else will be mixed case
+                    sTabLabel = "Chemistry";
+                    break;
+            }
+            string sResourceText = GetResourceText("Chem4Word.AddIn.ChemistryRibbon.xml");
+            Regex rgx = new Regex("CHEMISTRY_TAB_LABEL");
+            sResourceText = rgx.Replace(sResourceText, sTabLabel);
+            return sResourceText;
         }
 
         #endregion
