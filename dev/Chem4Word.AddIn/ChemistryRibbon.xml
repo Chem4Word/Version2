@@ -3,7 +3,7 @@
 <customUI onLoad="RibbonLoad" xmlns="http://schemas.microsoft.com/office/2006/01/customui">
   <ribbon>
     <tabs>
-      <tab id="chemistryTab" label="Chemistry">
+      <tab id="chemistryTab" label="CHEMISTRY_TAB_LABEL">
         <group id="importGroup" label="Import">
           <gallery idMso="CustomGallery5" label="Chemistry Gallery" size="normal" />
           <button id="saveSelection" onAction="SaveSelectionClick" getEnabled="GetSaveSelectionEnable" label="Save To Gallery" size="normal" />
