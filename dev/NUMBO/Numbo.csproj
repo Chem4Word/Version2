@@ -1,0 +1,165 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{C19EC9B8-0051-47FD-A129-310CCA3CB411}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Numbo</RootNamespace>
+    <AssemblyName>Numbo</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>3.5</OldToolsVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=1b44e1d426115821, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libs\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationCore">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Coa\DepictionOptionEventArgs.cs" />
+    <Compile Include="NumboException.cs" />
+    <Compile Include="Cml\CmlAtom.cs" />
+    <Compile Include="Cml\CmlAtomArray.cs" />
+    <Compile Include="Cml\CmlAtomParity.cs" />
+    <Compile Include="Cml\CmlAttribute.cs" />
+    <Compile Include="Cml\CmlBond.cs" />
+    <Compile Include="Cml\CmlBondArray.cs" />
+    <Compile Include="Cml\CmlBondStereo.cs" />
+    <Compile Include="Cml\CmlCml.cs" />
+    <Compile Include="Cml\CmlConstants.cs" />
+    <Compile Include="Cml\CmlDictionary.cs" />
+    <Compile Include="Cml\CmlElement.cs" />
+    <Compile Include="Cml\CmlEntry.cs" />
+    <Compile Include="Cml\CmlFormula.cs" />
+    <Compile Include="Cml\CmlLabel.cs" />
+    <Compile Include="Cml\CmlMolecule.cs" />
+    <Compile Include="Cml\CmlName.cs" />
+    <Compile Include="Cml\CmlPeak.cs" />
+    <Compile Include="Cml\CmlPeakList.cs" />
+    <Compile Include="Cml\CmlPeakStructure.cs" />
+    <Compile Include="Cml\CmlProperty.cs" />
+    <Compile Include="Cml\CmlScalar.cs" />
+    <Compile Include="Cml\CmlSpectrum.cs" />
+    <Compile Include="Cml\CmlUtils.cs" />
+    <Compile Include="Cml\Helpers\BondOrder.cs" />
+    <Compile Include="Cml\Helpers\ChemicalElement.cs" />
+    <Compile Include="Cml\Helpers\GroupLookup.cs" />
+    <Compile Include="Cml\Helpers\GroupLookupManager.cs" />
+    <Compile Include="Cml\Helpers\PeriodicTable.cs" />
+    <Compile Include="Cml\Helpers\Ring.cs" />
+    <Compile Include="Cml\Helpers\RingNucleus.cs" />
+    <Compile Include="Cml\Helpers\SForest.cs" />
+    <Compile Include="Cml\Helpers\STree.cs" />
+    <Compile Include="Cml\Helpers\STreeNode.cs" />
+    <Compile Include="Coa\ChemicalIntelligence.cs" />
+    <Compile Include="Coa\Cid.cs" />
+    <Compile Include="Coa\ContextObject.cs" />
+    <Compile Include="Coa\Depiction.cs" />
+    <Compile Include="Coa\DepictionOption.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\aminoacids.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ane.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\copper.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\divalent.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ene.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\monovalent.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\isolatedR.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ketone.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\olefins.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Euclid\Euclid.csproj">
+      <Project>{D78B7D21-FA43-45B5-86FF-E03DFA55C4BC}</Project>
+      <Name>Euclid</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

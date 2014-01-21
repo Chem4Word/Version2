@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<cml:cml xmlns:cml="http://www.xml-cml.org/schema" xmlns:cmlDict="http://www.xml-cml.org/dictionary/cml/" xmlns:nameDict="http://www.xml-cml.org/dictionary/cml/name/">
+  <cml:molecule id="m1">
+    <cml:name dictRef="cmlName:iupac">(2S)-2-amino-3-methylbutanoic acid</cml:name>
+    <cml:name dictRef="cmlName:trivial">valine</cml:name>
+    <cml:name dictRef="cmlName:abbreviation">Val</cml:name>
+    <cml:atomArray>
+      <cml:atom id="a1" elementType="C" x2="0.20627407314407306" y2="3.133959567258633" />
+      <cml:atom id="a2" elementType="C" x2="1.5399531949721086" y2="2.3639595672586324" />
+      <cml:atom id="a3" elementType="N" x2="0.20627407314407342" y2="4.673959567258633" />
+      <cml:atom id="a4" elementType="O" x2="2.873632316800144" y2="3.133959567258633" />
+      <cml:atom id="a5" elementType="O" x2="1.539953194972109" y2="0.8239595672586324" />
+      <cml:atom id="a6" elementType="H" x2="-1.2924050105369898" y2="3.9039598056772125" />
+      <cml:atom id="a7" elementType="C" x2="-1.1274050486839624" y2="2.3639595672586324" />
+      <cml:atom id="a8" elementType="H" x2="1.5399531949721086" y2="5.443959567258632" />
+      <cml:atom id="a9" elementType="H" x2="-1.1274050486839613" y2="5.443959567258634" />
+      <cml:atom id="a10" elementType="H" x2="4.207311438628179" y2="2.3639595672586324" />
+      <cml:atom id="a11" elementType="C" x2="-2.461084170511998" y2="3.133959567258633" />
+      <cml:atom id="a12" elementType="H" x2="-2.45539127444772" y2="1.3342202575665842" />
+      <cml:atom id="a13" elementType="C" x2="-0.5694188336490398" y2="0.8392203124028579" />
+      <cml:atom id="a14" elementType="H" x2="-3.1840703772022705" y2="4.4936988602613805" />
+      <cml:atom id="a15" elementType="H" x2="-1.7380979638217253" y2="4.4936988602613805" />
+      <cml:atom id="a16" elementType="H" x2="-2.0391581111545793" y2="-0.04876593064624768" />
+      <cml:atom id="a17" elementType="H" x2="-0.06643264811841643" y2="-0.41051902589941935" />
+      <cml:atom id="a18" elementType="H" x2="0.6253204080937131" y2="1.56220651909313" />
+      <cml:atom id="a19" elementType="H" x2="-3.6566135693633735" y2="2.0000884999434803" />
+    </cml:atomArray>
+    <cml:bondArray>
+      <cml:bond atomRefs2="a1 a2" order="1" id="b1" />
+      <cml:bond atomRefs2="a1 a3" order="1" id="b2" />
+      <cml:bond atomRefs2="a2 a4" order="1" id="b3" />
+      <cml:bond atomRefs2="a2 a5" order="2" id="b4" />
+      <cml:bond atomRefs2="a1 a6" order="1" id="b5">
+        <cml:bondStereo>W</cml:bondStereo>
+      </cml:bond>
+      <cml:bond atomRefs2="a1 a7" order="1" id="b6">
+        <cml:bondStereo>H</cml:bondStereo>
+      </cml:bond>
+      <cml:bond atomRefs2="a3 a8" order="1" id="b7" />
+      <cml:bond atomRefs2="a3 a9" order="1" id="b8" />
+      <cml:bond atomRefs2="a4 a10" order="1" id="b9" />
+      <cml:bond atomRefs2="a7 a11" order="1" id="b10" />
+      <cml:bond atomRefs2="a7 a12" order="1" id="b11" />
+      <cml:bond atomRefs2="a7 a13" order="1" id="b12" />
+      <cml:bond atomRefs2="a11 a14" order="1" id="b13" />
+      <cml:bond atomRefs2="a11 a15" order="1" id="b14" />
+      <cml:bond atomRefs2="a13 a16" order="1" id="b15" />
+      <cml:bond atomRefs2="a13 a17" order="1" id="b16" />
+      <cml:bond atomRefs2="a13 a18" order="1" id="b17" />
+      <cml:bond atomRefs2="a11 a19" order="1" id="b18" />
+    </cml:bondArray>
+  </cml:molecule>
+</cml:cml>

@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<cml convention="conventions:molecular" xmlns="http://www.xml-cml.org/schema" xmlns:conventions="http://www.xml-cml.org/convention/" xmlns:nameDict="http://www.xml-cml.org/dictionary/cml/name/">
+  <molecule id="m24841" formalCharge="0" spinMultiplicity="1" xmlns:pubchem="http://www.ncbi.nlm.nih.gov">
+    <name dictRef="pubchem:cid">24841</name>
+    <atomArray>
+      <atom id="a1" elementType="I" x2="3.0" y2="0.0" />
+      <atom id="a2" elementType="H" x2="2.0" y2="0.0" />
+    </atomArray>
+    <bondArray>
+      <bond atomRefs2="a1 a2" order="S" id="a1_a2"  />
+    </bondArray>
+    <name dictRef="pubchem:Allowed">hydrogen iodide</name>
+    <name dictRef="nameDict:cas">hydrogen iodide</name>
+    <name dictRef="pubchem:Preferred">hydrogen iodide</name>
+    <name dictRef="nameDict:systematic">iodane</name>
+    <name dictRef="pubchem:Traditional">hydrogen iodide</name>
+    <formula convention="pubchem:formula" inline="HI" concise="H 1 I 1" />
+    <formula convention="pubchem:CanonicalSmiles" inline="I" concise="H 1 I 1" />
+    <formula convention="pubchem:IsomericSmiles" inline="I" concise="H 1 I 1" />
+  </molecule>
+</cml>

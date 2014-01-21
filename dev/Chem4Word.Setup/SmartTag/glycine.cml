@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<cml convention="conventions:molecular" xmlns="http://www.xml-cml.org/schema" xmlns:conventions="http://www.xml-cml.org/convention/" xmlns:cmlDict="http://www.xml-cml.org/dictionary/cml/" xmlns:nameDict="http://www.xml-cml.org/dictionary/cml/name/">
+  <molecule id="m1">
+    <name dictRef="nameDict:trivial">Glycine</name>
+    <name dictRef="nameDict:abbreviation">Gly</name>
+    <name dictRef="nameDict:iupac">2-aminoacetic acid</name>
+    <atomArray>
+      <atom id="a1" elementType="N" x2="-4.070000171661377" y2="1.7599999904632568" />
+      <atom id="a2" elementType="C" x2="-2.7363210498333412" y2="0.9899999904632569" />
+      <atom id="a3" elementType="C" x2="-1.402641928005306" y2="1.7599999904632573" />
+      <atom id="a4" elementType="O" x2="-1.4026419280053064" y2="3.2999999904632573" />
+      <atom id="a5" elementType="O" x2="-0.06896280617727002" y2="0.9899999904632582" />
+      <atom id="a6" elementType="H" x2="1.264716315650765" y2="1.7599999904632588" />
+      <atom id="a7" elementType="H" x2="-4.070000171661377" y2="3.299999990463257" />
+      <atom id="a8" elementType="H" x2="-5.403679293489413" y2="0.9899999904632572" />
+      <atom id="a9" elementType="H" x2="-3.459307256523613" y2="-0.3697393025394907" />
+      <atom id="a10" elementType="H" x2="-2.0133348431430687" y2="-0.3697393025394903" />
+    </atomArray>
+    <bondArray>
+      <bond atomRefs2="a1 a2" order="1" id="b1" />
+      <bond atomRefs2="a2 a3" order="1" id="b2" />
+      <bond atomRefs2="a3 a4" order="2" id="b3" />
+      <bond atomRefs2="a3 a5" order="1" id="b4" />
+      <bond atomRefs2="a5 a6" order="1" id="b5" />
+      <bond atomRefs2="a1 a7" order="1" id="b6" />
+      <bond atomRefs2="a1 a8" order="1" id="b7" />
+      <bond atomRefs2="a2 a9" order="1" id="b8" />
+      <bond atomRefs2="a2 a10" order="1" id="b9" />
+    </bondArray>
+  </molecule>
+</cml>

@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<cml convention="conventions:molecular" xmlns="http://www.xml-cml.org/schema" xmlns:conventions="http://www.xml-cml.org/convention/" xmlns:nameDict="http://www.xml-cml.org/dictionary/cml/name/">
+  <molecule id="m702" formalCharge="0" spinMultiplicity="1" xmlns:pubchem="http://www.ncbi.nlm.nih.gov">
+    <name dictRef="pubchem:cid">702</name>
+    <atomArray>
+      <atom id="a1" elementType="O" x2="2.5369" y2="-0.25" />
+      <atom id="a2" elementType="C" x2="3.403" y2="0.25" />
+      <atom id="a3" elementType="C" x2="4.269" y2="-0.25" />
+      <atom id="a4" elementType="H" x2="3.8015" y2="0.7249" />
+      <atom id="a5" elementType="H" x2="3.0044" y2="0.7249" />
+      <atom id="a6" elementType="H" x2="3.959" y2="-0.7869" />
+      <atom id="a7" elementType="H" x2="4.8059" y2="-0.56" />
+      <atom id="a8" elementType="H" x2="4.579" y2="0.2869" />
+      <atom id="a9" elementType="H" x2="2.0" y2="0.06" />
+    </atomArray>
+    <bondArray>
+      <bond atomRefs2="a1 a2" order="S" id="a1_a2"  />
+      <bond atomRefs2="a1 a9" order="S" id="a1_a9"  />
+      <bond atomRefs2="a2 a3" order="S" id="a2_a3"  />
+      <bond atomRefs2="a2 a4" order="S" id="a2_a4"  />
+      <bond atomRefs2="a2 a5" order="S" id="a2_a5"  />
+      <bond atomRefs2="a3 a6" order="S" id="a3_a6"  />
+      <bond atomRefs2="a3 a7" order="S" id="a3_a7"  />
+      <bond atomRefs2="a3 a8" order="S" id="a3_a8"  />
+    </bondArray>
+    <name dictRef="pubchem:Allowed">ethanol</name>
+    <name dictRef="nameDict:cas">ethanol</name>
+    <name dictRef="pubchem:Preferred">ethanol</name>
+    <name dictRef="nameDict:systematic">ethanol</name>
+    <name dictRef="pubchem:Traditional">ethanol</name>
+    <formula convention="pubchem:formula" inline="C2H6O" concise="C 2 H 6 O 1" />
+    <formula convention="pubchem:CanonicalSmiles" inline="CCO" concise="C 2 H 6 O 1" />
+    <formula convention="pubchem:IsomericSmiles" inline="CCO" concise="C 2 H 6 O 1" />
+  </molecule>
+</cml>

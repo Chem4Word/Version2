@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<cml convention="conventions:molecular" xmlns="http://www.xml-cml.org/schema" xmlns:conventions="http://www.xml-cml.org/convention/" xmlns:nameDict="http://www.xml-cml.org/dictionary/cml/name/">
+  <molecule id="m2337" formalCharge="0" spinMultiplicity="1" xmlns:pubchem="http://www.ncbi.nlm.nih.gov">
+    <name dictRef="pubchem:cid">2337</name>
+    <atomArray>
+      <atom id="a1" elementType="O" x2="3.7320508956909" y2="1.6549999713898" />
+      <atom id="a2" elementType="O" x2="2.0" y2="1.6549999713898" />
+      <atom id="a3" elementType="N" x2="2.8660254478455" y2="-2.8450000286102" />
+      <atom id="a4" elementType="C" x2="2.8660254478455" y2="0.155000001192093" />
+      <atom id="a5" elementType="C" x2="3.7320508956909" y2="-0.344999998807907" />
+      <atom id="a6" elementType="C" x2="2.0" y2="-0.344999998807907" />
+      <atom id="a7" elementType="C" x2="2.8660254478455" y2="-1.8450000286102" />
+      <atom id="a8" elementType="C" x2="3.7320508956909" y2="-1.3450000286102" />
+      <atom id="a9" elementType="C" x2="2.0" y2="-1.3450000286102" />
+      <atom id="a10" elementType="C" x2="2.8660254478455" y2="1.1549999713898" />
+      <atom id="a11" elementType="C" x2="3.7320508956909" y2="2.6549999713898" />
+      <atom id="a12" elementType="C" x2="4.5980763435364" y2="3.1549999713898" />
+      <atom id="a13" elementType="H" x2="4.2689867019653" y2="-0.034999992698431" />
+      <atom id="a14" elementType="H" x2="1.4630641937256" y2="-0.034999992698431" />
+      <atom id="a15" elementType="H" x2="4.2689867019653" y2="-1.6550000905991" />
+      <atom id="a16" elementType="H" x2="1.4630641937256" y2="-1.6550000905991" />
+      <atom id="a17" elementType="H" x2="3.5199983119965" y2="3.2376093864441" />
+      <atom id="a18" elementType="H" x2="3.1214699745178" y2="2.5473380088806" />
+      <atom id="a19" elementType="H" x2="4.2880764007568" y2="3.6919357776642" />
+      <atom id="a20" elementType="H" x2="5.1350121498108" y2="3.4649999141693" />
+      <atom id="a21" elementType="H" x2="4.9080762863159" y2="2.6180641651154" />
+      <atom id="a22" elementType="H" x2="3.4029612541199" y2="-3.1549999713898" />
+      <atom id="a23" elementType="H" x2="2.329089641571" y2="-3.1549999713898" />
+    </atomArray>
+    <bondArray>
+      <bond atomRefs2="a1 a10" order="S" id="a1_a10"  />
+      <bond atomRefs2="a1 a11" order="S" id="a1_a11"  />
+      <bond atomRefs2="a2 a10" order="D" id="a2_a10"  />
+      <bond atomRefs2="a3 a7" order="S" id="a3_a7"  />
+      <bond atomRefs2="a3 a22" order="S" id="a3_a22"  />
+      <bond atomRefs2="a3 a23" order="S" id="a3_a23"  />
+      <bond atomRefs2="a4 a5" order="D" id="a4_a5"  />
+      <bond atomRefs2="a4 a6" order="S" id="a4_a6"  />
+      <bond atomRefs2="a4 a10" order="S" id="a4_a10"  />
+      <bond atomRefs2="a5 a8" order="S" id="a5_a8"  />
+      <bond atomRefs2="a5 a13" order="S" id="a5_a13"  />
+      <bond atomRefs2="a6 a9" order="D" id="a6_a9"  />
+      <bond atomRefs2="a6 a14" order="S" id="a6_a14"  />
+      <bond atomRefs2="a7 a8" order="D" id="a7_a8"  />
+      <bond atomRefs2="a7 a9" order="S" id="a7_a9"  />
+      <bond atomRefs2="a8 a15" order="S" id="a8_a15"  />
+      <bond atomRefs2="a9 a16" order="S" id="a9_a16"  />
+      <bond atomRefs2="a11 a12" order="S" id="a11_a12"  />
+      <bond atomRefs2="a11 a17" order="S" id="a11_a17"  />
+      <bond atomRefs2="a11 a18" order="S" id="a11_a18"  />
+      <bond atomRefs2="a12 a19" order="S" id="a12_a19"  />
+      <bond atomRefs2="a12 a20" order="S" id="a12_a20"  />
+      <bond atomRefs2="a12 a21" order="S" id="a12_a21"  />
+    </bondArray>
+    <name dictRef="pubchem:Allowed">ethyl 4-aminobenzoate</name>
+    <name dictRef="nameDict:cas">4-aminobenzoic acid ethyl ester</name>
+    <name dictRef="pubchem:Preferred">ethyl 4-aminobenzoate</name>
+    <name dictRef="nameDict:systematic">ethyl 4-azanylbenzoate</name>
+    <name dictRef="pubchem:Traditional">4-aminobenzoic acid ethyl ester</name>
+    <formula convention="pubchem:formula" inline="C9H11NO2" concise="C 9 H 11 N 1 O 2" />
+    <formula convention="pubchem:CanonicalSmiles" inline="CCOC(=O)C1=CC=C(C=C1)N" concise="C 9 H 11 N 1 O 2" />
+    <formula convention="pubchem:IsomericSmiles" inline="CCOC(=O)C1=CC=C(C=C1)N" concise="C 9 H 11 N 1 O 2" />
+  </molecule>
+</cml>

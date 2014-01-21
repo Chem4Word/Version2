@@ -1,0 +1,358 @@
+<!-- note that the ID is used in dictionaries so DO NOT EDIT-->
+<cml xmlns='http://www.xml-cml.org/schema' id='MonovalentSingle'>
+  <cml>
+    <molecule id='m1'>
+      <name dictRef='nameDict:systematic'>phenyl</name>
+      <name dictRef='nameDict:abbreviation'>Ph</name>
+      <formula concise='C 6 H 5 R 1' inline='C6H5-' />
+      <atomArray>
+        <atom id='a1' elementType='C' x2='1.8666666746139526' y2='-0.5483672065041283' />
+        <atom id='a2' elementType='C' x2='3.200336015662211' y2='1.761683615172993' />
+        <atom id='a3' elementType='C' x2='0.5329973335656941' y2='1.761683615172993' />
+        <atom id='a4' elementType='C' x2='0.5329973335656941' y2='0.22164973405491217' />
+        <atom id='a7' elementType='R' x2='4.534020027799442' y2='-0.5483417956189791' />
+        <atom id='a8' elementType='H' x2='1.8666666746139526' y2='4.071700555732034' />
+        <atom id='a9' elementType='H' x2='1.8666666746139524' y2='-2.0883672065041283' />
+        <atom id='a10' elementType='H' x2='4.534020027799442' y2='2.5316751448468846' />
+        <atom id='a11' elementType='H' x2='-0.931636522301039' y2='-0.25412384069931254' />
+        <atom id='a12' elementType='H' x2='-0.9316198892351695' y2='2.23759998458582' />
+        <atom id='a13' elementType='C' x2='3.200336015662211' y2='0.22164973405491217' />
+        <atom id='a14' elementType='C' x2='1.8666666746139526' y2='2.5317005557320336' />
+      </atomArray>
+      <bondArray>
+        <bond id='b1' atomRefs2='a14 a3' order='S' />
+        <bond id='b2' atomRefs2='a14 a2' order='D' />
+        <bond id='b3' atomRefs2='a4 a1' order='S' />
+        <bond id='b4' atomRefs2='a1 a13' order='D' />
+        <bond id='b5' atomRefs2='a13 a2' order='S' />
+        <bond id='b6' atomRefs2='a12 a3' order='S' />
+        <bond id='b7' atomRefs2='a4 a3' order='D' />
+        <bond id='b8' atomRefs2='a11 a4' order='S' />
+        <bond id='b12' atomRefs2='a1 a9' order='S' />
+        <bond id='b13' atomRefs2='a13 a7' order='S' />
+        <bond id='b14' atomRefs2='a2 a10' order='S' />
+        <bond id='b15' atomRefs2='a14 a8' order='S' />
+      </bondArray>
+    </molecule>
+  </cml>
+  <cml convention='cmlDict:cmllite' xmlns:cmlDict='http://www.xml-cml.org/dictionary/cml/' xmlns:nameDict='http://www.xml-cml.org/dictionary/cml/name/'>
+    <molecule id='m1'>
+      <name dictRef='nameDict:systematic'>nitro</name>
+      <name dictRef='nameDict:abbreviation'>NO2</name>
+      <formula concise='N 1 O 2 R 1' inline='O2N-' />
+      <atomArray>
+        <atom id='a1' elementType='O' x2='-6.610000610351562' y2='4.949999809265137' formalCharge='-1' />
+        <atom id='a2' elementType='N' x2='-5.276321488523529' y2='5.719999809265136' formalCharge='1' />
+        <atom id='a3' elementType='R' x2='-3.94264236669549' y2='4.9499998092651' />
+        <atom id='a4' elementType='O' x2='-5.276321488523529' y2='7.259999809265136' />
+      </atomArray>
+      <bondArray>
+        <bond atomRefs2='a1 a2' order='S' id='b1' />
+        <bond atomRefs2='a2 a3' order='S' id='b2' />
+        <bond atomRefs2='a2 a4' order='D' id='b3' />
+      </bondArray>
+    </molecule>
+  </cml>
+  <cml convention='cmlDict:cmllite' xmlns:cmlDict='http://www.xml-cml.org/dictionary/cml/' xmlns:nameDict='http://www.xml-cml.org/dictionary/cml/name/'>
+    <molecule id='m1'>
+      <name dictRef='nameDict:systematic'>acetoxy</name>
+      <name dictRef='nameDict:abbreviation'>AcO</name>
+      <formula concise='C 2 H 3 O 2 R 1' inline='CH3C(=O)O-' />
+      <atomArray>
+        <atom id='a1' elementType='C' x2='-6.610000610351562' y2='4.949999809265137' />
+        <atom id='a2' elementType='C' x2='-5.276321488523529' y2='5.719999809265136' />
+        <atom id='a3' elementType='O' x2='-3.94264236669549' y2='4.9499998092651' />
+        <atom id='a4' elementType='O' x2='-5.276321488523529' y2='7.259999809265136' />
+        <atom id='a5' elementType='R' x2='-2.60896324486746' y2='5.7199998092651' />
+        <atom id='a6' elementType='H' x2='-7.380000610351562' y2='6.283678931093172' />
+        <atom id='a7' elementType='H' x2='-7.943679732179596' y2='4.179999809265136' />
+        <atom id='a8' elementType='H' x2='-5.840000610351563' y2='3.616320687437101' />
+      </atomArray>
+      <bondArray>
+        <bond atomRefs2='a1 a2' order='S' id='b1' />
+        <bond atomRefs2='a2 a3' order='S' id='b2' />
+        <bond atomRefs2='a2 a4' order='D' id='b3' />
+        <bond atomRefs2='a3 a5' order='S' id='b4' />
+        <bond atomRefs2='a1 a6' order='S' id='b5' />
+        <bond atomRefs2='a1 a7' order='S' id='b6' />
+        <bond atomRefs2='a1 a8' order='S' id='b7' />
+      </bondArray>
+    </molecule>
+  </cml>
+  <cml convention='cmlDict:cmllite' xmlns:cmlDict='http://www.xml-cml.org/dictionary/cml/' xmlns:nameDict='http://www.xml-cml.org/dictionary/cml/name/'>
+    <molecule id='m1'>
+      <name dictRef='nameDict:systematic'>acid</name>
+      <name dictRef='nameDict:abbreviation'>CO2H</name>
+      <formula concise='C 1 H 1 O 2 R 1' inline='HO2C-' />
+      <atomArray>
+        <atom id='a1' elementType='R' x2='-6.610000610351562' y2='4.949999809265137' />
+        <atom id='a2' elementType='C' x2='-5.276321488523529' y2='5.719999809265136' />
+        <atom id='a3' elementType='O' x2='-3.94264236669549' y2='4.9499998092651' />
+        <atom id='a4' elementType='O' x2='-5.276321488523529' y2='7.259999809265136' />
+        <atom id='a5' elementType='H' x2='-2.60896324486746' y2='5.7199998092651' />
+      </atomArray>
+      <bondArray>
+        <bond atomRefs2='a1 a2' order='S' id='b1' />
+        <bond atomRefs2='a2 a3' order='S' id='b2' />
+        <bond atomRefs2='a2 a4' order='D' id='b3' />
+        <bond atomRefs2='a3 a5' order='S' id='b3' />
+      </bondArray>
+    </molecule>
+  </cml>
+  <cml convention='cmlDict:cmllite' xmlns:cmlDict='http://www.xml-cml.org/dictionary/cml/' xmlns:nameDict='http://www.xml-cml.org/dictionary/cml/name/'>
+    <molecule id='m1'>
+      <name dictRef='nameDict:systematic'>acetyl</name>
+      <name dictRef='nameDict:abbreviation'>Ac</name>
+      <formula concise='C 2 H 3 O 1 R 1' inline='CH3C(=O)-' />
+      <atomArray>
+        <atom id='a1' elementType='C' x2='-6.610000610351562' y2='4.949999809265137' />
+        <atom id='a2' elementType='C' x2='-5.276321488523529' y2='5.719999809265136' />
+        <atom id='a3' elementType='R' x2='-3.94264236669549' y2='4.9499998092651' />
+        <atom id='a4' elementType='O' x2='-5.276321488523529' y2='7.259999809265136' />
+        <atom id='a6' elementType='H' x2='-7.380000610351562' y2='6.283678931093172' />
+        <atom id='a7' elementType='H' x2='-7.943679732179596' y2='4.179999809265136' />
+        <atom id='a8' elementType='H' x2='-5.840000610351563' y2='3.616320687437101' />
+      </atomArray>
+      <bondArray>
+        <bond atomRefs2='a1 a2' order='S' id='b1' />
+        <bond atomRefs2='a2 a3' order='S' id='b2' />
+        <bond atomRefs2='a2 a4' order='D' id='b3' />
+        <bond atomRefs2='a1 a6' order='S' id='b5' />
+        <bond atomRefs2='a1 a7' order='S' id='b6' />
+        <bond atomRefs2='a1 a8' order='S' id='b7' />
+      </bondArray>
+    </molecule>
+  </cml>
+  <cml convention='cmlDict:cmllite' xmlns:cmlDict='http://www.xml-cml.org/dictionary/cml/' xmlns:nameDict='http://www.xml-cml.org/dictionary/cml/name/'>
+    <molecule id='m1'>
+      <name dictRef='nameDict:systematic'>acyl chloride</name>
+      <formula concise='C 1 Cl 1 O 1 R 1' inline='RCOCl' />
+      <name dictRef='nameDict:abbreviation'>COCl</name>
+      <atomArray>
+        <atom id='a1' elementType='R' x2='-16.610000610351562' y2='4.949999809265137' />
+        <atom id='a2' elementType='C' x2='-15.276321488523529' y2='5.719999809265136' />
+        <atom id='a3' elementType='Cl' x2='-13.94264236669549' y2='4.9499998092651' />
+        <atom id='a4' elementType='O' x2='-15.276321488523529' y2='7.259999809265136' />
+      </atomArray>
+      <bondArray>
+        <bond atomRefs2='a1 a2' order='S' id='b1' />
+        <bond atomRefs2='a2 a3' order='S' id='b2' />
+        <bond atomRefs2='a2 a4' order='D' id='b3' />
+      </bondArray>
+    </molecule>
+  </cml>
+  <cml convention='cmlDict:cmllite' xmlns:cmlDict='http://www.xml-cml.org/dictionary/cml/' xmlns:nameDict='http://www.xml-cml.org/dictionary/cml/name/'>
+    <molecule id='m1'>
+      <name dictRef='nameDict:systematic'>aldehyde</name>
+      <formula concise='C 1 H 1 O 1 R 1' inline='RCHO' />
+      <name dictRef='nameDict:abbreviation'>CHO</name>
+      <atomArray>
+        <atom id='a1' elementType='R' x2='-16.610000610351562' y2='4.949999809265137' />
+        <atom id='a2' elementType='C' x2='-15.276321488523529' y2='5.719999809265136' />
+        <atom id='a3' elementType='H' x2='-13.94264236669549' y2='4.9499998092651' />
+        <atom id='a4' elementType='O' x2='-15.276321488523529' y2='7.259999809265136' />
+      </atomArray>
+      <bondArray>
+        <bond atomRefs2='a1 a2' order='S' id='b1' />
+        <bond atomRefs2='a2 a3' order='S' id='b2' />
+        <bond atomRefs2='a2 a4' order='D' id='b3' />
+      </bondArray>
+    </molecule>
+  </cml>
+  <cml convention='cmlDict:cmllite' xmlns:cmlDict='http://www.xml-cml.org/dictionary/cml/' xmlns:nameDict='http://www.xml-cml.org/dictionary/cml/name/'>
+    <molecule id='m1'>
+      <name dictRef='nameDict:systematic'>amide</name>
+      <formula concise='C 1 H 2 N 1 O 1 R 1' inline='RCONH_{2}' />
+      <name dictRef='nameDict:abbreviation'>CONH2</name>
+      <atomArray>
+        <atom id='a1' elementType='R' x2='-16.610000610351562' y2='4.949999809265137' />
+        <atom id='a2' elementType='C' x2='-15.276321488523529' y2='5.719999809265136' />
+        <atom id='a3' elementType='N' x2='-13.94264236669549' y2='4.9499998092651' />
+        <atom id='a4' elementType='O' x2='-15.276321488523529' y2='7.259999809265136' />
+        <atom id='a5' elementType='H' x2='-12.60896324486746' y2='5.7199998092651' />
+        <atom id='a6' elementType='H' x2='-13.94896324486746' y2='3.5' />
+      </atomArray>
+      <bondArray>
+        <bond atomRefs2='a1 a2' order='S' id='b1' />
+        <bond atomRefs2='a2 a3' order='S' id='b2' />
+        <bond atomRefs2='a2 a4' order='D' id='b3' />
+        <bond atomRefs2='a3 a5' order='S' id='b4' />
+        <bond atomRefs2='a3 a6' order='S' id='b5' />
+      </bondArray>
+    </molecule>
+  </cml>
+  <cml xmlns='http://www.xml-cml.org/schema'>
+    <cml convention='cmlDict:cmllite' xmlns:cmlDict='http://www.xml-cml.org/dictionary/cml/' xmlns:nameDict='http://www.xml-cml.org/dictionary/cml/name/'>
+      <molecule id='m1' formalCharge='0' spinMultiplicity='1'>
+        <name dictRef='nameDict:systematic'>azide</name>
+        <name dictRef='nameDict:abbreviation'>N3</name>
+        <formula concise='N 3 R 1' inline='RN_{3}' />
+        <atomArray>
+          <atom id='a1' elementType='R' x2='-16.610000610351562' y2='4.949999809265137' />
+          <atom id='a2' elementType='N' x2='-15.276321488523529' y2='5.719999809265136' formalCharge='1' />
+          <atom id='a10' elementType='N' x2='-12.1310444276095' y2='5.64575746986479' formalCharge='0' />
+          <atom id='a11' elementType='N' x2='-13.8635444276095' y2='5.64575746986479' formalCharge='-1' />
+        </atomArray>
+        <bondArray>
+          <bond atomRefs2='a1 a2' order='S' id='b1' />
+          <bond atomRefs2='a2 a11' id='a2_a11' order='D' />
+          <bond atomRefs2='a10 a11' order='D' id='a10_a11' />
+        </bondArray>
+      </molecule>
+    </cml>
+  </cml>
+  <cml convention='cmlDict:cmllite' xmlns:cmlDict='http://www.xml-cml.org/dictionary/cml/' xmlns:nameDict='http://www.xml-cml.org/dictionary/cml/name/'>
+    <molecule id='m1' formalCharge='0' spinMultiplicity='1'>
+      <name dictRef='nameDict:systematic'>cyanide</name>
+      <name dictRef='nameDict:systematic'>nitrile</name>
+      <name dictRef='nameDict:abbreviation'>CN</name>
+      <formula concise='C 1 N 1 R 1' inline='RCN' />
+      <atomArray>
+        <atom id='a1' elementType='R' x2='-16.5585444276095' y2='5.64575746986479' />
+        <atom id='a2' elementType='C' x2='-15.276321488523529' y2='5.719999809265136' />
+        <atom id='a3' elementType='N' x2='-13.5747944276095' y2='5.74200746986479' />
+      </atomArray>
+      <bondArray>
+        <bond atomRefs2='a1 a2' order='S' id='b1' />
+        <bond atomRefs2='a2 a3' order='T' id='b2' />
+      </bondArray>
+    </molecule>
+  </cml>
+  <cml convention='cmlDict:cmllite' xmlns:cmlDict='http://www.xml-cml.org/dictionary/cml/' xmlns:nameDict='http://www.xml-cml.org/dictionary/cml/name/'>
+    <molecule id='m1' formalCharge='0' spinMultiplicity='1'>
+      <name dictRef='nameDict:systematic'>diazonium</name>
+      <name dictRef='nameDict:abbreviation'>N2+</name>
+      <formula concise='N 2 R 1 1' inline='RN_{2}^{+}' />
+      <atomArray>
+        <atom id='a1' elementType='R' x2='-16.8472944276095' y2='5.74200746986479' />
+        <atom id='a2' elementType='N' x2='-15.276321488523529' y2='5.719999809265136' formalCharge='1' />
+        <atom id='a3' elementType='N' x2='-13.5266694276095' y2='5.64575746986479' />
+      </atomArray>
+      <bondArray>
+        <bond atomRefs2='a1 a2' order='S' id='b1' />
+        <bond atomRefs2='a2 a3' order='T' id='b2' />
+      </bondArray>
+    </molecule>
+  </cml>
+  <cml convention='cmlDict:cmllite' xmlns:cmlDict='http://www.xml-cml.org/dictionary/cml/' xmlns:nameDict='http://www.xml-cml.org/dictionary/cml/name/'>
+    <molecule id='m1' formalCharge='0' spinMultiplicity='1'>
+      <name dictRef='nameDict:systematic'>ethyl</name>
+      <name dictRef='nameDict:abbreviation'>Et</name>
+      <formula concise='C 2 H 5 R 1' inline='RC_{2}H_{5}' />
+      <atomArray>
+        <atom id='a1' elementType='R' x2='-16.610000610351562' y2='4.949999809265137' />
+        <atom id='a2' elementType='C' x2='-15.276321488523529' y2='5.719999809265136' />
+        <atom id='a3' elementType='C' x2='-13.94264236669549' y2='4.9499998092651' />
+        <atom id='a5' elementType='H' x2='-14.7126423666955' y2='3.61632068743706' />
+        <atom id='a6' elementType='H' x2='-16.3652659315507' y2='6.80894425229251' />
+        <atom id='a7' elementType='H' x2='-14.1873770454962' y2='6.80894425229233' />
+        <atom id='a8' elementType='H' x2='-12.6089632448675' y2='4.17999980926506' />
+        <atom id='a9' elementType='H' x2='-13.1726423666955' y2='6.28367893109314' />
+      </atomArray>
+      <bondArray>
+        <bond atomRefs2='a1 a2' order='S' id='b1' />
+        <bond atomRefs2='a2 a3' order='S' id='b2' />
+        <bond atomRefs2='a3 a5' order='S' id='b4' />
+        <bond atomRefs2='a2 a6' id='a2_a6' order='S' />
+        <bond order='S' atomRefs2='a2 a7' id='a2_a7' />
+        <bond atomRefs2='a3 a8' id='a3_a8' order='S' />
+        <bond atomRefs2='a3 a9' id='a3_a9' order='S' />
+      </bondArray>
+    </molecule>
+  </cml>
+  <cml convention='cmlDict:cmllite' xmlns:cmlDict='http://www.xml-cml.org/dictionary/cml/' xmlns:nameDict='http://www.xml-cml.org/dictionary/cml/name/'>
+    <molecule id='m1' formalCharge='0' spinMultiplicity='1'>
+      <name dictRef='nameDict:systematic'>magnesium bromide</name>
+      <name dictRef='nameDict:trivial'>Grignard</name>
+      <name dictRef='nameDict:abbreviation'>MgBr</name>
+      <formula concise='Br 1 Mg 1 R 1' inline='RMgBr' />
+      <atomArray>
+        <atom id='a1' elementType='R' x2='-16.610000610351562' y2='4.949999809265137' />
+        <atom id='a2' elementType='Mg' x2='-15.1078839885235' y2='4.96509703077881' />
+        <atom id='a3' elementType='Br' x2='-13.94264236669549' y2='4.9499998092651' formalCharge='0' />
+      </atomArray>
+      <bondArray>
+        <bond atomRefs2='a1 a2' order='S' id='b1' />
+        <bond atomRefs2='a2 a3' order='S' id='b2' />
+      </bondArray>
+    </molecule>
+  </cml>
+  <cml convention='cmlDict:cmllite' xmlns:cmlDict='http://www.xml-cml.org/dictionary/cml/' xmlns:nameDict='http://www.xml-cml.org/dictionary/cml/name/'>
+    <molecule id='m1' formalCharge='0' spinMultiplicity='1'>
+      <name dictRef='nameDict:systematic'>methoxy</name>
+      <formula concise='C 1 H 3 O 1 R 1' inline='ROCH_{3}' />
+      <name dictRef='nameDict:abbreviation'>OMe</name>
+      <atomArray>
+        <atom id='a1' elementType='R' x2='-16.610000610351562' y2='4.949999809265137' />
+        <atom id='a2' elementType='O' x2='-15.276321488523529' y2='5.719999809265136' />
+        <atom id='a3' elementType='C' x2='-13.94264236669549' y2='4.9499998092651' />
+        <atom id='a5' elementType='H' x2='-14.7126423666955' y2='3.61632068743706' />
+        <atom id='a8' elementType='H' x2='-12.6089632448675' y2='4.17999980926506' />
+        <atom id='a9' elementType='H' x2='-13.1726423666955' y2='6.28367893109314' />
+      </atomArray>
+      <bondArray>
+        <bond atomRefs2='a1 a2' order='S' id='b1' />
+        <bond atomRefs2='a2 a3' order='S' id='b2' />
+        <bond atomRefs2='a3 a5' order='S' id='b4' />
+        <bond atomRefs2='a3 a8' id='a3_a8' order='S' />
+        <bond atomRefs2='a3 a9' id='a3_a9' order='S' />
+      </bondArray>
+    </molecule>
+  </cml>
+  <cml convention='cmlDict:cmllite' xmlns:cmlDict='http://www.xml-cml.org/dictionary/cml/' xmlns:nameDict='http://www.xml-cml.org/dictionary/cml/name/'>
+    <molecule id='m1' formalCharge='0' spinMultiplicity='1'>
+      <name dictRef='nameDict:systematic'>nitrite</name>
+      <name dictRef='nameDict:abbreviation'>ONO</name>
+      <formula concise='N 1 O 2 R 1' inline='RONO' />
+      <atomArray>
+        <atom id='a1' elementType='R' x2='-16.610000610351562' y2='4.949999809265137' />
+        <atom id='a2' elementType='O' x2='-15.0254548666955' y2='4.87986714866548' formalCharge='0' />
+        <atom id='a10' elementType='O' x2='-12.7154548666955' y2='4.92799214866548' formalCharge='0' />
+        <atom id='a11' elementType='N' x2='-13.9426423666955' y2='4.9499998092651' formalCharge='0' />
+      </atomArray>
+      <bondArray>
+        <bond atomRefs2='a1 a2' order='S' id='b1' />
+        <bond atomRefs2='a2 a11' id='a2_a11' order='S' />
+        <bond atomRefs2='a10 a11' order='D' id='a10_a11' />
+      </bondArray>
+    </molecule>
+  </cml>
+  <cml convention='cmlDict:cmllite' xmlns:cmlDict='http://www.xml-cml.org/dictionary/cml/' xmlns:nameDict='http://www.xml-cml.org/dictionary/cml/name/'>
+    <molecule id='m1' formalCharge='0' spinMultiplicity='1'>
+      <name dictRef='nameDict:systematic'>nitroso</name>
+      <name dictRef='nameDict:abbreviation'>N=O</name>
+      <formula concise='N 1 O 1 R 1' inline='RONO' />
+      <atomArray>
+        <atom id='a1' elementType='R' x2='-16.610000610351562' y2='4.949999809265137' />
+        <atom id='a10' elementType='O' x2='-13.5154548666955' y2='4.92799214866548' />
+        <atom id='a11' elementType='N' x2='-15.0426423666955' y2='4.9499998092651' />
+      </atomArray>
+      <bondArray>
+        <bond atomRefs2='a1 a11' order='S' id='b1' />
+        <bond atomRefs2='a10 a11' order='D' id='a10_a11' />
+      </bondArray>
+    </molecule>
+  </cml>
+  <cml convention='cmlDict:cmllite' xmlns:cmlDict='http://www.xml-cml.org/dictionary/cml/' xmlns:nameDict='http://www.xml-cml.org/dictionary/cml/name/'>
+    <molecule id='m1' formalCharge='0' spinMultiplicity='1'>
+      <name dictRef='nameDict:systematic'>sulfonic acid</name>
+      <name dictRef='nameDict:abbreviation'>SO3H</name>
+      <formula concise='S 1 H 1 O 3 R 1' inline='RSO_{3}H' />
+      <atomArray>
+        <atom id='a1' elementType='R' x2='-16.7510444276095' y2='5.96062480926512' />
+        <atom id='a3' elementType='O' x2='-13.8088724346213' y2='6.00497019067233' />
+        <atom id='a5' elementType='H' x2='-13.0227230929728' y2='5.0161810431537' />
+        <atom id='a8' elementType='O' x2='-15.2216222499324' y2='7.52851575426342' />
+        <atom id='a9' elementType='S' x2='-15.25127260246' y2='6.04315213943939' />
+        <atom id='a12' elementType='O' x2='-15.1986695660297' y2='4.79224974198927' />
+      </atomArray>
+      <bondArray>
+        <bond atomRefs2='a3 a5' order='S' id='b4' />
+        <bond atomRefs2='a1 a9' id='a1_a9' order='S' />
+        <bond atomRefs2='a3 a9' id='a3_a9' order='S' />
+        <bond atomRefs2='a8 a9' order='D' id='a8_a9' />
+        <bond atomRefs2='a9 a12' order='D' id='a9_a12' />
+      </bondArray>
+    </molecule>
+  </cml>
+</cml>

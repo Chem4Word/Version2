@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<cml convention="conventions:molecular" xmlns="http://www.xml-cml.org/schema" xmlns:conventions="http://www.xml-cml.org/convention/" xmlns:nameDict="http://www.xml-cml.org/dictionary/cml/name/">
+  <molecule id="m518740" formalCharge="0" spinMultiplicity="1" xmlns:pubchem="http://www.ncbi.nlm.nih.gov">
+    <name dictRef="pubchem:cid">518740</name>
+    <atomArray>
+      <atom id="a1" elementType="As" x2="4.1248445510864" y2="0.241655826568604" />
+      <atom id="a2" elementType="As" x2="3.8660254478455" y2="-0.724269986152649" />
+      <atom id="a3" elementType="O" x2="3.3882300853729" y2="1.2242699861527" />
+      <atom id="a4" elementType="O" x2="2.0" y2="-1.2242699861527" />
+      <atom id="a5" elementType="O" x2="5.6979765892029" y2="-0.965450942516327" />
+    </atomArray>
+    <bondArray>
+      <bond atomRefs2="a1 a3" order="S" id="a1_a3"  />
+      <bond atomRefs2="a1 a4" order="S" id="a1_a4"  />
+      <bond atomRefs2="a1 a5" order="S" id="a1_a5"  />
+      <bond atomRefs2="a2 a3" order="S" id="a2_a3"  />
+      <bond atomRefs2="a2 a4" order="S" id="a2_a4"  />
+      <bond atomRefs2="a2 a5" order="S" id="a2_a5"  />
+    </bondArray>
+    <name dictRef="pubchem:Allowed">2,4,5-trioxa-1,3-diarsabicyclo[1.1.1]pentane</name>
+    <name dictRef="nameDict:cas">2,4,5-trioxa-1,3-diarsabicyclo[1.1.1]pentane</name>
+    <name dictRef="pubchem:Preferred">2,4,5-trioxa-1,3-diarsabicyclo[1.1.1]pentane</name>
+    <name dictRef="nameDict:systematic">2,4,5-trioxa-1,3-diarsabicyclo[1.1.1]pentane</name>
+    <name dictRef="pubchem:Traditional">2,4,5-trioxa-1,3-diarsabicyclo[1.1.1]pentane</name>
+    <formula convention="pubchem:formula" inline="As2O3" concise="As 2 O 3" />
+    <formula convention="pubchem:CanonicalSmiles" inline="O1[As]2O[As]1O2" concise="As 2 O 3" />
+    <formula convention="pubchem:IsomericSmiles" inline="O1[As]2O[As]1O2" concise="As 2 O 3" />
+  </molecule>
+</cml>

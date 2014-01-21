@@ -1,0 +1,22 @@
+﻿Chem4Word Project
+Research Accelerators Gallery at Outercurve Foundation
+Copyright 2011 Outercurve Foundation
+
+This product includes software developed at
+The Outercurve Foundation (http://www.outercurve.org/).
+
+Chem4Word includes or is derivative of works distributed under the licenses listed below. The full text for most of the licenses listed below can be found in the LICENSE.txt file accompanying each work. The original copyright notices have been preserved within the respective files and or packages. Please refer to the specific files and/or packages for more detailed information about the authors, copyright notices, and licenses.
+
+
+Chemfont
+-----
+Website:      http://research.microsoft.com/chem4word
+Copyright:    Copyright (c) 2010 Microsoft Corporation
+License:      Microsoft Research End User License Agreement (MSR-LA)
+
+Log4Net
+-----
+Website:      http://logging.apache.org/log4net/index.html
+Copyright:    Copyright (c) 2007 Apache Software Foundation
+License:      Apache Software Foundation License 2.0
+

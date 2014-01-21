@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<cml convention="conventions:molecular" xmlns="http://www.xml-cml.org/schema" xmlns:conventions="http://www.xml-cml.org/convention/" xmlns:nameDict="http://www.xml-cml.org/dictionary/cml/name/">
+  <molecule id="m8376" formalCharge="0" spinMultiplicity="1" xmlns:pubchem="http://www.ncbi.nlm.nih.gov">
+    <name dictRef="pubchem:cid">8376</name>
+    <atomArray>
+      <atom id="a1" elementType="O" formalCharge="-1" x2="2.866" y2="-2.25" />
+      <atom id="a2" elementType="O" formalCharge="-1" x2="5.4641" y2="2.25" />
+      <atom id="a3" elementType="O" x2="2.0" y2="-0.75" />
+      <atom id="a4" elementType="O" x2="3.7321" y2="2.25" />
+      <atom id="a5" elementType="O" formalCharge="-1" x2="6.3301" y2="-2.25" />
+      <atom id="a6" elementType="O" x2="7.1962" y2="-0.75" />
+      <atom id="a7" elementType="N" formalCharge="1" x2="2.866" y2="-1.25" />
+      <atom id="a8" elementType="N" formalCharge="1" x2="4.5981" y2="1.75" />
+      <atom id="a9" elementType="N" formalCharge="1" x2="6.3301" y2="-1.25" />
+      <atom id="a10" elementType="C" x2="3.7321" y2="0.25" />
+      <atom id="a11" elementType="C" x2="3.7321" y2="-0.75" />
+      <atom id="a12" elementType="C" x2="4.5981" y2="0.75" />
+      <atom id="a13" elementType="C" x2="5.4641" y2="-0.75" />
+      <atom id="a14" elementType="C" x2="4.5981" y2="-1.25" />
+      <atom id="a15" elementType="C" x2="5.4641" y2="0.25" />
+      <atom id="a16" elementType="C" x2="2.866" y2="0.75" />
+      <atom id="a17" elementType="H" x2="4.5981" y2="-1.87" />
+      <atom id="a18" elementType="H" x2="6.001" y2="0.56" />
+      <atom id="a19" elementType="H" x2="3.176" y2="1.2869" />
+      <atom id="a20" elementType="H" x2="2.3291" y2="1.06" />
+      <atom id="a21" elementType="H" x2="2.556" y2="0.2131" />
+    </atomArray>
+    <bondArray>
+      <bond atomRefs2="a1 a7" order="S" id="a1_a7"  />
+      <bond atomRefs2="a2 a8" order="S" id="a2_a8"  />
+      <bond atomRefs2="a3 a7" order="D" id="a3_a7"  />
+      <bond atomRefs2="a4 a8" order="D" id="a4_a8"  />
+      <bond atomRefs2="a5 a9" order="S" id="a5_a9"  />
+      <bond atomRefs2="a6 a9" order="D" id="a6_a9"  />
+      <bond atomRefs2="a7 a11" order="S" id="a7_a11"  />
+      <bond atomRefs2="a8 a12" order="S" id="a8_a12"  />
+      <bond atomRefs2="a9 a13" order="S" id="a9_a13"  />
+      <bond atomRefs2="a10 a11" order="D" id="a10_a11"  />
+      <bond atomRefs2="a10 a12" order="S" id="a10_a12"  />
+      <bond atomRefs2="a10 a16" order="S" id="a10_a16"  />
+      <bond atomRefs2="a11 a14" order="S" id="a11_a14"  />
+      <bond atomRefs2="a12 a15" order="D" id="a12_a15"  />
+      <bond atomRefs2="a13 a14" order="D" id="a13_a14"  />
+      <bond atomRefs2="a13 a15" order="S" id="a13_a15"  />
+      <bond atomRefs2="a14 a17" order="S" id="a14_a17"  />
+      <bond atomRefs2="a15 a18" order="S" id="a15_a18"  />
+      <bond atomRefs2="a16 a19" order="S" id="a16_a19"  />
+      <bond atomRefs2="a16 a20" order="S" id="a16_a20"  />
+      <bond atomRefs2="a16 a21" order="S" id="a16_a21"  />
+    </bondArray>
+    <name dictRef="pubchem:Allowed">2-methyl-1,3,5-trinitro-benzene</name>
+    <name dictRef="nameDict:cas">2-methyl-1,3,5-trinitrobenzene</name>
+    <name dictRef="pubchem:Preferred">2-methyl-1,3,5-trinitrobenzene</name>
+    <name dictRef="nameDict:systematic">2-methyl-1,3,5-trinitro-benzene</name>
+    <name dictRef="pubchem:Traditional">2-methyl-1,3,5-trinitro-benzene</name>
+    <formula convention="pubchem:formula" inline="C7H5N3O6" concise="C 7 H 5 N 3 O 6" />
+    <formula convention="pubchem:CanonicalSmiles" inline="CC1=C(C=C(C=C1[N+](=O)[O-])[N+](=O)[O-])[N+](=O)[O-]" concise="C 7 H 5 N 3 O 6" />
+    <formula convention="pubchem:IsomericSmiles" inline="CC1=C(C=C(C=C1[N+](=O)[O-])[N+](=O)[O-])[N+](=O)[O-]" concise="C 7 H 5 N 3 O 6" />
+  </molecule>
+</cml>

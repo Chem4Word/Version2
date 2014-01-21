@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<cml convention="conventions:molecular" xmlns="http://www.xml-cml.org/schema" xmlns:conventions="http://www.xml-cml.org/convention/" xmlns:nameDict="http://www.xml-cml.org/dictionary/cml/name/">
+  <molecule id="m8030" formalCharge="0" spinMultiplicity="1" xmlns:pubchem="http://www.ncbi.nlm.nih.gov">
+    <name dictRef="pubchem:cid">8030</name>
+    <atomArray>
+      <atom id="a1" elementType="S" x2="2.809" y2="-0.7694" />
+      <atom id="a2" elementType="C" x2="3.309" y2="0.7694" />
+      <atom id="a3" elementType="C" x2="2.309" y2="0.7694" />
+      <atom id="a4" elementType="C" x2="3.618" y2="-0.1816" />
+      <atom id="a5" elementType="C" x2="2.0" y2="-0.1816" />
+      <atom id="a6" elementType="H" x2="3.6734" y2="1.271" />
+      <atom id="a7" elementType="H" x2="1.9446" y2="1.271" />
+      <atom id="a8" elementType="H" x2="4.2077" y2="-0.3732" />
+      <atom id="a9" elementType="H" x2="1.4103" y2="-0.3732" />
+    </atomArray>
+    <bondArray>
+      <bond atomRefs2="a1 a4" order="S" id="a1_a4"  />
+      <bond atomRefs2="a1 a5" order="S" id="a1_a5"  />
+      <bond atomRefs2="a2 a3" order="S" id="a2_a3"  />
+      <bond atomRefs2="a2 a4" order="D" id="a2_a4"  />
+      <bond atomRefs2="a2 a6" order="S" id="a2_a6"  />
+      <bond atomRefs2="a3 a5" order="D" id="a3_a5"  />
+      <bond atomRefs2="a3 a7" order="S" id="a3_a7"  />
+      <bond atomRefs2="a4 a8" order="S" id="a4_a8"  />
+      <bond atomRefs2="a5 a9" order="S" id="a5_a9"  />
+    </bondArray>
+    <name dictRef="pubchem:Allowed">thiophene</name>
+    <name dictRef="nameDict:cas">thiophene</name>
+    <name dictRef="pubchem:Preferred">thiophene</name>
+    <name dictRef="nameDict:systematic">thiophene</name>
+    <name dictRef="pubchem:Traditional">thiophene</name>
+    <formula convention="pubchem:formula" inline="C4H4S" concise="C 4 H 4 S 1" />
+    <formula convention="pubchem:CanonicalSmiles" inline="C1=CSC=C1" concise="C 4 H 4 S 1" />
+    <formula convention="pubchem:IsomericSmiles" inline="C1=CSC=C1" concise="C 4 H 4 S 1" />
+  </molecule>
+</cml>

@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<cml convention="conventions:molecular" xmlns="http://www.xml-cml.org/schema" xmlns:conventions="http://www.xml-cml.org/convention/" xmlns:nameDict="http://www.xml-cml.org/dictionary/cml/name/">
+  <molecule id="m5862" formalCharge="0" spinMultiplicity="1" xmlns:pubchem="http://www.ncbi.nlm.nih.gov">
+    <name dictRef="pubchem:cid">5862</name>
+    <atomArray>
+      <atom id="a1" elementType="S" x2="2.5369" y2="-1.19" />
+      <atom id="a2" elementType="O" x2="5.135" y2="0.31" />
+      <atom id="a3" elementType="O" x2="4.269" y2="1.81" />
+      <atom id="a4" elementType="N" x2="2.5369" y2="0.81" />
+      <atom id="a5" elementType="C" x2="3.403" y2="0.31">
+        <atomParity atomRefs4="a4 a6 a7 a8">1.0</atomParity>
+      </atom>
+      <atom id="a6" elementType="C" x2="3.403" y2="-0.69" />
+      <atom id="a7" elementType="C" x2="4.269" y2="0.81" />
+      <atom id="a8" elementType="H" x2="3.403" y2="0.93" />
+      <atom id="a9" elementType="H" x2="3.615" y2="-1.2726" />
+      <atom id="a10" elementType="H" x2="4.0135" y2="-0.5823" />
+      <atom id="a11" elementType="H" x2="2.0" y2="0.5" />
+      <atom id="a12" elementType="H" x2="2.5369" y2="1.43" />
+      <atom id="a13" elementType="H" x2="2.5369" y2="-1.81" />
+      <atom id="a14" elementType="H" x2="5.672" y2="0.62" />
+    </atomArray>
+    <bondArray>
+      <bond atomRefs2="a1 a6" order="S" id="a1_a6"  />
+      <bond atomRefs2="a1 a13" order="S" id="a1_a13"  />
+      <bond atomRefs2="a2 a7" order="S" id="a2_a7"  />
+      <bond atomRefs2="a2 a14" order="S" id="a2_a14"  />
+      <bond atomRefs2="a3 a7" order="D" id="a3_a7"  />
+      <bond atomRefs2="a4 a5" order="S" id="a4_a5" >
+        <bondStereo>H</bondStereo>
+      </bond>
+      <bond atomRefs2="a4 a11" order="S" id="a4_a11"  />
+      <bond atomRefs2="a4 a12" order="S" id="a4_a12"  />
+      <bond atomRefs2="a5 a6" order="S" id="a5_a6"  />
+      <bond atomRefs2="a5 a7" order="S" id="a5_a7"  />
+      <bond atomRefs2="a5 a8" order="S" id="a5_a8"  />
+      <bond atomRefs2="a6 a9" order="S" id="a6_a9"  />
+      <bond atomRefs2="a6 a10" order="S" id="a6_a10"  />
+    </bondArray>
+    <name dictRef="pubchem:Allowed">(2R)-2-amino-3-sulfanyl-propanoic acid</name>
+    <name dictRef="nameDict:cas">(2R)-2-amino-3-mercaptopropanoic acid</name>
+    <name dictRef="pubchem:Preferred">(2R)-2-amino-3-sulfanylpropanoic acid</name>
+    <name dictRef="nameDict:systematic">(2R)-2-azanyl-3-sulfanyl-propanoic acid</name>
+    <name dictRef="pubchem:Traditional">(2R)-2-amino-3-mercapto-propionic acid</name>
+    <formula convention="pubchem:formula" inline="C3H7NO2S" concise="C 3 H 7 N 1 O 2 S 1" />
+    <formula convention="pubchem:CanonicalSmiles" inline="C(C(C(=O)O)N)S" concise="C 3 H 7 N 1 O 2 S 1" />
+    <formula convention="pubchem:IsomericSmiles" inline="C([C@@H](C(=O)O)N)S" concise="C 3 H 7 N 1 O 2 S 1" />
+  </molecule>
+</cml>

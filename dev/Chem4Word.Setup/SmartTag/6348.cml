@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<cml convention="conventions:molecular" xmlns="http://www.xml-cml.org/schema" xmlns:conventions="http://www.xml-cml.org/convention/" xmlns:nameDict="http://www.xml-cml.org/dictionary/cml/name/">
+  <molecule id="m6348" formalCharge="0" spinMultiplicity="1" xmlns:pubchem="http://www.ncbi.nlm.nih.gov">
+    <name dictRef="pubchem:cid">6348</name>
+    <atomArray>
+      <atom id="a1" elementType="S" x2="3.7320508956909" y2="0.5" />
+      <atom id="a2" elementType="S" x2="2.0" y2="-0.5" />
+      <atom id="a3" elementType="C" x2="2.8660254478455" y2="8.32667268468867E-17" />
+    </atomArray>
+    <bondArray>
+      <bond atomRefs2="a1 a3" order="D" id="a1_a3"  />
+      <bond atomRefs2="a2 a3" order="D" id="a2_a3"  />
+    </bondArray>
+    <name dictRef="pubchem:Allowed">methanedithione</name>
+    <name dictRef="nameDict:cas">methanedithione</name>
+    <name dictRef="pubchem:Preferred">methanedithione</name>
+    <name dictRef="nameDict:systematic">methanedithione</name>
+    <name dictRef="pubchem:Traditional">methanedithione</name>
+    <formula convention="pubchem:formula" inline="CS2" concise="C 1 S 2" />
+    <formula convention="pubchem:CanonicalSmiles" inline="C(=S)=S" concise="C 1 S 2" />
+    <formula convention="pubchem:IsomericSmiles" inline="C(=S)=S" concise="C 1 S 2" />
+  </molecule>
+</cml>

@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<cml convention="conventions:molecular" xmlns="http://www.xml-cml.org/schema" xmlns:conventions="http://www.xml-cml.org/convention/" xmlns:nameDict="http://www.xml-cml.org/dictionary/cml/name/">
+  <molecule id="m24530" formalCharge="0" spinMultiplicity="1" xmlns:pubchem="http://www.ncbi.nlm.nih.gov">
+    <name dictRef="pubchem:cid">24530</name>
+    <atomArray>
+      <atom id="a1" elementType="N" formalCharge="1" x2="2.866" y2="0.0" />
+      <atom id="a2" elementType="N" formalCharge="-1" x2="3.7321" y2="0.5" />
+      <atom id="a3" elementType="N" x2="2.0" y2="-0.5" />
+      <atom id="a4" elementType="H" x2="4.269" y2="0.19" />
+    </atomArray>
+    <bondArray>
+      <bond atomRefs2="a1 a2" order="S" id="a1_a2"  />
+      <bond atomRefs2="a1 a3" order="T" id="a1_a3"  />
+      <bond atomRefs2="a2 a4" order="S" id="a2_a4"  />
+    </bondArray>
+    <name dictRef="pubchem:Allowed">diazonioazanide</name>
+    <name dictRef="nameDict:cas">diazonioazanide</name>
+    <name dictRef="pubchem:Preferred">diazonioazanide</name>
+    <name dictRef="nameDict:systematic">diazonioazanide</name>
+    <name dictRef="pubchem:Traditional">diazonioazanide</name>
+    <formula convention="pubchem:formula" inline="HN3" concise="H 1 N 3" />
+    <formula convention="pubchem:CanonicalSmiles" inline="[NH-][N+]#N" concise="H 1 N 3" />
+    <formula convention="pubchem:IsomericSmiles" inline="[NH-][N+]#N" concise="H 1 N 3" />
+  </molecule>
+</cml>

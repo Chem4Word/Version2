@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<cml convention="conventions:molecular" xmlns="http://www.xml-cml.org/schema" xmlns:conventions="http://www.xml-cml.org/convention/" xmlns:cmlDict="http://www.xml-cml.org/dictionary/cml/" xmlns:nameDict="http://www.xml-cml.org/dictionary/cml/name/">
+  <molecule id="m1">
+    <name dictRef="nameDict:trivial">H_{2}O</name>
+    <name dictRef="nameDict:iupac">oxidane</name>
+    <name dictRef="nameDict:trivial">aqua</name>
+    <name dictRef="nameDict:trivial">water</name>
+    <name dictRef="nameDict:systematic">dihydrogen monoxide</name>
+    <name dictRef="nameDict:systematic">hydrogen hydroxide</name>
+    <name dictRef="nameDict:trivial">Adam's ale</name>
+    <formula concise="H 2 O 1" />
+    <atomArray>
+      <atom id="a1" elementType="O" x2="-1.5950000286102295" y2="1.1549999713897705" />
+      <atom id="a2" elementType="H" x2="-0.05500002861022946" y2="1.1549999713897705" />
+      <atom id="a3" elementType="H" x2="-2.3650000286102295" y2="2.4886790932178062" />
+    </atomArray>
+    <bondArray>
+      <bond id="b1" atomRefs2="a1 a2" order="1" />
+      <bond id="b2" atomRefs2="a1 a3" order="1" />
+    </bondArray>
+  </molecule>
+</cml>

@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+
+<customUI onLoad="RibbonLoad" xmlns="http://schemas.microsoft.com/office/2006/01/customui">
+  <ribbon>
+    <tabs>
+      <tab id="chemistryTab" label="Chemistry">
+        <group id="importGroup" label="Import">
+          <gallery idMso="CustomGallery5" label="Chemistry Gallery" size="normal" />
+          <button id="saveSelection" onAction="SaveSelectionClick" getEnabled="GetSaveSelectionEnable" label="Save To Gallery" size="normal" />
+          <menu id="importDropDown" label="New ..." getImage="GetFromFileImage" getEnabled="GetImportCmlFileEnable">
+            <button id="newChemistry" label="Structure" onAction="ImportBlankStructureClick" getImage="GetFromFileImage"/>
+            <button id="importCmlFile" label="From File" onAction="ImportCmlFileClick" getImage="GetFromFileImage" />
+            <button id="opsinLookUp" label="From OPSIN" onAction="OpsinLookUpClick" getImage="GetOpsinImage" />
+            <button id="pubChemLookUp" label="From PubChem" onAction="PubChemLookUpClick" getImage="GetOpsinImage" />
+          </menu>
+        </group>
+        <group id="chemistryGroup" label="Chemistry">
+          <button id="inlineText" onAction="InlineChemTextClick" getEnabled="GetInlineChemTextEnable" label="Mark as Chemistry" getImage="Get1DChemZoneImage" size="large" />
+          <!--<button id="viewOption" onAction="ViewOptionClick" getEnabled="GetDepictionOptionEnable" label="View" screentip="View" supertip="Select a representation for display. Choose between graphical 2D and textual 1D." getImage="GetViewOptionsImage" size="large" />-->
+          <dynamicMenu id="dynamicViewMenu" getImage="GetViewOptionsImage" size="large" label="View" getEnabled="GetDepictionOptionEnable" getContent="GetContent" />
+          <splitButton id="splitButton" size="large" getEnabled="GetEditEnable">
+            <button id="splitButtonEdit" label="Edit" getImage="GetEditImage" onAction="EditClick" screentip="Chemistry Editor" supertip="Add or edit representations of your molecule, including graphical 2D, names, labels and formulae." />
+            <menu id="EditMenu">
+              <button id="tweakDoodle" onAction="TweakDoodleClick" getEnabled="GetTweak2DEnable" label="Edit 2D - (ChemDoodle)" getImage="GetChemImage" />
+              <button id="tweak2D" onAction="Tweak2DClick" getEnabled="GetTweak2DEnable" label="Edit 2D - (WPF)" getImage="GetChemImage" />
+              <button id="editLabels" onAction="EditLabelsClick" getEnabled="GetSaveSelectionEnable" label="Edit Labels" getImage="GetEditLabelsImage" />
+            </menu>
+          </splitButton>
+          <button id="viewCMLButton" onAction="ViewCmlClick" getEnabled="GetEditEnable" label="View CML" size="large" imageMso="XmlSource" />
+          <toggleButton getImage="GetNavigatorImage" id="navigator" onAction="NavigatorClick" getPressed="GetNavigatorPressed" label="Chemistry Navigator" size="large" screentip="Chemistry Navigator" supertip="View all the chemistry items in your document. Create linked and unlinked copies." />
+        </group>
+        <!--
+        <group id="searchGroup" label="Search">
+          <editBox id="searchBox" getEnabled="GetSearchBoxEnabled" onChange="SearchBoxChange" getText="SearchBoxText" screentip="Search for the term PubChem or OPSIN" />
+          <labelControl id="searchLabelControl" label="Look in:" enabled="true" />
+          <menu id="searchLocationMenu" enabled="true" getLabel="SearchLocationMenuLabel">
+            <button id="searchDocumentButton" label="Document" onAction="SearchDocumentButton" />
+            <button id="searchOpsinButton" label="OPSIN" onAction="SearchOpsinButton" />
+            <button id="searchPubChemButton" label="PubChem" onAction="SearchPubChemButton" />
+          </menu>
+        </group>
+        -->
+        <!--<group id="displayGroup" label="Display">
+          <button id="documentStyle" label="Document Styles" getImage="GetDocumentStylesImage" size="large" />
+        </group>-->
+        <group id="SettingsGroup" label="Settings">
+          <!--<toggleButton imageMso="WindowsArrangeAll" id="navigator" onAction="NavigatorClick" getPressed="GetNavigatorPressed" label="Navigator Panel" size="normal" />-->
+          <button id="option" label="Options" getImage="GetOptionsImage" onAction="OptionClick" size="large" screentip="options" supertip="Microsoft Chemistry Add-in for Word Options." />
+          <menu id="HelpMenu" label="Help" getImage="GetHelpImage" size="large" supertip="Get help using Microsoft Chemistry Add-in for Word." screentip="Microsoft Chemistry Add-in for Word Help">
+            <button id="Help" label="Documentation" onAction="HelpClick" />
+            <button imageMso="BlogHomePage" id="checkForUpdate" label="Check for updates" onAction="CheckForUpdateClick" />
+            <button id="About" label="About Microsoft Chemistry Add-In" onAction="AboutClick" />
+          </menu>
+        </group>
+        <!--<group id="embededGroup" label="Embedded Control">
+          <button id="inlineControl" onAction="InlineControlClick" label="Create Inline Control" getImage="GetChemImage" size="large" />
+        </group>-->
+      </tab>
+    </tabs>
+  </ribbon>
+</customUI>

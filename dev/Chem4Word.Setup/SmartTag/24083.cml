@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<cml convention="conventions:molecular" xmlns="http://www.xml-cml.org/schema" xmlns:conventions="http://www.xml-cml.org/convention/" xmlns:nameDict="http://www.xml-cml.org/dictionary/cml/name/">
+  <molecule id="m24083" formalCharge="0" spinMultiplicity="1" xmlns:pubchem="http://www.ncbi.nlm.nih.gov">
+    <name dictRef="pubchem:cid">24083</name>
+    <atomArray>
+      <atom id="a1" elementType="S" x2="3.0" y2="0.0" />
+      <atom id="a2" elementType="Mg" formalCharge="2" x2="2.0" y2="-1.0" />
+      <atom id="a3" elementType="O" formalCharge="-1" x2="2.0" y2="1.22460635382238E-16" />
+      <atom id="a4" elementType="O" formalCharge="-1" x2="3.0" y2="-1.0" />
+      <atom id="a5" elementType="O" x2="4.0" y2="-2.44921270764475E-16" />
+      <atom id="a6" elementType="O" x2="3.0" y2="1.0" />
+    </atomArray>
+    <bondArray>
+      <bond atomRefs2="a1 a3" order="S" id="a1_a3"  />
+      <bond atomRefs2="a1 a4" order="S" id="a1_a4"  />
+      <bond atomRefs2="a1 a5" order="D" id="a1_a5"  />
+      <bond atomRefs2="a1 a6" order="D" id="a1_a6"  />
+    </bondArray>
+    <name dictRef="pubchem:Allowed">magnesium sulfate</name>
+    <name dictRef="nameDict:cas">magnesium sulfate</name>
+    <name dictRef="pubchem:Preferred">magnesium sulfate</name>
+    <name dictRef="nameDict:systematic">magnesium sulfate</name>
+    <name dictRef="pubchem:Traditional">magnesium sulfate</name>
+    <formula convention="pubchem:formula" inline="MgO4S" concise="Mg 1 O 4 S 1" />
+    <formula convention="pubchem:CanonicalSmiles" inline="[O-]S(=O)(=O)[O-].[Mg+2]" concise="Mg 1 O 4 S 1" />
+    <formula convention="pubchem:IsomericSmiles" inline="[O-]S(=O)(=O)[O-].[Mg+2]" concise="Mg 1 O 4 S 1" />
+  </molecule>
+</cml>

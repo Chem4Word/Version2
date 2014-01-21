@@ -1,0 +1,23 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:System="clr-namespace:System;assembly=mscorlib">
+	<!-- Resource dictionary entries should be defined here. -->
+	<System:String x:Key="DeleteSelectionTooltip">
+		Delete Selection. (Del)
+	</System:String>
+	<System:String x:Key="AddElectronTooltip">Add Electron.</System:String>
+	<System:String x:Key="RemoveElectronTooltip">Remove Electron.</System:String>
+	<System:String x:Key="AddProtonTooltip">Add Proton.</System:String>
+	<System:String x:Key="RemoveProtonTooltip">Remove Proton.</System:String>
+	<System:String x:Key="AddHydrogenDotTooltip">Add Hydrogen Dot.</System:String>
+	<System:String x:Key="RemoveHydrogenDotTooltip">Remove Hydrogen Dot.</System:String>
+	<System:String x:Key="RotateTooltip">Rotate Selection.</System:String>
+	<System:String x:Key="FlipSelectionTooltip">Flip About Bond.</System:String>
+	<System:String x:Key="FlipHorizontalTooltip">Flip Horizontal.</System:String>
+	<System:String x:Key="FlipVerticalTooltip">Flip Vertical.</System:String>
+	<System:String x:Key="RemoveIsotopeTooltip">
+		Remove Isotope Number.
+	</System:String>
+	<System:String x:Key="SetChargeTooltip">Set Charge.</System:String>
+	<System:String x:Key="UnsetChargeTooltip">Remove Charge.</System:String>
+	<System:String x:Key="AddLabelTooltip">Set Label.</System:String>
+	<System:String x:Key="RemoveLabelTooltip">Remove Label.</System:String>
+</ResourceDictionary>

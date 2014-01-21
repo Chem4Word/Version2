@@ -1,0 +1,91 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<cml convention="conventions:molecular" xmlns="http://www.xml-cml.org/schema" xmlns:conventions="http://www.xml-cml.org/convention/">
+  <molecule id="m667484" formalCharge="0" xmlns:pubchem="http://www.ncbi.nlm.nih.gov">
+    <name dictRef="pubchem:cid">667484</name>
+    <atomArray>
+      <atom id="a1" elementType="O" x2="3.3013460636139" y2="2.2472610473633" />
+      <atom id="a2" elementType="O" x2="2.1423778533935" y2="0.96009635925293" />
+      <atom id="a3" elementType="N" x2="3.7320508956909" y2="-0.394539147615433" />
+      <atom id="a4" elementType="N" x2="5.3147268295288" y2="-0.0581309720873833" />
+      <atom id="a5" elementType="C" x2="2.8660254478455" y2="-0.894539177417755">
+        <atomParity atomRefs4="a3 a6 a7 a19">1.0</atomParity>
+      </atom>
+      <atom id="a6" elementType="C" x2="2.8660254478455" y2="-1.8945391178131" />
+      <atom id="a7" elementType="C" x2="2.0" y2="-0.394539147615433" />
+      <atom id="a8" elementType="C" x2="3.8365793228149" y2="0.599982738494873" />
+      <atom id="a9" elementType="C" x2="4.6455960273743" y2="-0.801275789737701" />
+      <atom id="a10" elementType="C" x2="3.7320508956909" y2="-2.3945391178131" />
+      <atom id="a11" elementType="C" x2="2.0" y2="-2.3945391178131" />
+      <atom id="a12" elementType="C" x2="4.8147268295288" y2="0.80789440870285" />
+      <atom id="a13" elementType="C" x2="3.0934343338013" y2="1.2691133022308" />
+      <atom id="a14" elementType="C" x2="3.7320508956909" y2="-3.3945391178131" />
+      <atom id="a15" elementType="C" x2="2.0" y2="-3.3945391178131" />
+      <atom id="a16" elementType="C" x2="2.8660254478455" y2="-3.8945391178131" />
+      <atom id="a17" elementType="C" x2="2.5582013130188" y2="2.9163916110992" />
+      <atom id="a18" elementType="C" x2="2.7661130428314" y2="3.8945391178131" />
+      <atom id="a19" elementType="H" x2="2.8660254478455" y2="-0.274539172649384" />
+      <atom id="a20" elementType="H" x2="2.3099999427795" y2="0.142396599054337" />
+      <atom id="a21" elementType="H" x2="1.4630641937256" y2="-0.0845391452312469" />
+      <atom id="a22" elementType="H" x2="1.6900000572205" y2="-0.931474924087524" />
+      <atom id="a23" elementType="H" x2="4.7745013237" y2="-1.4077273607254" />
+      <atom id="a24" elementType="H" x2="4.2689867019653" y2="-2.0845391750336" />
+      <atom id="a25" elementType="H" x2="1.4630641937256" y2="-2.0845391750336" />
+      <atom id="a26" elementType="H" x2="5.066903591156" y2="1.3742926120758" />
+      <atom id="a27" elementType="H" x2="4.2689867019653" y2="-3.7045390605927" />
+      <atom id="a28" elementType="H" x2="1.4630641937256" y2="-3.7045390605927" />
+      <atom id="a29" elementType="H" x2="2.8660254478455" y2="-4.5145392417908" />
+      <atom id="a30" elementType="H" x2="1.9833472967148" y2="3.1486477851868" />
+      <atom id="a31" elementType="H" x2="2.2296514511108" y2="2.3906018733978" />
+      <atom id="a32" elementType="H" x2="2.8950183391571" y2="4.5009903907776" />
+      <atom id="a33" elementType="H" x2="2.1596615314484" y2="4.0234441757202" />
+      <atom id="a34" elementType="H" x2="3.3725645542145" y2="3.7656338214874" />
+    </atomArray>
+    <bondArray>
+      <bond atomRefs2="a1 a13" order="1" id="a1_a13" />
+      <bond atomRefs2="a1 a17" order="1" id="a1_a17" />
+      <bond atomRefs2="a2 a13" order="2" id="a2_a13" />
+      <bond atomRefs2="a3 a5" order="1" id="a3_a5" />
+      <bond atomRefs2="a3 a8" order="1" id="a3_a8" />
+      <bond atomRefs2="a3 a9" order="1" id="a3_a9" />
+      <bond atomRefs2="a4 a9" order="2" id="a4_a9" />
+      <bond atomRefs2="a4 a12" order="1" id="a4_a12" />
+      <bond atomRefs2="a5 a6" order="1" id="a5_a6" />
+      <bond atomRefs2="a5 a7" order="1" id="a5_a7">
+        <bondStereo>W</bondStereo>
+      </bond>
+      <bond atomRefs2="a5 a19" order="1" id="a5_a19" />
+      <bond atomRefs2="a6 a10" order="2" id="a6_a10" />
+      <bond atomRefs2="a6 a11" order="1" id="a6_a11" />
+      <bond atomRefs2="a7 a20" order="1" id="a7_a20" />
+      <bond atomRefs2="a7 a21" order="1" id="a7_a21" />
+      <bond atomRefs2="a7 a22" order="1" id="a7_a22" />
+      <bond atomRefs2="a8 a12" order="2" id="a8_a12" />
+      <bond atomRefs2="a8 a13" order="1" id="a8_a13" />
+      <bond atomRefs2="a9 a23" order="1" id="a9_a23" />
+      <bond atomRefs2="a10 a14" order="1" id="a10_a14" />
+      <bond atomRefs2="a10 a24" order="1" id="a10_a24" />
+      <bond atomRefs2="a11 a15" order="2" id="a11_a15" />
+      <bond atomRefs2="a11 a25" order="1" id="a11_a25" />
+      <bond atomRefs2="a12 a26" order="1" id="a12_a26" />
+      <bond atomRefs2="a14 a16" order="2" id="a14_a16" />
+      <bond atomRefs2="a14 a27" order="1" id="a14_a27" />
+      <bond atomRefs2="a15 a16" order="1" id="a15_a16" />
+      <bond atomRefs2="a15 a28" order="1" id="a15_a28" />
+      <bond atomRefs2="a16 a29" order="1" id="a16_a29" />
+      <bond atomRefs2="a17 a18" order="1" id="a17_a18" />
+      <bond atomRefs2="a17 a30" order="1" id="a17_a30" />
+      <bond atomRefs2="a17 a31" order="1" id="a17_a31" />
+      <bond atomRefs2="a18 a32" order="1" id="a18_a32" />
+      <bond atomRefs2="a18 a33" order="1" id="a18_a33" />
+      <bond atomRefs2="a18 a34" order="1" id="a18_a34" />
+    </bondArray>
+    <name dictRef="pubchem:Allowed">ethyl 3-[(1R)-1-phenylethyl]imidazole-4-carboxylate</name>
+    <name dictRef="pubchem:CAS-likeStyle">3-[(1R)-1-phenylethyl]-4-imidazolecarboxylic acid ethyl ester</name>
+    <name dictRef="pubchem:Preferred">ethyl 3-[(1R)-1-phenylethyl]imidazole-4-carboxylate</name>
+    <name dictRef="pubchem:Systematic">ethyl 3-[(1R)-1-phenylethyl]imidazole-4-carboxylate</name>
+    <name dictRef="pubchem:Traditional">3-[(1R)-1-phenylethyl]imidazole-4-carboxylic acid ethyl ester</name>
+    <formula convention="pubchem:formula" inline="C14H16N2O2" />
+    <formula convention="pubchem:CanonicalSmiles" inline="CCOC(=O)C1=CN=CN1C(C)C2=CC=CC=C2" />
+    <formula convention="pubchem:IsomericSmiles" inline="CCOC(=O)C1=CN=CN1[C@H](C)C2=CC=CC=C2" />
+  </molecule>
+</cml>

@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<cml convention="conventions:molecular" xmlns="http://www.xml-cml.org/schema" xmlns:nameDict="http://www.xml-cml.org/dictionary/cml/name/" xmlns:cmlDict="http://www.xml-cml.org/dictionary/cml/" xmlns:conventions="http://www.xml-cml.org/convention/">
+  <molecule id="m1">
+    <name dictRef="nameDict:iupac">benzene</name>
+    <name dictRef="nameDict:trivial">Phenyl hydride</name>
+    <formula concise="C 6 H 6" />
+    <atomArray>
+      <atom id="a1" elementType="C" x2="-1.9249999523162842" y2="-5.774966176102378" />
+      <atom id="a2" elementType="C" x2="-3.2586692933645427" y2="-6.544983116661417" />
+      <atom id="a3" elementType="C" x2="-3.2586692933645427" y2="-8.085016997779501" />
+      <atom id="a4" elementType="C" x2="-1.9249999523162842" y2="-8.85503393833854" />
+      <atom id="a5" elementType="C" x2="-0.5913306112680257" y2="-8.085016997779501" />
+      <atom id="a6" elementType="C" x2="-0.5913306112680257" y2="-6.544983116661417" />
+      <atom id="a7" elementType="H" x2="-1.9249999523162846" y2="-4.234966176102378" />
+      <atom id="a8" elementType="H" x2="-4.592353305501773" y2="-5.774991586987524" />
+      <atom id="a9" elementType="H" x2="-4.592353305501773" y2="-8.855008527453393" />
+      <atom id="a10" elementType="H" x2="-1.9249999523162846" y2="-10.395033938338539" />
+      <atom id="a11" elementType="H" x2="0.7423534008692048" y2="-8.855008527453393" />
+      <atom id="a12" elementType="H" x2="0.742353400869205" y2="-5.774991586987525" />
+    </atomArray>
+    <bondArray>
+      <bond id="b1" atomRefs2="a1 a2" order="1" />
+      <bond id="b2" atomRefs2="a2 a3" order="2" />
+      <bond id="b3" atomRefs2="a3 a4" order="1" />
+      <bond id="b4" atomRefs2="a4 a5" order="2" />
+      <bond id="b5" atomRefs2="a5 a6" order="1" />
+      <bond id="b6" atomRefs2="a1 a6" order="2" />
+      <bond id="b7" atomRefs2="a1 a7" order="1" />
+      <bond id="b8" atomRefs2="a2 a8" order="1" />
+      <bond id="b9" atomRefs2="a3 a9" order="1" />
+      <bond id="b10" atomRefs2="a4 a10" order="1" />
+      <bond id="b11" atomRefs2="a5 a11" order="1" />
+      <bond id="b12" atomRefs2="a6 a12" order="1" />
+    </bondArray>
+  </molecule>
+</cml>

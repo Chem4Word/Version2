@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<cml convention="conventions:molecular" xmlns="http://www.xml-cml.org/schema" xmlns:conventions="http://www.xml-cml.org/convention/" xmlns:nameDict="http://www.xml-cml.org/dictionary/cml/name/">
+  <molecule id="m84691" formalCharge="0" spinMultiplicity="1" xmlns:pubchem="http://www.ncbi.nlm.nih.gov">
+    <name dictRef="pubchem:cid">84691</name>
+    <atomArray>
+      <atom id="a1" elementType="Pt" formalCharge="2" x2="0.866025447845459" y2="1.6800000667572" />
+      <atom id="a2" elementType="Cl" formalCharge="-1" x2="1.7320508956909" y2="2.1800000667572" />
+      <atom id="a3" elementType="Cl" formalCharge="-1" x2="0.0" y2="2.1800000667572" />
+      <atom id="a4" elementType="N" x2="4.2689867019653" y2="0.620000004768372" />
+      <atom id="a5" elementType="N" x2="4.2689867019653" y2="3.5499999523163" />
+      <atom id="a6" elementType="H" x2="4.8059225082397" y2="0.930000007152557" />
+      <atom id="a7" elementType="H" x2="3.7320508956909" y2="0.930000007152557" />
+      <atom id="a8" elementType="H" x2="4.2689867019653" y2="0.0" />
+      <atom id="a9" elementType="H" x2="4.8059225082397" y2="3.8599998950958" />
+      <atom id="a10" elementType="H" x2="3.7320508956909" y2="3.8599998950958" />
+      <atom id="a11" elementType="H" x2="4.2689867019653" y2="2.9300000667572" />
+    </atomArray>
+    <bondArray>
+      <bond atomRefs2="a4 a6" order="S" id="a4_a6"  />
+      <bond atomRefs2="a4 a7" order="S" id="a4_a7"  />
+      <bond atomRefs2="a4 a8" order="S" id="a4_a8"  />
+      <bond atomRefs2="a5 a9" order="S" id="a5_a9"  />
+      <bond atomRefs2="a5 a10" order="S" id="a5_a10"  />
+      <bond atomRefs2="a5 a11" order="S" id="a5_a11"  />
+    </bondArray>
+    <name dictRef="pubchem:Allowed">ammonia; platinum(2+); dichloride</name>
+    <name dictRef="nameDict:cas">ammonia; platinum(2+); dichloride</name>
+    <name dictRef="pubchem:Preferred">azane; platinum(2+); dichloride</name>
+    <name dictRef="nameDict:systematic">azane; platinum(2+); dichloride</name>
+    <name dictRef="pubchem:Traditional">ammonia; platinum(2+); dichloride</name>
+    <formula convention="pubchem:formula" inline="Cl2H6N2Pt" concise="H 6 Cl 2 N 2 Pt 1" />
+    <formula convention="pubchem:CanonicalSmiles" inline="N.N.[Cl-].[Cl-].[Pt+2]" concise="H 6 Cl 2 N 2 Pt 1" />
+    <formula convention="pubchem:IsomericSmiles" inline="N.N.[Cl-].[Cl-].[Pt+2]" concise="H 6 Cl 2 N 2 Pt 1" />
+  </molecule>
+</cml>

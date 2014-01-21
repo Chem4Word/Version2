@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<cml convention="conventions:molecular" xmlns="http://www.xml-cml.org/schema" xmlns:conventions="http://www.xml-cml.org/convention/" xmlns:nameDict="http://www.xml-cml.org/dictionary/cml/name/">
+  <molecule id="m6093213" formalCharge="0" spinMultiplicity="1" xmlns:pubchem="http://www.ncbi.nlm.nih.gov">
+    <name dictRef="pubchem:cid">6093213</name>
+    <atomArray>
+      <atom id="a1" elementType="K" formalCharge="1" x2="2.0" y2="0.25" />
+      <atom id="a2" elementType="O" formalCharge="-1" x2="2.8660254478455" y2="-0.25" />
+      <atom id="a3" elementType="H" x2="3.4029612541199" y2="0.0599999986588955" />
+    </atomArray>
+    <bondArray>
+      <bond atomRefs2="a2 a3" order="S" id="a2_a3"  />
+    </bondArray>
+    <name dictRef="pubchem:Allowed">potassium hydroxide</name>
+    <name dictRef="nameDict:cas">potassium hydroxide</name>
+    <name dictRef="pubchem:Preferred">potassium hydroxide</name>
+    <name dictRef="nameDict:systematic">potassium hydroxide</name>
+    <name dictRef="pubchem:Traditional">potassium hydroxide</name>
+    <formula convention="pubchem:formula" inline="HKO" concise="H 1 K 1 O 1" />
+    <formula convention="pubchem:CanonicalSmiles" inline="[OH-].[K+]" concise="H 1 K 1 O 1" />
+    <formula convention="pubchem:IsomericSmiles" inline="[OH-].[K+]" concise="H 1 K 1 O 1" />
+  </molecule>
+</cml>
