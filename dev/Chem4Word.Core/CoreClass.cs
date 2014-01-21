@@ -820,13 +820,15 @@ namespace Chem4Word.Core {
                 ChemDoodleEditorForm tcd = new ChemDoodleEditorForm();
 
                 #region Convert cml to JSON
+                Log.Debug("Converting CML to JSON");
                 tcd.Before_CML = selectedZone.Cml.ToString();
                 //tcd.Before_JSON = Chem4Word.UI.Converters.Cml.ToJson(selectedZone.Cml.ToString());
                 string normal = Chem4Word.UI.Converters.Cml.ToJson(selectedZone.Cml.ToString());
                 string inverted = Chem4Word.UI.Converters.Json.InvertY(normal);
                 tcd.Before_JSON = inverted;
                 #endregion
-                
+
+                Log.Debug("Opening Editor");
                 System.Windows.Forms.DialogResult chemEditorResult = tcd.ShowDialog();
                 
                 #endregion
@@ -834,6 +836,7 @@ namespace Chem4Word.Core {
                 if (chemEditorResult == System.Windows.Forms.DialogResult.OK)
                 {
                     #region Convert JSON to cml
+                    Log.Debug("Converting JSON to CML");
                     //tcd.After_CML = Chem4Word.UI.Converters.Json.ToCML(tcd.After_JSON);
                     inverted = tcd.After_JSON;
                     normal = Chem4Word.UI.Converters.Json.InvertY(inverted);
@@ -841,6 +844,7 @@ namespace Chem4Word.Core {
                     #endregion
 
                     #region Copy labels to new cml
+                    Log.Debug("Copy labels to new CML");
                     XmlDocument docBefore = new XmlDocument();
                     docBefore.LoadXml(selectedZone.Cml.ToString());
                     XmlNamespaceManager nsmgr1 = new XmlNamespaceManager(docBefore.NameTable);
@@ -904,7 +908,9 @@ namespace Chem4Word.Core {
                                     if (node.Name.EndsWith(CmlFormula.Tag) && att.Name.Equals(CmlAttribute.Concise))
                                     {
                                         beforeConsiseFormula = att.Value;
+                                        Log.Debug("Before Concise Formula: " + beforeConsiseFormula);
                                         e.SetAttribute(att.Name, afterConciseFormula);
+                                        Log.Debug("After Concise Formula: " + afterConciseFormula);
                                     }
                                     else
                                     {
@@ -918,6 +924,7 @@ namespace Chem4Word.Core {
                     #endregion
 
                     #region Get Inchi-Keys from Chem Spider
+                    Log.Debug("Get Inchi-Keys from Chem Spider");
                     if (string.IsNullOrEmpty(beforeInchiKey))
                     {
                         beforeInchiKey = GetInchiKey(tcd.Before_MolFile);
@@ -926,6 +933,7 @@ namespace Chem4Word.Core {
                     #endregion
 
                     #region Get Synonym from ChemSpider
+                    Log.Debug("Get Synonym from Chem Spider");
                     string afterSynonym = GetSynonymFromChemSpider(afterInchiKey);
 
                     #endregion
@@ -1017,7 +1025,8 @@ namespace Chem4Word.Core {
             }
             catch (Exception ex)
             {
-                throw new NumboException("Error in TweakDoodle:\n" + ex.Message, ex);
+                throw new NumboException("Error in TweakDoodle2D:\n" + ex.Message, ex);
+                Log.Error("Error in TweakDoodle2D", ex);
             }
             finally
             {
@@ -1034,6 +1043,7 @@ namespace Chem4Word.Core {
 
             if (!string.IsNullOrEmpty(afterInchiKey))
             {
+                Log.Debug("Getting Chemspider RDF Page");
                 string url = "http://rdf.chemspider.com/" + afterInchiKey;
                 HttpWebRequest request = WebRequest.Create(url) as HttpWebRequest;
                 request.Timeout = 30000;
@@ -1062,6 +1072,7 @@ namespace Chem4Word.Core {
                                     {
                                         result = reader.ReadInnerXml();
                                         //System.Diagnostics.Debug.WriteLine("Found Synonym: " + result);
+                                        Log.Debug("Found Synonym: " + result);
                                         break;
                                     }
                                 }
@@ -1071,6 +1082,7 @@ namespace Chem4Word.Core {
                     else
                     {
                         System.Diagnostics.Debug.WriteLine("Error - Status code: " + response.StatusCode);
+                        Log.Debug("Chemspider RDF Page - Error - Status code: " + response.StatusCode);
                     }
                 }
                 catch (Exception ex)
@@ -1078,11 +1090,13 @@ namespace Chem4Word.Core {
                     if (ex.Message.Contains("404"))
                     {
                         result = "Not Found";
+                        Log.Debug("Chemspider RDF Page - Exception - " + ex.Message);
                     }
                     else
                     {
+                        Log.Debug("Chemspider RDF Page - Exception - " + ex.Message);
                         System.Diagnostics.Debug.WriteLine("Exception - " + ex.Message);
-                        throw new NumboException("Error in GetSynonymFromChemSpider:\n" + ex.Message, ex);
+                        //throw new NumboException("Error in GetSynonymFromChemSpider:\n" + ex.Message, ex);
                     }
                 }
             }
@@ -1095,15 +1109,18 @@ namespace Chem4Word.Core {
             string result = null;
             try
             {
+                Log.Debug("Calling ChemSpider WebService");
                 com.chemspider.www.InChI i = new com.chemspider.www.InChI();
                 i.UserAgent = "Chem4Word";
                 i.Timeout = 500;
                 result = i.MolToInChIKey(molfile);
                 //System.Diagnostics.Debug.WriteLine("ChemSpider Result: " + result);
+                Log.Debug("ChemSpider Result: " + result);
             }
             catch
             {
                 System.Diagnostics.Debug.WriteLine("ChemSpider Timeout");
+                Log.Debug("ChemSpider Timeout");
             }
             return result;
         }
