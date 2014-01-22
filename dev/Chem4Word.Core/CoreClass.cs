@@ -864,7 +864,7 @@ namespace Chem4Word.Core {
                     string afterConciseFormula = CmlFormula.CalculateConciseFormula(molecule);
                     string beforeInchiKey = "";
                     string afterInchiKey = "";
-                    string beforeSynonym = "";
+                    string beforeSynonym = "Unknown";
 
                     // Copy molecule attributes
                     foreach (System.Xml.XmlAttribute att in beforeMolecule.Attributes)
@@ -933,33 +933,39 @@ namespace Chem4Word.Core {
                     #endregion
 
                     #region Get Synonym from ChemSpider
-                    Log.Debug("Get Synonym from Chem Spider");
+                    Log.Debug("Get Synonym from ChemSpider");
                     string afterSynonym = GetSynonymFromChemSpider(afterInchiKey);
-
                     #endregion
 
-                    #region Save New Inchi-Key
-                    if (inchiKeyElement == null)
+                    #region Save New Inchi-Key (if found)
+                    if (afterInchiKey != null)
                     {
-                        inchiKeyElement = docAfter.CreateElement(CmlName.Tag, "http://www.xml-cml.org/schema");
-                        inchiKeyElement.SetAttribute(CmlAttribute.DictRef, "nameDict:inchikey");
+                        if (inchiKeyElement == null)
+                        {
+                            inchiKeyElement = docAfter.CreateElement(CmlName.Tag, "http://www.xml-cml.org/schema");
+                            inchiKeyElement.SetAttribute(CmlAttribute.DictRef, "nameDict:inchikey");
+                        }
+                        inchiKeyElement.InnerText = afterInchiKey;
+                        afterMolecule.AppendChild(inchiKeyElement);
                     }
-                    inchiKeyElement.InnerText = afterInchiKey;
-                    afterMolecule.AppendChild(inchiKeyElement);
-                    if (chemSpiderSynonymElement == null)
+
+                    if (afterSynonym != null)
                     {
-                        chemSpiderSynonymElement = docAfter.CreateElement(CmlName.Tag, "http://www.xml-cml.org/schema");
-                        chemSpiderSynonymElement.SetAttribute(CmlAttribute.DictRef, "nameDict:chemspider");
+                        if (chemSpiderSynonymElement == null)
+                        {
+                            chemSpiderSynonymElement = docAfter.CreateElement(CmlName.Tag, "http://www.xml-cml.org/schema");
+                            chemSpiderSynonymElement.SetAttribute(CmlAttribute.DictRef, "nameDict:chemspider");
+                        }
+                        if (!string.IsNullOrEmpty(afterSynonym))
+                        {
+                            chemSpiderSynonymElement.InnerText = afterSynonym;
+                        }
+                        else
+                        {
+                            chemSpiderSynonymElement.InnerText = beforeSynonym;
+                        }
+                        afterMolecule.AppendChild(chemSpiderSynonymElement);
                     }
-                    if (!string.IsNullOrEmpty(afterSynonym))
-                    {
-                        chemSpiderSynonymElement.InnerText = afterSynonym;
-                    }
-                    else
-                    {
-                        chemSpiderSynonymElement.InnerText = beforeSynonym;
-                    }
-                    afterMolecule.AppendChild(chemSpiderSynonymElement);
                     #endregion
 
                     // Detect if molecule has changed and we need to show Label editor
@@ -969,10 +975,14 @@ namespace Chem4Word.Core {
                         // Consise formula has changed
                         showLabelEditor = true;
                     }
-                    if (!beforeInchiKey.Equals(afterInchiKey))
+
+                    if (beforeInchiKey != null && afterInchiKey != null)
                     {
-                        // Inchi-Key has changed;
-                        showLabelEditor = true;
+                        if (!beforeInchiKey.Equals(afterInchiKey))
+                        {
+                            // Inchi-Key has changed;
+                            showLabelEditor = true;
+                        }
                     }
 
                     if (showLabelEditor)
@@ -1087,16 +1097,10 @@ namespace Chem4Word.Core {
                 }
                 catch (Exception ex)
                 {
+                    Log.Error("Chemspider RDF Page - Exception - " + ex.Message);
                     if (ex.Message.Contains("404"))
                     {
                         result = "Not Found";
-                        Log.Debug("Chemspider RDF Page - Exception - " + ex.Message);
-                    }
-                    else
-                    {
-                        Log.Debug("Chemspider RDF Page - Exception - " + ex.Message);
-                        System.Diagnostics.Debug.WriteLine("Exception - " + ex.Message);
-                        //throw new NumboException("Error in GetSynonymFromChemSpider:\n" + ex.Message, ex);
                     }
                 }
             }
@@ -1117,10 +1121,10 @@ namespace Chem4Word.Core {
                 //System.Diagnostics.Debug.WriteLine("ChemSpider Result: " + result);
                 Log.Debug("ChemSpider Result: " + result);
             }
-            catch
+            catch (Exception ex)
             {
-                System.Diagnostics.Debug.WriteLine("ChemSpider Timeout");
-                Log.Debug("ChemSpider Timeout");
+                System.Diagnostics.Debug.WriteLine("GetInchiKey() - Exception - " + ex.Message);
+                Log.Error("GetInchiKey() - Exception - " + ex.Message);
             }
             return result;
         }
