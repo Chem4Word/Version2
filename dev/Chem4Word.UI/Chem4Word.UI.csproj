@@ -579,7 +579,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Resources\ChemDoodle\Chem4Word.css" />
-    <Content Include="Resources\ChemDoodle\HotLink-Latest.htm" />
+    <Content Include="Resources\ChemDoodle\HotLink-V5.2.3.htm" />
+    <Content Include="Resources\ChemDoodle\HotLink-V6.0.0.htm" />
     <Resource Include="Resources\ChemDoodle\ChemDoodleBadge.png" />
   </ItemGroup>
   <ItemGroup>
