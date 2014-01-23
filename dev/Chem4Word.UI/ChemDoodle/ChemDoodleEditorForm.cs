@@ -16,7 +16,7 @@ namespace Chem4Word.UI.ChemDoodle
 {
     public partial class ChemDoodleEditorForm : Form
     {
-        private string ms_AppTitle = "Chem4Word Editor Using ChemDoodle Web V";
+        private string ms_AppTitle = "Chem4Word Editor Powered By ChemDoodle Web V";
 
         public string Before_CML { get; set; }
         public string Before_MolFile { get; set; }
@@ -38,7 +38,9 @@ namespace Chem4Word.UI.ChemDoodle
             string temp = Path.GetTempPath();
             //temp = @"C:\Temp";
             string cssfile = Properties.Resources.Chem4Word_css;
-            string htmlfile = Properties.Resources.HotLink_Latest_html;
+
+            //string htmlfile = Properties.Resources.HotLink_V523_html;
+            string htmlfile = Properties.Resources.HotLink_V600_html;
 
             File.WriteAllText(Path.Combine(temp, "Chem4Word.css"), cssfile);
             File.WriteAllText(Path.Combine(temp, "Editor.html"), htmlfile);

@@ -1053,14 +1053,15 @@ namespace Chem4Word.Core {
 
             if (!string.IsNullOrEmpty(afterInchiKey))
             {
-                Log.Debug("Getting Chemspider RDF Page");
-                string url = "http://rdf.chemspider.com/" + afterInchiKey;
-                HttpWebRequest request = WebRequest.Create(url) as HttpWebRequest;
-                request.Timeout = 30000;
-                request.UserAgent = "Chem4Word";
-                HttpWebResponse response;
                 try
                 {
+                    Log.Debug("Getting Chemspider RDF Page");
+                    string url = "http://rdf.chemspider.com/" + afterInchiKey;
+                    HttpWebRequest request = WebRequest.Create(url) as HttpWebRequest;
+                    request.Timeout = 30000;
+                    request.UserAgent = "Chem4Word";
+                    HttpWebResponse response;
+
                     response = (HttpWebResponse)request.GetResponse();
                     if (HttpStatusCode.OK.Equals(response.StatusCode))
                     {
@@ -1081,7 +1082,7 @@ namespace Chem4Word.Core {
                                     if (reader.Name.Equals("chemdomain:hasValue"))
                                     {
                                         result = reader.ReadInnerXml();
-                                        //System.Diagnostics.Debug.WriteLine("Found Synonym: " + result);
+                                        System.Diagnostics.Debug.WriteLine("Found Synonym: " + result);
                                         Log.Debug("Found Synonym: " + result);
                                         break;
                                     }
@@ -1118,7 +1119,7 @@ namespace Chem4Word.Core {
                 i.UserAgent = "Chem4Word";
                 i.Timeout = 500;
                 result = i.MolToInChIKey(molfile);
-                //System.Diagnostics.Debug.WriteLine("ChemSpider Result: " + result);
+                System.Diagnostics.Debug.WriteLine("ChemSpider Result: " + result);
                 Log.Debug("ChemSpider Result: " + result);
             }
             catch (Exception ex)

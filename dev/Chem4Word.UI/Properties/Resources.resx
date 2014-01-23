@@ -269,11 +269,14 @@
   <data name="pubchem2cml" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\pubchem2cml.xslt;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="Chem4Word_css" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\chemdoodle\chem4word.css;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
-  <data name="HotLink_Latest_html" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\chemdoodle\hotlink-latest.htm;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="HotLink_V523_html" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\chemdoodle\hotlink-v5.2.3.htm;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
+  <data name="HotLink_V600_html" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\chemdoodle\hotlink-v6.0.0.htm;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
 </root>
