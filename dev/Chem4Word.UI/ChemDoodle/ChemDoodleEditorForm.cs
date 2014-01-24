@@ -10,7 +10,9 @@ using System.Windows.Forms;
 using System.IO;
 using System.Reflection;
 using System.Resources;
+
 using Newtonsoft.Json.Linq;
+using Ionic.Zip;
 
 namespace Chem4Word.UI.ChemDoodle
 {
@@ -40,10 +42,19 @@ namespace Chem4Word.UI.ChemDoodle
             string cssfile = Properties.Resources.Chem4Word_css;
 
             //string htmlfile = Properties.Resources.HotLink_V523_html;
-            string htmlfile = Properties.Resources.HotLink_V600_html;
+            //string htmlfile = Properties.Resources.HotLink_V600_html;
+            string htmlfile = Properties.Resources.Offline_html;
 
             File.WriteAllText(Path.Combine(temp, "Chem4Word.css"), cssfile);
             File.WriteAllText(Path.Combine(temp, "Editor.html"), htmlfile);
+
+            Byte[] bytes = Properties.Resources.ChemDoodleWeb_zip;
+            Stream stream = new MemoryStream(bytes);
+
+            using (ZipFile zip = ZipFile.Read(stream))
+            {
+                zip.ExtractAll(temp, ExtractExistingFileAction.OverwriteSilently);
+            }
 
             browser.Navigate(Path.Combine(temp, "Editor.html"));
 
