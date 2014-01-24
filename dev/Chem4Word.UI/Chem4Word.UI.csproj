@@ -110,21 +110,21 @@
     <Compile Include="BoldNumberOrganiser\EditSetRemoveBoldNumberLabelControl.xaml.cs">
       <DependentUpon>EditSetRemoveBoldNumberLabelControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ManageView\Commands\ChemCommands.cs" />
+    <Compile Include="Commands\ChemCommands.cs" />
     <Compile Include="CmlViewer\Viewer.xaml.cs">
       <DependentUpon>Viewer.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ManageView\Converters\BackgroundConverter.cs" />
-    <Compile Include="ManageView\Converters\BooleanToOpacityConverter.cs" />
-    <Compile Include="ManageView\Converters\Cml.cs" />
-    <Compile Include="ManageView\Converters\DrawingModeToBooleanConverter.cs" />
-    <Compile Include="ManageView\Converters\HasImageAndIsExpandedToVisibilityConverter.cs" />
-    <Compile Include="ManageView\Converters\IsMouseOverHasImageToVisibilityConverter.cs" />
-    <Compile Include="ManageView\Converters\Json.cs" />
-    <Compile Include="ManageView\Converters\NullOrEmptyStringToBooleanConverter.cs" />
-    <Compile Include="ManageView\Converters\NullToBooleanConverter.cs" />
-    <Compile Include="ManageView\Converters\ObservableCollectionToBooleanConverter.cs" />
-    <Compile Include="ManageView\Converters\PrettyXmlConverter.cs" />
+    <Compile Include="Converters\BackgroundConverter.cs" />
+    <Compile Include="Converters\BooleanToOpacityConverter.cs" />
+    <Compile Include="Converters\Cml.cs" />
+    <Compile Include="Converters\DrawingModeToBooleanConverter.cs" />
+    <Compile Include="Converters\HasImageAndIsExpandedToVisibilityConverter.cs" />
+    <Compile Include="Converters\IsMouseOverHasImageToVisibilityConverter.cs" />
+    <Compile Include="Converters\Json.cs" />
+    <Compile Include="Converters\NullOrEmptyStringToBooleanConverter.cs" />
+    <Compile Include="Converters\NullToBooleanConverter.cs" />
+    <Compile Include="Converters\ObservableCollectionToBooleanConverter.cs" />
+    <Compile Include="Converters\PrettyXmlConverter.cs" />
     <Compile Include="DocumentHostControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
