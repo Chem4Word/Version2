@@ -49,6 +49,9 @@
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Ionic.Zip">
+      <HintPath>..\Libs\Ionic.Zip.dll</HintPath>
+    </Reference>
     <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=1b44e1d426115821, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\log4net.dll</HintPath>
@@ -107,21 +110,21 @@
     <Compile Include="BoldNumberOrganiser\EditSetRemoveBoldNumberLabelControl.xaml.cs">
       <DependentUpon>EditSetRemoveBoldNumberLabelControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Commands\ChemCommands.cs" />
+    <Compile Include="ManageView\Commands\ChemCommands.cs" />
     <Compile Include="CmlViewer\Viewer.xaml.cs">
       <DependentUpon>Viewer.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Converters\BackgroundConverter.cs" />
-    <Compile Include="Converters\BooleanToOpacityConverter.cs" />
-    <Compile Include="Converters\Cml.cs" />
-    <Compile Include="Converters\DrawingModeToBooleanConverter.cs" />
-    <Compile Include="Converters\HasImageAndIsExpandedToVisibilityConverter.cs" />
-    <Compile Include="Converters\IsMouseOverHasImageToVisibilityConverter.cs" />
-    <Compile Include="Converters\Json.cs" />
-    <Compile Include="Converters\NullOrEmptyStringToBooleanConverter.cs" />
-    <Compile Include="Converters\NullToBooleanConverter.cs" />
-    <Compile Include="Converters\ObservableCollectionToBooleanConverter.cs" />
-    <Compile Include="Converters\PrettyXmlConverter.cs" />
+    <Compile Include="ManageView\Converters\BackgroundConverter.cs" />
+    <Compile Include="ManageView\Converters\BooleanToOpacityConverter.cs" />
+    <Compile Include="ManageView\Converters\Cml.cs" />
+    <Compile Include="ManageView\Converters\DrawingModeToBooleanConverter.cs" />
+    <Compile Include="ManageView\Converters\HasImageAndIsExpandedToVisibilityConverter.cs" />
+    <Compile Include="ManageView\Converters\IsMouseOverHasImageToVisibilityConverter.cs" />
+    <Compile Include="ManageView\Converters\Json.cs" />
+    <Compile Include="ManageView\Converters\NullOrEmptyStringToBooleanConverter.cs" />
+    <Compile Include="ManageView\Converters\NullToBooleanConverter.cs" />
+    <Compile Include="ManageView\Converters\ObservableCollectionToBooleanConverter.cs" />
+    <Compile Include="ManageView\Converters\PrettyXmlConverter.cs" />
     <Compile Include="DocumentHostControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -309,6 +312,7 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <None Include="Resources\ChemDoodle\ChemDoodleWeb.zip" />
     <None Include="Resources\cmllite.xslt" />
     <None Include="Resources\CMLSchema.xsd" />
   </ItemGroup>
@@ -581,6 +585,7 @@
     <Content Include="Resources\ChemDoodle\Chem4Word.css" />
     <Content Include="Resources\ChemDoodle\HotLink-V5.2.3.htm" />
     <Content Include="Resources\ChemDoodle\HotLink-V6.0.0.htm" />
+    <Content Include="Resources\ChemDoodle\Offline.htm" />
     <Resource Include="Resources\ChemDoodle\ChemDoodleBadge.png" />
   </ItemGroup>
   <ItemGroup>

@@ -1,11 +1,3 @@
 #sketcher_button_open, #sketcher_button_save {
 	display:none;
 }
-
-a.small-button { padding-right: 17px; height: 32px; float: left; display: block; font: 14px Arial,sans-serif; color: #ffffff !important; margin: 8px 0px; text-shadow: 1px 1px 1px rgba(0,0,0,0.3) !important; text-decoration: none; }
-a.small-button:hover { text-decoration: none; color: #eeeeee !important; }
-a.small-button span { height: 32px; display: block; line-height: 30px; padding: 0px 0px 0px 17px; }
-
-a.smallblue { background: url(small-button-blue.png) no-repeat bottom right; }
-a.smallblue span { background: url(small-button-blue.png) no-repeat; }
-

@@ -173,16 +173,21 @@ namespace Chem4Word.UI.Properties {
         ///   Looks up a localized string similar to #sketcher_button_open, #sketcher_button_save {
         ///	display:none;
         ///}
-        ///
-        ///a.small-button { padding-right: 17px; height: 32px; float: left; display: block; font: 14px Arial,sans-serif; color: #ffffff !important; margin: 8px 0px; text-shadow: 1px 1px 1px rgba(0,0,0,0.3) !important; text-decoration: none; }
-        ///a.small-button:hover { text-decoration: none; color: #eeeeee !important; }
-        ///a.small-button span { height: 32px; display: block; line-height: 30px; padding: 0px 0px 0px 17px; }
-        ///
-        ///a.smallblue { background: url(s [rest of string was truncated]&quot;;.
+        ///.
         /// </summary>
         public static string Chem4Word_css {
             get {
                 return ResourceManager.GetString("Chem4Word_css", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        public static byte[] ChemDoodleWeb_zip {
+            get {
+                object obj = ResourceManager.GetObject("ChemDoodleWeb_zip", resourceCulture);
+                return ((byte[])(obj));
             }
         }
         
@@ -436,15 +441,36 @@ namespace Chem4Word.UI.Properties {
         ///	&lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;IE=9&quot; /&gt;
         ///	
         ///    &lt;!-- http://hub.chemdoodle.com/cwc/latest --&gt;
-        ///    &lt;!-- http://hub.chemdoodle.com/cwc/5.2.3 --&gt;
+        ///    &lt;!-- http://hub.chemdoodle.com/cwc/6.0.0 --&gt;
         ///
-        ///    &lt;!-- these four are required by the ChemDoodle Web Components library --&gt;
-        ///	&lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;chrome=1&quot; /&gt;
-        ///	&lt;link rel=&quot;stylesheet&quot; href=&quot;http://hub.chem [rest of string was truncated]&quot;;.
+        ///    &lt;!--these three are required by the ChemDoodle Web Components library--&gt;
+        ///    &lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;chrome=1&quot;&gt;
+        ///    &lt;link rel=&quot;stylesheet&quot; href=&quot;http://hub.c [rest of string was truncated]&quot;;.
         /// </summary>
         public static string HotLink_V600_html {
             get {
                 return ResourceManager.GetString("HotLink_V600_html", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;!DOCTYPE html&gt;
+        ///&lt;html&gt;
+        ///  &lt;head&gt;
+        ///    &lt;!-- Add Mark Of The Web --&gt;
+        ///    &lt;!-- saved from url=(0014)about:internet --&gt;
+        ///
+        ///	&lt;!-- Make .Net WebBrowser component work --&gt;
+        ///	&lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;IE=9&quot; /&gt;
+        ///	
+        ///    &lt;!--these three are required by the ChemDoodle Web Components library--&gt;
+        ///    &lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;chrome=1&quot;&gt;
+        ///    &lt;link rel=&quot;stylesheet&quot; href=&quot;ChemDoodleWeb/ChemDoodleWeb.css&quot; type=&quot;text/css&quot;&gt;
+        ///    &lt;script type=&quot;text/javascript&quot; src=&quot;ChemDoodleWeb/ChemDoodle [rest of string was truncated]&quot;;.
+        /// </summary>
+        public static string Offline_html {
+            get {
+                return ResourceManager.GetString("Offline_html", resourceCulture);
             }
         }
         
