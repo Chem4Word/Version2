@@ -173,6 +173,9 @@ namespace Chem4Word.UI.Converters
                 case "S":
                     temp = "1";
                     break;
+                case "A":
+                    temp = "1.5";
+                    break;
                 case "D":
                     temp = "2";
                     break;

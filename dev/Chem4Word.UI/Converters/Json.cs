@@ -176,6 +176,9 @@ namespace Chem4Word.UI.Converters
                 case "1.0":
                     result = "S";
                     break;
+                case "1.5":
+                    result = "A";
+                    break;
                 case "2":
                 case "2.0":
                     result = "D";
