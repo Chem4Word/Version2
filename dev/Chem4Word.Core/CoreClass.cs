@@ -822,7 +822,6 @@ namespace Chem4Word.Core {
                 #region Convert cml to JSON
                 Log.Debug("Converting CML to JSON");
                 tcd.Before_CML = selectedZone.Cml.ToString();
-                //tcd.Before_JSON = Chem4Word.UI.Converters.Cml.ToJson(selectedZone.Cml.ToString());
                 string normal = Chem4Word.UI.Converters.Cml.ToJson(selectedZone.Cml.ToString());
                 string inverted = Chem4Word.UI.Converters.Json.InvertY(normal);
                 tcd.Before_JSON = inverted;
@@ -859,9 +858,8 @@ namespace Chem4Word.Core {
                     System.Xml.XmlNode afterMolecule = docAfter.SelectSingleNode("//cml:molecule", nsmgr2);
 
                     XDocument doc = XDocument.Parse(docAfter.InnerXml);
-                    CmlMolecule molecule = CmlUtils.GetFirstDescendentMolecule(doc);
-                    string beforeConsiseFormula = "";
-                    string afterConciseFormula = CmlFormula.CalculateConciseFormula(molecule);
+                    string beforeConsiseFormula = tcd.Before_Formula;
+                    string afterConciseFormula = tcd.After_Formula;
                     string beforeInchiKey = "";
                     string afterInchiKey = "";
                     string beforeSynonym = "Unknown";

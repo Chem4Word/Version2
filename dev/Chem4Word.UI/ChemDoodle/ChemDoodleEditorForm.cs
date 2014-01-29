@@ -18,15 +18,17 @@ namespace Chem4Word.UI.ChemDoodle
 {
     public partial class ChemDoodleEditorForm : Form
     {
-        private string ms_AppTitle = "Chem4Word Editor Powered By ChemDoodle Web V";
+        private string ms_AppTitle = "Chem4Word Editor; Powered By ChemDoodle Web V";
 
         public string Before_CML { get; set; }
         public string Before_MolFile { get; set; }
         public string Before_JSON { get; set; }
+        public string Before_Formula { get; set; }
 
         public string After_CML { get; set; }
         public string After_MolFile { get; set; }
         public string After_JSON { get; set; }
+        public string After_Formula { get; set; }
 
         public ChemDoodleEditorForm()
         {
@@ -68,12 +70,14 @@ namespace Chem4Word.UI.ChemDoodle
 
             ExecuteJavaScript("SetJSON", Before_JSON, 25);
 
-            object mol = null;
-            string temp = null;
+            object obj = null;
 
-            mol = ExecuteJavaScript("GetMolFile");
-            temp = mol.ToString();
-            Before_MolFile = temp;
+            obj = ExecuteJavaScript("GetMolFile");
+            Before_MolFile = obj.ToString();
+
+            obj = ExecuteJavaScript("GetFormula");
+            Before_Formula = obj.ToString();
+
         }
 
         private object ExecuteJavaScript(string p_FunctionName, params object[] p_Args)
@@ -83,18 +87,18 @@ namespace Chem4Word.UI.ChemDoodle
 
         private void btnOk_Click(object sender, EventArgs e)
         {
-            object mol = null;
-            string temp = null;
+            object obj = null;
 
             // Get molfile first as GetJSON set scale
-            mol = ExecuteJavaScript("GetMolFile");
-            temp = mol.ToString();
-            After_MolFile = temp;
+            obj = ExecuteJavaScript("GetMolFile");
+            After_MolFile = obj.ToString();
 
-            mol = ExecuteJavaScript("GetJSON");
-            temp = mol.ToString();
-            JToken molJson = JObject.Parse(temp);
+            obj = ExecuteJavaScript("GetJSON");
+            JToken molJson = JObject.Parse(obj.ToString());
             After_JSON = molJson.ToString();
+
+            obj = ExecuteJavaScript("GetFormula");
+            After_Formula = obj.ToString();
 
             DialogResult = System.Windows.Forms.DialogResult.OK;
         }
