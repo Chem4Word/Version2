@@ -18,7 +18,7 @@ namespace Chem4Word.UI.ChemDoodle
 {
     public partial class ChemDoodleEditorForm : Form
     {
-        private string ms_AppTitle = "Chem4Word Editor; Powered By ChemDoodle Web V";
+        private string ms_AppTitle = "Chem4Word Editor - Powered By ChemDoodle Web V";
 
         public string Before_CML { get; set; }
         public string Before_MolFile { get; set; }
@@ -41,13 +41,14 @@ namespace Chem4Word.UI.ChemDoodle
 
             string temp = Path.GetTempPath();
             //temp = @"C:\Temp";
+
             string cssfile = Properties.Resources.Chem4Word_css;
-
-            //string htmlfile = Properties.Resources.HotLink_V523_html;
-            //string htmlfile = Properties.Resources.HotLink_V600_html;
-            string htmlfile = Properties.Resources.Offline_html;
-
             File.WriteAllText(Path.Combine(temp, "Chem4Word.css"), cssfile);
+
+            string jsfile = Properties.Resources.Chem4Word_js;
+            File.WriteAllText(Path.Combine(temp, "Chem4Word.js"), jsfile);
+
+            string htmlfile = Properties.Resources.Offline_html;
             File.WriteAllText(Path.Combine(temp, "Editor.html"), htmlfile);
 
             Byte[] bytes = Properties.Resources.ChemDoodleWeb_zip;
@@ -59,8 +60,6 @@ namespace Chem4Word.UI.ChemDoodle
             }
 
             browser.Navigate(Path.Combine(temp, "Editor.html"));
-
-            //DialogResult = System.Windows.Forms.DialogResult.Cancel;
         }
 
         private void browser_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
@@ -68,6 +67,7 @@ namespace Chem4Word.UI.ChemDoodle
             Cursor.Current = Cursors.Default;
             this.Text = ms_AppTitle + ExecuteJavaScript("GetVersion");
 
+            // Send JSON to ChemDoodle
             ExecuteJavaScript("SetJSON", Before_JSON, 25);
 
             object obj = null;
@@ -77,7 +77,6 @@ namespace Chem4Word.UI.ChemDoodle
 
             obj = ExecuteJavaScript("GetFormula");
             Before_Formula = obj.ToString();
-
         }
 
         private object ExecuteJavaScript(string p_FunctionName, params object[] p_Args)
@@ -89,16 +88,16 @@ namespace Chem4Word.UI.ChemDoodle
         {
             object obj = null;
 
-            // Get molfile first as GetJSON set scale
+            obj = ExecuteJavaScript("GetFormula");
+            After_Formula = obj.ToString();
+
+            // Get molfile first as GetJSON sets scale
             obj = ExecuteJavaScript("GetMolFile");
             After_MolFile = obj.ToString();
 
             obj = ExecuteJavaScript("GetJSON");
             JToken molJson = JObject.Parse(obj.ToString());
             After_JSON = molJson.ToString();
-
-            obj = ExecuteJavaScript("GetFormula");
-            After_Formula = obj.ToString();
 
             DialogResult = System.Windows.Forms.DialogResult.OK;
         }

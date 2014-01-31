@@ -20,3 +20,20 @@ Website:      http://logging.apache.org/log4net/index.html
 Copyright:    Copyright (c) 2007 Apache Software Foundation
 License:      Apache Software Foundation License 2.0
 
+ChemDoodle
+-----
+Website:      http://logging.apache.org/log4net/index.html
+Copyright:    Copyright (c) 2008-2014 iChemLabs, LLC. All rights reserved. 
+License:      GNU GENERAL PUBLIC LICENSE Versin 3 (+ Exception see http://web.chemdoodle.com/installation/license)
+
+Json.NET
+-----
+Website:      http://json.codeplex.com/
+Copyright:    Copyright (c) 2007 James Newton-King
+License:      The MIT License (MIT)
+
+DonNetZip Library
+-----
+Website:      http://dotnetzip.codeplex.com/
+Copyright:    Copyright (c) 2009-2011 Dino Chiesa and Microsoft Corporation.
+License:      Microsoft Public License (Ms-PL)

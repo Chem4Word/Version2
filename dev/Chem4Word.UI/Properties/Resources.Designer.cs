@@ -182,6 +182,32 @@ namespace Chem4Word.UI.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to function ShowMol(mol, length) {
+        ///    // Remove Explict Hydrogens
+        ///    var ded = new ChemDoodle.informatics.HydrogenDeducer();
+        ///    ded.removeHydrogens(mol);
+        ///    // Scale and display
+        ///    var len = parseInt(length);
+        ///    mol.scaleToAverageBondLength(len);
+        ///    sketcher.loadMolecule(mol);
+        ///}
+        ///
+        ///function SetMolFile(molFile, length) {
+        ///    var mol = ChemDoodle.readMOL(molFile);
+        ///    ShowMol(mol, length);
+        ///}
+        ///
+        ///function SetJSON(molFile, length) {
+        ///    var jsonMol = JSON.parse(molFile);
+        ///    var mol = new ChemDo [rest of string was truncated]&quot;;.
+        /// </summary>
+        public static string Chem4Word_js {
+            get {
+                return ResourceManager.GetString("Chem4Word_js", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
         public static byte[] ChemDoodleWeb_zip {
