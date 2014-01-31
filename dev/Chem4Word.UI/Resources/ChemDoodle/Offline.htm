@@ -16,8 +16,9 @@
     <link rel="stylesheet" href="ChemDoodleWeb/uis/jquery-ui-1.10.3.custom.css" type="text/css">
     <script type="text/javascript" src="ChemDoodleWeb/uis/ChemDoodleWeb-uis.js"></script>
     
-	<!-- Our CSS to hide unwanted buttons -->
+	<!-- Our files -->
 	<link rel="stylesheet" href="Chem4Word.css" type="text/css" />
+    <script type="text/javascript" src="Chem4Word.js"></script>
 
 	<title>ChemDoodle</title>
   </head>
@@ -27,141 +28,34 @@
 	<canvas id="sketcher"/>
 
 	<script type="text/javascript">
-		var X_OFFSET = 20;
-		var Y_OFFSET = 100;
+	    var X_OFFSET = 20;
+	    var Y_OFFSET = 100;
 
-		function resize_canvas(){
-			sketcher.resize(window.innerWidth - X_OFFSET, window.innerHeight - Y_OFFSET);
-		}
+	    function resize_canvas() {
+	        sketcher.resize(window.innerWidth - X_OFFSET, window.innerHeight - Y_OFFSET);
+	    }
 
-		function ShowMol(mol, length) {
-            // Remove Explict Hydrogens
-		    var ded = new ChemDoodle.informatics.HydrogenDeducer();
-		    ded.removeHydrogens(mol);
-            // Scale and display
-		    var len = parseInt(length);
-		    mol.scaleToAverageBondLength(len);
-		    sketcher.loadMolecule(mol);
-		}
+	    // Initialise ChemDoodle and Sketcher
 
+	    // changes the default JMol color of hydrogen to black so it appears on white backgrounds
+	    ChemDoodle.ELEMENT['H'].jmolColor = 'black';
+	    // darkens the default JMol color of sulphur so it appears on white backgrounds
+	    ChemDoodle.ELEMENT['S'].jmolColor = '#B9A130';
 
-		function SetMolFile(molFile, length) {
-		    var mol = ChemDoodle.readMOL(molFile);
-		    ShowMol(mol, length);
-		}
+	    // initializes the SketcherCanvas
+	    var sketcher = new ChemDoodle.SketcherCanvas('sketcher', window.innerWidth - X_OFFSET, window.innerHeight - Y_OFFSET, { useServices: false, oneMolecule: true, includeToolbar: true });
+	    // sets terminal carbon labels to display
+	    sketcher.specs.atoms_displayTerminalCarbonLabels_2D = true;
+	    // sets atom labels to be colored by JMol colors, which are easy to recognize
+	    sketcher.specs.atoms_useJMOLColors = true;
+	    // enables overlap clear widths, so that some depth is introduced to overlapping bonds
+	    sketcher.specs.bonds_clearOverlaps_2D = true;
+	    // sets the shape color to improve contrast when drawing figures
+	    sketcher.specs.shapes_color = 'c10000';
 
-		function SetJSON(molFile, length) {
-			var jsonMol = JSON.parse(molFile);
-			var mol = new ChemDoodle.io.JSONInterpreter().molFrom(jsonMol);
-			ShowMol(mol, length);
-        }
-
-		function ReScale(length) {
-		    var mol = sketcher.getMolecule();
-		    var len = parseInt(length);
-		    mol.scaleToAverageBondLength(len);
-		    sketcher.loadMolecule(mol);
-		    sketcher.center();
-		    sketcher.repaint();
-		}
-
-		function GetMolFile() {
-		    var mol = sketcher.getMolecule();
-			var molFile = new ChemDoodle.io.MOLInterpreter().write(mol);
-			return molFile;
-		}
-
-		function GetJSON() {
-		    var mol = sketcher.getMolecule();
-            // Re-Scale to 1.54 for Chem4Word rendering
-		    mol.scaleToAverageBondLength(1.54);
-			var jsonMol = new ChemDoodle.io.JSONInterpreter().molTo(mol);
-			var asString = JSON.stringify(jsonMol);
-			return asString;
-		}
-
-		function GetFormula() {
-
-		    function compare(a, b) {
-		        if (a.label < b.label)
-		            return -1;
-		        if (a.label > b.label)
-		            return 1;
-		        return 0;
-		    }
-
-		    var fatoms = [];
-		    fatoms.push({ label: 'C', freq: 0 });
-		    fatoms.push({ label: 'H', freq: 0 });
-
-		    var mol = sketcher.getMolecule();
-		    var atoms = mol.atoms;
-		    for (var i = 0, ii = atoms.length; i < ii; i++) {
-		        var found = false;
-		        for (var j = 0, jj = fatoms.length; j < jj; j++) {
-		            if (fatoms[j].label === atoms[i].label) {
-		                fatoms[j].freq += 1;
-		                found = true;
-		                break;
-		            }
-		        }
-		        if (!found) {
-		            fatoms.push({ label: atoms[i].label, freq: 1 });
-		        }
-		        fatoms[1].freq += atoms[i].getImplicitHydrogenCount();
-		    }
-
-		    // Generate Formula in Hill Notation
-		    var result = "";
-
-		    var others = [];
-		    for (var k = 0, kk = fatoms.length; k < kk; k++) {
-		        if (k < 2) {
-		            if (fatoms[k].freq > 0) {
-		                result += fatoms[k].label + " " + fatoms[k].freq + " ";
-		            }
-		        }
-		        else {
-		            others.push(fatoms[k]);
-		        }
-		    }
-
-		    others.sort(compare);
-
-		    for (var l = 0, ll = others.length; l < ll; l++) {
-		        result += others[l].label + " " + others[l].freq + " ";
-		    }
-
-		    return result.trim();
-		}
-
-		function GetVersion() {
-			return ChemDoodle.getVersion();
-		}
-
-		// Initialise ChemDoodle and Sketcher
-
-		// changes the default JMol color of hydrogen to black so it appears on white backgrounds
-		ChemDoodle.ELEMENT['H'].jmolColor = 'black';
-		// darkens the default JMol color of sulphur so it appears on white backgrounds
-		ChemDoodle.ELEMENT['S'].jmolColor = '#B9A130';
-
-		// initializes the SketcherCanvas
-		var sketcher = new ChemDoodle.SketcherCanvas('sketcher', window.innerWidth - X_OFFSET, window.innerHeight - Y_OFFSET, {useServices:false, oneMolecule:true, includeToolbar:true});
-		// sets terminal carbon labels to display
-		sketcher.specs.atoms_displayTerminalCarbonLabels_2D = true;
-		// sets atom labels to be colored by JMol colors, which are easy to recognize
-		sketcher.specs.atoms_useJMOLColors = true;
-		// enables overlap clear widths, so that some depth is introduced to overlapping bonds
-		sketcher.specs.bonds_clearOverlaps_2D = true;
-		// sets the shape color to improve contrast when drawing figures
-		sketcher.specs.shapes_color = 'c10000';
-
-		// because we do not load any content, we need to repaint the sketcher, otherwise we would just see an empty area with the toolbar
-		// however, you can instead use one of the Canvas.load... functions to pre-populate the canvas with content, then you don't need to call repaint
-		sketcher.repaint();
-		// Show Version Number
-		document.title = "ChemDoodle Web V" + ChemDoodle.getVersion();
+	    // because we do not load any content, we need to repaint the sketcher, otherwise we would just see an empty area with the toolbar
+	    // however, you can instead use one of the Canvas.load... functions to pre-populate the canvas with content, then you don't need to call repaint
+	    sketcher.repaint();
 	</script>
 
   </body>
