@@ -1,0 +1,29 @@
+Copyright (c) 2010, The Outercurve Foundation.
+This software is released under the Apache License 2.0 (the "License"); you may not use the software except in compliance with the License. You can find a copy of the License in the file LICENSE.TXT accompanying this file.
+
+Additional Libraries:
+This software includes or is derivative of works distributed under the licenses listed below. The full text for most of the licenses listed below can be found in the LICENSE.txt file accompanying each work. The original copyright notices have been preserved within the respective files and or packages. Please refer to the specific files and/or packages for more detailed information about the authors, copyright notices, and licenses.
+
+Apache Log4Net
+-----------------
+Website: http://logging.apache.org/log4net/
+Copyright: Copyright (c) 2004-2013 Apache Software Foundation
+License: Apache 2.0
+
+ChemDoodle Web Components
+-----------------
+Website: http://web.chemdoodle.com/
+Copyright: Copyright (c) 2008-2014 iChemLabs, LLC
+License: GPL 3
+
+Ionic.Zip
+------------------
+Website: https://dotnetzip.codeplex.com/
+Copyright: Ionic.Zip Community
+License: MS-PL
+
+Newtonsoft.Json
+-------------------
+Website: https://json.codeplex.com/
+Copyright: Copyright (c) James Newton-King
+License: MIT
