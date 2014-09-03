@@ -54,6 +54,7 @@ namespace Chem4Word.UI.ChemDoodle
             Byte[] bytes = Properties.Resources.ChemDoodleWeb_zip;
             Stream stream = new MemoryStream(bytes);
 
+        // NB: Top level of zip file should be a folder
             using (ZipFile zip = ZipFile.Read(stream))
             {
                 zip.ExtractAll(temp, ExtractExistingFileAction.OverwriteSilently);
@@ -113,6 +114,28 @@ namespace Chem4Word.UI.ChemDoodle
             {
                 DialogResult = System.Windows.Forms.DialogResult.Cancel;
             }
+        }
+
+        private void chkToggleImplicitHydrogens_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chkToggleImplicitHydrogens.Checked)
+            {
+                ExecuteJavaScript("ShowImplicitHCount");
+            }
+            else
+            {
+                ExecuteJavaScript("HideImplicitHCount");
+            }
+        }
+
+        private void btnAddExplicitHydrogens_Click(object sender, EventArgs e)
+        {
+            ExecuteJavaScript("AddExplicitHydrogens");
+        }
+
+        private void btnRemoveExplicitHydrogens_Click(object sender, EventArgs e)
+        {
+            ExecuteJavaScript("RemoveHydrogens");
         }
     }
 }

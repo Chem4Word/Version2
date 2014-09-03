@@ -586,7 +586,9 @@
     <Content Include="Resources\ChemDoodle\Chem4Word.js" />
     <Content Include="Resources\ChemDoodle\HotLink-V5.2.3.htm" />
     <Content Include="Resources\ChemDoodle\HotLink-V6.0.0.htm" />
+    <Resource Include="Resources\ChemDoodle\Minus.png" />
     <Content Include="Resources\ChemDoodle\Offline.htm" />
+    <Resource Include="Resources\ChemDoodle\Plus.png" />
     <Resource Include="Resources\ChemDoodle\ChemDoodleBadge.png" />
   </ItemGroup>
   <ItemGroup>

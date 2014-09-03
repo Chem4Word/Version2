@@ -27,7 +27,7 @@ namespace Chem4Word.UI.Converters
                     double y = (double)atom.SelectToken("y");
                     double newY = -y;
                     JValue yy = (JValue)atom.SelectToken("y");
-                    yy.Value = newY.ToString();
+                    yy.Value = newY;
                 }
                 result = molJson.ToString();
             }

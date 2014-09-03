@@ -1422,79 +1422,91 @@ namespace Numbo.Coa
             {
                 throw new ArgumentException("atomPointer is not pointing to an atom", "atomPointer");
             }
-            CmlAtom atom = new CmlAtom(atomPointer);
 
-            switch (atom.ElementType)
+            // MAW - Force drawing of All atoms
+            draw = true;
+
+            if (!draw)
             {
-                case "H":
-                    // only draw hydrogen atoms if they are 
-                    // 1. are involved in 0 or more than one bond
+                CmlAtom atom = new CmlAtom(atomPointer);
+                switch (atom.ElementType)
+                {
+                    #region case "H"
+                    case "H":
+                        // only draw hydrogen atoms if they are 
+                        // 1. are involved in 0 or more than one bond
 
-                    // 1. bonded to non-carbon atoms
-                    // 3. or are C-H in Wedge/Hatch bonds
-                    // 4. is not bonded to anything else
-                    // 5. is involved in an unusual (ie unknown type) bond
-                    // 6. is involved in a molecule which only contains CH3, CH2 or CH 
-                    ICollection<CmlBond> bonds = atom.GetLigandBonds();
-                    if (bonds.Count() == 0 || bonds.Count() > 1)
-                    {
-                        draw = true;
-                    }
-                    else
-                    {
-                        // only one bond - if the bond type is unknown then we must draw the H
-                        CmlBond bond = bonds.ElementAt(0);
-                        if (!CmlBond.Single.Equals(bond.Order))
+                        // 1. bonded to non-carbon atoms
+                        // 3. or are C-H in Wedge/Hatch bonds
+                        // 4. is not bonded to anything else
+                        // 5. is involved in an unusual (ie unknown type) bond
+                        // 6. is involved in a molecule which only contains CH3, CH2 or CH 
+                        ICollection<CmlBond> bonds = atom.GetLigandBonds();
+                        if (bonds.Count() == 0 || bonds.Count() > 1)
                         {
                             draw = true;
                         }
                         else
                         {
-                            // only one bond so check what is at the other end
-                            CmlAtom atomAtOtherEnd = bond.GetAtomAtOtherEnd(atom);
-                            switch (atomAtOtherEnd.ElementType)
+                            // only one bond - if the bond type is unknown then we must draw the H
+                            CmlBond bond = bonds.ElementAt(0);
+                            if (!CmlBond.Single.Equals(bond.Order))
                             {
-                                case "C":
-                                    // only show if bondStereo is W/H or if only H's connected to the carbon
-                                    CmlBondStereo bondStereo = bond.GetBondStereo();
-                                    if (bondStereo == null)
-                                    {
-                                        CmlAtom[] ligands = atomAtOtherEnd.GetLigands().ToArray();
-                                        if (ligands.AreAllH())
+                                draw = true;
+                            }
+                            else
+                            {
+                                // only one bond so check what is at the other end
+                                CmlAtom atomAtOtherEnd = bond.GetAtomAtOtherEnd(atom);
+                                switch (atomAtOtherEnd.ElementType)
+                                {
+                                    #region case "C"
+                                    case "C":
+                                        // only show if bondStereo is W/H or if only H's connected to the carbon
+                                        CmlBondStereo bondStereo = bond.GetBondStereo();
+                                        if (bondStereo == null)
                                         {
-                                            draw = true;
+                                            CmlAtom[] ligands = atomAtOtherEnd.GetLigands().ToArray();
+                                            if (ligands.AreAllH())
+                                            {
+                                                draw = true;
+                                            }
+                                            break;
+                                        }
+                                        // this  should actually use the bondStereo.Concise value too to ensure 
+                                        // that the W/H is being propertly interpretted
+                                        switch (bondStereo.DelegateElement.Value)
+                                        {
+                                            case CmlBond.Wedge:
+                                                draw = true;
+                                                break;
+                                            case CmlBond.Hatch:
+                                                draw = true;
+                                                break;
+                                            default:
+                                                draw = true;
+                                                break;
                                         }
                                         break;
-                                    }
-                                    // this  should actually use the bondStereo.Concise value too to ensure 
-                                    // that the W/H is being propertly interpretted
-                                    switch (bondStereo.DelegateElement.Value)
-                                    {
-                                        case CmlBond.Wedge:
-                                            draw = true;
-                                            break;
-                                        case CmlBond.Hatch:
-                                            draw = true;
-                                            break;
-                                        default:
-                                            draw = true;
-                                            break;
-                                    }
-                                    break;
+                                    #endregion
 
-                                default:
-                                    // atom at other end is not C
-                                    draw = true;
-                                    break;
+                                    default:
+                                        // atom at other end is not C
+                                        draw = true;
+                                        break;
+                                }
                             }
                         }
-                    }
-                    break;
-                default:
-                    // non-hydrogen 
-                    draw = true;
-                    break;
+                        break;
+                    #endregion
+
+                    default:
+                        // non-hydrogen 
+                        draw = true;
+                        break;
+                }
             }
+
             return draw;
         }
     }
