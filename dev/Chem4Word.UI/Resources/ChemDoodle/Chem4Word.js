@@ -87,8 +87,35 @@ function AddExplicitHydrogens() {
 
 function RemoveHydrogens() {
     var mol = sketcher.getMolecule();
-    var ded = new ChemDoodle.informatics.HydrogenDeducer();
-    ded.removeHydrogens(mol);
+    var atoms = [];
+    var bonds = [];
+
+    for (var i = 0, ii = mol.bonds.length; i < ii; i++) {
+        if (mol.bonds[i].a1.label !== 'H' && mol.bonds[i].a2.label !== 'H') {
+            bonds.push(mol.bonds[i]);
+        }
+        else if (mol.bonds[i].stereo !== 'none') {
+            bonds.push(mol.bonds[i]);
+        }
+    }
+
+    for (var i = 0, ii = mol.atoms.length; i < ii; i++) {
+        if (mol.atoms[i].label !== 'H') {
+            atoms.push(mol.atoms[i]);
+        }
+        else {
+            for (var j = 0, jj = mol.atoms[i].bonds.length; j < jj; j++) {
+                if (mol.atoms[i].bonds[j].stereo !== 'none') {
+                    atoms.push(mol.atoms[i]);
+                    break;
+                }
+            }
+        }
+    }
+
+    mol.atoms = atoms;
+    mol.bonds = bonds;
+
     sketcher.loadMolecule(mol);
     sketcher.center();
 }
