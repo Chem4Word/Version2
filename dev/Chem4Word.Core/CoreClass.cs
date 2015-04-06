@@ -325,35 +325,10 @@ namespace Chem4Word.Core {
         private string GetAssemblyDirectoryName() {
             string addInInstallPath = String.Empty;
 
-            RegistryKey addInKey = addInKey = Registry.CurrentUser.OpenSubKey(AddInRegistryKeyPath, false);
-
-            if (addInKey == null)
-            {
-                addInKey = Registry.LocalMachine.OpenSubKey(AddInRegistryKeyPath, false);
-            }
-
-            using (addInKey)
-            {
-                if (addInKey != null)
-                {
-                    var registryValue = addInKey.GetValue(AddInManifestKeyName);
-
-                    if (registryValue != null)
-                    {
-                        var registryPath = registryValue.ToString();
-
-                        // Path might contain "|vstolocal". "|" is an invalid character and needs to be removed.
-                        int invalidCharPosition = registryPath.IndexOfAny(Path.GetInvalidPathChars());
-                        while (invalidCharPosition > -1)
-                        {
-                            registryPath = registryPath.Remove(invalidCharPosition, 1);
-                            invalidCharPosition = registryPath.IndexOfAny(Path.GetInvalidPathChars());
-                        }
-
-                        addInInstallPath = Path.GetDirectoryName(registryPath);
-                    }
-                }
-            }
+            string codebase = System.Reflection.Assembly.GetExecutingAssembly().CodeBase;
+            UriBuilder uri = new UriBuilder(codebase);
+            string path = Uri.UnescapeDataString(uri.Path);
+            addInInstallPath = Path.GetDirectoryName(path);
 
             return addInInstallPath;
         }
@@ -549,43 +524,61 @@ namespace Chem4Word.Core {
         ///   If there are some files missing, the Add-in will recover those files from Program folder. C:\Program Files\Chem4Word\Data
         /// </summary>
         private void CheckForRecovery() {
-            // If is missing, Recover it.
-            if (!File.Exists(localAppDataFolder + @"\Chemistry Gallery\Chem4Word.dotx")) {
-                File.Copy(assemblyDirectoryName + @"\Data\Chem4Word.dotx",
-                          localAppDataFolder + @"\Chemistry Gallery\Chem4Word.dotx");
-            }
-
-            string[] cmlFiles = Directory.GetFiles(assemblyDirectoryName + @"\Data", @"*.cml");
-            foreach (string file in cmlFiles) {
-                FileInfo fileInfor = new FileInfo(file);
-                if (!File.Exists(localAppDataFolder + @"\Chemistry Gallery\" + fileInfor.Name)) {
-                    File.Copy(assemblyDirectoryName + @"\Data\" + fileInfor.Name,
-                              localAppDataFolder + @"\Chemistry Gallery\" + fileInfor.Name);
+            if (!string.IsNullOrEmpty(assemblyDirectoryName))
+            {
+                // If is missing, Recover it.
+                if (!File.Exists(localAppDataFolder + @"\Chemistry Gallery\Chem4Word.dotx"))
+                {
+                    File.Copy(assemblyDirectoryName + @"\Data\Chem4Word.dotx",
+                              localAppDataFolder + @"\Chemistry Gallery\Chem4Word.dotx");
                 }
-            }
 
-            if (!File.Exists(localAppDataFolder + @"\User Setting.xml")) {
-                File.Copy(assemblyDirectoryName + @"\User Setting.xml",
-                          localAppDataFolder + @"\User Setting.xml");
-            } else {
-                XmlDataDocument existingUserSettings = new XmlDataDocument();
-                XmlDataDocument latestUserSettings = new XmlDataDocument();
+                if (Directory.Exists(assemblyDirectoryName + @"\Data"))
+                {
+                    string[] cmlFiles = Directory.GetFiles(assemblyDirectoryName + @"\Data", @"*.cml");
+                    foreach (string file in cmlFiles)
+                    {
+                        FileInfo fileInfor = new FileInfo(file);
+                        if (!File.Exists(localAppDataFolder + @"\Chemistry Gallery\" + fileInfor.Name))
+                        {
+                            File.Copy(assemblyDirectoryName + @"\Data\" + fileInfor.Name,
+                                      localAppDataFolder + @"\Chemistry Gallery\" + fileInfor.Name);
+                        }
+                    }
+                }
 
-                existingUserSettings.Load(localAppDataFolder + @"\User Setting.xml");
-                latestUserSettings.Load(assemblyDirectoryName + @"\User Setting.xml");
+                if (!File.Exists(localAppDataFolder + @"\User Setting.xml"))
+                {
+                    File.Copy(assemblyDirectoryName + @"\User Setting.xml",
+                              localAppDataFolder + @"\User Setting.xml");
+                }
+                else
+                {
+                    XmlDataDocument existingUserSettings = new XmlDataDocument();
+                    XmlDataDocument latestUserSettings = new XmlDataDocument();
 
-                if (existingUserSettings != null && latestUserSettings != null) {
-                    XmlNode existingUserSettingsNode = existingUserSettings.SelectSingleNode("/userSetting");
-                    XmlNode lastestUserSettingsNode = latestUserSettings.SelectSingleNode("/userSetting");
+                    existingUserSettings.Load(localAppDataFolder + @"\User Setting.xml");
+                    if (File.Exists(assemblyDirectoryName + @"\User Setting.xml"))
+                    {
+                        latestUserSettings.Load(assemblyDirectoryName + @"\User Setting.xml");
+                    }
 
-                    if (existingUserSettingsNode != null && existingUserSettingsNode.HasChildNodes &&
-                        lastestUserSettingsNode != null && lastestUserSettingsNode.HasChildNodes) {
-                        bool areEqual = CompareUserSettingsFile(existingUserSettingsNode, "/userSetting",
-                                                                lastestUserSettingsNode);
+                    if (existingUserSettings != null && latestUserSettings != null)
+                    {
+                        XmlNode existingUserSettingsNode = existingUserSettings.SelectSingleNode("/userSetting");
+                        XmlNode lastestUserSettingsNode = latestUserSettings.SelectSingleNode("/userSetting");
 
-                        if (!areEqual) {
-                            File.Copy(assemblyDirectoryName + @"\User Setting.xml",
-                                      localAppDataFolder + @"\User Setting.xml", true);
+                        if (existingUserSettingsNode != null && existingUserSettingsNode.HasChildNodes &&
+                            lastestUserSettingsNode != null && lastestUserSettingsNode.HasChildNodes)
+                        {
+                            bool areEqual = CompareUserSettingsFile(existingUserSettingsNode, "/userSetting",
+                                                                    lastestUserSettingsNode);
+
+                            if (!areEqual)
+                            {
+                                File.Copy(assemblyDirectoryName + @"\User Setting.xml",
+                                          localAppDataFolder + @"\User Setting.xml", true);
+                            }
                         }
                     }
                 }

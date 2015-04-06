@@ -1,0 +1,21 @@
+<cml xmlns="http://www.xml-cml.org/schema" convention="conventions:molecular" xmlns:conventions="http://www.xml-cml.org/convention/">
+  <molecule id="m768" formalCharge="0" xmlns:pubchem="http://www.ncbi.nlm.nih.gov" xmlns:cmlDict="http://www.xml-cml.org/dictionary/cml/" xmlns:nameDict="http://www.xml-cml.org/dictionary/cml/name/">
+    <name dictRef="pubchem:cid">768</name>
+    <atomArray>
+      <atom id="a1" elementType="N" x2="3.403" y2="0.405" />
+      <atom id="a2" elementType="C" x2="2.5369" y2="-0.095" />
+      <atom id="a3" elementType="H" x2="2.0" y2="-0.405" />
+    </atomArray>
+    <bondArray>
+      <bond atomRefs2="a1 a2" order="T" id="a1_a2" />
+      <bond atomRefs2="a2 a3" order="S" id="a2_a3" />
+    </bondArray>
+    <name dictRef="pubchem:Allowed">formonitrile</name>
+    <name dictRef="nameDict:cas">formonitrile</name>
+    <name dictRef="pubchem:Preferred">formonitrile</name>
+    <name dictRef="nameDict:systematic">methanenitrile</name>
+    <name dictRef="pubchem:Traditional">hydrogen cyanide</name>
+    <formula concise="C 1 H 1 N 1" convention="pubchem:CanonicalSmiles" inline="C#N" />
+    <formula concise="C 1 H 1 N 1" convention="pubchem:IsomericSmiles" inline="C#N" />
+  </molecule>
+</cml>
