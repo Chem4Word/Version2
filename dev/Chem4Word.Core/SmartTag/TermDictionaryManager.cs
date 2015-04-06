@@ -39,15 +39,18 @@ namespace Chem4Word.Core.SmartTag
                 this.termsDictionary = new List<Term>();
                 this.localDictionary = new List<Term>();
 
-                XDocument dictionary = XDocument.Load(this.smartTagDirectory + @"\smart-tag-dict.xml");
-                IEnumerable<XElement> termElements = dictionary.Root.Descendants("Term");
-                foreach (XElement term in termElements)
+                if (File.Exists(this.smartTagDirectory + @"\smart-tag-dict.xml"))
                 {
-                    Term t = new Term(term.Attribute("Value").Value.ToLower(CultureInfo.InvariantCulture),
-                                      term.Attribute("MoleculeID").Value);
-                    this.termsDictionary.Add(t);
+                    XDocument dictionary = XDocument.Load(this.smartTagDirectory + @"\smart-tag-dict.xml");
+                    IEnumerable<XElement> termElements = dictionary.Root.Descendants("Term");
+                    foreach (XElement term in termElements)
+                    {
+                        Term t = new Term(term.Attribute("Value").Value.ToLower(CultureInfo.InvariantCulture),
+                                          term.Attribute("MoleculeID").Value);
+                        this.termsDictionary.Add(t);
+                    }
+                    this.termsDictionary.Sort(new TermComparer());
                 }
-                this.termsDictionary.Sort(new TermComparer());
             }
             catch (Exception ex)
             {

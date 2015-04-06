@@ -269,6 +269,9 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <None Include="Chem4Word.AddIn_TemporaryKey.pfx" />
+    <None Include="Data\Chem4Word.dotx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="EULA\Chemistry Add-in for Word EULA.rtf" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -353,12 +356,36 @@
     <Resource Include="Resources\Options.png" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Data\553e0907-773d-429c-99e6-f29f7b1d9ba9.cml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Data\9058322b-78b8-4c49-bbb6-0cb2244ac01d.cml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Data\a2f6a6b2-8f5a-485c-b839-94ea6e9b2bdf.cml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Data\d53bc141-0f80-4ecb-990b-ec34a9778cbe.cml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Data\d5e72420-f2c3-4f05-a294-23b3d49c1f02.cml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Data\Default.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Data\f771ae6d-4ac3-4bcd-b3a8-a32230db08f2.cml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Log4NetConfig.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\CREDITS.txt" />
     <Content Include="Resources\EmptyStructure.xml">
       <SubType>Designer</SubType>
+    </Content>
+    <Content Include="User Setting.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="Resources\LICENSE.txt" />
     <Resource Include="Resources\Images\xml.png" />

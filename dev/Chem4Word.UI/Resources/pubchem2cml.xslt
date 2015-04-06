@@ -160,7 +160,7 @@
 - <PC-Urn_datatype>
   <PC-UrnDataType value="string">1</PC-UrnDataType> 
   </PC-Urn_datatype>
-  <PC-Urn_version>1.6.0</PC-Urn_version> 
+  <PC-Urn_version>1.6.1</PC-Urn_version> 
   <PC-Urn_software>LexiChem</PC-Urn_software> 
   <PC-Urn_source>openeye.com</PC-Urn_source> 
   <PC-Urn_release>2007.09.04</PC-Urn_release> 
