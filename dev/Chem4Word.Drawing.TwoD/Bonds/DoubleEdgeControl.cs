@@ -4,30 +4,25 @@
 //  The license and further copyright text can be found in the file LICENSE.TXT at
 //  the root directory of the distribution.
 // -----------------------------------------------------------------------
+
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
 using System.Windows;
 using System.Windows.Media;
+using Chem4Word.Drawing.TwoD.Common;
+using Chem4Word.Drawing.TwoD.Nodes;
 using Euclid;
 using Numbo.Cml;
 using Numbo.Coa;
 
-namespace Chem4Word.UI.TwoD
+namespace Chem4Word.Drawing.TwoD.Bonds
 {
     public class DoubleEdgeControl : AbstractEdgeControl
     {
-        public DoubleEdgeControl(ContextObject contextObject,
-                                 CmlBond bond, AbstractNodeControl startNode,
-                                 AbstractNodeControl endNode, ChemCanvas canvas)
+        public DoubleEdgeControl(ContextObject contextObject, CmlBond bond, INode startNode, INode endNode, IChemCanvas canvas)
+            : base(contextObject, bond, startNode, endNode, canvas)
         {
-            this.Bond = bond;
-            this.canvas = canvas;
-            this.StartNode = startNode;
-            this.contextObject = contextObject;
-            this.EndNode = endNode;
-            this.children = new VisualCollection(this);
-            Init();
         }
 
         protected override void Refresh()
@@ -170,7 +165,7 @@ namespace Chem4Word.UI.TwoD
             //Get clip geometries for start node first.
             LineGeometry initialBondGeometry = GetInitialBondGeometry();
             Vector bondVector = new Vector(initialBondGeometry.EndPoint.X - initialBondGeometry.StartPoint.X,
-                                           initialBondGeometry.EndPoint.Y - initialBondGeometry.StartPoint.Y)*-1;
+                                           initialBondGeometry.EndPoint.Y - initialBondGeometry.StartPoint.Y) * -1;
             bondVector.Normalize();
 
             // Get the start atom and its ligand IDs.
@@ -208,7 +203,7 @@ namespace Chem4Word.UI.TwoD
                                                     canvas.ToScreenY(atom.GetCentroid().Y));
 
                 //Make sure we're creating a clip region on the right side.
-                Point checkPoint = startAtomLocation + (endAtomLocation - startAtomLocation)/2 + displacementVector;
+                Point checkPoint = startAtomLocation + (endAtomLocation - startAtomLocation) / 2 + displacementVector;
                 StreamGeometry clipCheck = new StreamGeometry();
 
                 using (StreamGeometryContext ctx = clipCheck.Open())

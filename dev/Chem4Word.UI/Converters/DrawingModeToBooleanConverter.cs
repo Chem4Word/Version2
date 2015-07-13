@@ -8,6 +8,7 @@ using System;
 using System.Diagnostics;
 using System.Globalization;
 using System.Windows.Data;
+using Chem4Word.Drawing.TwoD.Common;
 using Chem4Word.UI.TwoD;
 
 namespace Chem4Word.UI.Converters
@@ -20,11 +21,11 @@ namespace Chem4Word.UI.Converters
             {
                 if (parameter.ToString().Equals("Atom"))
                 {
-                    return (CanvasContainer.DrawingMode) value == CanvasContainer.DrawingMode.Select;
+                    return (DrawingMode) value == DrawingMode.Select;
                 }
                 if (parameter.ToString().Equals("Bond"))
                 {
-                    return (CanvasContainer.DrawingMode) value == CanvasContainer.DrawingMode.BondSelect;
+                    return (DrawingMode) value == DrawingMode.BondSelect;
                 }
             }
 
@@ -38,11 +39,11 @@ namespace Chem4Word.UI.Converters
             {
                 var val = (bool) value;
                 if (parameter.ToString().Equals("Atom")) {
-                    return val ? CanvasContainer.DrawingMode.Select : CanvasContainer.DrawingMode.BondSelect;
+                    return val ? DrawingMode.Select : DrawingMode.BondSelect;
                 }
 
                 if (parameter.ToString().Equals("Bond")) {
-                    return val ? CanvasContainer.DrawingMode.BondSelect : CanvasContainer.DrawingMode.Select;
+                    return val ? DrawingMode.BondSelect : DrawingMode.Select;
                 }
             }
 

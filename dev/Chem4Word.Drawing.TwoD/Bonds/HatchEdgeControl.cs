@@ -4,36 +4,24 @@
 //  The license and further copyright text can be found in the file LICENSE.TXT at
 //  the root directory of the distribution.
 // -----------------------------------------------------------------------
+
 using System.Windows;
 using System.Windows.Media;
+using Chem4Word.Drawing.TwoD.Common;
+using Chem4Word.Drawing.TwoD.Nodes;
 using Numbo.Cml;
 using Numbo.Coa;
 
-namespace Chem4Word.UI.TwoD
+namespace Chem4Word.Drawing.TwoD.Bonds
 {
     /// <summary>
     /// 
     /// </summary>
     public class HatchEdgeControl : AbstractEdgeControl
     {
-        ///<summary>
-        /// Draws a hatched bond 
-        ///</summary>
-        ///<param name="contextObject"></param>
-        ///<param name="bond"></param>
-        ///<param name="startNode"></param>
-        ///<param name="endNode"></param>
-        ///<param name="canvas"></param>
-        public HatchEdgeControl(ContextObject contextObject, CmlBond bond, AbstractNodeControl startNode,
-                                AbstractNodeControl endNode, ChemCanvas canvas)
+        public HatchEdgeControl(ContextObject contextObject, CmlBond bond, INode startNode, INode endNode, IChemCanvas canvas)
+            : base(contextObject, bond, startNode, endNode, canvas)
         {
-            this.contextObject = contextObject;
-            this.Bond = bond;
-            this.canvas = canvas;
-            this.StartNode = startNode;
-            this.EndNode = endNode;
-            children = new VisualCollection(this);
-            Init();
         }
 
         protected override void Refresh()
@@ -70,9 +58,9 @@ namespace Chem4Word.UI.TwoD
 
             Point currentStart = initialBondGeometry.StartPoint + displacementVector;
             Point currentEnd = initialBondGeometry.StartPoint - displacementVector;
-            int numberOfHatches = (int) (bondVector.Length/4.0);
+            int numberOfHatches = (int)(bondVector.Length / 4.0);
             bondVector.Normalize();
-            bondVector = bondVector*4.0;
+            bondVector = bondVector * 4.0;
 
             for (int i = 0; i < numberOfHatches; i++)
             {

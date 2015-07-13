@@ -10,6 +10,7 @@ using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Xml.Linq;
+using Chem4Word.Drawing.TwoD.Common;
 using log4net;
 using Numbo.Cml;
 using Numbo.Coa;
@@ -21,18 +22,6 @@ namespace Chem4Word.UI.TwoD
     /// </summary>
     public partial class CanvasContainer
     {
-        #region DrawingMode enum
-
-        public enum DrawingMode
-        {
-            Select,
-            Draw,
-            Delete,
-            BondSelect
-        } ;
-
-        #endregion
-
         private static readonly ILog Log = LogManager.GetLogger(typeof (CanvasContainer));
 
         private ContextObject originalContextObject;
@@ -114,7 +103,7 @@ namespace Chem4Word.UI.TwoD
         public void GeneratePng(bool transparentBackground) {
             Log.Info("drawing (transparent = "+transparentBackground+")");
             // redraw the molecule with new bounds and using the png border
-            chemCanvas.Refresh(true);
+            chemCanvas.GeneratePng();
             var originalBkg = chemCanvas.Background;
             try
             {
@@ -124,7 +113,6 @@ namespace Chem4Word.UI.TwoD
                 }
 
                 pngFile = Path.GetTempFileName();
-                pngFile = pngFile.Replace(".tmp", ".png");
                 CreatePng(pngFile);
             }
             finally

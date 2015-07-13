@@ -4,10 +4,11 @@
 //  The license and further copyright text can be found in the file LICENSE.TXT at
 //  the root directory of the distribution.
 // -----------------------------------------------------------------------
+
 using System;
 using Numbo.Coa;
 
-namespace Chem4Word.UI.TwoD
+namespace Chem4Word.Drawing.TwoD.Common
 {
     /// <summary>
     /// A class to encapsulate all the things required in a CmlChangeEvent

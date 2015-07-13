@@ -4,27 +4,22 @@
 //  The license and further copyright text can be found in the file LICENSE.TXT at
 //  the root directory of the distribution.
 // -----------------------------------------------------------------------
-using System;
+
 using System.Windows;
 using System.Windows.Media;
+using Chem4Word.Drawing.TwoD.Common;
+using Chem4Word.Drawing.TwoD.Nodes;
 using Numbo;
 using Numbo.Cml;
 using Numbo.Coa;
 
-namespace Chem4Word.UI.TwoD
+namespace Chem4Word.Drawing.TwoD.Bonds
 {
     public class WedgeEdgeControl : AbstractEdgeControl
     {
-        public WedgeEdgeControl(ContextObject contextObject, CmlBond bond, AbstractNodeControl startNode,
-                                AbstractNodeControl endNode, ChemCanvas canvas)
+        public WedgeEdgeControl(ContextObject contextObject, CmlBond bond, INode startNode, INode endNode, IChemCanvas canvas)
+            : base(contextObject, bond, startNode, endNode, canvas)
         {
-            this.Bond = bond;
-            this.canvas = canvas;
-            this.contextObject = contextObject;
-            this.StartNode = startNode;
-            this.EndNode = endNode;
-            this.children = new VisualCollection(this);
-            Init();
         }
 
         protected override void Refresh()
@@ -79,16 +74,16 @@ namespace Chem4Word.UI.TwoD
 
             switch (canvas.DrawingMode)
             {
-                case CanvasContainer.DrawingMode.Select:
+                case DrawingMode.Select:
                     ArrowFill = Brushes.Green;
                     break;
-                case CanvasContainer.DrawingMode.BondSelect:
+                case DrawingMode.BondSelect:
                     ArrowFill = Brushes.Transparent;
                     break;
-                case CanvasContainer.DrawingMode.Draw:
+                case DrawingMode.Draw:
                     ArrowFill = Brushes.Transparent;
                     break;
-                case CanvasContainer.DrawingMode.Delete:
+                case DrawingMode.Delete:
                     ArrowFill = Brushes.Red;
                     break;
                 default:

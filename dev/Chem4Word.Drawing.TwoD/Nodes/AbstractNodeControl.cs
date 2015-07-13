@@ -4,21 +4,22 @@
 //  The license and further copyright text can be found in the file LICENSE.TXT at
 //  the root directory of the distribution.
 // -----------------------------------------------------------------------
+
 using System;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using Chem4Word.Drawing.TwoD.Common;
 using Numbo.Cml;
 using Numbo.Coa;
 
-namespace Chem4Word.UI.TwoD
+namespace Chem4Word.Drawing.TwoD.Nodes
 {
     /// <summary>
     /// Provides the general functionality for nodes but requires that the 
     /// actual visual depiction is overriden for each instance class.
     /// </summary>
-    public abstract class AbstractNodeControl : FrameworkElement
+    public abstract class AbstractNodeControl : FrameworkElement, INode
     {
         protected AbstractNodeControl()
         {
@@ -222,7 +223,7 @@ namespace Chem4Word.UI.TwoD
         /// QUESTION
         /// should we pass this canvas around or can we always get to it as "Parent"
         /// </summary>
-        protected ChemCanvas canvas;
+        protected IChemCanvas canvas;
 
         /// <summary>
         /// Required to provide the extention functionallity from FrameworkElement
@@ -258,5 +259,14 @@ namespace Chem4Word.UI.TwoD
         #endregion private properties
 
         public event EventHandler NodeMouseDown;
+
+        #region Implementation of IVisual
+
+        public FrameworkElement AsVisual()
+        {
+            return this;
+        }
+
+        #endregion
     }
 }
