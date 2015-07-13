@@ -36,7 +36,7 @@ namespace TwoDUITest {
                 cv = new ChemCanvas(contextObject, molecule) {Focusable = true};
                 chemCanvasHost.Children.Clear();
                 chemCanvasHost.Children.Add(cv);
-                cv.Refresh(false);
+                cv.Refresh();
                 Log.Info(cv);
             }
         }

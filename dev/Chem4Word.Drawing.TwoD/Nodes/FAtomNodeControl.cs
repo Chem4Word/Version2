@@ -4,14 +4,16 @@
 //  The license and further copyright text can be found in the file LICENSE.TXT at
 //  the root directory of the distribution.
 // -----------------------------------------------------------------------
+
 using System;
 using System.Globalization;
 using System.Windows;
 using System.Windows.Media;
+using Chem4Word.Drawing.TwoD.Common;
 using Numbo.Cml;
 using Numbo.Coa;
 
-namespace Chem4Word.UI.TwoD
+namespace Chem4Word.Drawing.TwoD.Nodes
 {
     /// <summary>
     /// Specific NodeControl to show Fluorine atoms
@@ -22,7 +24,7 @@ namespace Chem4Word.UI.TwoD
 
         public FAtomNodeControl(ContextObject contextObject,
                                 CmlAtom atom,
-                                ChemCanvas canvas)
+                                IChemCanvas canvas)
         {
             this.CmlAtom = atom;
             this.contextObject = contextObject;

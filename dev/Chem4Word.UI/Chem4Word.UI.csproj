@@ -193,13 +193,9 @@
     <Compile Include="Tools\FocusHelper.cs" />
     <Compile Include="Tools\SortAdorner.cs" />
     <Compile Include="Tools\TextTools.cs" />
-    <Compile Include="TwoD\AbstractEdgeControl.cs" />
-    <Compile Include="TwoD\AbstractNodeControl.cs" />
     <Compile Include="TwoD\AddLabelWindow.xaml.cs">
       <DependentUpon>AddLabelWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="TwoD\BasicEdgeControl.cs" />
-    <Compile Include="TwoD\BasicNodeControl.cs" />
     <Compile Include="TwoD\BondContextMenu.xaml.cs">
       <DependentUpon>BondContextMenu.xaml</DependentUpon>
     </Compile>
@@ -212,16 +208,9 @@
     <Compile Include="TwoD\ChemContextMenu.xaml.cs">
       <DependentUpon>ChemContextMenu.xaml</DependentUpon>
     </Compile>
-    <Compile Include="TwoD\CmlChangedEventArgs.cs" />
     <Compile Include="TwoD\CoordinateTool.cs" />
-    <Compile Include="TwoD\DottedEdgeControl.cs" />
-    <Compile Include="TwoD\DoubleEdgeControl.cs" />
-    <Compile Include="TwoD\FAtomNodeControl.cs" />
     <Compile Include="TwoD\GeometryTool.cs" />
-    <Compile Include="TwoD\HatchEdgeControl.cs" />
-    <Compile Include="TwoD\HAtomNodeControl.cs" />
     <Compile Include="TwoD\NoFocusScrollViewer.cs" />
-    <Compile Include="TwoD\NoTextNodeControl.cs" />
     <Compile Include="TwoD\PeriodicTableElementChooser.xaml.cs">
       <DependentUpon>PeriodicTableElementChooser.xaml</DependentUpon>
     </Compile>
@@ -229,10 +218,7 @@
       <DependentUpon>RadialChemContextMenu.xaml</DependentUpon>
     </Compile>
     <Compile Include="TwoD\RadialPanel.cs" />
-    <Compile Include="TwoD\TripleEdgeControl.cs" />
     <Compile Include="TwoD\ViewBox.cs" />
-    <Compile Include="TwoD\WavyEdgeControl.cs" />
-    <Compile Include="TwoD\WedgeEdgeControl.cs" />
     <Compile Include="UIControls\SearchTextBox.cs" />
     <Compile Include="WebServices\OpsinLookUp.xaml.cs">
       <DependentUpon>OpsinLookUp.xaml</DependentUpon>
@@ -495,6 +481,10 @@
     <ProjectReference Include="..\Chem4Word.API\Chem4Word.Api.csproj">
       <Project>{B416CED3-D6BB-4A85-A3B3-8DBBDF1CD823}</Project>
       <Name>Chem4Word.Api</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Chem4Word.Drawing.TwoD\Chem4Word.Drawing.TwoD.csproj">
+      <Project>{E87753FD-BEAC-457B-B7BF-5C000117F4C3}</Project>
+      <Name>Chem4Word.Drawing.TwoD</Name>
     </ProjectReference>
     <ProjectReference Include="..\Euclid\Euclid.csproj">
       <Project>{D78B7D21-FA43-45B5-86FF-E03DFA55C4BC}</Project>

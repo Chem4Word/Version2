@@ -1,9 +1,12 @@
-﻿// -----------------------------------------------------------------------
-//  Copyright (c) 2011, The Outercurve Foundation.  
-//  This software is released under the Apache License, Version 2.0. 
-//  The license and further copyright text can be found in the file LICENSE.TXT at
-//  the root directory of the distribution.
+﻿// Created by Gergely István Oroszi - 2015.06.14.
+// 
 // -----------------------------------------------------------------------
+//   Copyright (c) 2015, The Outercurve Foundation.  
+//   This software is released under the Apache License, Version 2.0. 
+//   The license and further copyright text can be found in the file LICENSE.TXT at
+//   the root directory of the distribution.
+// -----------------------------------------------------------------------
+
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -12,24 +15,35 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Xml.Linq;
-using Chem4Word.UI.Commands;
+using Chem4Word.Drawing.TwoD.Commands;
+using Chem4Word.Drawing.TwoD.Common;
+using Chem4Word.Drawing.TwoD.Nodes;
 using log4net;
 using Numbo;
 using Numbo.Cml;
 using Numbo.Coa;
 
-namespace Chem4Word.UI.TwoD
+namespace Chem4Word.Drawing.TwoD.Bonds
 {
-    public abstract class AbstractEdgeControl : FrameworkElement
+    public abstract class AbstractEdgeControl : FrameworkElement, IEdge
     {
-        private static readonly ILog Log = LogManager.GetLogger(typeof (AbstractEdgeControl));
+        private static readonly ILog Log = LogManager.GetLogger(typeof(AbstractEdgeControl));
         private bool hasMouseDownedOnBond;
         private Point initialMouseDownPoint;
         private long mouseDownTicks;
 
-        public AbstractEdgeControl()
+        public AbstractEdgeControl(ContextObject contextObject,
+                                 CmlBond bond, INode startNode,
+                                 INode endNode, IChemCanvas canvas)
         {
-            //IsHitTestVisible = false;
+            Bond = bond;
+            this.canvas = canvas;
+            this.contextObject = contextObject;
+            this.StartNode = startNode;
+            this.EndNode = endNode;
+            children = new VisualCollection(this);
+            Init();
+
             Cursor = Cursors.Arrow;
         }
 
@@ -110,7 +124,7 @@ namespace Chem4Word.UI.TwoD
                                      new Point(start.X + initialBondLength, start.Y + 0.002));
 
             // Now let's rotate.
-            double bondRotationAngle = Math.Atan2(deltaY, deltaX)*180/Math.PI;
+            double bondRotationAngle = Math.Atan2(deltaY, deltaX) * 180 / Math.PI;
             RotateTransform bondRotation = new RotateTransform(bondRotationAngle, start.X, start.Y);
             RectangleGeometry bondGeometry = new RectangleGeometry(bondRect, 1.5, 1.5, bondRotation);
 
@@ -149,24 +163,24 @@ namespace Chem4Word.UI.TwoD
                 Math.Sqrt(Math.Pow(nearestPointToOrigin.X - start.X, 2.0) +
                           Math.Pow(nearestPointToOrigin.Y - start.Y, 2.0));
 
-            bondRotationAngle = bondRotationAngle*Math.PI/180;
+            bondRotationAngle = bondRotationAngle * Math.PI / 180;
 
             //double startX = start.X + offset * Math.Cos(bondRotationAngle);
             //double startY = start.Y + offset * Math.Sin(bondRotationAngle);
             //double endX = end.X - offset * Math.Cos(bondRotationAngle);
             //double endY = end.Y - offset * Math.Sin(bondRotationAngle);
 
-            double startX = start.X + offset*Math.Cos(bondRotationAngle);
-            double startY = start.Y + offset*Math.Sin(bondRotationAngle);
-            double endX = startX + newBondLength*Math.Cos(bondRotationAngle);
-            double endY = startY + newBondLength*Math.Sin(bondRotationAngle);
+            double startX = start.X + offset * Math.Cos(bondRotationAngle);
+            double startY = start.Y + offset * Math.Sin(bondRotationAngle);
+            double endX = startX + newBondLength * Math.Cos(bondRotationAngle);
+            double endY = startY + newBondLength * Math.Sin(bondRotationAngle);
 
             LineGeometry finalBondGeometry = new LineGeometry(new Point(startX, startY), new Point(endX, endY));
             //drawingContext.PushClip(clipGeometry);
             return finalBondGeometry;
         }
 
-        #region private methods        
+        #region private methods
 
         /// <summary>
         /// Provide a required override for the VisualChildrenCount property.
@@ -227,9 +241,9 @@ namespace Chem4Word.UI.TwoD
                 case DirectionalSelectionMode.Backwards:
                     bisectorVector = new Vector(bondVector.X + perpToBondVector.X, bondVector.Y + perpToBondVector.Y);
                     bisectorVector.Normalize();
-                    Point p1 = finalBondGeometry.StartPoint + bondVector*bondLength*2/3 + perpToBondVector*5;
-                    Point p2 = finalBondGeometry.StartPoint + perpToBondVector*5;
-                    Point p3 = p2 + bisectorVector*10;
+                    Point p1 = finalBondGeometry.StartPoint + bondVector * bondLength * 2 / 3 + perpToBondVector * 5;
+                    Point p2 = finalBondGeometry.StartPoint + perpToBondVector * 5;
+                    Point p3 = p2 + bisectorVector * 10;
                     arrow = new StreamGeometry();
                     using (StreamGeometryContext ctx = arrow.Open())
                     {
@@ -241,9 +255,9 @@ namespace Chem4Word.UI.TwoD
                 case DirectionalSelectionMode.Forwards:
                     bisectorVector = new Vector(-bondVector.X + perpToBondVector.X, -bondVector.Y + perpToBondVector.Y);
                     bisectorVector.Normalize();
-                    p1 = finalBondGeometry.StartPoint + bondVector*bondLength/3 + perpToBondVector*5;
-                    p2 = finalBondGeometry.EndPoint + perpToBondVector*5;
-                    p3 = p2 + bisectorVector*10;
+                    p1 = finalBondGeometry.StartPoint + bondVector * bondLength / 3 + perpToBondVector * 5;
+                    p2 = finalBondGeometry.EndPoint + perpToBondVector * 5;
+                    p3 = p2 + bisectorVector * 10;
                     arrow = new StreamGeometry();
                     using (StreamGeometryContext ctx = arrow.Open())
                     {
@@ -273,16 +287,16 @@ namespace Chem4Word.UI.TwoD
 
             switch (canvas.DrawingMode)
             {
-                case CanvasContainer.DrawingMode.Select:
+                case DrawingMode.Select:
                     ArrowFill = Brushes.Green;
                     break;
-                case CanvasContainer.DrawingMode.BondSelect:
+                case DrawingMode.BondSelect:
                     ArrowFill = Brushes.Transparent;
                     break;
-                case CanvasContainer.DrawingMode.Draw:
+                case DrawingMode.Draw:
                     ArrowFill = Brushes.Transparent;
                     break;
-                case CanvasContainer.DrawingMode.Delete:
+                case DrawingMode.Delete:
                     ArrowFill = Brushes.Red;
                     break;
                 default:
@@ -333,7 +347,9 @@ namespace Chem4Word.UI.TwoD
             base.OnMouseLeftButtonDown(e);
 
             mouseDownTicks = DateTime.Now.Ticks;
-            initialMouseDownPoint = e.GetPosition(canvas);
+
+            var inputElement = canvas as IInputElement;
+            initialMouseDownPoint = e.GetPosition(inputElement);
             hasMouseDownedOnBond = true;
             canvas.IsPerformingDirectionBondSelect = true;
             Mouse.Capture(this);
@@ -354,23 +370,23 @@ namespace Chem4Word.UI.TwoD
                 Mouse.Capture(null);
             }
 
-            if (canvas.IsPerformingDirectionBondSelect && canvas.DrawingMode == CanvasContainer.DrawingMode.Delete)
+            if (canvas.IsPerformingDirectionBondSelect && canvas.DrawingMode == DrawingMode.Delete)
             {
                 //canvas.DeletePressed();
-                ChemCommands.DeleteSelection.Execute(null, canvas);
+                ChemCommands.DeleteSelection.Execute(null, canvas as IInputElement);
             }
             canvas.IsPerformingDirectionBondSelect = false;
 
             if (TimeSpan.FromTicks(DateTime.Now.Ticks - mouseDownTicks) < TimeSpan.FromMilliseconds(300))
             {
-                if (canvas.DrawingMode == CanvasContainer.DrawingMode.Delete)
+                if (canvas.DrawingMode == DrawingMode.Delete)
                 {
-                    XElement[] bond = {Bond.DelegateElement};
+                    XElement[] bond = { Bond.DelegateElement };
                     canvas.TakeSnapshotOfContextObject();
                     Cid.DeleteBondsAndFixChemistry(contextObject, bond);
                     canvas.Refresh();
                 }
-                else if (canvas.DrawingMode == CanvasContainer.DrawingMode.BondSelect)
+                else if (canvas.DrawingMode == DrawingMode.BondSelect)
                 {
                     if (EdgeClicked != null)
                     {
@@ -389,7 +405,7 @@ namespace Chem4Word.UI.TwoD
 
         private IEnumerable<XElement> GetThisAsXEelement()
         {
-            return new[] {Bond.DelegateElement};
+            return new[] { Bond.DelegateElement };
         }
 
         protected override void OnMouseMove(MouseEventArgs e)
@@ -398,11 +414,17 @@ namespace Chem4Word.UI.TwoD
 
             if (hasMouseDownedOnBond)
             {
-                if (canvas.DrawingMode != CanvasContainer.DrawingMode.BondSelect)
+                if (canvas.DrawingMode != DrawingMode.BondSelect)
                 {
-                    Point currentLoc = e.GetPosition(canvas);
-                    currentLoc = new Point(currentLoc.X - canvas.StandardXOffset,
+                    var currentLoc = new Point();
+
+                    var inputElement = canvas as IInputElement;
+                    if (inputElement != null)
+                    {
+                        currentLoc = e.GetPosition(inputElement);
+                        currentLoc = new Point(currentLoc.X - canvas.StandardXOffset,
                                            currentLoc.Y - canvas.StandardYOffset);
+                    }
 
                     // Is it in the mouse in the 'select back' rectangle??
                     Geometry backGeometry = GetSelectBackGeometry();
@@ -448,10 +470,10 @@ namespace Chem4Word.UI.TwoD
             perpToBondVector.Normalize();
             perpToBondVector *= 200;
 
-            Point p1 = bondLine.EndPoint + perpToBondVector + bondVector*200;
-            Point p2 = p1 - bondVector*(bondLength/3 + 200);
-            Point p3 = p2 - perpToBondVector*2;
-            Point p4 = p3 + bondVector*(bondLength/3 + 200);
+            Point p1 = bondLine.EndPoint + perpToBondVector + bondVector * 200;
+            Point p2 = p1 - bondVector * (bondLength / 3 + 200);
+            Point p3 = p2 - perpToBondVector * 2;
+            Point p4 = p3 + bondVector * (bondLength / 3 + 200);
 
             StreamGeometry backGeometry = new StreamGeometry();
 
@@ -477,10 +499,10 @@ namespace Chem4Word.UI.TwoD
             perpToBondVector.Normalize();
             perpToBondVector *= 200;
 
-            Point p1 = bondLine.StartPoint + perpToBondVector - bondVector*200;
-            Point p2 = p1 + bondVector*(bondLength/3 + 200);
-            Point p3 = p2 - perpToBondVector*2;
-            Point p4 = p3 - bondVector*(bondLength/3 + 200);
+            Point p1 = bondLine.StartPoint + perpToBondVector - bondVector * 200;
+            Point p2 = p1 + bondVector * (bondLength / 3 + 200);
+            Point p3 = p2 - perpToBondVector * 2;
+            Point p4 = p3 - bondVector * (bondLength / 3 + 200);
 
             StreamGeometry backGeometry = new StreamGeometry();
 
@@ -503,7 +525,7 @@ namespace Chem4Word.UI.TwoD
         /// QUESTION
         /// should we pass this canvas around or can we always get to it as "Parent"
         /// </summary>
-        protected ChemCanvas canvas;
+        protected IChemCanvas canvas;
 
         /// <summary>
         /// Required to provide the extention functionallity from FrameworkElement
@@ -531,21 +553,23 @@ namespace Chem4Word.UI.TwoD
         protected double framePadding = 12;
         protected DrawingVisual label;
 
-//        protected System.Windows.Media.Pen pen = new System.Windows.Media.Pen(System.Windows.Media.Brushes.SlateBlue, 1.5);
+        //        protected System.Windows.Media.Pen pen = new System.Windows.Media.Pen(System.Windows.Media.Brushes.SlateBlue, 1.5);
         protected Pen pen = new Pen(Brushes.Black, 1.5);
-        public AbstractNodeControl StartNode { get; internal set; }
-        public AbstractNodeControl EndNode { get; internal set; }
+        public INode StartNode { get; internal set; }
+        public INode EndNode { get; internal set; }
 
         protected Brush ArrowFill { get; set; }
         protected Pen ArrowPen { get; set; }
 
         #endregion private properties
-    }
 
-    public enum DirectionalSelectionMode
-    {
-        None,
-        Backwards,
-        Forwards
+        #region Implementation of IVisual
+
+        public FrameworkElement AsVisual()
+        {
+            return this;
+        }
+
+        #endregion
     }
 }

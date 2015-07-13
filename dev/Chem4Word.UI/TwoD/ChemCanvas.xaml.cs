@@ -14,6 +14,9 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Shapes;
 using System.Xml.Linq;
+using Chem4Word.Drawing.TwoD.Bonds;
+using Chem4Word.Drawing.TwoD.Common;
+using Chem4Word.Drawing.TwoD.Nodes;
 using Chem4Word.UI.Commands;
 using Euclid;
 using log4net;
@@ -21,31 +24,32 @@ using Numbo.Cml;
 using Numbo.Cml.Helpers;
 using Numbo.Coa;
 
-namespace Chem4Word.UI.TwoD {
+namespace Chem4Word.UI.TwoD
+{
     /// <summary>
     ///   Interaction logic for ChemCanvas.xaml
     /// </summary>
-    public partial class ChemCanvas : INotifyPropertyChanged {
-        private static readonly ILog Log = LogManager.GetLogger(typeof (ChemCanvas));
+    public partial class ChemCanvas : INotifyPropertyChanged, IChemCanvas
+    {
+        private static readonly ILog Log = LogManager.GetLogger(typeof(ChemCanvas));
         private readonly BondContextMenu bondContextMenu = new BondContextMenu();
         private readonly RadialChemContextMenu chemContextMenu = new RadialChemContextMenu();
         private readonly RotateTransform rotate = new RotateTransform();
         private readonly SelectionRotationTool selectionRotationTool = new SelectionRotationTool();
-        internal double StandardXOffset;
-        internal double StandardYOffset;
+        
         private bool deferredBondSelectionPending;
-        private AbstractEdgeControl deferredSelectionBond;
-        private AbstractNodeControl deferredSelectionNode;
+        private IEdge deferredSelectionBond;
+        private INode deferredSelectionNode;
         private bool deferredSelectionPending;
         private Point dragStart;
-        private AbstractNodeControl draggableNode;
+        private INode draggableNode;
         private string draggableNodeId;
         private bool dragging;
         private bool hasMouseDowned;
         private Vector initialRotateVector;
         private bool isRotating;
         private double lastAngle;
-        private SortedDictionary<string, AbstractNodeControl> nodes;
+        private SortedDictionary<string, INode> nodes;
         private Point rotationCentreInCanvasSpace;
         private RectangleGeometry selectionGeometry;
         private TransformGroup standardTransformGroup;
@@ -60,14 +64,17 @@ namespace Chem4Word.UI.TwoD {
         public event AtomTypeOptionsUpdatedHandler AtomTypeOptionsUpdated;
         public event IsotopeOptionsUpdatedHandler IsotopeOptionsUpdated;
 
-        internal void RotateExecuted(object sender, ExecutedRoutedEventArgs e) {
-            if (Children.Contains(chemContextMenu)) {
+        internal void RotateExecuted(object sender, ExecutedRoutedEventArgs e)
+        {
+            if (Children.Contains(chemContextMenu))
+            {
                 Children.Remove(chemContextMenu);
                 chemContextMenu.Opacity = 1.0;
             }
 
             XElement[] xelmns = new XElement[selectedAtoms.Count];
-            for (int i = 0; i < selectedAtoms.Count; i++) {
+            for (int i = 0; i < selectedAtoms.Count; i++)
+            {
                 xelmns[i] = selectedAtoms.Values.ToArray()[i].DelegateElement;
             }
 
@@ -87,11 +94,13 @@ namespace Chem4Word.UI.TwoD {
             selectionRotationTool.InvalidateVisual();
         }
 
-        internal void RotateSelectionCanExecute(object sender, CanExecuteRoutedEventArgs e) {
+        internal void RotateSelectionCanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
             e.CanExecute = selectedAtoms.Count > 1;
         }
 
-        private void SelectionRotationToolMouseDown(object sender, MouseButtonEventArgs e) {
+        private void SelectionRotationToolMouseDown(object sender, MouseButtonEventArgs e)
+        {
             TakeSnapshotOfContextObject();
             Point p = e.GetPosition(this);
             initialRotateVector = p - rotationCentreInCanvasSpace;
@@ -102,109 +111,131 @@ namespace Chem4Word.UI.TwoD {
             e.Handled = true;
         }
 
-        private void BondContextMenuBondGroupSelected(string group) {
+        private void BondContextMenuBondGroupSelected(string group)
+        {
             TakeSnapshotOfContextObject();
 
-            foreach (XElement bond in GetSelectedBondsAsXElements()) {
+            foreach (XElement bond in GetSelectedBondsAsXElements())
+            {
                 Cid.SubstituteBondByGroup(ContextObject, bond, group);
             }
 
             Refresh();
         }
 
-        private void BondContextMenuBondStereoSelected(string type) {
+        private void BondContextMenuBondStereoSelected(string type)
+        {
             TakeSnapshotOfContextObject();
 
-            foreach (XElement bond in GetSelectedBondsAsXElements()) {
+            foreach (XElement bond in GetSelectedBondsAsXElements())
+            {
                 Cid.SetBondStereo(ContextObject, bond, type);
             }
 
             Refresh();
         }
 
-        private void BondContextMenuCustomBondOrderSelected(string order) {
+        private void BondContextMenuCustomBondOrderSelected(string order)
+        {
             TakeSnapshotOfContextObject();
 
-            foreach (XElement bond in GetSelectedBondsAsXElements()) {
+            foreach (XElement bond in GetSelectedBondsAsXElements())
+            {
                 Cid.SetBondOrder(ContextObject, bond, order);
             }
 
             Refresh();
         }
 
-        private void BondContextMenuBondOrderSelected(string order) {
+        private void BondContextMenuBondOrderSelected(string order)
+        {
             TakeSnapshotOfContextObject();
 
-            foreach (XElement bond in GetSelectedBondsAsXElements()) {
+            foreach (XElement bond in GetSelectedBondsAsXElements())
+            {
                 Cid.SetBondOrderAndFixChemistry(ContextObject, bond, order);
             }
 
             Refresh();
         }
 
-        internal void ChemAtomTypeSelected(string atomType) {
+        internal void ChemAtomTypeSelected(string atomType)
+        {
             TakeSnapshotOfContextObject();
             List<XElement> atoms = GetSelectedAtomsAsXElements();
             selectedAtoms.Clear();
             Cid.ChangeElementTypeAndFixChemistry(ContextObject, atoms,
                                                  atomType);
-            if (Children.Contains(chemContextMenu)) {
+            if (Children.Contains(chemContextMenu))
+            {
                 Children.Remove(chemContextMenu);
             }
 
             Refresh();
         }
 
-        public void ChemContextMenuCustomAtomTypeSelected(string atomType) {
+        public void ChemContextMenuCustomAtomTypeSelected(string atomType)
+        {
             TakeSnapshotOfContextObject();
             Cid.ChangeElementType(ContextObject, GetSelectedAtomsAsXElements(),
                                   atomType);
-            if (Children.Contains(chemContextMenu)) {
+            if (Children.Contains(chemContextMenu))
+            {
                 Children.Remove(chemContextMenu);
             }
             Refresh();
         }
 
-        internal void ChemGroupSelected(string groupType) {
+        internal void ChemGroupSelected(string groupType)
+        {
             TakeSnapshotOfContextObject();
             XElement atom = selectedAtoms.ToArray()[0].Value.DelegateElement;
             selectedAtoms.Clear();
             Cid.SubstituteAtomByGroup(ContextObject, atom, groupType);
-            if (Children.Contains(chemContextMenu)) {
+            if (Children.Contains(chemContextMenu))
+            {
                 Children.Remove(chemContextMenu);
             }
 
             Refresh();
         }
 
-        private void ChemContextMenuCustomChargeSelected(int charge) {
+        private void ChemContextMenuCustomChargeSelected(int charge)
+        {
             TakeSnapshotOfContextObject();
             Cid.EditOrSetCharge(ContextObject, SelectedAtoms.ToArray()[0].Value.DelegateElement, charge);
             Refresh();
         }
 
-        private void ChemContextMenuChargeSelected(int charge) {
+        private void ChemContextMenuChargeSelected(int charge)
+        {
             TakeSnapshotOfContextObject();
             Cid.EditOrSetCharge(ContextObject, selectedAtoms.ToArray()[0].Value.DelegateElement, charge);
             Refresh();
         }
 
-        internal void ChemContextMenuIsotopeSelected(int isotope) {
-            if (CmlAtom.IsValidIsotopeNumber(isotope)) {
+        internal void ChemContextMenuIsotopeSelected(int isotope)
+        {
+            if (CmlAtom.IsValidIsotopeNumber(isotope))
+            {
                 TakeSnapshotOfContextObject();
                 Cid.EditOrSetIsotopeNumber(ContextObject, selectedAtoms.ToArray()[0].Value.DelegateElement, isotope);
                 Refresh();
-            } else {
+            }
+            else
+            {
                 MessageBox.Show(Window.GetWindow(this), isotope + " is not a valid isotope for this atom.",
                                 "Invalid Chemistry", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
-        internal void DeleteSelectionCanExecute(object sender, CanExecuteRoutedEventArgs e) {
+        internal void DeleteSelectionCanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
             e.CanExecute = selectedAtoms.Count > 0;
         }
 
-        internal void DeleteSelectionExecuted(object sender, ExecutedRoutedEventArgs e) {
+        internal void DeleteSelectionExecuted(object sender, ExecutedRoutedEventArgs e)
+        {
             List<XElement> atoms = GetSelectedAtomsAsXElements();
             // TODO decide on and implement deletion modes
             // if DELETION MODE is remove and fix valencies 
@@ -219,7 +250,8 @@ namespace Chem4Word.UI.TwoD {
             Refresh();
         }
 
-        internal void FlipHorizontalExecuted(object sender, ExecutedRoutedEventArgs e) {
+        internal void FlipHorizontalExecuted(object sender, ExecutedRoutedEventArgs e)
+        {
             TakeSnapshotOfContextObject();
             Vector2AndPoint2 vecAndPoint = ChemicalIntelligence.CanFlipHorizontally(ContextObject,
                                                                                     GetSelectedAtomsAsXElements());
@@ -230,12 +262,14 @@ namespace Chem4Word.UI.TwoD {
             Refresh();
         }
 
-        internal void FlipHorizontalCanExecute(object sender, CanExecuteRoutedEventArgs e) {
+        internal void FlipHorizontalCanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
             e.CanExecute = ChemicalIntelligence.CanFlipHorizontally(ContextObject, GetSelectedAtomsAsXElements()) !=
                            null;
         }
 
-        internal void FlipVerticalExecuted(object sender, ExecutedRoutedEventArgs e) {
+        internal void FlipVerticalExecuted(object sender, ExecutedRoutedEventArgs e)
+        {
             TakeSnapshotOfContextObject();
             Vector2AndPoint2 vecAndPoint = ChemicalIntelligence.CanFlipVertically(ContextObject,
                                                                                   GetSelectedAtomsAsXElements());
@@ -245,36 +279,44 @@ namespace Chem4Word.UI.TwoD {
             Refresh();
         }
 
-        internal void FlipVerticalCanExecute(object sender, CanExecuteRoutedEventArgs e) {
+        internal void FlipVerticalCanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
             e.CanExecute = ChemicalIntelligence.CanFlipVertically(ContextObject, GetSelectedAtomsAsXElements()) != null;
         }
 
-        internal void AddRemoveElectronCanExecute(object sender, CanExecuteRoutedEventArgs e) {
+        internal void AddRemoveElectronCanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
             e.CanExecute = ChemicalIntelligence.CanEditOrSetSpinMultiplicity(ContextObject,
                                                                              GetSelectedAtomsAsXElements());
         }
 
-        internal void AddElectronExecuted(object sender, ExecutedRoutedEventArgs e) {
+        internal void AddElectronExecuted(object sender, ExecutedRoutedEventArgs e)
+        {
             TakeSnapshotOfContextObject();
-            foreach (XElement xElement in GetSelectedAtomsAsXElements()) {
+            foreach (XElement xElement in GetSelectedAtomsAsXElements())
+            {
                 Cid.AddElectron(ContextObject, xElement);
             }
             Refresh();
         }
 
-        internal void RemoveElectronExecuted(object sender, ExecutedRoutedEventArgs e) {
+        internal void RemoveElectronExecuted(object sender, ExecutedRoutedEventArgs e)
+        {
             TakeSnapshotOfContextObject();
-            foreach (XElement xElement in GetSelectedAtomsAsXElements()) {
+            foreach (XElement xElement in GetSelectedAtomsAsXElements())
+            {
                 Cid.RemoveElectron(ContextObject, xElement);
             }
             Refresh();
         }
 
-        internal void UndoCanExecute(object sender, CanExecuteRoutedEventArgs e) {
+        internal void UndoCanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
             e.CanExecute = undoStack.Count > 0;
         }
 
-        internal void UndoExecuted(object sender, ExecutedRoutedEventArgs e) {
+        internal void UndoExecuted(object sender, ExecutedRoutedEventArgs e)
+        {
             IsDirty = true;
             redoStack.Push(ContextObject);
             ContextObject = undoStack.Pop();
@@ -283,11 +325,13 @@ namespace Chem4Word.UI.TwoD {
             Refresh();
         }
 
-        internal void RedoCanExecute(object sender, CanExecuteRoutedEventArgs e) {
+        internal void RedoCanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
             e.CanExecute = redoStack.Count > 0;
         }
 
-        internal void RedoExecuted(object sender, ExecutedRoutedEventArgs e) {
+        internal void RedoExecuted(object sender, ExecutedRoutedEventArgs e)
+        {
             IsDirty = true;
             undoStack.Push(ContextObject);
             ContextObject = redoStack.Pop();
@@ -295,38 +339,48 @@ namespace Chem4Word.UI.TwoD {
             Refresh();
         }
 
-        internal void AddLabelCanExecute(object sender, CanExecuteRoutedEventArgs e) {
+        internal void AddLabelCanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
             e.CanExecute = ChemicalIntelligence.CanAddLabel(ContextObject, GetSelectedAtomsAsXElements());
         }
 
-        internal void AddLabelExecuted(object sender, ExecutedRoutedEventArgs e) {
-            AddLabelWindow dlg = new AddLabelWindow {Owner = Window.GetWindow(this)};
+        internal void AddLabelExecuted(object sender, ExecutedRoutedEventArgs e)
+        {
+            AddLabelWindow dlg = new AddLabelWindow { Owner = Window.GetWindow(this) };
             XElement labelPointer = null;
-            if (selectedAtoms.Count == 1) {
+            if (selectedAtoms.Count == 1)
+            {
                 CmlLabel[] labels = selectedAtoms.ToArray()[0].Value.GetLabels().ToArray();
-                if (labels.Length > 0) {
+                if (labels.Length > 0)
+                {
                     labelPointer = labels[0].DelegateElement;
                     dlg.LabelText = labels[0].Value;
                     dlg.SelectAll();
                 }
             }
             dlg.ShowDialog();
-            if (dlg.DialogResult == true) {
+            if (dlg.DialogResult == true)
+            {
                 TakeSnapshotOfContextObject();
-                if (labelPointer != null) {
+                if (labelPointer != null)
+                {
                     Cid.EditOrSetLabelValue(ContextObject, labelPointer, dlg.LabelText);
-                } else {
+                }
+                else
+                {
                     Cid.AddLabel(ContextObject, GetSelectedAtomsAsXElements(), dlg.LabelText);
                 }
             }
             Refresh();
         }
 
-        internal void RemoveLabelCanExecute(object sender, CanExecuteRoutedEventArgs e) {
+        internal void RemoveLabelCanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
             e.CanExecute = ChemicalIntelligence.CanRemoveLabels(ContextObject, GetSelectedAtomsAsXElements());
         }
 
-        internal void RemoveLabelExecuted(object sender, ExecutedRoutedEventArgs e) {
+        internal void RemoveLabelExecuted(object sender, ExecutedRoutedEventArgs e)
+        {
             TakeSnapshotOfContextObject();
             Cid.RemoveLabel(ContextObject, GetSelectedAtomsAsXElements());
             Refresh();
@@ -336,12 +390,14 @@ namespace Chem4Word.UI.TwoD {
         /// </summary>
         /// <param name = "sender"></param>
         /// <param name = "e"></param>
-        internal void FlipSelectionCanExecute(object sender, CanExecuteRoutedEventArgs e) {
+        internal void FlipSelectionCanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
             e.CanExecute = (ChemicalIntelligence.CanFlipAboutExternalAcyclicBond(ContextObject,
                                                                                  GetSelectedAtomsAsXElements()) != null);
         }
 
-        internal void FlipSelectionExecuted(object sender, ExecutedRoutedEventArgs e) {
+        internal void FlipSelectionExecuted(object sender, ExecutedRoutedEventArgs e)
+        {
             TakeSnapshotOfContextObject();
             Vector2AndPoint2 vecAndPoint = ChemicalIntelligence.CanFlipAboutExternalAcyclicBond(ContextObject,
                                                                                                 GetSelectedAtomsAsXElements
@@ -351,29 +407,36 @@ namespace Chem4Word.UI.TwoD {
             Refresh();
         }
 
-        internal void RemoveIsotopeCanExecute(object sender, CanExecuteRoutedEventArgs e) {
+        internal void RemoveIsotopeCanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
             e.CanExecute = ChemicalIntelligence.CanUnsetIsotopeNumber(ContextObject, GetSelectedAtomsAsXElements());
         }
 
-        internal void RemoveIsotopeExecuted(object sender, ExecutedRoutedEventArgs e) {
+        internal void RemoveIsotopeExecuted(object sender, ExecutedRoutedEventArgs e)
+        {
             TakeSnapshotOfContextObject();
             Cid.UnsetIsotopeNumber(ContextObject, GetSelectedAtomsAsXElements());
             Refresh();
         }
 
-        internal void SetChargeCanExecute(object sender, CanExecuteRoutedEventArgs e) {
+        internal void SetChargeCanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
             e.CanExecute = ChemicalIntelligence.CanEditOrSetCharge(ContextObject, GetSelectedAtomsAsXElements());
         }
 
-        internal void SetChargeExecuted(object sender, ExecutedRoutedEventArgs e) {
+        internal void SetChargeExecuted(object sender, ExecutedRoutedEventArgs e)
+        {
             TakeSnapshotOfContextObject();
-            AddLabelWindow dlg = new AddLabelWindow {Title = "Set Charge", Owner = Window.GetWindow(this)};
+            AddLabelWindow dlg = new AddLabelWindow { Title = "Set Charge", Owner = Window.GetWindow(this) };
             dlg.ShowDialog();
-            if (dlg.DialogResult == true) {
+            if (dlg.DialogResult == true)
+            {
                 int result;
                 bool isValid = int.TryParse(dlg.LabelText, out result);
-                if (isValid) {
-                    foreach (XElement element in GetSelectedAtomsAsXElements()) {
+                if (isValid)
+                {
+                    foreach (XElement element in GetSelectedAtomsAsXElements())
+                    {
                         Cid.EditOrSetCharge(ContextObject, element, result);
                     }
                 }
@@ -381,73 +444,90 @@ namespace Chem4Word.UI.TwoD {
             Refresh();
         }
 
-        internal void RemoveChargeCanExecute(object sender, CanExecuteRoutedEventArgs e) {
+        internal void RemoveChargeCanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
             e.CanExecute = ChemicalIntelligence.CanUnsetCharge(ContextObject, GetSelectedAtomsAsXElements());
         }
 
-        internal void RemoveChargeExecuted(object sender, ExecutedRoutedEventArgs e) {
+        internal void RemoveChargeExecuted(object sender, ExecutedRoutedEventArgs e)
+        {
             TakeSnapshotOfContextObject();
             Cid.UnsetCharge(ContextObject, GetSelectedAtomsAsXElements());
             Refresh();
         }
 
-        internal void AddProtonCanExecute(object sender, CanExecuteRoutedEventArgs e) {
+        internal void AddProtonCanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
             e.CanExecute = ChemicalIntelligence.CanAddProton(ContextObject, GetSelectedAtomsAsXElements());
         }
 
-        internal void AddProtonExecuted(object sender, ExecutedRoutedEventArgs e) {
+        internal void AddProtonExecuted(object sender, ExecutedRoutedEventArgs e)
+        {
             TakeSnapshotOfContextObject();
-            foreach (XElement element in GetSelectedAtomsAsXElements()) {
+            foreach (XElement element in GetSelectedAtomsAsXElements())
+            {
                 Cid.AddProton(ContextObject, element);
             }
             Refresh();
         }
 
-        internal void RemoveProtonCanExecute(object sender, CanExecuteRoutedEventArgs e) {
+        internal void RemoveProtonCanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
             List<XElement> atoms = GetSelectedAtomsAsXElements();
             e.CanExecute = ChemicalIntelligence.CanRemoveProton(ContextObject, atoms);
         }
 
-        internal void RemoveProtonExecuted(object sender, ExecutedRoutedEventArgs e) {
+        internal void RemoveProtonExecuted(object sender, ExecutedRoutedEventArgs e)
+        {
             TakeSnapshotOfContextObject();
-            foreach (XElement element in GetSelectedAtomsAsXElements()) {
+            foreach (XElement element in GetSelectedAtomsAsXElements())
+            {
                 Cid.RemoveProton(ContextObject, element);
             }
             Refresh();
         }
 
-        internal void AddHydrogenDotCanExecute(object sender, CanExecuteRoutedEventArgs e) {
+        internal void AddHydrogenDotCanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
             e.CanExecute = ChemicalIntelligence.CanAddHydrogenDot(ContextObject, GetSelectedAtomsAsXElements());
         }
 
-        internal void AddHydrogenDotExecuted(object sender, ExecutedRoutedEventArgs e) {
+        internal void AddHydrogenDotExecuted(object sender, ExecutedRoutedEventArgs e)
+        {
             TakeSnapshotOfContextObject();
-            foreach (XElement element in GetSelectedAtomsAsXElements()) {
+            foreach (XElement element in GetSelectedAtomsAsXElements())
+            {
                 Cid.AddHydrogenDot(ContextObject, element);
             }
             Refresh();
         }
 
-        internal void RemoveHydrogenDotCanExecute(object sender, CanExecuteRoutedEventArgs e) {
+        internal void RemoveHydrogenDotCanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
             e.CanExecute = ChemicalIntelligence.CanRemoveHydrogenDot(ContextObject, GetSelectedAtomsAsXElements());
         }
 
-        internal void RemoveHydrogenDotExecuted(object sender, ExecutedRoutedEventArgs e) {
+        internal void RemoveHydrogenDotExecuted(object sender, ExecutedRoutedEventArgs e)
+        {
             TakeSnapshotOfContextObject();
-            foreach (XElement element in GetSelectedAtomsAsXElements()) {
+            foreach (XElement element in GetSelectedAtomsAsXElements())
+            {
                 Cid.RemoveHydrogenDot(ContextObject, element);
             }
             Refresh();
         }
 
-        internal void SelectAllExecuted(object sender, ExecutedRoutedEventArgs e) {
+        internal void SelectAllExecuted(object sender, ExecutedRoutedEventArgs e)
+        {
             selectedAtoms.Clear();
-            foreach (CmlAtom atom in pointer.GetAllAtoms()) {
+            foreach (CmlAtom atom in pointer.GetAllAtoms())
+            {
                 selectedAtoms.Add(atom.Id, atom);
             }
-            if (selectedAtoms.Count > 0) {
+            if (selectedAtoms.Count > 0)
+            {
                 Rect r = CoordinateTool.GetBounds2D(ContextObject, SelectedAtoms.Values);
-                SetLeft(chemContextMenu, ToScreenX(r.Left) + ToScreenX(r.Width/2) - (chemContextMenu.Width/2));
+                SetLeft(chemContextMenu, ToScreenX(r.Left) + ToScreenX(r.Width / 2) - (chemContextMenu.Width / 2));
                 SetTop(chemContextMenu, ToScreenY(r.Bottom) - chemContextMenu.Height - 25);
 
                 Children.Add(chemContextMenu);
@@ -455,15 +535,18 @@ namespace Chem4Word.UI.TwoD {
             Refresh();
         }
 
-        private void OnPropertyChanged(string property) {
-            if (PropertyChanged != null) {
+        private void OnPropertyChanged(string property)
+        {
+            if (PropertyChanged != null)
+            {
                 PropertyChanged(this, new PropertyChangedEventArgs(property));
             }
         }
 
         #region constructors
 
-        public ChemCanvas() {
+        public ChemCanvas()
+        {
             InitializeComponent();
 
             //chemContextMenu.AtomTypeSelected += ChemContextMenuAtomTypeSelected;
@@ -483,7 +566,8 @@ namespace Chem4Word.UI.TwoD {
         }
 
         public ChemCanvas(ContextObject contextObject, CmlMolecule moleculePointer)
-            : this() {
+            : this()
+        {
             SetData(contextObject, moleculePointer);
         }
 
@@ -495,7 +579,7 @@ namespace Chem4Word.UI.TwoD {
         ///   ZoomFactor Dependency Property
         /// </summary>
         public static readonly DependencyProperty ZoomFactorProperty =
-            DependencyProperty.Register("ZoomFactor", typeof (double), typeof (ChemCanvas),
+            DependencyProperty.Register("ZoomFactor", typeof(double), typeof(ChemCanvas),
                                         new FrameworkPropertyMetadata(1.0,
                                                                       new PropertyChangedCallback(OnZoomFactorChanged)));
 
@@ -503,24 +587,28 @@ namespace Chem4Word.UI.TwoD {
         ///   Gets or sets the ZoomFactor property.  This dependency property 
         ///   indicates ....
         /// </summary>
-        public double ZoomFactor {
-            get { return (double) GetValue(ZoomFactorProperty); }
+        public double ZoomFactor
+        {
+            get { return (double)GetValue(ZoomFactorProperty); }
             set { SetValue(ZoomFactorProperty, value); }
         }
 
         /// <summary>
         ///   Handles changes to the ZoomFactor property.
         /// </summary>
-        private static void OnZoomFactorChanged(DependencyObject d, DependencyPropertyChangedEventArgs e) {
-            ((ChemCanvas) d).OnZoomFactorChanged(e);
+        private static void OnZoomFactorChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            ((ChemCanvas)d).OnZoomFactorChanged(e);
         }
 
         /// <summary>
         ///   Provides derived classes an opportunity to handle changes to the ZoomFactor property.
         /// </summary>
-        protected virtual void OnZoomFactorChanged(DependencyPropertyChangedEventArgs e) {
-            if (ContextObject != null) {
-                zoomFactor = (double) e.NewValue;
+        protected virtual void OnZoomFactorChanged(DependencyPropertyChangedEventArgs e)
+        {
+            if (ContextObject != null)
+            {
+                zoomFactor = (double)e.NewValue;
                 Init();
                 Refresh();
             }
@@ -530,7 +618,8 @@ namespace Chem4Word.UI.TwoD {
 
         #region public methods
 
-        public void SetData(ContextObject contextObject, CmlMolecule moleculePointer) {
+        public void SetData(ContextObject contextObject, CmlMolecule moleculePointer)
+        {
             ContextObject = contextObject;
             selectedAtoms.Clear();
             selectedBonds.Clear();
@@ -543,8 +632,9 @@ namespace Chem4Word.UI.TwoD {
         /// </summary>
         /// <param name = "x"></param>
         /// <returns></returns>
-        public double ToScreenX(double x) {
-            x = x*(scaleFactor*zoomFactor);
+        public double ToScreenX(double x)
+        {
+            x = x * (scaleFactor * zoomFactor);
             return x;
         }
 
@@ -553,8 +643,9 @@ namespace Chem4Word.UI.TwoD {
         /// </summary>
         /// <param name = "x"></param>
         /// <returns></returns>
-        public double FromScreenX(double x) {
-            x = x/(scaleFactor*zoomFactor);
+        public double FromScreenX(double x)
+        {
+            x = x / (scaleFactor * zoomFactor);
             return x;
         }
 
@@ -563,9 +654,11 @@ namespace Chem4Word.UI.TwoD {
         /// </summary>
         /// <param name = "y"></param>
         /// <returns></returns>
-        public double ToScreenY(double y) {
-            y = y*(scaleFactor*zoomFactor);
-            if (invertYAxis) {
+        public double ToScreenY(double y)
+        {
+            y = y * (scaleFactor * zoomFactor);
+            if (invertYAxis)
+            {
                 y = -y;
             }
             return y;
@@ -576,11 +669,13 @@ namespace Chem4Word.UI.TwoD {
         /// </summary>
         /// <param name = "y"></param>
         /// <returns></returns>
-        public double FromScreenY(double y) {
-            if (invertYAxis) {
+        public double FromScreenY(double y)
+        {
+            if (invertYAxis)
+            {
                 y = -y;
             }
-            y = y/(scaleFactor*zoomFactor);
+            y = y / (scaleFactor * zoomFactor);
             return y;
         }
 
@@ -588,55 +683,22 @@ namespace Chem4Word.UI.TwoD {
         ///   Method to maintain compatability with original design
         ///   TODO should refactor calls to Refresh to include the bool
         /// </summary>
-        public void Refresh() {
-            Refresh(false);
-        }
-
-        /// <summary>
-        ///   Clear the canvas and redraw all the elements.
-        /// </summary>
-        public void Refresh(bool forPng) {
+        public void Refresh()
+        {
             var contextMenuShown = Children.Contains(chemContextMenu);
 
             Children.Clear();
-            if (!forPng) {
-                var viewBox = new ViewBox(this);
-                viewBox.WestControlMouseDown += WestControlMouseDown;
-                viewBox.EastControlMouseDown += EastControlMouseDown;
-                viewBox.NorthControlMouseDown += NorthControlMouseDown;
-                viewBox.SouthControlMouseDown += SouthControlMouseDown;
-                viewBox.NorthWestControlMouseDown += NorthWestControlMouseDown;
-                viewBox.NorthEastControlMouseDown += NorthEastControlMouseDown;
-                viewBox.SouthWestControlMouseDown += SouthWestControlMouseDown;
-                viewBox.SouthEastControlMouseDown += SouthEastControlMouseDown;
-                Children.Add(viewBox);
-            }
-            if (forPng) {
-                InitForPng();
-                var r1 = CoordinateTool.GetBounds2D(ContextObject, molecule.GetAllAtoms());
-                if (invertYAxis) {
-                    var temp = r1;
-                    r1 = new Rect(temp.X, temp.Bottom, temp.Width, temp.Height);
-                }
-                var viewboxActualLeft = ToScreenX(ContextObject.ViewBoxDimensions.Left);
-                var viewboxActualRight = ToScreenX(ContextObject.ViewBoxDimensions.Right);
-                var viewboxActualTop = ToScreenY(ContextObject.ViewBoxDimensions.Top);
-                var viewboxActualBottom = ToScreenY(ContextObject.ViewBoxDimensions.Bottom);
 
-                var molActualLeft = ToScreenX(r1.Left);
-                var molActualRight = ToScreenX(r1.Right);
-                var molActualTop = ToScreenY(r1.Top);
-                var molActualBottom = ToScreenY(r1.Bottom);
-
-                var viewBoxActual = new Rect(viewboxActualLeft, viewboxActualTop, viewboxActualRight - viewboxActualLeft,
-                                             Math.Abs(viewboxActualTop - viewboxActualBottom));
-                var molActual = new Rect(molActualLeft, molActualTop, molActualRight - molActualLeft,
-                                         Math.Abs(molActualTop - molActualBottom));
-                if (!viewBoxActual.Contains(molActual)) {
-                    var displayBox = new DisplayBox(this);
-                    Children.Add(displayBox);
-                }
-            }
+            var viewBox = new ViewBox(this);
+            viewBox.WestControlMouseDown += WestControlMouseDown;
+            viewBox.EastControlMouseDown += EastControlMouseDown;
+            viewBox.NorthControlMouseDown += NorthControlMouseDown;
+            viewBox.SouthControlMouseDown += SouthControlMouseDown;
+            viewBox.NorthWestControlMouseDown += NorthWestControlMouseDown;
+            viewBox.NorthEastControlMouseDown += NorthEastControlMouseDown;
+            viewBox.SouthWestControlMouseDown += SouthWestControlMouseDown;
+            viewBox.SouthEastControlMouseDown += SouthEastControlMouseDown;
+            Children.Add(viewBox);
 
 
             IsCmlValid = ChemicalIntelligence.AreThereWarningsOfCurrentChemicalRules(ContextObject,
@@ -644,35 +706,79 @@ namespace Chem4Word.UI.TwoD {
             nodes = DrawAtoms(molecule);
             DrawBonds(molecule, nodes);
 
-            if (forPng) {
-                RenderTransform = standardTransformGroup;
-            } else {
-                foreach (UIElement child in Children) {
-                    child.RenderTransform = standardTransformGroup;
-                }
+
+            foreach (UIElement child in Children)
+            {
+                child.RenderTransform = standardTransformGroup;
             }
+
 
             chemContextMenu.RenderTransform = standardTransformGroup;
             bondContextMenu.RenderTransform = standardTransformGroup;
 
-            if (!forPng) {
-                if (isRotating) {
-                    Children.Add(selectionRotationTool);
-                }
-                if (contextMenuShown) {
-                    Children.Add(chemContextMenu);
-                }
+
+            if (isRotating)
+            {
+                Children.Add(selectionRotationTool);
+            }
+            if (contextMenuShown)
+            {
+                Children.Add(chemContextMenu);
             }
 
-            if (Refreshed != null) {
+
+            if (Refreshed != null)
+            {
                 Refreshed(this, null);
             }
         }
+        
+        public void GeneratePng()
+        {
+            Children.Clear();
 
+            InitForPng();
+            var r1 = CoordinateTool.GetBounds2D(ContextObject, molecule.GetAllAtoms());
+            if (invertYAxis)
+            {
+                var temp = r1;
+                r1 = new Rect(temp.X, temp.Bottom, temp.Width, temp.Height);
+            }
+            var viewboxActualLeft = ToScreenX(ContextObject.ViewBoxDimensions.Left);
+            var viewboxActualRight = ToScreenX(ContextObject.ViewBoxDimensions.Right);
+            var viewboxActualTop = ToScreenY(ContextObject.ViewBoxDimensions.Top);
+            var viewboxActualBottom = ToScreenY(ContextObject.ViewBoxDimensions.Bottom);
 
-        public event EventHandler<EventArgs> Refreshed;
+            var molActualLeft = ToScreenX(r1.Left);
+            var molActualRight = ToScreenX(r1.Right);
+            var molActualTop = ToScreenY(r1.Top);
+            var molActualBottom = ToScreenY(r1.Bottom);
 
-        private Rectangle GetSelectionBoundsRectangle() {
+            var viewBoxActual = new Rect(viewboxActualLeft, viewboxActualTop, viewboxActualRight - viewboxActualLeft,
+                                         Math.Abs(viewboxActualTop - viewboxActualBottom));
+            var molActual = new Rect(molActualLeft, molActualTop, molActualRight - molActualLeft,
+                                     Math.Abs(molActualTop - molActualBottom));
+            if (!viewBoxActual.Contains(molActual))
+            {
+                var displayBox = new DisplayBox(this);
+                Children.Add(displayBox);
+            }
+
+            IsCmlValid = ChemicalIntelligence.AreThereWarningsOfCurrentChemicalRules(ContextObject,
+                                                                                         molecule.DelegateElement);
+            nodes = DrawAtoms(molecule);
+            DrawBonds(molecule, nodes);
+
+            RenderTransform = standardTransformGroup;
+
+            chemContextMenu.RenderTransform = standardTransformGroup;
+            bondContextMenu.RenderTransform = standardTransformGroup;
+        }
+
+        public event EventHandler Refreshed;
+
+        private Rectangle GetSelectionBoundsRectangle()
+        {
             Rect rect = CoordinateTool.GetBounds2D(ContextObject, selectedAtoms.Values);
 
             double marginExtra = 20;
@@ -698,26 +804,34 @@ namespace Chem4Word.UI.TwoD {
             return newRect;
         }
 
-        public void Flip() {
-            if (SelectedAtoms.Count > 0) {
+        public void Flip()
+        {
+            if (SelectedAtoms.Count > 0)
+            {
                 HashSet<string> currentlySelectedAtoms = new HashSet<string>();
 
                 HashSet<string> neighbours = new HashSet<string>();
-                foreach (KeyValuePair<string, CmlAtom> kvp in SelectedAtoms) {
+                foreach (KeyValuePair<string, CmlAtom> kvp in SelectedAtoms)
+                {
                     currentlySelectedAtoms.Add(kvp.Key);
-                    foreach (string ligand in kvp.Value.GetLigandIds()) {
+                    foreach (string ligand in kvp.Value.GetLigandIds())
+                    {
                         neighbours.Add(ligand);
                     }
                 }
-                foreach (string selected in currentlySelectedAtoms) {
+                foreach (string selected in currentlySelectedAtoms)
+                {
                     neighbours.Remove(selected);
                 }
-                if (neighbours.Count == 1) {
+                if (neighbours.Count == 1)
+                {
                     CmlAtom atom0 = molecule.GetAtomById(neighbours.First());
                     ICollection<string> ligands = atom0.GetLigandIds();
                     string atom1ID = "";
-                    foreach (string ligand in ligands) {
-                        if (currentlySelectedAtoms.Contains(ligand)) {
+                    foreach (string ligand in ligands)
+                    {
+                        if (currentlySelectedAtoms.Contains(ligand))
+                        {
                             atom1ID = ligand;
                         }
                     }
@@ -754,19 +868,23 @@ namespace Chem4Word.UI.TwoD {
 
         private SortedDictionary<string, CmlBond> selectedBonds = new SortedDictionary<string, CmlBond>();
 
-        public SortedDictionary<string, CmlAtom> SelectedAtoms {
+        public SortedDictionary<string, CmlAtom> SelectedAtoms
+        {
             get { return selectedAtoms; }
             set { selectedAtoms = value; }
         }
 
-        public SortedDictionary<string, CmlBond> SelectedBonds {
+        public SortedDictionary<string, CmlBond> SelectedBonds
+        {
             get { return selectedBonds; }
             set { selectedBonds = value; }
         }
 
-        public ContextObject ContextObject {
+        public ContextObject ContextObject
+        {
             get { return _co; }
-            internal set {
+            internal set
+            {
                 Log.Info("setting CO");
                 _co = value;
             }
@@ -775,30 +893,37 @@ namespace Chem4Word.UI.TwoD {
         /// <summary>
         ///   Get the canvas to which to add UIElements.
         /// </summary>
-        public Canvas Canvas {
+        public Canvas Canvas
+        {
             get { return this; }
         }
 
-        internal bool IsCmlValid { get; private set; }
+        public bool IsCmlValid { get; private set; }
 
         /// <summary>
         /// </summary>
         public bool ConnectionTableChanged { internal set; get; }
 
-        public bool IsPerformingDirectionBondSelect { get; internal set; }
+        public double StandardXOffset { get; private set; }
+
+        public double StandardYOffset { get; private set; }
+
+        public bool IsPerformingDirectionBondSelect { get; set; }
 
         public bool IsDirty { get; private set; }
 
         public bool IsSaved { get; private set; }
 
-        internal void TakeSnapshotOfContextObject() {
+        public void TakeSnapshotOfContextObject()
+        {
             Log.Debug("Old context object cml:\n\n" + ContextObject.Cml);
             IsDirty = true;
             undoStack.Push(ContextObject.Clone());
             redoStack.Clear();
         }
 
-        public ContextObject Save() {
+        public ContextObject Save()
+        {
             IsDirty = false;
             return ContextObject.Clone();
         }
@@ -807,22 +932,23 @@ namespace Chem4Word.UI.TwoD {
 
         #region private methods
 
-        internal void Init() {
+        internal void Init()
+        {
             InitialiseCoords();
 
             ICollection<CmlBond> bonds = molecule.GetAllBonds();
             avbondlen = bonds.Any() ? GeometryTool.GetMedianBondLength2D(bonds) : 1.54;
-            scaleFactor = defaultBondLength/avbondlen;
+            scaleFactor = defaultBondLength / avbondlen;
 
-            molWidthScreenCoords = Math.Abs(xmax - xmin)*(scaleFactor*zoomFactor);
-            molHeightScreenCoords = Math.Abs(ymax - ymin)*(scaleFactor*zoomFactor);
+            molWidthScreenCoords = Math.Abs(xmax - xmin) * (scaleFactor * zoomFactor);
+            molHeightScreenCoords = Math.Abs(ymax - ymin) * (scaleFactor * zoomFactor);
 
             maxBoundScreenCoords = (molWidthScreenCoords > molHeightScreenCoords)
                                        ? molWidthScreenCoords
                                        : molHeightScreenCoords;
 
-            StandardXOffset = border + ToScreenX(-xmin) + (maxBoundScreenCoords - molWidthScreenCoords)/2;
-            StandardYOffset = border + ToScreenY(-ymax) + (maxBoundScreenCoords - molHeightScreenCoords)/2;
+            StandardXOffset = border + ToScreenX(-xmin) + (maxBoundScreenCoords - molWidthScreenCoords) / 2;
+            StandardYOffset = border + ToScreenY(-ymax) + (maxBoundScreenCoords - molHeightScreenCoords) / 2;
 
             Log.Debug(string.Format("xmax {0} xmin {1} ymax {2} ymin {3}", xmax, xmin, ymax, ymin));
             Log.Debug(string.Format("mol width (screen): {0} mol height (screen) {1}", molWidthScreenCoords,
@@ -833,8 +959,9 @@ namespace Chem4Word.UI.TwoD {
             var currentViewBox = ContextObject.ViewBoxDimensions;
 
             if (currentViewBox.X.Equals(0d) && currentViewBox.Y.Equals(0d) && currentViewBox.Width.Equals(0d) &&
-                currentViewBox.Height.Equals(0d)) {
-//                viewBox = new Rect(xmin, ymax, molWidthScreenCoords, molHeightScreenCoords);
+                currentViewBox.Height.Equals(0d))
+            {
+                //                viewBox = new Rect(xmin, ymax, molWidthScreenCoords, molHeightScreenCoords);
 
                 ContextObject.ViewBoxDimensions = new Rect(xmin - 1, ymax + 1, Math.Abs(xmax - xmin) + 2,
                                                            Math.Abs(ymax - ymin) + 2);
@@ -857,38 +984,46 @@ namespace Chem4Word.UI.TwoD {
             // this.RenderTransform = tg;
             standardTransformGroup = tg;
 
-            Width = maxBoundScreenCoords + (2*border);
-            Height = maxBoundScreenCoords + (2*border);
+            Width = maxBoundScreenCoords + (2 * border);
+            Height = maxBoundScreenCoords + (2 * border);
         }
 
-        private void InitialiseCoords() {
+        private void InitialiseCoords()
+        {
             ICollection<CmlAtom> atoms = molecule.GetAllAtoms();
-            if (!atoms.Any()) {
+            if (!atoms.Any())
+            {
                 xmin = -1;
                 xmax = +1;
                 ymin = -1;
                 ymax = +1;
-            } else {
+            }
+            else
+            {
                 Rect r = CoordinateTool.GetBounds2D(ContextObject, atoms);
                 xmin = r.Left;
                 xmax = r.Right;
-                if (invertYAxis) {
+                if (invertYAxis)
+                {
                     ymin = r.Top;
                     ymax = r.Bottom;
-                } else {
+                }
+                else
+                {
                     ymin = r.Bottom;
                     ymax = r.Top;
                 }
             }
 
-            molWidthScreenCoords = (xmax - xmin)*(scaleFactor*zoomFactor);
-            molHeightScreenCoords = (ymax - ymin)*(scaleFactor*zoomFactor);
+            molWidthScreenCoords = (xmax - xmin) * (scaleFactor * zoomFactor);
+            molHeightScreenCoords = (ymax - ymin) * (scaleFactor * zoomFactor);
             maxBoundScreenCoords = (molWidthScreenCoords > molHeightScreenCoords)
                                        ? molWidthScreenCoords
                                        : molHeightScreenCoords;
         }
 
-        private void InitForPng() {
+        private void InitForPng()
+        {
             selectedAtoms.Clear();
             selectedBonds.Clear();
             Effect = null;
@@ -908,13 +1043,16 @@ namespace Chem4Word.UI.TwoD {
             Height = Math.Abs(ToScreenY(ContextObject.ViewBoxDimensions.Height));
         }
 
-        private void HideMenus() {
-            if (Children.Contains(chemContextMenu)) {
+        private void HideMenus()
+        {
+            if (Children.Contains(chemContextMenu))
+            {
                 Children.Remove(chemContextMenu);
                 //chemContextMenu.IsPeriodicTableShown = false;
             }
 
-            if (Children.Contains(bondContextMenu)) {
+            if (Children.Contains(bondContextMenu))
+            {
                 Children.Remove(bondContextMenu);
                 //chemContextMenu.IsPeriodicTableShown = false;
             }
@@ -925,7 +1063,8 @@ namespace Chem4Word.UI.TwoD {
         ///   TODO this should actually be passed an AbstractAtomContainer or the like
         /// </summary>
         /// <param name = "mol">the molecule to render</param>
-        private void Init(CmlMolecule mol) {
+        private void Init(CmlMolecule mol)
+        {
             molecule = mol;
             Init();
         }
@@ -937,40 +1076,22 @@ namespace Chem4Word.UI.TwoD {
         /// </summary>
         /// <param name = "molecule"></param>
         /// <returns>sorted dictionary of atom ids to node controls</returns>
-        private SortedDictionary<string, AbstractNodeControl> DrawAtoms(CmlMolecule molecule) {
-            SortedDictionary<string, AbstractNodeControl> sortedNodes =
-                new SortedDictionary<string, AbstractNodeControl>();
+        private SortedDictionary<string, INode> DrawAtoms(CmlMolecule molecule)
+        {
+            SortedDictionary<string, INode> sortedNodes =
+                new SortedDictionary<string, INode>();
 
             // QUESTION
             // Tola mentioned using a factory method here - this may well be worthwhile but 
             // is not highest priority.
             foreach (var atom in
                 molecule.GetAllAtoms().Where(
-                    atom => ChemicalIntelligence.ShouldAtomBeDrawnInTwoD(ContextObject, atom.DelegateElement))) {
-                AbstractNodeControl node;
-                switch (atom.ElementType) {
-                    case "H":
-                        node = new HAtomNodeControl(ContextObject, atom, this);
-                        break;
-                    case "C":
-                        if (atom.IsotopeNumber != null ||
-                            ChemicalIntelligence.IsAtomLinearCarbon(ContextObject, atom.DelegateElement)) {
-                            node = new BasicNodeControl(ContextObject, atom, this);
-                        } else {
-                            node = new NoTextNodeControl(ContextObject, atom, this);
-                        }
-                        break;
-                    case "F":
-                        // F atoms are drawn in green - just for to show we can do a different colour
-                        node = new FAtomNodeControl(ContextObject, atom, this);
-                        break;
-                    default:
-                        node = new BasicNodeControl(ContextObject, atom, this);
-                        break;
-                }
-                node.IsHitTestVisible = DrawingMode != CanvasContainer.DrawingMode.BondSelect;
+                    atom => ChemicalIntelligence.ShouldAtomBeDrawnInTwoD(ContextObject, atom.DelegateElement)))
+            {
+                var node = NodeFactory.Instance.CreateNode(atom, ContextObject, this);
+                node.AsVisual().IsHitTestVisible = DrawingMode != DrawingMode.BondSelect;
                 node.NodeMouseDown += NodeNodeMouseDown;
-                Children.Add(node);
+                Children.Add(node.AsVisual());
                 node.CmlChangedEvent += NodeCmlChangedEvent;
                 sortedNodes.Add(atom.Id, node);
             }
@@ -984,81 +1105,38 @@ namespace Chem4Word.UI.TwoD {
         /// </summary>
         /// <param name = "molecule"></param>
         /// <param name = "nodes"></param>
-        private void DrawBonds(CmlMolecule molecule, SortedDictionary<string, AbstractNodeControl> nodes) {
-            foreach (CmlBond bond in molecule.GetAllBonds()) {
-                AbstractNodeControl startNode;
+        private void DrawBonds(CmlMolecule molecule, SortedDictionary<string, INode> nodes)
+        {
+            foreach (CmlBond bond in molecule.GetAllBonds())
+            {
+                INode startNode;
                 nodes.TryGetValue(bond.GetAtoms().ElementAt(0).Id, out startNode);
-                AbstractNodeControl endNode;
+                INode endNode;
                 nodes.TryGetValue(bond.GetAtoms().ElementAt(1).Id, out endNode);
 
-                AbstractEdgeControl edge = null;
-                switch (bond.Order) {
-                    case CmlBond.Triple:
-                        // always draw triple bonds
-                        edge = new TripleEdgeControl(ContextObject, bond, startNode, endNode, this);
-                        break;
-                    case CmlBond.Double:
-                        // always draw double bonds
-                        edge = new DoubleEdgeControl(ContextObject, bond, startNode, endNode, this);
-                        break;
-
-                        #region case1
-
-                    case CmlBond.Single:
-                        // don't draw if C-H unless also wedge/hatch
-                        // if it is a C-H non-W/H bond then the H will not have been drawn
-                        // ie either the StartNode or the EndNode will be null
-                        if (startNode != null && endNode != null) {
-                            // a 'something' has been drawn at both ends of this bonds so 
-                            // we must draw a bond
-                            CmlBondStereo bondStereo = bond.GetBondStereo();
-                            if (bondStereo == null) {
-                                // not a stereo bond so just show a plain single bond
-                                edge = new BasicEdgeControl(ContextObject, bond, startNode, endNode, this);
-                            } else {
-                                // this  should actually use the bondStereo.Concise value too to ensure 
-                                // that the W/H is being propertly interpretted
-                                switch (bondStereo.DelegateElement.Value) {
-                                    case "W":
-                                        edge = new WedgeEdgeControl(ContextObject, bond, startNode, endNode, this);
-                                        break;
-                                    case "H":
-                                        edge = new HatchEdgeControl(ContextObject, bond, startNode, endNode, this);
-                                        break;
-                                    default:
-                                        edge = new BasicEdgeControl(ContextObject, bond, startNode, endNode, this);
-                                        break;
-                                }
-                            }
-                        }
-                        break;
-
-                        // either the start or the end node has not been drawn onscreen so
-                        // there can't be a bond
-
-                        #endregion case1
-
-                    default:
-                        // unrecognised bond type so just draw a dotted line to indicate association between the atoms
-                        edge = new DottedEdgeControl(ContextObject, bond, startNode, endNode, this);
-                        break;
-                }
-                if (edge != null) {
+                IEdge edge = null;
+                edge = BondFactory.Instance.CreateBond(bond, edge, startNode, endNode, this);
+                if (edge != null)
+                {
                     edge.EdgeClicked += EdgeEdgeClicked;
-                    Children.Add(edge);
+                    Children.Add(edge.AsVisual());
                     // then probably add some listeners
                 }
             }
         }
 
-        private void EdgeEdgeClicked(object sender, EventArgs e) {
-            var edge = sender as AbstractEdgeControl;
+        private void EdgeEdgeClicked(object sender, EventArgs e)
+        {
+            var edge = sender as IEdge;
 
             // add or remove atoms to those selected
-            if (Keyboard.IsKeyDown(Key.LeftCtrl)) {
+            if (Keyboard.IsKeyDown(Key.LeftCtrl))
+            {
                 edge.IsSelected = !edge.IsSelected;
                 Refresh();
-            } else {
+            }
+            else
+            {
                 deferredBondSelectionPending = true;
                 deferredSelectionBond = edge;
             }
@@ -1071,15 +1149,18 @@ namespace Chem4Word.UI.TwoD {
         /// </summary>
         /// <param name = "sender"></param>
         /// <param name = "cmlChangedEventArgs"></param>
-        private void NodeCmlChangedEvent(object sender, CmlChangedEventArgs cmlChangedEventArgs) {
-            if (!dragging) {
+        private void NodeCmlChangedEvent(object sender, CmlChangedEventArgs cmlChangedEventArgs)
+        {
+            if (!dragging)
+            {
                 ContextObject = cmlChangedEventArgs.ContextObject;
             }
 
             Refresh();
         }
 
-        private void ViewBoxChangedEvent(object sender, CmlChangedEventArgs cmlChangedEventArgs) {
+        private void ViewBoxChangedEvent(object sender, CmlChangedEventArgs cmlChangedEventArgs)
+        {
             ContextObject = cmlChangedEventArgs.ContextObject;
             Log.Debug(string.Format("new ContextObject viewbox x {0} y {1} w {2} h {3} ",
                                     ContextObject.ViewBoxDimensions.X, ContextObject.ViewBoxDimensions.Y,
@@ -1087,17 +1168,21 @@ namespace Chem4Word.UI.TwoD {
             Refresh();
         }
 
-        private List<XElement> GetSelectedAtomsAsXElements() {
+        private List<XElement> GetSelectedAtomsAsXElements()
+        {
             List<XElement> atoms = new List<XElement>(selectedAtoms.Count);
-            foreach (CmlAtom atom in selectedAtoms.Values) {
+            foreach (CmlAtom atom in selectedAtoms.Values)
+            {
                 atoms.Add(atom.DelegateElement);
             }
             return atoms;
         }
 
-        private List<XElement> GetSelectedBondsAsXElements() {
+        private List<XElement> GetSelectedBondsAsXElements()
+        {
             List<XElement> bonds = new List<XElement>(selectedBonds.Count);
-            foreach (CmlBond bond in selectedBonds.Values) {
+            foreach (CmlBond bond in selectedBonds.Values)
+            {
                 bonds.Add(bond.DelegateElement);
             }
             return bonds;
@@ -1124,7 +1209,7 @@ namespace Chem4Word.UI.TwoD {
         private double bondWidth = DefaultBondWidth;
         private int border = 200;
         private float defaultBondLength = 32;
-        private CanvasContainer.DrawingMode drawingMode;
+        private DrawingMode drawingMode;
 
         /// <summary>
         ///   should y axis be inverted to draw molecule? 
@@ -1143,7 +1228,7 @@ namespace Chem4Word.UI.TwoD {
         /// </summary>
         internal CmlMolecule molecule;
 
-//        private int pngBorder = 10;
+        //        private int pngBorder = 10;
         private CmlMolecule pointer;
         private Point2 rotationCentreInMolSpace;
 
@@ -1174,17 +1259,21 @@ namespace Chem4Word.UI.TwoD {
         private double yoffsetScreenCoords;
         private double zoomFactor = 1.0d;
 
-        public CanvasContainer.DrawingMode DrawingMode {
+        public DrawingMode DrawingMode
+        {
             get { return drawingMode; }
-            set {
+            set
+            {
                 selectedAtoms.Clear();
                 selectedBonds.Clear();
 
-                if (Children.Contains(chemContextMenu)) {
+                if (Children.Contains(chemContextMenu))
+                {
                     Children.Remove(chemContextMenu);
                 }
 
-                if (Children.Contains(bondContextMenu)) {
+                if (Children.Contains(bondContextMenu))
+                {
                     Children.Remove(bondContextMenu);
                 }
 
@@ -1198,7 +1287,8 @@ namespace Chem4Word.UI.TwoD {
 
         #region Drag Code
 
-        private void WestControlMouseDown(object sender, EventArgs e) {
+        private void WestControlMouseDown(object sender, EventArgs e)
+        {
             dragStart = Mouse.GetPosition(this);
             viewBoxDraggingPosition = ViewBoxDraggingPosition.West;
             Cursor = Cursors.SizeWE;
@@ -1206,7 +1296,8 @@ namespace Chem4Word.UI.TwoD {
             hasMouseDowned = true;
         }
 
-        private void EastControlMouseDown(object sender, EventArgs e) {
+        private void EastControlMouseDown(object sender, EventArgs e)
+        {
             dragStart = Mouse.GetPosition(this);
             viewBoxDraggingPosition = ViewBoxDraggingPosition.East;
             Cursor = Cursors.SizeWE;
@@ -1214,7 +1305,8 @@ namespace Chem4Word.UI.TwoD {
             hasMouseDowned = true;
         }
 
-        private void NorthControlMouseDown(object sender, EventArgs e) {
+        private void NorthControlMouseDown(object sender, EventArgs e)
+        {
             dragStart = Mouse.GetPosition(this);
             viewBoxDraggingPosition = ViewBoxDraggingPosition.North;
             Cursor = Cursors.SizeNS;
@@ -1222,7 +1314,8 @@ namespace Chem4Word.UI.TwoD {
             hasMouseDowned = true;
         }
 
-        private void SouthControlMouseDown(object sender, EventArgs e) {
+        private void SouthControlMouseDown(object sender, EventArgs e)
+        {
             dragStart = Mouse.GetPosition(this);
             viewBoxDraggingPosition = ViewBoxDraggingPosition.South;
             Cursor = Cursors.SizeNS;
@@ -1230,7 +1323,8 @@ namespace Chem4Word.UI.TwoD {
             hasMouseDowned = true;
         }
 
-        private void NorthWestControlMouseDown(object sender, EventArgs e) {
+        private void NorthWestControlMouseDown(object sender, EventArgs e)
+        {
             dragStart = Mouse.GetPosition(this);
             viewBoxDraggingPosition = ViewBoxDraggingPosition.NorthWest;
             Cursor = Cursors.SizeNWSE;
@@ -1238,7 +1332,8 @@ namespace Chem4Word.UI.TwoD {
             hasMouseDowned = true;
         }
 
-        private void NorthEastControlMouseDown(object sender, EventArgs e) {
+        private void NorthEastControlMouseDown(object sender, EventArgs e)
+        {
             dragStart = Mouse.GetPosition(this);
             viewBoxDraggingPosition = ViewBoxDraggingPosition.NorthEast;
             Cursor = Cursors.SizeNESW;
@@ -1246,7 +1341,8 @@ namespace Chem4Word.UI.TwoD {
             hasMouseDowned = true;
         }
 
-        private void SouthWestControlMouseDown(object sender, EventArgs e) {
+        private void SouthWestControlMouseDown(object sender, EventArgs e)
+        {
             dragStart = Mouse.GetPosition(this);
             viewBoxDraggingPosition = ViewBoxDraggingPosition.SouthWest;
             Cursor = Cursors.SizeNESW;
@@ -1254,7 +1350,8 @@ namespace Chem4Word.UI.TwoD {
             hasMouseDowned = true;
         }
 
-        private void SouthEastControlMouseDown(object sender, EventArgs e) {
+        private void SouthEastControlMouseDown(object sender, EventArgs e)
+        {
             dragStart = Mouse.GetPosition(this);
             viewBoxDraggingPosition = ViewBoxDraggingPosition.SouthEast;
             Cursor = Cursors.SizeNWSE;
@@ -1263,17 +1360,21 @@ namespace Chem4Word.UI.TwoD {
         }
 
 
-        private void NodeNodeMouseDown(object sender, EventArgs e) {
+        private void NodeNodeMouseDown(object sender, EventArgs e)
+        {
             //ContextObject = ContextObject;
-            draggableNode = sender as AbstractNodeControl;
+            draggableNode = sender as INode;
             draggableNodeId = draggableNode.CmlAtom.Id;
-            var node = sender as AbstractNodeControl;
+            var node = sender as INode;
 
             // add or remove atoms to those selected
-            if (Keyboard.IsKeyDown(Key.LeftCtrl)) {
+            if (Keyboard.IsKeyDown(Key.LeftCtrl))
+            {
                 node.IsSelected = !node.IsSelected;
                 Refresh();
-            } else {
+            }
+            else
+            {
                 deferredSelectionPending = true;
                 deferredSelectionNode = node;
             }
@@ -1283,7 +1384,8 @@ namespace Chem4Word.UI.TwoD {
             selectionGeometry = null;
         }
 
-        protected override void OnMouseLeftButtonDown(MouseButtonEventArgs e) {
+        protected override void OnMouseLeftButtonDown(MouseButtonEventArgs e)
+        {
             base.OnMouseLeftButtonDown(e);
 
             dragStart = e.MouseDevice.GetPosition(this);
@@ -1295,24 +1397,30 @@ namespace Chem4Word.UI.TwoD {
             deferredBondSelectionPending = true;
             deferredSelectionBond = null;
 
-            if (Children.Contains(chemContextMenu)) {
+            if (Children.Contains(chemContextMenu))
+            {
                 Children.Remove(chemContextMenu);
             }
         }
 
-        protected override void OnContextMenuOpening(ContextMenuEventArgs e) {
+        protected override void OnContextMenuOpening(ContextMenuEventArgs e)
+        {
             base.OnContextMenuOpening(e);
 
             HideMenus();
         }
 
-        private void SetContextMenuOpacity(MouseEventArgs e, FrameworkElement element) {
-            if (element == chemContextMenu) {
+        private void SetContextMenuOpacity(MouseEventArgs e, FrameworkElement element)
+        {
+            if (element == chemContextMenu)
+            {
                 element.Opacity = 1;
                 return;
             }
-            if (element != null) {
-                if (element.IsMouseOver) {
+            if (element != null)
+            {
+                if (element.IsMouseOver)
+                {
                     element.Opacity = 1.0;
                     return;
                 }
@@ -1325,25 +1433,32 @@ namespace Chem4Word.UI.TwoD {
                 double bottom = top + element.Height;
                 double distance;
 
-                if (pos.X > left && pos.X < right) {
+                if (pos.X > left && pos.X < right)
+                {
                     distance = Math.Min(Math.Abs(pos.Y - top), Math.Abs(pos.Y - bottom));
-                } else if (pos.Y > bottom && pos.Y < top) {
+                }
+                else if (pos.Y > bottom && pos.Y < top)
+                {
                     distance = Math.Min(Math.Abs(pos.X - left), Math.Abs(pos.X - right));
-                } else {
+                }
+                else
+                {
                     double nearestX = Math.Abs(right - pos.X) < Math.Abs(left - pos.X) ? right : left;
                     double nearestY = Math.Abs(top - pos.Y) < Math.Abs(bottom - pos.Y) ? top : bottom;
 
                     distance = Math.Pow(Math.Pow(nearestX - pos.X, 2.0) + Math.Pow(nearestY - pos.Y, 2.0), 0.5);
                 }
 
-                element.Opacity = distance < 100 ? 1.0 - distance/100 : 0;
+                element.Opacity = distance < 100 ? 1.0 - distance / 100 : 0;
             }
         }
 
-        protected override void OnMouseMove(MouseEventArgs e) {
+        protected override void OnMouseMove(MouseEventArgs e)
+        {
             base.OnMouseMove(e);
 
-            if (isRotating) {
+            if (isRotating)
+            {
                 DoRotate(e);
                 return;
             }
@@ -1351,7 +1466,8 @@ namespace Chem4Word.UI.TwoD {
             SetContextMenuOpacity(e, bondContextMenu);
 
             // We're just moving the mouse around with nothing pressed.
-            if (!MouseButtonState.Pressed.Equals(e.LeftButton)) {
+            if (!MouseButtonState.Pressed.Equals(e.LeftButton))
+            {
                 draggableNodeId = null;
                 draggableNode = null;
                 hasMouseDowned = false;
@@ -1361,13 +1477,18 @@ namespace Chem4Word.UI.TwoD {
             }
 
             // we're dragging the viewbox
-            if (!ViewBoxDraggingPosition.None.Equals(viewBoxDraggingPosition)) {
+            if (!ViewBoxDraggingPosition.None.Equals(viewBoxDraggingPosition))
+            {
                 var mousePos = e.GetPosition(this);
-                if (!dragging) {
+                if (!dragging)
+                {
                     if (Math.Abs(dragStart.X - mousePos.X) > SystemParameters.MinimumHorizontalDragDistance ||
-                        Math.Abs(dragStart.Y - mousePos.Y) > SystemParameters.MinimumVerticalDragDistance) {
+                        Math.Abs(dragStart.Y - mousePos.Y) > SystemParameters.MinimumVerticalDragDistance)
+                    {
                         dragging = true;
-                    } else {
+                    }
+                    else
+                    {
                         return;
                     }
                 }
@@ -1375,12 +1496,14 @@ namespace Chem4Word.UI.TwoD {
                 var y = FromScreenY(mousePos.Y - StandardYOffset);
                 var co = ContextObject;
                 var newViewBox = ContextObject.ViewBoxDimensions;
-                switch (viewBoxDraggingPosition) {
+                switch (viewBoxDraggingPosition)
+                {
                     case ViewBoxDraggingPosition.West:
                         {
                             var dx = x - ContextObject.ViewBoxDimensions.Left;
                             var newWidth = ContextObject.ViewBoxDimensions.Width - dx;
-                            if (newWidth > FromScreenX(ViewBox.MininumWidth)) {
+                            if (newWidth > FromScreenX(ViewBox.MininumWidth))
+                            {
                                 newViewBox.X += dx;
                                 newViewBox.Width = newWidth;
                                 co.ViewBoxDimensions = newViewBox;
@@ -1393,7 +1516,8 @@ namespace Chem4Word.UI.TwoD {
                         {
                             var dx = x - ContextObject.ViewBoxDimensions.Right;
                             var newWidth = ContextObject.ViewBoxDimensions.Width + dx;
-                            if (newWidth > FromScreenX(ViewBox.MininumWidth)) {
+                            if (newWidth > FromScreenX(ViewBox.MininumWidth))
+                            {
                                 newViewBox.Width = newWidth;
                                 co.ViewBoxDimensions = newViewBox;
                                 ViewBoxChangedEvent(null, new CmlChangedEventArgs(co));
@@ -1405,7 +1529,8 @@ namespace Chem4Word.UI.TwoD {
                         {
                             var dy = y - ContextObject.ViewBoxDimensions.Top;
                             var newHeight = ContextObject.ViewBoxDimensions.Height + dy;
-                            if (newHeight > Math.Abs(FromScreenY(ViewBox.MininumHeight))) {
+                            if (newHeight > Math.Abs(FromScreenY(ViewBox.MininumHeight)))
+                            {
                                 newViewBox.Y += dy;
                                 newViewBox.Height = newHeight;
                                 co.ViewBoxDimensions = newViewBox;
@@ -1418,7 +1543,8 @@ namespace Chem4Word.UI.TwoD {
                         {
                             var dy = y - (ContextObject.ViewBoxDimensions.Y - ContextObject.ViewBoxDimensions.Height);
                             var newHeight = ContextObject.ViewBoxDimensions.Height - dy;
-                            if (newHeight > Math.Abs(FromScreenY(ViewBox.MininumHeight))) {
+                            if (newHeight > Math.Abs(FromScreenY(ViewBox.MininumHeight)))
+                            {
                                 newViewBox.Height = newHeight;
                                 co.ViewBoxDimensions = newViewBox;
                                 ViewBoxChangedEvent(null, new CmlChangedEventArgs(co));
@@ -1435,7 +1561,8 @@ namespace Chem4Word.UI.TwoD {
                             var newHeight = ContextObject.ViewBoxDimensions.Height + dy;
 
                             if (newWidth > FromScreenX(ViewBox.MininumWidth) &&
-                                newHeight > Math.Abs(FromScreenY(ViewBox.MininumHeight))) {
+                                newHeight > Math.Abs(FromScreenY(ViewBox.MininumHeight)))
+                            {
                                 newViewBox.X += dx;
                                 newViewBox.Width = newWidth;
                                 newViewBox.Y += dy;
@@ -1455,7 +1582,8 @@ namespace Chem4Word.UI.TwoD {
                             var newHeight = ContextObject.ViewBoxDimensions.Height + dy;
 
                             if (newWidth > FromScreenX(ViewBox.MininumWidth) &&
-                                newHeight > Math.Abs(FromScreenY(ViewBox.MininumHeight))) {
+                                newHeight > Math.Abs(FromScreenY(ViewBox.MininumHeight)))
+                            {
                                 newViewBox.Width = newWidth;
                                 newViewBox.Y += dy;
                                 newViewBox.Height = newHeight;
@@ -1474,7 +1602,8 @@ namespace Chem4Word.UI.TwoD {
                             var newHeight = ContextObject.ViewBoxDimensions.Height - dy;
 
                             if (newWidth > FromScreenX(ViewBox.MininumWidth) &&
-                                newHeight > Math.Abs(FromScreenY(ViewBox.MininumHeight))) {
+                                newHeight > Math.Abs(FromScreenY(ViewBox.MininumHeight)))
+                            {
                                 newViewBox.X += dx;
                                 newViewBox.Width = newWidth;
                                 newViewBox.Height = newHeight;
@@ -1493,7 +1622,8 @@ namespace Chem4Word.UI.TwoD {
                             var newHeight = ContextObject.ViewBoxDimensions.Height - dy;
 
                             if (newWidth > FromScreenX(ViewBox.MininumWidth) &&
-                                newHeight > Math.Abs(FromScreenY(ViewBox.MininumHeight))) {
+                                newHeight > Math.Abs(FromScreenY(ViewBox.MininumHeight)))
+                            {
                                 newViewBox.Width = newWidth;
                                 newViewBox.Height = newHeight;
                                 co.ViewBoxDimensions = newViewBox;
@@ -1506,20 +1636,27 @@ namespace Chem4Word.UI.TwoD {
             }
 
             // We're dragging a node.
-            if (draggableNodeId != null && draggableNode != null) {
-                if (deferredSelectionPending) {
-                    if (!deferredSelectionNode.IsSelected) {
+            if (draggableNodeId != null && draggableNode != null)
+            {
+                if (deferredSelectionPending)
+                {
+                    if (!deferredSelectionNode.IsSelected)
+                    {
                         ProcessDeferedSelection();
                     }
                     deferredSelectionPending = false;
                 }
-                if (!dragging) {
+                if (!dragging)
+                {
                     Point p = e.GetPosition(this);
                     if (Math.Abs(dragStart.X - p.X) > SystemParameters.MinimumHorizontalDragDistance ||
-                        Math.Abs(dragStart.Y - p.Y) > SystemParameters.MinimumVerticalDragDistance) {
+                        Math.Abs(dragStart.Y - p.Y) > SystemParameters.MinimumVerticalDragDistance)
+                    {
                         dragging = true;
                         TakeSnapshotOfContextObject();
-                    } else {
+                    }
+                    else
+                    {
                         return;
                     }
                 }
@@ -1552,15 +1689,18 @@ namespace Chem4Word.UI.TwoD {
             draggableNode = null;
             draggableNodeId = null;
 
-            if (!hasMouseDowned) {
+            if (!hasMouseDowned)
+            {
                 return;
             }
 
-            if (IsPerformingDirectionBondSelect) {
+            if (IsPerformingDirectionBondSelect)
+            {
                 return;
             }
 
-            if (DrawingMode == CanvasContainer.DrawingMode.Select || DrawingMode == CanvasContainer.DrawingMode.Delete) {
+            if (DrawingMode == DrawingMode.Select || DrawingMode == DrawingMode.Delete)
+            {
                 // We're selecting.
                 deferredSelectionPending = false;
                 Point currentPoint = e.GetPosition(this);
@@ -1571,16 +1711,20 @@ namespace Chem4Word.UI.TwoD {
                 selectedAtoms.Clear();
                 selectedBonds.Clear();
 
-                foreach (KeyValuePair<string, AbstractNodeControl> node in nodes) {
+                foreach (KeyValuePair<string, INode> node in nodes)
+                {
                     CmlAtom atom = node.Value.CmlAtom;
 
                     Point p = new Point(ToScreenX(atom.X2.Value) + StandardXOffset,
                                         ToScreenY(atom.Y2.Value) + StandardYOffset);
 
-                    if (selectionGeometry.FillContains(p)) {
+                    if (selectionGeometry.FillContains(p))
+                    {
                         node.Value.IsSelected = true;
                         node.Value.IsActive = false;
-                    } else {
+                    }
+                    else
+                    {
                         node.Value.IsSelected = false;
                         node.Value.IsActive = false;
                     }
@@ -1592,7 +1736,8 @@ namespace Chem4Word.UI.TwoD {
                 //Refresh(false);
             }
 
-            if (DrawingMode == CanvasContainer.DrawingMode.BondSelect) {
+            if (DrawingMode == DrawingMode.BondSelect)
+            {
                 deferredBondSelectionPending = false;
                 Point currentPoint = e.GetPosition(this);
 
@@ -1602,10 +1747,12 @@ namespace Chem4Word.UI.TwoD {
                 selectedAtoms.Clear();
                 selectedBonds.Clear();
 
-                foreach (object obj in Children) {
-                    AbstractEdgeControl edge = obj as AbstractEdgeControl;
+                foreach (object obj in Children)
+                {
+                    IEdge edge = obj as IEdge;
 
-                    if (edge != null) {
+                    if (edge != null)
+                    {
                         CmlBond bond = edge.Bond;
 
                         Point p1 = new Point(ToScreenX(edge.StartNode.CmlAtom.X2.Value) + StandardXOffset,
@@ -1613,10 +1760,13 @@ namespace Chem4Word.UI.TwoD {
                         Point p2 = new Point(ToScreenX(edge.EndNode.CmlAtom.X2.Value) + StandardXOffset,
                                              ToScreenY(edge.EndNode.CmlAtom.Y2.Value) + StandardYOffset);
 
-                        if (selectionGeometry.FillContains(p1) && selectionGeometry.FillContains(p2)) {
+                        if (selectionGeometry.FillContains(p1) && selectionGeometry.FillContains(p2))
+                        {
                             edge.IsSelected = true;
                             edge.IsActive = false;
-                        } else {
+                        }
+                        else
+                        {
                             edge.IsSelected = false;
                             edge.IsActive = false;
                         }
@@ -1630,7 +1780,8 @@ namespace Chem4Word.UI.TwoD {
             }
         }
 
-        private void DoRotate(MouseEventArgs e) {
+        private void DoRotate(MouseEventArgs e)
+        {
             Point p = e.GetPosition(this);
             Vector vec = p - rotationCentreInCanvasSpace;
             vec.Normalize();
@@ -1649,21 +1800,24 @@ namespace Chem4Word.UI.TwoD {
             NodeCmlChangedEvent(null, new CmlChangedEventArgs(ContextObject));
         }
 
-        private double AngleBetweenNormalisedVectors(Vector v1, Vector v2) {
-            double newAngle = (Math.Atan2(v2.Y, v2.X) - Math.Atan2(v1.Y, v1.X))*180/Math.PI;
+        private double AngleBetweenNormalisedVectors(Vector v1, Vector v2)
+        {
+            double newAngle = (Math.Atan2(v2.Y, v2.X) - Math.Atan2(v1.Y, v1.X)) * 180 / Math.PI;
             return newAngle;
         }
 
-        protected override void OnRender(DrawingContext dc) {
+        protected override void OnRender(DrawingContext dc)
+        {
             base.OnRender(dc);
 
-            if (selectionGeometry != null) {
-                Brush b = DrawingMode == CanvasContainer.DrawingMode.Select ||
-                          DrawingMode == CanvasContainer.DrawingMode.BondSelect
+            if (selectionGeometry != null)
+            {
+                Brush b = DrawingMode == DrawingMode.Select ||
+                          DrawingMode == DrawingMode.BondSelect
                               ? Brushes.LightBlue
                               : Brushes.Pink;
-                Pen p = DrawingMode == CanvasContainer.DrawingMode.Select ||
-                        DrawingMode == CanvasContainer.DrawingMode.BondSelect
+                Pen p = DrawingMode == DrawingMode.Select ||
+                        DrawingMode == DrawingMode.BondSelect
                             ? new Pen(Brushes.DarkBlue, 0.3)
                             : new Pen(Brushes.DarkRed, 0.3);
 
@@ -1671,8 +1825,10 @@ namespace Chem4Word.UI.TwoD {
             }
         }
 
-        internal void DoDirectionalSelect(CmlBond bond, CmlAtom atomInSelectionDirection) {
-            foreach (KeyValuePair<string, AbstractNodeControl> node in nodes) {
+        public void DoDirectionalSelect(CmlBond bond, CmlAtom atomInSelectionDirection)
+        {
+            foreach (KeyValuePair<string, INode> node in nodes)
+            {
                 node.Value.IsSelected = false;
                 node.Value.Invalidate();
             }
@@ -1680,13 +1836,16 @@ namespace Chem4Word.UI.TwoD {
             selectedAtoms.Clear();
             selectedBonds.Clear();
 
-            if (bond != null && atomInSelectionDirection != null) {
+            if (bond != null && atomInSelectionDirection != null)
+            {
                 IEnumerable<string> downstreamAtomIDs =
                     ChemicalIntelligence.GetDownstreamAtomIds(ContextObject, bond.DelegateElement,
                                                               atomInSelectionDirection.DelegateElement);
 
-                foreach (string iD in downstreamAtomIDs) {
-                    if (nodes.ContainsKey(iD)) {
+                foreach (string iD in downstreamAtomIDs)
+                {
+                    if (nodes.ContainsKey(iD))
+                    {
                         nodes[iD].IsSelected = true;
                         nodes[iD].Invalidate();
                     }
@@ -1699,7 +1858,8 @@ namespace Chem4Word.UI.TwoD {
             //Refresh(false);
         }
 
-        private void SetBondActions() {
+        private void SetBondActions()
+        {
             IEnumerable<string> orders = ChemicalIntelligence.SuggestPossibleBondOrders(ContextObject,
                                                                                         GetSelectedBondsAsXElements());
             IEnumerable<string> stereos = ChemicalIntelligence.SuggestPossibleBondStereos(ContextObject,
@@ -1710,10 +1870,12 @@ namespace Chem4Word.UI.TwoD {
             bondContextMenu.SetBondOptions(orders, stereos, groups);
         }
 
-        protected override void OnMouseUp(MouseButtonEventArgs e) {
+        protected override void OnMouseUp(MouseButtonEventArgs e)
+        {
             base.OnMouseUp(e);
 
-            if (Mouse.Captured != null) {
+            if (Mouse.Captured != null)
+            {
                 Mouse.Captured.ReleaseMouseCapture();
             }
 
@@ -1734,11 +1896,13 @@ namespace Chem4Word.UI.TwoD {
             hasMouseDowned = false;
             dragging = false;
 
-            if (chemContextMenu.IsMouseOver || bondContextMenu.IsMouseOver) {
+            if (chemContextMenu.IsMouseOver || bondContextMenu.IsMouseOver)
+            {
                 return;
             }
 
-            if (isRotating) {
+            if (isRotating)
+            {
                 isRotating = false;
                 Children.Add(chemContextMenu);
                 Children.Remove(selectionRotationTool);
@@ -1750,37 +1914,45 @@ namespace Chem4Word.UI.TwoD {
 
             selectionGeometry = null;
 
-            if (DrawingMode == CanvasContainer.DrawingMode.Delete /*&& selectionGeometry != null*/) {
+            if (DrawingMode == DrawingMode.Delete /*&& selectionGeometry != null*/)
+            {
                 Log.Debug("Doing MouseUp delete");
                 ChemCommands.DeleteSelection.Execute(null, this);
             }
 
-            if (Children.Contains(selectionRotationTool)) {
+            if (Children.Contains(selectionRotationTool))
+            {
                 Children.Remove(selectionRotationTool);
             }
 
-            if (Children.Contains(chemContextMenu)) {
+            if (Children.Contains(chemContextMenu))
+            {
                 Children.Remove(chemContextMenu);
                 chemContextMenu.Opacity = 1.0;
             }
 
-            if (Children.Contains(bondContextMenu)) {
+            if (Children.Contains(bondContextMenu))
+            {
                 Children.Remove(bondContextMenu);
                 bondContextMenu.Opacity = 1.0;
             }
             //claim focus
             Keyboard.Focus(this);
-            if (selectedAtoms.Count > 0) {
-                if (!Children.Contains(chemContextMenu)) {
+            if (selectedAtoms.Count > 0)
+            {
+                if (!Children.Contains(chemContextMenu))
+                {
                     Point point = e.GetPosition(this);
-                    SetLeft(chemContextMenu, point.X - StandardXOffset - chemContextMenu.Width/2);
-                    SetTop(chemContextMenu, point.Y - chemContextMenu.Height/2 - StandardYOffset);
+                    SetLeft(chemContextMenu, point.X - StandardXOffset - chemContextMenu.Width / 2);
+                    SetTop(chemContextMenu, point.Y - chemContextMenu.Height / 2 - StandardYOffset);
 
                     Children.Add(chemContextMenu);
                 }
             }
-            if (selectedBonds.Count > 0) {
-                if (!Children.Contains(bondContextMenu)) {
+            if (selectedBonds.Count > 0)
+            {
+                if (!Children.Contains(bondContextMenu))
+                {
                     Rect r = CoordinateTool.GetBounds2D(ContextObject, SelectedBonds.Values);
                     SetLeft(bondContextMenu, e.GetPosition(this).X - StandardXOffset);
                     SetTop(bondContextMenu, ToScreenY(r.Bottom) - bondContextMenu.Height - 25);
@@ -1792,8 +1964,10 @@ namespace Chem4Word.UI.TwoD {
             InvalidateAll();
         }
 
-        private void SetAtomTypeOptions() {
-            if (selectedAtoms.Count == 1) {
+        private void SetAtomTypeOptions()
+        {
+            if (selectedAtoms.Count == 1)
+            {
                 HashSet<PeriodicTable.Element> atoms = ChemicalIntelligence.SuggestPossibleElements(ContextObject,
                                                                                                     SelectedAtoms.
                                                                                                         ToArray()[0].
@@ -1806,26 +1980,34 @@ namespace Chem4Word.UI.TwoD {
 
                 //chemContextMenu.SetAtomOptions(atoms, groups);
                 OnAtomTypeOptionsUpdated(atoms, groups);
-            } else {
+            }
+            else
+            {
                 //chemContextMenu.SetAtomOptions(null, null);
                 OnAtomTypeOptionsUpdated(null, null);
             }
         }
 
-        private void OnAtomTypeOptionsUpdated(HashSet<PeriodicTable.Element> options, IEnumerable<string> groups) {
-            if (AtomTypeOptionsUpdated != null) {
+        private void OnAtomTypeOptionsUpdated(HashSet<PeriodicTable.Element> options, IEnumerable<string> groups)
+        {
+            if (AtomTypeOptionsUpdated != null)
+            {
                 AtomTypeOptionsUpdated(options, groups);
             }
         }
 
-        private void OnIsotopesOpionsUpdated(IEnumerable<int> isotopes) {
-            if (IsotopeOptionsUpdated != null) {
+        private void OnIsotopesOpionsUpdated(IEnumerable<int> isotopes)
+        {
+            if (IsotopeOptionsUpdated != null)
+            {
                 IsotopeOptionsUpdated(isotopes);
             }
         }
 
-        private void SetIsotopeOptions() {
-            if (selectedAtoms.Count == 1) {
+        private void SetIsotopeOptions()
+        {
+            if (selectedAtoms.Count == 1)
+            {
                 IEnumerable<int> isotopes = ChemicalIntelligence.SuggestPossibleIsotopeNumbers(ContextObject,
                                                                                                SelectedAtoms.ToArray()[0
                                                                                                    ].Value.
@@ -1833,19 +2015,26 @@ namespace Chem4Word.UI.TwoD {
 
                 OnIsotopesOpionsUpdated(isotopes);
                 //chemContextMenu.SetIsotopeOptions(isotopes);
-            } else {
+            }
+            else
+            {
                 //chemContextMenu.SetIsotopeOptions(null);
             }
         }
 
-        private void ProcessDeferedBondSelection() {
-            if (deferredBondSelectionPending) {
+        private void ProcessDeferedBondSelection()
+        {
+            if (deferredBondSelectionPending)
+            {
                 selectedBonds.Clear();
 
-                if (deferredSelectionBond == null) {
+                if (deferredSelectionBond == null)
+                {
                     Refresh();
                     InvalidateAll();
-                } else {
+                }
+                else
+                {
                     deferredSelectionBond.IsSelected = true;
                     deferredSelectionBond.Invalidate();
                 }
@@ -1855,14 +2044,19 @@ namespace Chem4Word.UI.TwoD {
             }
         }
 
-        private void ProcessDeferedSelection() {
-            if (deferredSelectionPending) {
+        private void ProcessDeferedSelection()
+        {
+            if (deferredSelectionPending)
+            {
                 selectedAtoms.Clear();
 
-                if (deferredSelectionNode == null) {
+                if (deferredSelectionNode == null)
+                {
                     Refresh();
                     InvalidateAll();
-                } else {
+                }
+                else
+                {
                     deferredSelectionNode.IsSelected = true;
                     deferredSelectionNode.Invalidate();
                 }
@@ -1872,22 +2066,32 @@ namespace Chem4Word.UI.TwoD {
             }
         }
 
-        internal void InvalidateAll() {
-            foreach (object child in Children) {
-                if (child is AbstractNodeControl) {
-                    ((AbstractNodeControl) child).Invalidate();
-                    ((AbstractNodeControl) child).InvalidateVisual();
+        internal void InvalidateAll()
+        {
+            foreach (object child in Children)
+            {
+                var node = child as INode;
+                if (node != null)
+                {
+                    node.Invalidate();
+                    node.AsVisual().InvalidateVisual();
                 }
-                if (child is AbstractEdgeControl) {
-                    ((AbstractEdgeControl) child).Invalidate();
-                    ((AbstractEdgeControl) child).InvalidateVisual();
+                else
+                {
+                    var edge = child as IEdge;
+                    if (edge != null)
+                    {
+                        edge.Invalidate();
+                        edge.AsVisual().InvalidateVisual();
+                    }
                 }
             }
 
             InvalidateVisual();
         }
 
-        private enum ViewBoxDraggingPosition {
+        private enum ViewBoxDraggingPosition
+        {
             None,
             West,
             East,
@@ -1901,9 +2105,4 @@ namespace Chem4Word.UI.TwoD {
 
         #endregion
     }
-
-    public delegate void AtomTypeOptionsUpdatedHandler(
-        HashSet<PeriodicTable.Element> options, IEnumerable<string> groups);
-
-    public delegate void IsotopeOptionsUpdatedHandler(IEnumerable<int> isotopes);
 }

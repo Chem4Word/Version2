@@ -4,26 +4,22 @@
 //  The license and further copyright text can be found in the file LICENSE.TXT at
 //  the root directory of the distribution.
 // -----------------------------------------------------------------------
+
 using System;
 using System.Windows;
 using System.Windows.Media;
+using Chem4Word.Drawing.TwoD.Common;
+using Chem4Word.Drawing.TwoD.Nodes;
 using Numbo.Cml;
 using Numbo.Coa;
 
-namespace Chem4Word.UI.TwoD
+namespace Chem4Word.Drawing.TwoD.Bonds
 {
     public class WavyEdgeControl : AbstractEdgeControl
     {
-        public WavyEdgeControl(ContextObject contextObject, CmlBond bond,
-                               AbstractNodeControl startNode, AbstractNodeControl endNode, ChemCanvas canvas)
+        public WavyEdgeControl(ContextObject contextObject, CmlBond bond, INode startNode, INode endNode, IChemCanvas canvas)
+            : base(contextObject, bond, startNode, endNode, canvas)
         {
-            Bond = bond;
-            this.canvas = canvas;
-            this.contextObject = contextObject;
-            this.StartNode = startNode;
-            this.EndNode = endNode;
-            children = new VisualCollection(this);
-            Init();
         }
 
         protected override void Refresh()
@@ -55,7 +51,7 @@ namespace Chem4Word.UI.TwoD
             double bondLength = unitBondVector.Length;
             unitBondVector.Normalize();
             double size = 5f;
-            Vector perpVec = new Vector(-unitBondVector.Y, unitBondVector.X)*size;
+            Vector perpVec = new Vector(-unitBondVector.Y, unitBondVector.X) * size;
 
             Point startPoint = finalBondGeometry.StartPoint;
             Point currentPoint = startPoint;
@@ -72,15 +68,15 @@ namespace Chem4Word.UI.TwoD
                 for (int i = 0; currentLength < bondLength; i++)
                 {
                     Point nextControlPoint;
-                    Point nextCurrentPoint = currentPoint + unitBondVector*2*size;
+                    Point nextCurrentPoint = currentPoint + unitBondVector * 2 * size;
 
                     if (Math.DivRem(i, 2, out dummy) == 0)
                     {
-                        nextControlPoint = currentPoint + unitBondVector*5 + perpVec*size;
+                        nextControlPoint = currentPoint + unitBondVector * 5 + perpVec * size;
                     }
                     else
                     {
-                        nextControlPoint = currentPoint + unitBondVector*5 - perpVec*size;
+                        nextControlPoint = currentPoint + unitBondVector * 5 - perpVec * size;
                     }
 
                     ctx.BezierTo(currentPoint, nextControlPoint, nextCurrentPoint, true, true);

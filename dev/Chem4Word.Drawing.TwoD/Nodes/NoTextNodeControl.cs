@@ -4,29 +4,34 @@
 //  The license and further copyright text can be found in the file LICENSE.TXT at
 //  the root directory of the distribution.
 // -----------------------------------------------------------------------
+
 using System;
 using System.Globalization;
 using System.Windows;
 using System.Windows.Media;
+using Chem4Word.Drawing.TwoD.Common;
+using log4net;
 using Numbo.Cml;
 using Numbo.Coa;
 
-namespace Chem4Word.UI.TwoD
+namespace Chem4Word.Drawing.TwoD.Nodes
+
 {
-    public class BasicNodeControl : AbstractNodeControl
+    public class NoTextNodeControl : AbstractNodeControl
     {
+        private static readonly ILog Log = LogManager.GetLogger(typeof (NoTextNodeControl));
         private DrawingVisual textAdornmentVisual;
 
         #region constructors
 
-        public BasicNodeControl(ContextObject contextObject,
-                                CmlAtom atom,
-                                ChemCanvas canvas)
+        public NoTextNodeControl(ContextObject contextObject,
+                                 CmlAtom atom, IChemCanvas canvas)
         {
-            this.CmlAtom = atom;
+            CmlAtom = atom;
             this.contextObject = contextObject;
             this.canvas = canvas;
-            this.children = new VisualCollection(this);
+            children = new VisualCollection(this);
+
             Init();
         }
 
@@ -34,40 +39,53 @@ namespace Chem4Word.UI.TwoD
 
         #region private methods
 
+        public override Rect RetrieveBounds
+        {
+            get { return GetBounds(textAdornmentVisual); }
+        }
+
+        protected override Rect GetBounds(Visual visual)
+        {
+            Rect temp = VisualTreeHelper.GetDescendantBounds(visual);
+
+            if (temp.Width > 0 || temp.Height > 0)
+            {
+                EllipseGeometry centre = new EllipseGeometry(Attachment, 1d, 1d);
+                RectangleGeometry bounds1 =
+                    new RectangleGeometry(new Rect(temp.TopLeft.X - 2, temp.TopLeft.Y - 2, temp.Width + 4,
+                                                   temp.Height + 4));
+
+                CombinedGeometry cg = new CombinedGeometry(GeometryCombineMode.Union, centre, bounds1);
+                return cg.Bounds;
+            }
+
+            return Rect.Empty;
+        }
+
         /// <summary>
         /// <see cref="AbstractNodeControl#Refresh"/>
         /// </summary>
         protected override void Refresh()
         {
+            children.Clear();
+
             #region FOR EDIT
 
-            // should this be be using RichText boxes / System.Windows.Shapes.Line etc
-            // rather than DrawingVisuals
-            // these would surely be better for serialising to disk if we wanted to?
-            if (null != principalNodeText)
-            {
-                children.Remove(principalNodeText);
-            }
             principalNodeText = new DrawingVisual();
-            var drawingContext = principalNodeText.RenderOpen();
-            var text = new FormattedText(labelCentreText,
-                                         CultureInfo.GetCultureInfo("en-us"),
-                                         FlowDirection.LeftToRight,
-                                         new Typeface("Verdana"),
-                                         11, Brushes.DarkGray);
+            DrawingContext drawingContext;
 
-            // QUESTION 
-            // can we do this conversion to screen better?
-            var x = canvas.ToScreenX(CmlAtom.Point2.X);
-            var y = canvas.ToScreenY(CmlAtom.Point2.Y);
+            /// QUESTION 
+            /// can we do this conversion to screen better?
+            double x = canvas.ToScreenX(CmlAtom.Point2.X);
+
+            double y = canvas.ToScreenY(CmlAtom.Point2.Y);
+
+            Log.Debug(string.Format(CultureInfo.InvariantCulture, "id {0} x, y: {1}, {2} X, Y: {3} {4}", this.CmlAtom.Id, x, y, this.CmlAtom.Point2.X,
+                                    this.CmlAtom.Point2.Y));
+
             Attachment = new Point(x, y);
-            var textOffsetHeight = text.Height/2;
-            var textOffsetWidth = text.Width/2;
-
-            drawingContext.DrawText(text, new Point(x - textOffsetWidth, y - textOffsetHeight));
-
-            drawingContext.Close();
-            this.children.Add(principalNodeText);
+            double textOffsetWidth = 4.0;
+            double textOffsetHeight = 8.0;
 
             // North East - Charge, and/or Radical
             //
@@ -78,27 +96,25 @@ namespace Chem4Word.UI.TwoD
 
             if (chargeStr.Length > 0)
             {
-                switch (CmlAtom.FormalCharge.Value)
+                if (CmlAtom.FormalCharge.Value == 1)
                 {
-                    case 1:
-                        chargeStr = "+";
-                        break;
-                    case 0:
-                        chargeStr = string.Empty;
-                        break;
-                    case -1:
-                        chargeStr = "-";
-                        break;
-                    default:
-                        if (CmlAtom.FormalCharge.Value > 1)
-                        {
-                            chargeStr += "+";
-                        }
-                        else
-                        {
-                            chargeStr += "-";
-                        }
-                        break;
+                    chargeStr = "+";
+                }
+                else if (CmlAtom.FormalCharge.Value == 0)
+                {
+                    chargeStr = string.Empty;
+                }
+                else if (CmlAtom.FormalCharge.Value == -1)
+                {
+                    chargeStr = "-";
+                }
+                else if (CmlAtom.FormalCharge.Value > 1)
+                {
+                    chargeStr += "+";
+                }
+                else
+                {
+                    chargeStr += "-";
                 }
             }
 
@@ -162,31 +178,54 @@ namespace Chem4Word.UI.TwoD
             this.children.Add(textAdornmentVisual);
 
             // now draw an (invisible?) ellipse around the atom so it can be selected etc
-            if (null != this.frame)
+            if (null != frame)
             {
-                this.children.Remove(this.frame);
+                children.Remove(frame);
             }
-            this.frame = new DrawingVisual();
-            this.isInitialised = true;
-            drawingContext = this.frame.RenderOpen();
-            double radius = 0;
-                if (this.principalNodeText.DescendantBounds.Height > this.principalNodeText.DescendantBounds.Width)
-                {
-                    radius = this.principalNodeText.DescendantBounds.Height/2;
-                }
-                else
-                {
-                    radius = this.principalNodeText.DescendantBounds.Width/2;
-                }
-            radius += this.framePadding;
-            this.frame.Opacity = 1;
+            frame = new DrawingVisual();
+            isInitialised = true;
+            drawingContext = frame.RenderOpen();
+            double radius = framePadding + 3;
+
+            frame.Opacity = 1;
 
             #endregion FOR EDIT
 
             SetPenAndBrush();
+
             drawingContext.DrawEllipse(fill, pen, new Point(x, y), radius, radius);
             drawingContext.Close();
-            this.children.Insert(0, this.frame);
+            children.Insert(0, frame);
+        }
+
+        protected override void SetPenAndBrush()
+        {
+            if (IsActive)
+            {
+                pen = new Pen(Brushes.Orange, 1);
+                if (IsSelected)
+                {
+                    fill = Brushes.Orange;
+                    frame.Opacity = 0.5;
+                }
+                else
+                {
+                    fill = Brushes.Transparent;
+                }
+            }
+            else
+            {
+                pen = null;
+                if (IsSelected)
+                {
+                    fill = Brushes.Blue;
+                    frame.Opacity = 0.25;
+                }
+                else
+                {
+                    fill = Brushes.Transparent;
+                }
+            }
         }
 
         #endregion private methods
