@@ -1819,7 +1819,17 @@ namespace Chem4Word.Core {
                                                Window wn) {
             Microsoft.Office.Tools.Word.Document wordDoc =
                 Microsoft.Office.Tools.Word.Document.GetVstoObject(wordApp.ActiveWindow.Document);
-            wordDoc.AttachedTemplate = localAppDataFolder + @"\Chemistry Gallery\Chem4Word.dotx";
+            if (wordDoc != null)
+            {
+                // Save state of Saved flag
+                bool docWasSaved = wordDoc.Saved;
+                wordDoc.AttachedTemplate = localAppDataFolder + @"\Chemistry Gallery\Chem4Word.dotx";
+                if (docWasSaved)
+                {
+                    // Re-instate state of Saved flag
+                    wordDoc.Saved = true;
+                }
+            }
 
             // Switch ActiveChemistryDocument every time user switch document in Word.
             if (documentDictionary.ContainsKey(wordApp.ActiveDocument)) {
