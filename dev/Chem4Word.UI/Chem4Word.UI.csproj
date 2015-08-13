@@ -49,6 +49,10 @@
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DocumentFormat.OpenXml, Version=2.0.5022.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libs\OpenXMLSDKv2\DocumentFormat.OpenXml.dll</HintPath>
+    </Reference>
     <Reference Include="Ionic.Zip">
       <HintPath>..\Libs\Ionic.Zip.dll</HintPath>
     </Reference>
@@ -155,6 +159,13 @@
     <Compile Include="ManageView\ManageDepictionOption.xaml.cs">
       <DependentUpon>ManageDepictionOption.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Molecules\From-AMC\Benzene.cs" />
+    <Compile Include="Molecules\From-AMC\BigMolecule.cs" />
+    <Compile Include="Molecules\From-AMC\Cyclohexane.cs" />
+    <Compile Include="Molecules\From-AMC\FormicAcid.cs" />
+    <Compile Include="Molecules\From-AMC\Probe1.cs" />
+    <Compile Include="Molecules\From-AMC\Pyridine.cs" />
+    <Compile Include="Molecules\From-AMC\WigglyLines.cs" />
     <Compile Include="Navigator\ChemistryNavigator.xaml.cs">
       <DependentUpon>ChemistryNavigator.xaml</DependentUpon>
     </Compile>
@@ -162,6 +173,20 @@
     <Compile Include="Navigator\NavigatorItem.xaml.cs">
       <DependentUpon>NavigatorItem.xaml</DependentUpon>
     </Compile>
+    <Compile Include="OOXML\Atoms\AtomLabelCharacter.cs" />
+    <Compile Include="OOXML\Atoms\AtomRenderer.cs" />
+    <Compile Include="OOXML\Atoms\OoXmlCharacter.cs" />
+    <Compile Include="OOXML\Atoms\OoXmlCharacterSet.cs" />
+    <Compile Include="OOXML\Atoms\OoXmlPolygon.cs" />
+    <Compile Include="OOXML\Bonds\BondLine.cs" />
+    <Compile Include="OOXML\Bonds\BondRenderer.cs" />
+    <Compile Include="OOXML\C4wOptions.cs" />
+    <Compile Include="OOXML\CohenSutherland.cs" />
+    <Compile Include="OOXML\Helper.cs" />
+    <Compile Include="OOXML\Molecule\Molecule.cs" />
+    <Compile Include="OOXML\OoXmlFile.cs" />
+    <Compile Include="OOXML\OoXmlMolecule.cs" />
+    <Compile Include="OOXML\Options.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -299,6 +324,8 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <None Include="Resources\ChemDoodle\ChemDoodleWeb.zip" />
+    <None Include="Resources\ChemDoodle\ChemDoodleWeb_601.zip" />
+    <None Include="Resources\ChemDoodle\ChemDoodleWeb_701.zip" />
     <None Include="Resources\cmllite.xslt" />
     <None Include="Resources\CMLSchema.xsd" />
   </ItemGroup>
@@ -481,6 +508,10 @@
     <ProjectReference Include="..\Chem4Word.API\Chem4Word.Api.csproj">
       <Project>{B416CED3-D6BB-4A85-A3B3-8DBBDF1CD823}</Project>
       <Name>Chem4Word.Api</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Chem4Word.Common\Chem4Word.Common.csproj">
+      <Project>{0E9761B5-72BE-4ED5-8239-6428451C150D}</Project>
+      <Name>Chem4Word.Common</Name>
     </ProjectReference>
     <ProjectReference Include="..\Chem4Word.Drawing.TwoD\Chem4Word.Drawing.TwoD.csproj">
       <Project>{E87753FD-BEAC-457B-B7BF-5C000117F4C3}</Project>

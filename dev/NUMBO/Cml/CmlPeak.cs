@@ -7,6 +7,7 @@
 using System;
 using System.Globalization;
 using System.Xml.Linq;
+using Chem4Word.Common.Utilities;
 
 namespace Numbo.Cml
 {
@@ -36,8 +37,7 @@ namespace Numbo.Cml
             get
             {
                 return (DelegateElement.Attribute(CmlAttribute.XValue) != null)
-                           ? Double.Parse(DelegateElement.Attribute(CmlAttribute.XValue).Value,
-                                          CultureInfo.InvariantCulture)
+                           ? SafeDoubleParser.Parse(DelegateElement.Attribute(CmlAttribute.XValue).Value)
                            : Double.NaN;
             }
             set { DelegateElement.SetAttributeValue(CmlAttribute.XValue, value.ToString(CultureInfo.InvariantCulture)); }
@@ -48,8 +48,7 @@ namespace Numbo.Cml
             get
             {
                 return (DelegateElement.Attribute(CmlAttribute.YValue) != null)
-                           ? Double.Parse(DelegateElement.Attribute(CmlAttribute.YValue).Value,
-                                          CultureInfo.InvariantCulture)
+                           ? SafeDoubleParser.Parse(DelegateElement.Attribute(CmlAttribute.YValue).Value)
                            : Double.NaN;
             }
             set { DelegateElement.SetAttributeValue(CmlAttribute.YValue, value.ToString(CultureInfo.InvariantCulture)); }
@@ -60,8 +59,7 @@ namespace Numbo.Cml
             get
             {
                 return (DelegateElement.Attribute(CmlAttribute.XMax) != null)
-                           ? Double.Parse(DelegateElement.Attribute(CmlAttribute.XMax).Value,
-                                          CultureInfo.InvariantCulture)
+                           ? SafeDoubleParser.Parse(DelegateElement.Attribute(CmlAttribute.XMax).Value)
                            : Double.NaN;
             }
             set { DelegateElement.SetAttributeValue(CmlAttribute.XMax, value.ToString(CultureInfo.InvariantCulture)); }
@@ -72,8 +70,7 @@ namespace Numbo.Cml
             get
             {
                 return (DelegateElement.Attribute(CmlAttribute.XMin) != null)
-                           ? Double.Parse(DelegateElement.Attribute(CmlAttribute.XMin).Value,
-                                          CultureInfo.InvariantCulture)
+                           ? SafeDoubleParser.Parse(DelegateElement.Attribute(CmlAttribute.XMin).Value)
                            : Double.NaN;
             }
             set { DelegateElement.SetAttributeValue(CmlAttribute.XMin, value.ToString(CultureInfo.InvariantCulture)); }

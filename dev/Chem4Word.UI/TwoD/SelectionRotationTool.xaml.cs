@@ -24,7 +24,7 @@ namespace Chem4Word.UI.TwoD
         internal void Initialise(ChemCanvas canvas, SortedDictionary<string, CmlAtom> selectedAtoms, double xOffset,
                                  double yOffset)
         {
-            Rect rect = CoordinateTool.GetBounds2D(canvas.ContextObject, selectedAtoms.Values);
+            Rect rect = CoordinateTool.GetBounds2D(selectedAtoms.Values);
 
             double marginExtra = 20;
 

@@ -1,11 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
+using System.Globalization;
 using System.Xml;
-
-using Newtonsoft.Json;
+using Chem4Word.Common.Utilities;
 using Newtonsoft.Json.Linq;
 
 namespace Chem4Word.UI.Converters
@@ -14,7 +11,7 @@ namespace Chem4Word.UI.Converters
     {
         public static string ToJson(string p_CmlIn)
         {
-            Debug.WriteLine("CML.ToJson()");
+            //Debug.WriteLine("CML.ToJson()");
 
             string result = p_CmlIn;
 
@@ -30,12 +27,12 @@ namespace Chem4Word.UI.Converters
                 nsmgr.AddNamespace("cml", "http://www.xml-cml.org/schema");
 
                 XmlNodeList atoms = doc.SelectNodes("//cml:atom", nsmgr);
-                Debug.WriteLine("Found " + atoms.Count + " atoms");
+                //Debug.WriteLine("Found " + atoms.Count + " atoms");
                 // Handle case when cml namespace fails to get atoms
                 if (atoms.Count == 0)
                 {
                     atoms = doc.SelectNodes("//atom");
-                    Debug.WriteLine("Found " + atoms.Count + " atoms");
+                    //Debug.WriteLine("Found " + atoms.Count + " atoms");
                 }
                 if (atoms.Count > 0)
                 {
@@ -67,15 +64,15 @@ namespace Chem4Word.UI.Converters
                         if (string.IsNullOrEmpty(z3))
                         {
                             // 2D co-ordinates supplied
-                            jAtom.Add(new JProperty("x", double.Parse(x2)));
-                            jAtom.Add(new JProperty("y", double.Parse(y2)));
+                            jAtom.Add(new JProperty("x", SafeDoubleParser.Parse(x2)));
+                            jAtom.Add(new JProperty("y", SafeDoubleParser.Parse(y2)));
                         }
                         else
                         {
                             // 3D co-ordinates supplied
-                            jAtom.Add(new JProperty("x", double.Parse(x3)));
-                            jAtom.Add(new JProperty("y", double.Parse(y3)));
-                            jAtom.Add(new JProperty("z", double.Parse(z3)));
+                            jAtom.Add(new JProperty("x", SafeDoubleParser.Parse(x3)));
+                            jAtom.Add(new JProperty("y", SafeDoubleParser.Parse(y3)));
+                            jAtom.Add(new JProperty("z", SafeDoubleParser.Parse(z3)));
                         }
 
                         if (!atomLabel.Equals("C"))
@@ -89,12 +86,12 @@ namespace Chem4Word.UI.Converters
                 }
 
                 XmlNodeList bonds = doc.SelectNodes("//cml:bond", nsmgr);
-                Debug.WriteLine("Found " + bonds.Count + " bonds");
+                //Debug.WriteLine("Found " + bonds.Count + " bonds");
                 // Handle case when cml namespace fails to get bonds
                 if (bonds.Count == 0)
                 {
                     bonds = doc.SelectNodes("//bond");
-                    Debug.WriteLine("Found " + bonds.Count + " bonds");
+                    //Debug.WriteLine("Found " + bonds.Count + " bonds");
                 }
                 if (bonds.Count > 0)
                 {
@@ -149,7 +146,7 @@ namespace Chem4Word.UI.Converters
 
             return result;
         }
-
+        
         private static string StereoToString(string p_stereo)
         {
             string result = "";
@@ -158,8 +155,12 @@ namespace Chem4Word.UI.Converters
                 case "W":
                     result = "protruding";
                     break;
+
                 case "H":
                     result = "recessed";
+                    break;
+
+                default:
                     break;
             }
             return result;
@@ -167,23 +168,30 @@ namespace Chem4Word.UI.Converters
 
         private static Single OrderToNumber(string p_order)
         {
-            string temp = "1";
+            string temp = "0";
             switch (p_order)
             {
+                case "1":
                 case "S":
                     temp = "1";
                     break;
+
+                case "1.5":
                 case "A":
                     temp = "1.5";
                     break;
+
+                case "2":
                 case "D":
                     temp = "2";
                     break;
+
+                case "3":
                 case "T":
                     temp = "3";
                     break;
+
                 default:
-                    temp = p_order;
                     break;
             }
             return Single.Parse(temp);

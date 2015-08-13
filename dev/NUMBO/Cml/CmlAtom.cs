@@ -10,6 +10,7 @@ using System.Globalization;
 using System.Linq;
 using System.Xml.Linq;
 using System.Xml.XPath;
+using Chem4Word.Common.Utilities;
 using Euclid;
 using log4net;
 using Numbo.Cml.Helpers;
@@ -67,9 +68,8 @@ namespace Numbo.Cml
                 XAttribute countAttribute = DelegateElement.Attribute(CmlAttribute.Count);
                 return (countAttribute == null || countAttribute.Value == null ||
                         string.Empty.Equals(countAttribute.Value))
-                           ?
-                               (double?) null
-                           : double.Parse(countAttribute.Value, CultureInfo.InvariantCulture);
+                    ? (double?) null
+                    : SafeDoubleParser.Parse(countAttribute.Value);
             }
             set { DelegateElement.SetAttributeValue(CmlAttribute.Count, value.ToString()); }
         }
@@ -233,7 +233,7 @@ namespace Numbo.Cml
             return (att == null || att.Value == null || string.Empty.Equals(att.Value))
                        ?
                            (double?) null
-                       : double.Parse(att.Value, CultureInfo.InvariantCulture);
+                       : SafeDoubleParser.Parse(att.Value);
         }
 
         private void SetCoord(string attName, double value)

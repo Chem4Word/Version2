@@ -10,7 +10,9 @@ using System.Windows.Forms;
 using System.IO;
 using System.Reflection;
 using System.Resources;
-
+using Chem4Word.Common.Utilities;
+using Chem4Word.UI.Converters;
+using Chem4Word.UI.OOXML;
 using Newtonsoft.Json.Linq;
 using Ionic.Zip;
 
@@ -20,6 +22,7 @@ namespace Chem4Word.UI.ChemDoodle
     {
         private string ms_AppTitle = "Chem4Word Editor - Powered By ChemDoodle Web V";
 
+        public C4wOptions UserOptions { get; set; }
         public string Before_CML { get; set; }
         public string Before_MolFile { get; set; }
         public string Before_JSON { get; set; }
@@ -38,9 +41,11 @@ namespace Chem4Word.UI.ChemDoodle
         private void TweakChemDoodle_Load(object sender, EventArgs e)
         {
             Cursor.Current = Cursors.WaitCursor;
+            
+            this.Show();
+            Application.DoEvents();
 
             string temp = Path.GetTempPath();
-            //temp = @"C:\Temp";
 
             string cssfile = Properties.Resources.Chem4Word_css;
             File.WriteAllText(Path.Combine(temp, "Chem4Word.css"), cssfile);
@@ -51,10 +56,10 @@ namespace Chem4Word.UI.ChemDoodle
             string htmlfile = Properties.Resources.Offline_html;
             File.WriteAllText(Path.Combine(temp, "Editor.html"), htmlfile);
 
-            Byte[] bytes = Properties.Resources.ChemDoodleWeb_zip;
+            Byte[] bytes = Properties.Resources.ChemDoodleWeb_701;
             Stream stream = new MemoryStream(bytes);
 
-        // NB: Top level of zip file should be a folder
+            // NB: Top level of zip file must be the folder ChemDoodleWeb
             using (ZipFile zip = ZipFile.Read(stream))
             {
                 zip.ExtractAll(temp, ExtractExistingFileAction.OverwriteSilently);
@@ -69,7 +74,7 @@ namespace Chem4Word.UI.ChemDoodle
             this.Text = ms_AppTitle + ExecuteJavaScript("GetVersion");
 
             // Send JSON to ChemDoodle
-            ExecuteJavaScript("SetJSON", Before_JSON, 25);
+            ExecuteJavaScript("SetJSON", Before_JSON);
 
             object obj = null;
 
@@ -78,6 +83,35 @@ namespace Chem4Word.UI.ChemDoodle
 
             obj = ExecuteJavaScript("GetFormula");
             Before_Formula = obj.ToString();
+            
+            obj = ExecuteJavaScript("GetAverageBondLength");
+            
+            if (obj != null)
+            {
+                double averageBondLength = SafeDoubleParser.Parse(obj.ToString());
+
+                if (averageBondLength < 5)
+                {
+                    nudBondLength.Value = 20;
+                    ExecuteJavaScript("ReScale", nudBondLength.Value);
+                }
+                else
+                {
+                    double newAverageBondLength = Math.Round(averageBondLength / 5.0) * 5;
+                    nudBondLength.Value = (int)newAverageBondLength;
+                }
+            }
+
+            if (UserOptions.ShowHydrogens)
+            {
+                ExecuteJavaScript("ShowImplicitHCount");
+                chkToggleImplicitHydrogens.Checked = true;
+            }
+            else
+            {
+                ExecuteJavaScript("HideImplicitHCount");
+                chkToggleImplicitHydrogens.Checked = false;
+            }
         }
 
         private object ExecuteJavaScript(string p_FunctionName, params object[] p_Args)
@@ -121,10 +155,12 @@ namespace Chem4Word.UI.ChemDoodle
             if (chkToggleImplicitHydrogens.Checked)
             {
                 ExecuteJavaScript("ShowImplicitHCount");
+                UserOptions.ShowHydrogens = true;
             }
             else
             {
                 ExecuteJavaScript("HideImplicitHCount");
+                UserOptions.ShowHydrogens = false;
             }
         }
 
@@ -136,6 +172,122 @@ namespace Chem4Word.UI.ChemDoodle
         private void btnRemoveExplicitHydrogens_Click(object sender, EventArgs e)
         {
             ExecuteJavaScript("RemoveHydrogens");
+        }
+
+        private void nudBondLength_ValueChanged(object sender, EventArgs e)
+        {
+            ExecuteJavaScript("ReScale", nudBondLength.Value);
+        }
+
+        private void btnFlip_Click(object sender, EventArgs e)
+        {
+            object obj = ExecuteJavaScript("GetJSON");
+            string oldJson = obj.ToString();
+            string newJson = Json.InvertY(oldJson);
+            ExecuteJavaScript("SetJSON", newJson);
+        }
+
+        private void btnMirror_Click(object sender, EventArgs e)
+        {
+            object obj = ExecuteJavaScript("GetJSON");
+            string oldJson = obj.ToString();
+            string newJson = Json.InvertX(oldJson);
+            ExecuteJavaScript("SetJSON", newJson);
+        }
+
+        private void btnOpen_Click(object sender, EventArgs e)
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.Append("All Molecule Files (*.mol, *.cml)|*.mol;*.cml");
+            sb.Append("|");
+            sb.Append("CML Molecule Files (*.cml)|*.cml");
+            sb.Append("|");
+            sb.Append("MDL Molecule Files (*.mol)|*.mol");
+            openFile.Filter = sb.ToString();
+            openFile.FilterIndex = 1;
+
+            DialogResult result = openFile.ShowDialog();
+            if (result == System.Windows.Forms.DialogResult.OK)
+            {
+                string fileType = Path.GetExtension(openFile.FileName).ToLower();
+                string fileContent = "";
+                System.IO.StreamReader myFile = null;
+                bool validFileType = false;
+
+                switch (fileType)
+                {
+                    case ".mol":
+                        myFile = new System.IO.StreamReader(openFile.FileName);
+                        fileContent = myFile.ReadToEnd();
+                        myFile.Close();
+                        ExecuteJavaScript("SetMolFile", fileContent);
+                        validFileType = true;
+                        break;
+                    case ".cml":
+                        myFile = new System.IO.StreamReader(openFile.FileName);
+                        fileContent = myFile.ReadToEnd();
+                        myFile.Close();
+                        ExecuteJavaScript("SetJSON", Cml.ToJson(fileContent));
+                        validFileType = true;
+                        break;
+                    default:
+                        break;
+                }
+
+                if (validFileType)
+                {
+                    object obj = ExecuteJavaScript("GetAverageBondLength");
+                    double averageBondLength = SafeDoubleParser.Parse(obj.ToString());
+
+                    if (averageBondLength < 5)
+                    {
+                        nudBondLength.Value = 20;
+                        ExecuteJavaScript("ReScale", nudBondLength.Value);
+                    }
+                    else
+                    {
+                        double newAverageBondLength = Math.Round(averageBondLength / 5.0) * 5;
+                        nudBondLength.Value = (int)newAverageBondLength;
+                    }
+                }
+
+            }
+        }
+
+        private void btnSaveAs_Click(object sender, EventArgs e)
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.Append("CML Molecule Files (*.cml)|*.cml");
+            sb.Append("|");
+            sb.Append("MDL Molecule Files (*.mol)|*.mol");
+            saveFile.FileName = "Untitled.cml";
+            saveFile.Filter = sb.ToString();
+
+            DialogResult result = saveFile.ShowDialog();
+            if (result == System.Windows.Forms.DialogResult.OK)
+            {
+                object obj = null;
+
+                string fileType = Path.GetExtension(saveFile.FileName).ToLower();
+                string fileContent = "";
+
+                switch (fileType)
+                {
+                    case ".mol":
+                        obj = ExecuteJavaScript("GetMolFile");
+                        fileContent = obj.ToString();
+                        break;
+                    case ".cml":
+                        obj = ExecuteJavaScript("GetJSON");
+                        JToken molJson = JObject.Parse(obj.ToString());
+                        fileContent = Json.ToCML(molJson.ToString());
+                        break;
+                    default:
+                        break;
+                }
+
+                File.WriteAllText(saveFile.FileName, fileContent);
+            }
         }
     }
 }

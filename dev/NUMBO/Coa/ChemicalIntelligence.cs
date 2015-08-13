@@ -1509,5 +1509,35 @@ namespace Numbo.Coa
 
             return draw;
         }
+
+        /// <summary>
+        /// GetImplicitHydrogenCount shows the number of hydrogen atoms to add to a heteroatom.
+        /// Only applies to specific atoms: C, O, N, S, P (there are probably more!)
+        /// We could also use this to add terminal hydrogens, e.g, -CH3, =CH2 etc
+        /// </summary>
+        /// <param name="atom"></param>
+        /// <returns>number of hydrogens required</returns>
+        public static int GetImplicitHydrogenCount(CmlAtom atom)
+        {
+            // Return -1 if we don't need to do anything
+            int iHydrogenCount = -1;
+
+            // Applicable elements
+            if (PeriodicTable.Element.C.Equals(PeriodicTable.GetElement(atom.ElementType)) ||
+                PeriodicTable.Element.O.Equals(PeriodicTable.GetElement(atom.ElementType)) ||
+                PeriodicTable.Element.N.Equals(PeriodicTable.GetElement(atom.ElementType)) ||
+                PeriodicTable.Element.S.Equals(PeriodicTable.GetElement(atom.ElementType)) ||
+                PeriodicTable.Element.P.Equals(PeriodicTable.GetElement(atom.ElementType)))
+            {
+
+                int iBondCount = (int)atom.GetBondOrderSum();
+                int iValence = PeriodicTable.GetValence(PeriodicTable.GetElement(atom.ElementType), (int)atom.GetBondOrderSum());
+                // Return the number of hydrogens to add
+                iHydrogenCount = iValence - iBondCount;
+            }
+
+            return iHydrogenCount;
+        }
+
     }
 }

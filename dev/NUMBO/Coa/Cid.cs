@@ -12,6 +12,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Xml.Linq;
 using System.Xml.XPath;
+using Chem4Word.Common.Utilities;
 using Euclid;
 using log4net;
 using Numbo.Cml;
@@ -883,7 +884,7 @@ namespace Numbo.Coa
                 throw new ArgumentNullException("vector");
             }
             CmlMolecule molecule = new CmlMolecule(moleculePointer);
-            ICollection<CmlAtom> atoms = molecule.GetAllAtoms();
+            IEnumerable<CmlAtom> atoms = molecule.GetAllAtoms();
             HashSet<string> atomIDs = new HashSet<string>();
             foreach (CmlAtom atom in atoms)
             {
@@ -1793,8 +1794,8 @@ namespace Numbo.Coa
                 /// TODO hack - schema specifies that x2 and y2 must be doubles 
                 /// ideally the Linq system should automatically convert from string
                 /// this may mean defining how CMLElements should serialise and deserialize to Linq
-                double xval = Double.Parse(x2.Value, CultureInfo.InvariantCulture);
-                double yval = Double.Parse(y2.Value, CultureInfo.InvariantCulture);
+                double xval = SafeDoubleParser.Parse(x2.Value);
+                double yval = SafeDoubleParser.Parse(y2.Value);
                 if ((xval.Equals(double.NaN)) || (yval.Equals(double.NaN)))
                 {
                     throw new ArgumentException("Element has coordinate that is not a number.");
