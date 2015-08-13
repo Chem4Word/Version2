@@ -526,7 +526,7 @@ namespace Chem4Word.UI.TwoD
             }
             if (selectedAtoms.Count > 0)
             {
-                Rect r = CoordinateTool.GetBounds2D(ContextObject, SelectedAtoms.Values);
+                Rect r = CoordinateTool.GetBounds2D(SelectedAtoms.Values);
                 SetLeft(chemContextMenu, ToScreenX(r.Left) + ToScreenX(r.Width / 2) - (chemContextMenu.Width / 2));
                 SetTop(chemContextMenu, ToScreenY(r.Bottom) - chemContextMenu.Height - 25);
 
@@ -738,7 +738,7 @@ namespace Chem4Word.UI.TwoD
             Children.Clear();
 
             InitForPng();
-            var r1 = CoordinateTool.GetBounds2D(ContextObject, molecule.GetAllAtoms());
+            var r1 = CoordinateTool.GetBounds2D(molecule.GetAllAtoms());
             if (invertYAxis)
             {
                 var temp = r1;
@@ -779,7 +779,7 @@ namespace Chem4Word.UI.TwoD
 
         private Rectangle GetSelectionBoundsRectangle()
         {
-            Rect rect = CoordinateTool.GetBounds2D(ContextObject, selectedAtoms.Values);
+            Rect rect = CoordinateTool.GetBounds2D(selectedAtoms.Values);
 
             double marginExtra = 20;
 
@@ -990,7 +990,7 @@ namespace Chem4Word.UI.TwoD
 
         private void InitialiseCoords()
         {
-            ICollection<CmlAtom> atoms = molecule.GetAllAtoms();
+            var atoms = molecule.GetAllAtoms();
             if (!atoms.Any())
             {
                 xmin = -1;
@@ -1000,7 +1000,7 @@ namespace Chem4Word.UI.TwoD
             }
             else
             {
-                Rect r = CoordinateTool.GetBounds2D(ContextObject, atoms);
+                Rect r = CoordinateTool.GetBounds2D(atoms);
                 xmin = r.Left;
                 xmax = r.Right;
                 if (invertYAxis)
@@ -1953,7 +1953,7 @@ namespace Chem4Word.UI.TwoD
             {
                 if (!Children.Contains(bondContextMenu))
                 {
-                    Rect r = CoordinateTool.GetBounds2D(ContextObject, SelectedBonds.Values);
+                    Rect r = CoordinateTool.GetBounds2D(SelectedBonds.Values);
                     SetLeft(bondContextMenu, e.GetPosition(this).X - StandardXOffset);
                     SetTop(bondContextMenu, ToScreenY(r.Bottom) - bondContextMenu.Height - 25);
 

@@ -149,6 +149,10 @@
     <None Include="Resources\olefins.xml" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Chem4Word.Common\Chem4Word.Common.csproj">
+      <Project>{0E9761B5-72BE-4ED5-8239-6428451C150D}</Project>
+      <Name>Chem4Word.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Euclid\Euclid.csproj">
       <Project>{D78B7D21-FA43-45B5-86FF-E03DFA55C4BC}</Project>
       <Name>Euclid</Name>

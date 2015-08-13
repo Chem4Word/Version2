@@ -10,6 +10,7 @@ using System.Globalization;
 using System.Linq;
 using System.Xml.Linq;
 using System.Xml.XPath;
+using Chem4Word.Common.Utilities;
 using Euclid;
 using log4net;
 using Numbo.Cml.Helpers;
@@ -112,7 +113,7 @@ namespace Numbo.Cml
                         string.Empty.Equals(countAttribute.Value))
                            ?
                                (Nullable<double>) null
-                           : Double.Parse(countAttribute.Value, CultureInfo.InvariantCulture);
+                           : SafeDoubleParser.Parse(countAttribute.Value);
             }
             set { DelegateElement.SetAttributeValue(CmlAttribute.Count, value.ToString()); }
         }
@@ -265,7 +266,7 @@ namespace Numbo.Cml
         /// does not recurse to nested molecules
         /// </summary>
         /// <returns>atoms</returns>
-        public ICollection<CmlAtom> GetAtoms()
+        public IEnumerable<CmlAtom> GetAtoms()
         {
             CmlAtomArray atomArray = GetAtomArray();
             List<CmlAtom> atomList = new List<CmlAtom>();
@@ -273,10 +274,7 @@ namespace Numbo.Cml
             {
                 IEnumerable<XElement> atomsX =
                     atomArray.DelegateElement.Elements(CmlConstants.CmlxNamespace + CmlAtom.Tag);
-                foreach (XElement atomX in atomsX)
-                {
-                    atomList.Add(new CmlAtom(atomX));
-                }
+                atomList.AddRange(atomsX.Select(atomX => new CmlAtom(atomX)));
             }
             return atomList;
         }
@@ -285,10 +283,10 @@ namespace Numbo.Cml
         /// gets all atoms in this molecule including nested molecules
         /// </summary>
         /// <returns>atoms</returns>
-        public ICollection<CmlAtom> GetAllAtoms()
+        public IEnumerable<CmlAtom> GetAllAtoms()
         {
             var molecules = GetChildMoleculeList();
-            return molecules.Count() == 0 ? GetAtoms() : molecules.SelectMany(molecule => molecule.GetAtoms()).ToList();
+            return !molecules.Any() ? GetAtoms() : molecules.SelectMany(molecule => molecule.GetAtoms());
         }
 
         /// <summary>

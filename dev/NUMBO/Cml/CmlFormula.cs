@@ -10,6 +10,7 @@ using System.Globalization;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Xml.Linq;
+using Chem4Word.Common.Utilities;
 using Numbo.Cml.Helpers;
 
 namespace Numbo.Cml
@@ -64,7 +65,7 @@ namespace Numbo.Cml
                         string.Empty.Equals(countAttribute.Value))
                            ?
                                (double?) null
-                           : double.Parse(countAttribute.Value, CultureInfo.InvariantCulture);
+                           : SafeDoubleParser.Parse(countAttribute.Value);
             }
             set { DelegateElement.SetAttributeValue(CmlAttribute.Count, value.ToString()); }
         }

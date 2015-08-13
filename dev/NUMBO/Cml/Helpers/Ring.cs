@@ -49,7 +49,7 @@ namespace Numbo.Cml.Helpers
             }
         }
 
-        internal HashSet<string> BondIdSet { get; set; }
+        public HashSet<string> BondIdSet { get; set; }
 
         /// <summary>
         /// compare on ring sizes

@@ -1,22 +1,39 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
+﻿using System.Text;
 using System.Xml;
-
-using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
 namespace Chem4Word.UI.Converters
 {
     public static class Json
     {
+        public static string InvertX(string p_JsonIn)
+        {
+            string result = p_JsonIn;
+
+            //Debug.WriteLine("JSON.InvertX()");
+            if (p_JsonIn.StartsWith("{"))
+            {
+                JToken molJson = JObject.Parse(p_JsonIn);
+
+                JToken atoms = molJson.SelectToken("a");
+                foreach (JToken atom in atoms)
+                {
+                    double x = (double)atom.SelectToken("x");
+                    double newX = -x;
+                    JValue xx = (JValue)atom.SelectToken("x");
+                    xx.Value = newX;
+                }
+                result = molJson.ToString();
+            }
+
+            return result;
+        }
+
         public static string InvertY(string p_JsonIn)
         {
             string result = p_JsonIn;
 
-            Debug.WriteLine("JSON.InvertY()");
+            //Debug.WriteLine("JSON.InvertY()");
             if (p_JsonIn.StartsWith("{"))
             {
                 JToken molJson = JObject.Parse(p_JsonIn);
@@ -37,7 +54,12 @@ namespace Chem4Word.UI.Converters
 
         public static string ToCML(string p_JsonIn)
         {
-            Debug.WriteLine("JSON.ToCML()");
+            return ToCML(p_JsonIn, "m1");
+        }
+
+        public static string ToCML(string p_JsonIn, string p_MoleculeId)
+        {
+            //Debug.WriteLine("JSON.ToCML()");
             string result = p_JsonIn;
 
             // http://www.xml-cml.org/convention/molecular
@@ -49,6 +71,7 @@ namespace Chem4Word.UI.Converters
                 int bondCounter = 0;
 
                 #region Construct empty CML file
+
                 StringBuilder sb = new StringBuilder();
                 sb.Append("<cml:cml");
                 sb.Append(" convention='conventions:molecular'");
@@ -58,7 +81,7 @@ namespace Chem4Word.UI.Converters
                 sb.Append(" xmlns:nameDict='http://www.xml-cml.org/dictionary/cml/name/'");
                 //sb.Append(" xmlns:p7='http://www.xml-cml.org/dictionary/cmlx/'");
                 sb.Append(">");
-                sb.Append("<cml:molecule id='m1'>");
+                sb.Append("<cml:molecule id='" + p_MoleculeId + "'>");
                 sb.Append("  <cml:atomArray>");
                 sb.Append("  </cml:atomArray>");
                 sb.Append("  <cml:bondArray>");
@@ -66,7 +89,8 @@ namespace Chem4Word.UI.Converters
                 sb.Append("</cml:molecule>");
                 sb.Append("</cml:cml>");
                 doc.LoadXml(sb.ToString());
-                #endregion
+
+                #endregion Construct empty CML file
 
                 XmlNamespaceManager nsmgr = new XmlNamespaceManager(doc.NameTable);
                 nsmgr.AddNamespace("cml", "http://www.xml-cml.org/schema");
@@ -77,7 +101,7 @@ namespace Chem4Word.UI.Converters
                 JToken molJson = JObject.Parse(p_JsonIn);
 
                 JToken atoms = molJson.SelectToken("a");
-                Debug.WriteLine("Found " + atoms.Count<JToken>() + " atoms");
+                //Debug.WriteLine("Found " + atoms.Count<JToken>() + " atoms");
                 foreach (JToken atom in atoms)
                 {
                     // Ignore incoming atom id
@@ -107,7 +131,7 @@ namespace Chem4Word.UI.Converters
                 JToken bonds = molJson.SelectToken("b");
                 if (bonds != null)
                 {
-                    Debug.WriteLine("Found " + bonds.Count<JToken>() + " bonds");
+                    //Debug.WriteLine("Found " + bonds.Count<JToken>() + " bonds");
                     foreach (JToken bond in bonds)
                     {
                         // Ignore incoming bond id
@@ -151,17 +175,22 @@ namespace Chem4Word.UI.Converters
 
         private static string StereoToString(string p_stereo)
         {
-            string result = "";
+            string result = p_stereo;
             switch (p_stereo)
             {
                 case "protruding":
                     result = "W";
                     break;
+
                 case "recessed":
                     result = "H";
                     break;
+
                 case "ambiguous":
                     result = "S";
+                    break;
+
+                default:
                     break;
             }
             return result;
@@ -169,23 +198,28 @@ namespace Chem4Word.UI.Converters
 
         private static string OrderToString(string p_order)
         {
-            string result = "p_order";
+            string result = p_order;
             switch (p_order)
             {
                 case "1":
                 case "1.0":
                     result = "S";
                     break;
+
                 case "1.5":
                     result = "A";
                     break;
+
                 case "2":
                 case "2.0":
                     result = "D";
                     break;
+
                 case "3":
                 case "3.0":
                     result = "T";
+                    break;
+                default:
                     break;
             }
             return result;
@@ -205,6 +239,5 @@ namespace Chem4Word.UI.Converters
             }
             return sb.ToString();
         }
-
     }
 }

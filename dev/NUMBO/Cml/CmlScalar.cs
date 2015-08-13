@@ -7,6 +7,7 @@
 using System;
 using System.Globalization;
 using System.Xml.Linq;
+using Chem4Word.Common.Utilities;
 
 namespace Numbo.Cml
 {
@@ -88,8 +89,7 @@ namespace Numbo.Cml
             get
             {
                 return (DelegateElement.Attribute(CmlAttribute.Max) != null)
-                           ? Double.Parse(DelegateElement.Attribute(CmlAttribute.Max).Value,
-                                          CultureInfo.InvariantCulture)
+                           ? SafeDoubleParser.Parse(DelegateElement.Attribute(CmlAttribute.Max).Value)
                            : Double.NaN;
             }
             set { DelegateElement.SetAttributeValue(CmlAttribute.Max, value.ToString(CultureInfo.InvariantCulture)); }
@@ -100,8 +100,7 @@ namespace Numbo.Cml
             get
             {
                 return (DelegateElement.Attribute(CmlAttribute.Min) != null)
-                           ? Double.Parse(DelegateElement.Attribute(CmlAttribute.Min).Value,
-                                          CultureInfo.InvariantCulture)
+                           ? SafeDoubleParser.Parse(DelegateElement.Attribute(CmlAttribute.Min).Value)
                            : Double.NaN;
             }
             set { DelegateElement.SetAttributeValue(CmlAttribute.Min, value.ToString(CultureInfo.InvariantCulture)); }
