@@ -11,6 +11,9 @@ Math.degrees = function (radians) {
 function AddHydrogensToAtom(atoms, bonds, bondlength, atom) {
     var atomIdx = atoms.length;
     var bondIdx = bonds.length;
+    var i;
+    var j;
+    var jj;
 
     var hToAdd = atom.getImplicitHydrogenCount();
 
@@ -35,12 +38,12 @@ function AddHydrogensToAtom(atoms, bonds, bondlength, atom) {
                 break;
         }
 
-        for (var i = 0; i < hToAdd; i++) {
+        for (i = 0; i < hToAdd; i++) {
             var hAtomAngle = Math.radians(atomDegrees);
             var newAtomX = atom.x + (bondlength * Math.cos(hAtomAngle));
             var newAtomY = atom.y - (bondlength * Math.sin(hAtomAngle));
             // Detect and bump any overlapping atoms using a hit area 10% of average bond length
-            for (var j = 0, jj = atoms.length; j < jj; j++) {
+            for (j = 0, jj = atoms.length; j < jj; j++) {
                 var xdelta = Math.abs(atoms[j].x - newAtomX);
                 var ydelta = Math.abs(atoms[j].y - newAtomY);
                 //var xdelta = Math.abs(Math.floor(atoms[j].x) - Math.floor(newAtomX));
@@ -63,8 +66,17 @@ function AddHydrogensToAtom(atoms, bonds, bondlength, atom) {
     }
 }
 
+function GetAverageBondLength() {
+    var mol = sketcher.getMolecule();
+    var avBondLength = mol.getAverageBondLength();
+    return avBondLength;
+}
+
 function AddExplicitHydrogens() {
     var mol = sketcher.getMolecule();
+
+    var i;
+    var ii;
 
     var avBondLength = mol.getAverageBondLength();
     if (avBondLength == 0) {
@@ -77,12 +89,13 @@ function AddExplicitHydrogens() {
     atomIdx = atoms.length;
     bondIdx = bonds.length;
 
-    for (var i = 0, ii = atoms.length; i < ii; i++) {
+    for (i = 0, ii = atoms.length; i < ii; i++) {
         AddHydrogensToAtom(atoms, bonds, avBondLength, atoms[i]);
     }
 
     sketcher.loadMolecule(mol);
     sketcher.center();
+    sketcher.repaint();
 }
 
 function RemoveHydrogens() {
@@ -90,7 +103,12 @@ function RemoveHydrogens() {
     var atoms = [];
     var bonds = [];
 
-    for (var i = 0, ii = mol.bonds.length; i < ii; i++) {
+    var i;
+    var ii;
+    var j;
+    var jj;
+
+    for (i = 0, ii = mol.bonds.length; i < ii; i++) {
         if (mol.bonds[i].a1.label !== 'H' && mol.bonds[i].a2.label !== 'H') {
             bonds.push(mol.bonds[i]);
         }
@@ -99,12 +117,12 @@ function RemoveHydrogens() {
         }
     }
 
-    for (var i = 0, ii = mol.atoms.length; i < ii; i++) {
+    for (i = 0, ii = mol.atoms.length; i < ii; i++) {
         if (mol.atoms[i].label !== 'H') {
             atoms.push(mol.atoms[i]);
         }
         else {
-            for (var j = 0, jj = mol.atoms[i].bonds.length; j < jj; j++) {
+            for (j = 0, jj = mol.atoms[i].bonds.length; j < jj; j++) {
                 if (mol.atoms[i].bonds[j].stereo !== 'none') {
                     atoms.push(mol.atoms[i]);
                     break;
@@ -118,6 +136,7 @@ function RemoveHydrogens() {
 
     sketcher.loadMolecule(mol);
     sketcher.center();
+    sketcher.repaint();
 }
 
 function HideImplicitHCount() {
@@ -125,6 +144,7 @@ function HideImplicitHCount() {
     sketcher.specs.atoms_implicitHydrogens_2D = false;
     sketcher.loadMolecule(mol);
     sketcher.center();
+    sketcher.repaint();
 }
 
 function ShowImplicitHCount() {
@@ -132,16 +152,13 @@ function ShowImplicitHCount() {
     sketcher.specs.atoms_implicitHydrogens_2D = true;
     sketcher.loadMolecule(mol);
     sketcher.center();
+    sketcher.repaint();
 }
 
-function ShowMol(mol, length) {
-    // Remove Explict Hydrogens
-    // var ded = new ChemDoodle.informatics.HydrogenDeducer();
-    // ded.removeHydrogens(mol);
-    // Scale and display
-    var len = parseInt(length);
-    mol.scaleToAverageBondLength(len);
+function ShowMol(mol) {
     sketcher.loadMolecule(mol);
+    sketcher.center();
+    sketcher.repaint();
 }
 
 function SetMolFile(molFile, length) {
@@ -149,19 +166,18 @@ function SetMolFile(molFile, length) {
     ShowMol(mol, length);
 }
 
-function SetJSON(molFile, length) {
+function SetJSON(molFile) {
     var jsonMol = JSON.parse(molFile);
     var mol = new ChemDoodle.io.JSONInterpreter().molFrom(jsonMol);
-    ShowMol(mol, length);
+    ShowMol(mol);
 }
 
 function ReScale(length) {
     var mol = sketcher.getMolecule();
     var len = parseInt(length);
     mol.scaleToAverageBondLength(len);
-    sketcher.loadMolecule(mol);
-    sketcher.center();
-    sketcher.repaint();
+    sketcher.specs.bondLength_2D = len;
+    ShowMol(mol);
 }
 
 function GetMolFile() {
@@ -172,9 +188,6 @@ function GetMolFile() {
 
 function GetJSON() {
     var mol = sketcher.getMolecule();
-    // Re-Scale to 1.54 for Chem4Word rendering
-    mol.scaleToAverageBondLength(1.54);
-    //mol.scaleToAverageBondLength(75);
     var jsonMol = new ChemDoodle.io.JSONInterpreter().molTo(mol);
     var asString = JSON.stringify(jsonMol);
     return asString;
