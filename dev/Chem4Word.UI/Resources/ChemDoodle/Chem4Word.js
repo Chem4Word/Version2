@@ -174,6 +174,7 @@ function GetJSON() {
     var mol = sketcher.getMolecule();
     // Re-Scale to 1.54 for Chem4Word rendering
     mol.scaleToAverageBondLength(1.54);
+    //mol.scaleToAverageBondLength(75);
     var jsonMol = new ChemDoodle.io.JSONInterpreter().molTo(mol);
     var asString = JSON.stringify(jsonMol);
     return asString;
