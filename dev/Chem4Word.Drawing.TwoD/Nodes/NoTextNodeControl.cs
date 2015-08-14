@@ -80,7 +80,7 @@ namespace Chem4Word.Drawing.TwoD.Nodes
 
             double y = canvas.ToScreenY(CmlAtom.Point2.Y);
 
-            Log.Debug(string.Format(CultureInfo.InvariantCulture, "id {0} x, y: {1}, {2} X, Y: {3} {4}", this.CmlAtom.Id, x, y, this.CmlAtom.Point2.X,
+            Log.Debug(string.Format(CultureInfo.InvariantCulture, "id {0} x, y: {1}, {2} X, Y: {3}, {4}", this.CmlAtom.Id, x, y, this.CmlAtom.Point2.X,
                                     this.CmlAtom.Point2.Y));
 
             Attachment = new Point(x, y);
