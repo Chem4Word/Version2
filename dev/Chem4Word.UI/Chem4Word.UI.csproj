@@ -159,13 +159,6 @@
     <Compile Include="ManageView\ManageDepictionOption.xaml.cs">
       <DependentUpon>ManageDepictionOption.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Molecules\From-AMC\Benzene.cs" />
-    <Compile Include="Molecules\From-AMC\BigMolecule.cs" />
-    <Compile Include="Molecules\From-AMC\Cyclohexane.cs" />
-    <Compile Include="Molecules\From-AMC\FormicAcid.cs" />
-    <Compile Include="Molecules\From-AMC\Probe1.cs" />
-    <Compile Include="Molecules\From-AMC\Pyridine.cs" />
-    <Compile Include="Molecules\From-AMC\WigglyLines.cs" />
     <Compile Include="Navigator\ChemistryNavigator.xaml.cs">
       <DependentUpon>ChemistryNavigator.xaml</DependentUpon>
     </Compile>
@@ -186,7 +179,6 @@
     <Compile Include="OOXML\Molecule\Molecule.cs" />
     <Compile Include="OOXML\OoXmlFile.cs" />
     <Compile Include="OOXML\OoXmlMolecule.cs" />
-    <Compile Include="OOXML\Options.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -323,7 +315,6 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-    <None Include="Resources\ChemDoodle\ChemDoodleWeb.zip" />
     <None Include="Resources\ChemDoodle\ChemDoodleWeb_601.zip" />
     <None Include="Resources\ChemDoodle\ChemDoodleWeb_701.zip" />
     <None Include="Resources\cmllite.xslt" />

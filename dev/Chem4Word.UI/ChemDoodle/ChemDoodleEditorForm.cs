@@ -56,7 +56,7 @@ namespace Chem4Word.UI.ChemDoodle
             string htmlfile = Properties.Resources.Offline_html;
             File.WriteAllText(Path.Combine(temp, "Editor.html"), htmlfile);
 
-            Byte[] bytes = Properties.Resources.ChemDoodleWeb_701;
+            Byte[] bytes = Properties.Resources.ChemDoodleWeb_701_zip;
             Stream stream = new MemoryStream(bytes);
 
             // NB: Top level of zip file must be the folder ChemDoodleWeb
