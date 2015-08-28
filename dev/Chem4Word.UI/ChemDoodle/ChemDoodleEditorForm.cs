@@ -18,9 +18,11 @@ using Ionic.Zip;
 
 namespace Chem4Word.UI.ChemDoodle
 {
-    public partial class ChemDoodleEditorForm : Form
+    public partial class ChemDoodleEditorForm : Form, IMessageFilter
     {
         private string ms_AppTitle = "Chem4Word Editor - Powered By ChemDoodle Web V";
+
+        private const int WM_KEYDOWN = 0x0100;
 
         public C4wOptions UserOptions { get; set; }
         public string Before_CML { get; set; }
@@ -36,6 +38,49 @@ namespace Chem4Word.UI.ChemDoodle
         public ChemDoodleEditorForm()
         {
             InitializeComponent();
+            // ToDo: Get from User Settings
+            UserOptions = new C4wOptions();
+            Application.AddMessageFilter(this);
+        }
+
+        public bool PreFilterMessage(ref Message m)
+        {
+            bool handled = false;
+
+            if (m.Msg == WM_KEYDOWN)
+            {
+                //Debug.WriteLine("WM_KEYDOWN");
+                if ((int)Control.ModifierKeys == (int)Keys.Control)
+                {
+                    //Debug.WriteLine("Contol Pressed");
+                    Keys key = (Keys)(int)m.WParam & Keys.KeyCode;
+                    switch (key)
+                    {
+                        #region Keys we are handling
+                        case Keys.O: // File Open
+                            btnOpen_Click(null, null);
+                            handled = true;
+                            break;
+                        case Keys.S: // File Save
+                            btnSaveAs_Click(null, null);
+                            handled = true;
+                            break;
+                        #endregion
+
+                        #region Keys we are supressing
+                        case Keys.P:
+                            handled = true;
+                            break;
+                        #endregion
+
+                        // Pass the rest through
+                        default:
+                            break;
+                    }
+                }
+            }
+
+            return handled;
         }
 
         private void TweakChemDoodle_Load(object sender, EventArgs e)
