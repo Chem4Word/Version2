@@ -113,6 +113,10 @@ namespace Chem4Word.UI.TwoD
                 }
 
                 pngFile = Path.GetTempFileName();
+                if (File.Exists(pngFile))
+                {
+                    File.Delete(pngFile);
+                }
                 pngFile = pngFile.Replace(".tmp", ".png");
                 CreatePng(pngFile);
             }
