@@ -680,6 +680,8 @@ namespace Chem4Word.Core {
                                                                                         MachineUnderstandableOption));
                     container.GeneratePng(true);
                     control.Range.InlineShapes.AddPicture(container.PngFileOutput, ref missing, ref missing, ref missing);
+                    // Delete the png file
+                    File.Delete(container.PngFileOutput);
                     container = null;
                 } catch (Exception e) {
                     MessageBox.Show(e.Message + "\n\n" + e.Source + "\n\n" + e.StackTrace,
