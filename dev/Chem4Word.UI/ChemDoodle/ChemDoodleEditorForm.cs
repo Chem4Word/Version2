@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using System.IO;
 using System.Reflection;
 using System.Resources;
+using Chem4Word.Common;
 using Chem4Word.Common.Utilities;
 using Chem4Word.UI.Converters;
 using Chem4Word.UI.OOXML;
@@ -34,6 +35,8 @@ namespace Chem4Word.UI.ChemDoodle
         public string After_MolFile { get; set; }
         public string After_JSON { get; set; }
         public string After_Formula { get; set; }
+
+        public Telemetry Telemetry { get; set; }
 
         public ChemDoodleEditorForm()
         {
@@ -266,6 +269,7 @@ namespace Chem4Word.UI.ChemDoodle
                         fileContent = myFile.ReadToEnd();
                         myFile.Close();
                         ExecuteJavaScript("SetMolFile", fileContent);
+                        Telemetry.Write("btnOpen_Click()", "Information", openFile.FileName);
                         validFileType = true;
                         break;
                     case ".cml":
@@ -273,6 +277,7 @@ namespace Chem4Word.UI.ChemDoodle
                         fileContent = myFile.ReadToEnd();
                         myFile.Close();
                         ExecuteJavaScript("SetJSON", Cml.ToJson(fileContent));
+                        Telemetry.Write("btnOpen_Click()", "Information", openFile.FileName);
                         validFileType = true;
                         break;
                     default:
@@ -332,6 +337,7 @@ namespace Chem4Word.UI.ChemDoodle
                 }
 
                 File.WriteAllText(saveFile.FileName, fileContent);
+                Telemetry.Write("btnSaveAs_Click()", "Information", saveFile.FileName);
             }
         }
     }
