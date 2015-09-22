@@ -29,8 +29,7 @@ namespace Chem4Word.Common
             me.Operation = "StartUp";
             me.Level = "Information";
             me.Message = _helper.SystemOs + Environment.NewLine + _helper.WordVersion;
-            _storage.WriteMessage(me);
-            systemInfoSent = true;
+            systemInfoSent = _storage.WriteMessage(me);
         }
 
         public void Write(string operation, string level, string message)
