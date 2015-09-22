@@ -27,8 +27,8 @@
     <RootNamespace>Chem4Word.AddIn</RootNamespace>
     <AssemblyName>Chem4Word.AddIn</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
-    <ManifestCertificateThumbprint>CAFF36BA26E87897D119C30FCB022EE3FCCE0686</ManifestCertificateThumbprint>
-    <ManifestKeyFile>Chem4Word.Addin.pfx</ManifestKeyFile>
+    <ManifestCertificateThumbprint>99EA4053D9E52D8A02BE79B8219016ED7E7EB9AA</ManifestCertificateThumbprint>
+    <ManifestKeyFile>Chem4Word.AddIn_TemporaryKey.pfx</ManifestKeyFile>
     <SignManifests>true</SignManifests>
     <SccProjectName>
     </SccProjectName>
@@ -169,7 +169,8 @@
     <SignAssembly>false</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
-    <AssemblyOriginatorKeyFile>Chem4Word.Addin.pfx</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>
+    </AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <!--
     This section specifies references for the project.
@@ -271,7 +272,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <None Include="Chem4Word.Addin.pfx" />
+    <None Include="Chem4Word.AddIn_TemporaryKey.pfx" />
     <None Include="Data\Chem4Word.dotx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
