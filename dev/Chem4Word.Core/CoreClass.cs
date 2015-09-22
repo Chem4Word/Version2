@@ -829,6 +829,7 @@ namespace Chem4Word.Core {
                 #region Fire up ChemDoodle editor
                 
                 ChemDoodleEditorForm tcd = new ChemDoodleEditorForm();
+                tcd.Telemetry = _telemetry;
 
                 #region Convert cml to JSON
                 Log.Debug("Converting CML to JSON");
