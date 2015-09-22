@@ -198,7 +198,14 @@ namespace Chem4Word.Core {
         public IChemistryZone ImportCmlFile(string fileName)
         {
             string module = "ImportCmlFile()";
-            _telemetry.Write(module, "Information", fileName);
+
+            string temp = Path.GetTempPath();
+            string tempCmlFileName = Path.Combine(temp, "Blank.cml");
+
+            if (!fileName.Equals(tempCmlFileName))
+            {
+                _telemetry.Write(module, "Information", fileName);
+            }
 
             IChemistryZone chemistryZone = null;
             ImportMediator importMediator = new ImportMediator();
@@ -1067,13 +1074,14 @@ namespace Chem4Word.Core {
         {
             string module = "GetSynonymFromChemSpider()";
             string result = null;
+            DateTime started = DateTime.Now;
 
             if (!string.IsNullOrEmpty(afterInchiKey))
             {
                 try
                 {
                     Log.Debug("Getting Chemspider RDF Page");
-                    _telemetry.Write(module, "Information", "Getting Chemspider RDF Page");
+                    _telemetry.Write(module, "Information", "Calling WebService");
                     string url = "http://rdf.chemspider.com/" + afterInchiKey;
                     HttpWebRequest request = WebRequest.Create(url) as HttpWebRequest;
                     request.Timeout = 30000;
@@ -1128,6 +1136,9 @@ namespace Chem4Word.Core {
                 }
             }
 
+            TimeSpan ts = DateTime.Now - started;
+            _telemetry.Write(module, "Information", "Duration " + ts.TotalMilliseconds + "ms");
+
             return result;
         }
 
@@ -1135,10 +1146,12 @@ namespace Chem4Word.Core {
         {
             string module = "GetInchiKey()";
             string result = null;
+            DateTime started = DateTime.Now;
+
             try
             {
                 Log.Debug("Calling ChemSpider WebService");
-                _telemetry.Write(module, "Information", "Getting Chemspider WebService");
+                _telemetry.Write(module, "Information", "Calling WebService");
                 com.chemspider.www.InChI i = new com.chemspider.www.InChI();
                 i.UserAgent = "Chem4Word";
                 i.Timeout = 500;
@@ -1151,6 +1164,10 @@ namespace Chem4Word.Core {
                 _telemetry.Write(module, "Exception", ex.Message);
                 Log.Error("GetInchiKey() - Exception - " + ex.Message);
             }
+
+            TimeSpan ts = DateTime.Now - started;
+            _telemetry.Write(module, "Information", "Duration " + ts.TotalMilliseconds + "ms");
+
             return result;
         }
 

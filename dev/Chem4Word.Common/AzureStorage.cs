@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Microsoft.WindowsAzure;
 using Microsoft.WindowsAzure.StorageClient;
+using System.Diagnostics;
 
 namespace Chem4Word.Common
 {
@@ -20,22 +21,41 @@ namespace Chem4Word.Common
 
         public AzureStorage()
         {
-            CloudStorageAccount storageAccount = new CloudStorageAccount(new StorageCredentialsAccountAndKey(accountName, accountKey), true);
-            CloudTableClient cloudTableClient = storageAccount.CreateCloudTableClient();
-            cloudTableClient.CreateTableIfNotExist(tableName);
+            try
+            {
+                CloudStorageAccount storageAccount = new CloudStorageAccount(new StorageCredentialsAccountAndKey(accountName, accountKey), true);
+                CloudTableClient cloudTableClient = storageAccount.CreateCloudTableClient();
+                cloudTableClient.CreateTableIfNotExist(tableName);
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Exception: " + ex.Message);
+            }
         }
 
-        public void WriteMessage(MessageEntity messageEntity)
+        public bool WriteMessage(MessageEntity messageEntity)
         {
-            messageEntity.PartitionKey = "Chem4Word";
-            messageEntity.RowKey = string.Format("{0:D19}", DateTime.MaxValue.Ticks - DateTime.UtcNow.Ticks);
+            bool success = true;
 
-            CloudStorageAccount storageAccount = new CloudStorageAccount(new StorageCredentialsAccountAndKey(accountName, accountKey), true);
-            CloudTableClient cloudTableClient = storageAccount.CreateCloudTableClient();
+            try
+            {
+                messageEntity.PartitionKey = "Chem4Word";
+                messageEntity.RowKey = string.Format("{0:D19}", DateTime.MaxValue.Ticks - DateTime.UtcNow.Ticks);
 
-            var serviceContext = cloudTableClient.GetDataServiceContext();
-            serviceContext.AddObject(tableName, messageEntity);
-            serviceContext.SaveChanges();
+                CloudStorageAccount storageAccount = new CloudStorageAccount(new StorageCredentialsAccountAndKey(accountName, accountKey), true);
+                CloudTableClient cloudTableClient = storageAccount.CreateCloudTableClient();
+
+                var serviceContext = cloudTableClient.GetDataServiceContext();
+                serviceContext.AddObject(tableName, messageEntity);
+                serviceContext.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Exception: " + ex.Message);
+                success = false;
+            }
+
+            return success;
         }
     }
 
