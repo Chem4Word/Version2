@@ -298,6 +298,10 @@
       <Project>{B416CED3-D6BB-4A85-A3B3-8DBBDF1CD823}</Project>
       <Name>Chem4Word.Api</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Chem4Word.Common\Chem4Word.Common.csproj">
+      <Project>{0E9761B5-72BE-4ED5-8239-6428451C150D}</Project>
+      <Name>Chem4Word.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Chem4Word.Core\Chem4Word.Core.csproj">
       <Project>{5F68794D-D25F-4FD2-A51C-942665E7EE52}</Project>
       <Name>Chem4Word.Core</Name>

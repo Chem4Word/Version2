@@ -7,6 +7,7 @@
 using System;
 using System.IO;
 using System.Xml;
+using Chem4Word.Common;
 using Chem4Word.Core;
 using log4net;
 using log4net.Config;
