@@ -6,6 +6,7 @@
 // -----------------------------------------------------------------------
 using System.Collections.Generic;
 using System.Globalization;
+using System.Windows.Media;
 using System.Xml.Linq;
 using System.Xml.XPath;
 using log4net;
@@ -83,6 +84,9 @@ namespace Chem4Word.UI.Import
         /// </summary>
         public bool Headless { get; set; }
 
+        public string LongMessage { get; set; }
+        public string BriefMessage { get; set; }
+
         /// <summary>
         /// Begin the import process from a URL
         /// </summary>
@@ -105,22 +109,22 @@ namespace Chem4Word.UI.Import
             }
             else
             {
-                const string briefMessage = "The document to import is null";
-                const string longMessage =
+                BriefMessage = "The document to import is null";
+                LongMessage =
                     "The document to import is null\nNo further details are available at this time.";
                 if (!Headless)
                 {
                     var ifc = new ImportFailedControl
                                                   {
-                                                      BriefDescription = briefMessage,
-                                                      LongDescription = longMessage
+                                                      BriefDescription = BriefMessage,
+                                                      LongDescription = LongMessage
                                                   };
                     ifc.ShowDialog();
                 }
                 else
                 {
-                    Log.Error(string.Format(CultureInfo.InvariantCulture, "Import Error Brief Description: {0}", briefMessage));
-                    Log.Error(string.Format(CultureInfo.InvariantCulture, "Import Error Long Description: {0}", longMessage));
+                    Log.Error(string.Format(CultureInfo.InvariantCulture, "Import Error Brief Description: {0}", BriefMessage));
+                    Log.Error(string.Format(CultureInfo.InvariantCulture, "Import Error Long Description: {0}", LongMessage));
                 }
             }
         }

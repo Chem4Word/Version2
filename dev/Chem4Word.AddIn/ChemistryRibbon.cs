@@ -555,7 +555,7 @@ namespace Chem4Word.AddIn {
                     string fileName = dialog.SafeFileName;
                     curDir = dialog.FileName.Replace(fileName, "");
                     core.ImportCmlFile(dialog.FileName);
-                    Log.Error("file imported: " + dialog.FileName);
+                    Log.Info("file imported: " + dialog.FileName);
                 }
             } catch (Exception ex) {
                 Log.Error(ex);
@@ -811,7 +811,9 @@ namespace Chem4Word.AddIn {
                 }
             }
 
-            if (pressed) {
+            core.WriteTelemetry("NavigatorClick()", "Information", "Pressed " + pressed);
+            if (pressed)
+            {
                 if (custTaskPane == null) {
                     navCustControl = new ChemistryNavigatorHostControl(core.ActiveChemistryDocument);
 

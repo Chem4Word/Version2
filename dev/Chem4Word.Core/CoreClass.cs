@@ -47,6 +47,7 @@ using System.Text.RegularExpressions;
 using System.Timers;
 using Chem4Word.UI.ChemDoodle;
 using System.Net;
+using Chem4Word.Common;
 
 namespace Chem4Word.Core {
     /// <summary>
@@ -76,6 +77,8 @@ namespace Chem4Word.Core {
         static Timer _timerToDeleteContexCtrl;
         ContentControl controlToTimer;
 
+        private static Telemetry _telemetry;
+
         static CoreClass() {
             // Required to initialise the WPF context, prevents a bug in the RibbonControl.
             System.Windows.Window w = new System.Windows.Window();
@@ -103,6 +106,7 @@ namespace Chem4Word.Core {
 
             // Load user setting
             InitialiseUserSettings();
+            _telemetry = new Telemetry();
 
             //Register Events
             wordApp.WindowActivate += ApplicationWindowActivate;
@@ -191,7 +195,11 @@ namespace Chem4Word.Core {
         ///   This method will create Chemistry Zone if the selected CML file is valid. Otherwise, it will not.
         /// </summary>
         /// <param name = "fileName">File name that point to Cml or Xml file is going to be import into Word document</param>
-        public IChemistryZone ImportCmlFile(string fileName) {
+        public IChemistryZone ImportCmlFile(string fileName)
+        {
+            string module = "ImportCmlFile()";
+            _telemetry.Write(module, "Information", fileName);
+
             IChemistryZone chemistryZone = null;
             ImportMediator importMediator = new ImportMediator();
             switch (Setting.Import) {
@@ -226,6 +234,10 @@ namespace Chem4Word.Core {
                 //                                              navigatorDepictionOption);
                 chemistryZone = AddNewContextObjectToDocument(range, contextObject,
                                                               chemistryZoneProperties);
+            }
+            else
+            {
+                _telemetry.Write(module, "Error", "Import failed " + importMediator.BriefMessage);
             }
             return chemistryZone;
         }
@@ -338,7 +350,8 @@ namespace Chem4Word.Core {
                 var activeDocument = wordApp.ActiveDocument;
                 try {
                     if (documentDictionary == null || documentDictionary.Count < 1 ||
-                        !(documentDictionary.ContainsKey(activeDocument))) {
+                        !(documentDictionary.ContainsKey(activeDocument)))
+                    {
                         WordAppDocumentOpen(wordApp.ActiveDocument);
                     }
                 }
@@ -808,8 +821,11 @@ namespace Chem4Word.Core {
         /// </summary>
         public void TweakDoodle2D(IChemistryZone selectedZone, bool newStructure)
         {
+            string module = "TweakDoodle2d()";
             try
             {
+                _telemetry.Write(module, "Information", "NewStructure: " + newStructure);
+
                 #region Fire up ChemDoodle editor
                 
                 ChemDoodleEditorForm tcd = new ChemDoodleEditorForm();
@@ -1028,8 +1044,9 @@ namespace Chem4Word.Core {
             }
             catch (Exception ex)
             {
-                throw new NumboException("Error in TweakDoodle2D:\n" + ex.Message, ex);
+                _telemetry.Write(module, "Exception", ex.Message);
                 Log.Error("Error in TweakDoodle2D", ex);
+                throw new NumboException("Error in TweakDoodle2D:\n" + ex.Message, ex);
             }
             finally
             {
@@ -1040,8 +1057,14 @@ namespace Chem4Word.Core {
             }
         }
 
+        public void WriteTelemetry(string operation, string level, string message)
+        {
+            _telemetry.Write(operation, level, message);
+        }
+
         private string GetSynonymFromChemSpider(string afterInchiKey)
         {
+            string module = "GetSynonymFromChemSpider()";
             string result = null;
 
             if (!string.IsNullOrEmpty(afterInchiKey))
@@ -1049,6 +1072,7 @@ namespace Chem4Word.Core {
                 try
                 {
                     Log.Debug("Getting Chemspider RDF Page");
+                    _telemetry.Write(module, "Information", "Getting Chemspider RDF Page");
                     string url = "http://rdf.chemspider.com/" + afterInchiKey;
                     HttpWebRequest request = WebRequest.Create(url) as HttpWebRequest;
                     request.Timeout = 30000;
@@ -1085,7 +1109,7 @@ namespace Chem4Word.Core {
                     }
                     else
                     {
-                        System.Diagnostics.Debug.WriteLine("Error - Status code: " + response.StatusCode);
+                        _telemetry.Write(module, "Error", "Http Status: " + response.StatusCode);
                         Log.Debug("Chemspider RDF Page - Error - Status code: " + response.StatusCode);
                     }
                 }
@@ -1096,6 +1120,10 @@ namespace Chem4Word.Core {
                     {
                         result = "Not Found";
                     }
+                    else
+                    {
+                        _telemetry.Write(module, "Exception", ex.Message);
+                    }
                 }
             }
 
@@ -1104,10 +1132,12 @@ namespace Chem4Word.Core {
 
         private string GetInchiKey(string molfile)
         {
+            string module = "GetInchiKey()";
             string result = null;
             try
             {
                 Log.Debug("Calling ChemSpider WebService");
+                _telemetry.Write(module, "Information", "Getting Chemspider WebService");
                 com.chemspider.www.InChI i = new com.chemspider.www.InChI();
                 i.UserAgent = "Chem4Word";
                 i.Timeout = 500;
@@ -1117,7 +1147,7 @@ namespace Chem4Word.Core {
             }
             catch (Exception ex)
             {
-                System.Diagnostics.Debug.WriteLine("GetInchiKey() - Exception - " + ex.Message);
+                _telemetry.Write(module, "Exception", ex.Message);
                 Log.Error("GetInchiKey() - Exception - " + ex.Message);
             }
             return result;
@@ -1215,7 +1245,10 @@ namespace Chem4Word.Core {
         /// </summary>
         /// <param name = "galleryName">Name of the gallery instance.</param>
         /// <exception cref = "Exception">If there is not exactly one chemistry zone selected</exception>
-        public void SaveSelectionIntoGallery(string galleryName) {
+        public void SaveSelectionIntoGallery(string galleryName)
+        {
+            string module = "SaveSelectionIntoGallery()";
+            _telemetry.Write(module, "Information", galleryName);
             Microsoft.Office.Tools.Word.Document wordDoc =
                 Microsoft.Office.Tools.Word.Document.GetVstoObject(wordApp.ActiveWindow.Document);
             if (wordApp.ActiveWindow.Panes.Count > 0) {
@@ -1785,7 +1818,13 @@ namespace Chem4Word.Core {
 
                 //Register Events
                 wordApp.ActiveDocument.ContentControlAfterAdd += ActiveDocumentContentControlAfterAdd;
+                wordApp.ActiveDocument.BuildingBlockInsert += ActiveDocumentBuildingBlockInsert;
             }
+        }
+
+        private void ActiveDocumentBuildingBlockInsert(Range wordRange, string name, string category, string blockType, string template)
+        {
+            _telemetry.Write("ChemistryGallery", "Information", "Insert '" + name + "'");
         }
 
         /// <summary>
@@ -1840,6 +1879,7 @@ namespace Chem4Word.Core {
                 ActiveChemistryDocument = new ChemistryDocument(doc, this);
                 documentDictionary.Add(wordApp.ActiveDocument, ActiveChemistryDocument);
                 doc.ContentControlAfterAdd += ActiveDocumentContentControlAfterAdd;
+                doc.BuildingBlockInsert += ActiveDocumentBuildingBlockInsert;
             }
 
             // Fire Event
@@ -1976,10 +2016,14 @@ namespace Chem4Word.Core {
             }
         }
 
+
         /// <summary>
         /// </summary>
         /// <returns></returns>
-        public IChemistryZone OpsinLookUpClick() {
+        public IChemistryZone OpsinLookUpClick()
+        {
+            string module = "OpsinLookUpClick()";
+            _telemetry.Write(module, "Information", "");
             string searchTerm = string.Empty;
             if (wordApp.Selection.ContentControls.Count == 0 &&
                 wordApp.Selection.Range.Start != wordApp.Selection.Range.End) {
@@ -1989,6 +2033,8 @@ namespace Chem4Word.Core {
         }
 
         public IChemistryZone OpsinLookUpSearch(string searchTerm) {
+            string module = "OpsinLookUpSearch()";
+            _telemetry.Write(module, "Information", searchTerm);
             IChemistryZone chemistryZone = null;
             var opsinLookUp = new OpsinLookUp {SearchTerm = searchTerm};
             if (opsinLookUp.ShowDialog() == true) {
@@ -2022,6 +2068,9 @@ namespace Chem4Word.Core {
         }
 
         public IChemistryZone PubChemLookUpSearch(string searchTerm) {
+            string module = "PubChemLookUpSearch()";
+            _telemetry.Write(module, "Information", searchTerm);
+
             IChemistryZone chemistryZone = null;
             var pubChemLookUp = new PubChemSearch {SearchTerm = searchTerm};
             if (pubChemLookUp.ShowDialog() == true) {
@@ -2058,6 +2107,8 @@ namespace Chem4Word.Core {
         /// <summary>
         /// </summary>
         public IChemistryZone PubChemLookUpClick() {
+            string module = "PubChemLookUpClick()";
+            _telemetry.Write(module, "Information", "");
             string searchTerm = string.Empty;
             if (wordApp.Selection.ContentControls.Count == 0 &&
                 wordApp.Selection.Range.Start != wordApp.Selection.Range.End) {
