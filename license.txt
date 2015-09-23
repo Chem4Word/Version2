@@ -1,4 +1,4 @@
-Copyright (c) 2010, The Outercurve Foundation. The software is licensed under the (the "License"); you may not use the software except in compliance with the License.
+Copyright (c) 2015, The Outercurve Foundation. The software is licensed under the (the "License"); you may not use the software except in compliance with the License.
 
 Note: The files in the dev\Chem4Word.UI\Resources\ChemDoodle are licensed under the GPL, version 3 (http://opensource.org/licenses/GPL-3.0). You may not use those files except in compliance with the GPL, version 3.
 
