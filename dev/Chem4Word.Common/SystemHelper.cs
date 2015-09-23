@@ -1,4 +1,13 @@
-﻿using System;
+﻿// Created by Mike Williams - 22/09/2015
+// 
+// -----------------------------------------------------------------------
+//   Copyright (c) 2015, The Outercurve Foundation.  
+//   This software is released under the Apache License, Version 2.0. 
+//   The license and further copyright text can be found in the file LICENSE.TXT at
+//   the root directory of the distribution.
+// -----------------------------------------------------------------------
+
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -18,17 +27,22 @@ namespace Chem4Word.Common
 
         public SystemHelper()
         {
+            #region Get Machine Guid
             try
             {
-                #region Get Machine Guid
-
                 // Need special routine here as MachineGuid does not exist in the wow6432 path
                 MachineId = RegistryWOW6432.GetRegKey64(RegHive.HKEY_LOCAL_MACHINE, CryptoRoot, "MachineGuid");
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+                MachineId = "Exception " + ex.Message;
+            }
+            #endregion
 
-                #endregion
-
-                #region Get OS Version
-
+            #region Get OS Version
+            try
+            {
                 OperatingSystem operatingSystem = Environment.OSVersion;
 
                 string ProductName = HKLM_GetString(@"SOFTWARE\Microsoft\Windows NT\CurrentVersion", "ProductName");
@@ -58,13 +72,21 @@ namespace Chem4Word.Common
                     sb.Append(" [");
                     sb.Append(operatingSystem.Version.ToString());
                     sb.Append("]");
-                    SystemOs = sb.ToString().Replace(Environment.NewLine, "").Replace("Service Pack ","SP");
+                    SystemOs = sb.ToString().Replace(Environment.NewLine, "").Replace("Service Pack ", "SP");
                 }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+                SystemOs = "Exception " + ex.Message;
+            }
 
-                #endregion
+            #endregion
 
-                #region Get Office/Word Version
+            #region Get Office/Word Version
 
+            try
+            {
                 #region Get Office Product String
 
                 string officeProductName = "";
@@ -119,7 +141,7 @@ namespace Chem4Word.Common
                         FileVersionInfo fi = FileVersionInfo.GetVersionInfo(path);
                         wordVersionNumber = fi.FileVersion;
 
-                // Handle product not found in uninstall section
+                        // Handle product not found in uninstall section
                         if (string.IsNullOrEmpty(officeProductName))
                         {
                             officeProductName = fi.ProductName;
@@ -142,16 +164,15 @@ namespace Chem4Word.Common
                 {
                     WordVersion = "Microsoft Word not found !";
                 }
-
-                #endregion
-
-
                 #endregion
             }
             catch (Exception ex)
             {
                 Debug.WriteLine(ex.Message);
+                WordVersion = "Exception " + ex.Message;
             }
+
+            #endregion
         }
 
         private string HKLM_GetString(string path, string key)
