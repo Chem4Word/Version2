@@ -204,7 +204,8 @@ namespace Chem4Word.Core {
 
             if (!fileName.Equals(tempCmlFileName))
             {
-                _telemetry.Write(module, "Information", fileName);
+                string extension = Path.GetExtension(fileName).ToLower();
+                _telemetry.Write(module, "Information", "Importing " + extension + " file");
             }
 
             IChemistryZone chemistryZone = null;

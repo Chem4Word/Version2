@@ -1,4 +1,13 @@
-﻿using System;
+﻿// Created by Mike Williams - 22/09/2015
+// 
+// -----------------------------------------------------------------------
+//   Copyright (c) 2015, The Outercurve Foundation.  
+//   This software is released under the Apache License, Version 2.0. 
+//   The license and further copyright text can be found in the file LICENSE.TXT at
+//   the root directory of the distribution.
+// -----------------------------------------------------------------------
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -6,7 +15,6 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-
 using System.IO;
 using System.Reflection;
 using System.Resources;
@@ -265,19 +273,19 @@ namespace Chem4Word.UI.ChemDoodle
                 switch (fileType)
                 {
                     case ".mol":
+                        Telemetry.Write("btnOpen_Click()", "Information", "Opening " + fileType + " file");
                         myFile = new System.IO.StreamReader(openFile.FileName);
                         fileContent = myFile.ReadToEnd();
                         myFile.Close();
                         ExecuteJavaScript("SetMolFile", fileContent);
-                        Telemetry.Write("btnOpen_Click()", "Information", openFile.FileName);
                         validFileType = true;
                         break;
                     case ".cml":
+                        Telemetry.Write("btnOpen_Click()", "Information", "Opening " + fileType + " file");
                         myFile = new System.IO.StreamReader(openFile.FileName);
                         fileContent = myFile.ReadToEnd();
                         myFile.Close();
                         ExecuteJavaScript("SetJSON", Cml.ToJson(fileContent));
-                        Telemetry.Write("btnOpen_Click()", "Information", openFile.FileName);
                         validFileType = true;
                         break;
                     default:
@@ -337,7 +345,7 @@ namespace Chem4Word.UI.ChemDoodle
                 }
 
                 File.WriteAllText(saveFile.FileName, fileContent);
-                Telemetry.Write("btnSaveAs_Click()", "Information", saveFile.FileName);
+                Telemetry.Write("btnSaveAs_Click()", "Information", "Saved " + fileType + " file");
             }
         }
     }
