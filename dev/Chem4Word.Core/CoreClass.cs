@@ -1085,7 +1085,7 @@ namespace Chem4Word.Core {
                     _telemetry.Write(module, "Information", "Calling WebService");
                     string url = "http://rdf.chemspider.com/" + afterInchiKey;
                     HttpWebRequest request = WebRequest.Create(url) as HttpWebRequest;
-                    request.Timeout = 30000;
+                    request.Timeout = 5000;
                     request.UserAgent = "Chem4Word";
                     HttpWebResponse response;
 
@@ -1155,7 +1155,7 @@ namespace Chem4Word.Core {
                 _telemetry.Write(module, "Information", "Calling WebService");
                 com.chemspider.www.InChI i = new com.chemspider.www.InChI();
                 i.UserAgent = "Chem4Word";
-                i.Timeout = 500;
+                i.Timeout = 5000;
                 result = i.MolToInChIKey(molfile);
                 System.Diagnostics.Debug.WriteLine("ChemSpider Result: " + result);
                 Log.Debug("ChemSpider Result: " + result);

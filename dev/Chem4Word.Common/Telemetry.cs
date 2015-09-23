@@ -33,12 +33,40 @@ namespace Chem4Word.Common
 
         private void WriteSystemInfo()
         {
-            MessageEntity me = new MessageEntity();
-            me.MachineId = _helper.MachineId;
-            me.Operation = "StartUp";
-            me.Level = "Information";
-            me.Message = _helper.SystemOs + Environment.NewLine + _helper.WordVersion;
-            systemInfoSent = _storage.WriteMessage(me);
+            bool result1 = false;
+            bool result2 = false;
+
+            try
+            {
+                // Write OS
+                MessageEntity me = new MessageEntity();
+                me.MachineId = _helper.MachineId;
+                me.Operation = "StartUp";
+                me.Level = "Information";
+                me.Message = _helper.SystemOs;
+                result1 = _storage.WriteMessage(me);
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Exception " + ex.Message);
+            }
+
+            try
+            {
+                // Write Word version
+                MessageEntity me = new MessageEntity();
+                me.MachineId = _helper.MachineId;
+                me.Operation = "StartUp";
+                me.Level = "Information";
+                me.Message = _helper.WordVersion;
+                result2 = _storage.WriteMessage(me);
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Exception " + ex.Message);
+            }
+
+            systemInfoSent = result1 && result2;
         }
 
         public void Write(string operation, string level, string message)
