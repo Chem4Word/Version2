@@ -24,6 +24,7 @@ namespace Chem4Word.Common
 
         private string CryptoRoot = @"SOFTWARE\Microsoft\Cryptography";
         private string ProductsRoot = @"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall";
+        private string ProductsRootWow6432 = @"SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall";
 
         public SystemHelper()
         {
@@ -92,7 +93,7 @@ namespace Chem4Word.Common
                 string officeProductName = "";
 
                 RegistryKey localMachine = Registry.LocalMachine;
-                RegistryKey products = localMachine.OpenSubKey(ProductsRoot, false);
+                RegistryKey products = localMachine.OpenSubKey(ProductsRootWow6432, false);
                 if (products != null)
                 {
                     string[] productFolders = products.GetSubKeyNames();
@@ -108,7 +109,34 @@ namespace Chem4Word.Common
                             {
                                 //Debug.WriteLine(parentDisplayName);
                                 officeProductName = parentDisplayName;
+                                //MessageBox.Show("Uninstall Wow6432Node " + officeProductName);
                                 break;
+                            }
+                        }
+                    }
+                }
+
+                if (!string.IsNullOrEmpty(officeProductName))
+                {
+                    products = localMachine.OpenSubKey(ProductsRoot, false);
+                    if (products != null)
+                    {
+                        string[] productFolders = products.GetSubKeyNames();
+
+                        foreach (string p in productFolders)
+                        {
+                            RegistryKey installProperties = products.OpenSubKey(p);
+                            if (installProperties != null)
+                            {
+                                string parentDisplayName = (string)installProperties.GetValue("ParentDisplayName");
+                                string displayName = (string)installProperties.GetValue("DisplayName");
+                                if ((parentDisplayName != null) && (parentDisplayName.StartsWith("Microsoft Office")))
+                                {
+                                    //Debug.WriteLine(parentDisplayName);
+                                    officeProductName = parentDisplayName;
+                                    //MessageBox.Show("Uninstall " + officeProductName);
+                                    break;
+                                }
                             }
                         }
                     }
