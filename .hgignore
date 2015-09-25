@@ -5,6 +5,7 @@ obj/
 bin/
 Release/
 Debug/
+packages/
 
 *.ncb
 *.suo
