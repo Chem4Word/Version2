@@ -10,6 +10,7 @@ using System.Text.RegularExpressions;
 using System.Windows;
 using System.Xml.Linq;
 using Chem4Word.Api;
+using Chem4Word.Core.com.chemspider.www;
 using Chem4Word.Core.UserSetting;
 using Chem4Word.UI.Import;
 using Chem4Word.UI.Properties;
@@ -78,8 +79,10 @@ namespace Chem4Word.Core.SmartTag
         /// <param name="e"><see cref="Microsoft.Office.Tools.Word.ActionEventArgs"/></param>
         private void ConvertToChemistryZoneClick(object sender, ActionEventArgs e)
         {
+            string module = "ConvertToChemistryZoneClick()";
             try
             {
+                core.WriteTelemetry(module, "Information", e.Range.Text);
                 // Read CML from Properties bag
                 ISmartTagProperties propertyBag = e.Properties;
                 string id = propertyBag.get_Read("id");
@@ -154,8 +157,10 @@ namespace Chem4Word.Core.SmartTag
         /// <param name="tokenList"><see cref="Microsoft.Office.Interop.SmartTag.ISmartTagTokenList"/></param>
         protected override void Recognize(string text, ISmartTagRecognizerSite site, ISmartTagTokenList tokenList)
         {
+            string module = "Recognize";
             try
             {
+                core.WriteTelemetry(module, "Information", text);
                 foreach (Term term in termDictionary)
                 {
                     Regex r = new Regex("(?i)\\b" + Regex.Escape(term.Value) + "\\b");
