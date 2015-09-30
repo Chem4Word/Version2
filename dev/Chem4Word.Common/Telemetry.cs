@@ -17,7 +17,7 @@ namespace Chem4Word.Common
 {
     public class Telemetry
     {
-        private bool systemInfoSent = false;
+        private bool _systemInfoSent = false;
 
         private SystemHelper _helper;
         private AzureStorage _storage;
@@ -27,7 +27,7 @@ namespace Chem4Word.Common
             _helper = new SystemHelper();
             Debug.WriteLine(_helper.MachineId);
             Debug.WriteLine(_helper.SystemOs);
-            Debug.WriteLine(_helper.WordVersion);
+            Debug.WriteLine(_helper.WordProduct);
             _storage = new AzureStorage();
         }
 
@@ -58,7 +58,7 @@ namespace Chem4Word.Common
                 me.MachineId = _helper.MachineId;
                 me.Operation = "StartUp";
                 me.Level = "Information";
-                me.Message = _helper.WordVersion;
+                me.Message = _helper.WordProduct;
                 result2 = _storage.WriteMessage(me);
             }
             catch (Exception ex)
@@ -66,12 +66,12 @@ namespace Chem4Word.Common
                 Debug.WriteLine("Exception " + ex.Message);
             }
 
-            systemInfoSent = result1 && result2;
+            _systemInfoSent = result1 && result2;
         }
 
         public void Write(string operation, string level, string message)
         {
-            if (!systemInfoSent)
+            if (!_systemInfoSent)
             {
                 WriteSystemInfo();
             }
@@ -81,6 +81,11 @@ namespace Chem4Word.Common
             me.Level = level;
             me.Message = message;
             _storage.WriteMessage(me);
+        }
+
+        public int WordVersion()
+        {
+            return _helper.WordVersion;
         }
     }
 }
