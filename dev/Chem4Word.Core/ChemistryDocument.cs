@@ -99,6 +99,11 @@ namespace Chem4Word.Core
             core.WriteTelemetry(operation, level, message);
         }
 
+        public int WordVersion()
+        {
+            return core.WordVersion();
+        }
+
         /// <summary>
         /// Gets number of Chemistry Zone in side this document.
         /// </summary>
@@ -163,6 +168,16 @@ namespace Chem4Word.Core
             EventTurnOn = true;
             if (Depiction.Is2D(newDocumentDepictionOption))
             {
+
+                if (WordVersion() > 2007)
+                {
+                    // ToDo: Word 2010+ OoXml
+                }
+                else
+                {
+                    // Existing code goes here
+                }
+
                 CmlMolecule cmlMolecule =
                     new CmlMolecule((XElement) newDocumentDepictionOption.MachineUnderstandableOption);
                 CanvasContainer editor = new CanvasContainer(contextObject, cmlMolecule);
