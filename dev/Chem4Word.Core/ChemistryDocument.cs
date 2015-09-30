@@ -14,6 +14,8 @@ using Chem4Word.Api.Core;
 using Chem4Word.Api.Events;
 using Chem4Word.Common;
 using Chem4Word.Core.Properties;
+using Chem4Word.UI.Converters;
+using Chem4Word.UI.OOXML;
 using Chem4Word.UI.TwoD;
 using log4net;
 using Microsoft.Office.Interop.Word;
@@ -168,40 +170,57 @@ namespace Chem4Word.Core
             EventTurnOn = true;
             if (Depiction.Is2D(newDocumentDepictionOption))
             {
+                object missing = Type.Missing;
 
                 if (WordVersion() > 2007)
                 {
                     // ToDo: Word 2010+ OoXml
+
+                    C4wOptions options = new C4wOptions();
+                    options.ColouredAtoms = true;
+                    options.ShowHydrogens = true;
+                    string guidString = Guid.NewGuid().ToString("N");
+                    string bookmarkName = "C4W_" + guidString;
+                    string tempfileName = OoXmlFile.CreateFromCml(contextObject.Cml.ToString(), guidString, options);
+                    contentControl =
+                        WordDocument.ContentControls.Add(WdContentControlType.wdContentControlRichText,
+                            ref missing);
+                    contentControl.Range.InsertFile(tempfileName, bookmarkName);
+                    File.Delete(tempfileName);
+
+                    if (WordDocument.Bookmarks.Exists(bookmarkName))
+                    {
+                        WordDocument.Bookmarks[bookmarkName].Delete();
+                    }
                 }
                 else
                 {
                     // Existing code goes here
+                    CmlMolecule cmlMolecule =
+                        new CmlMolecule((XElement)newDocumentDepictionOption.MachineUnderstandableOption);
+                    CanvasContainer editor = new CanvasContainer(contextObject, cmlMolecule);
+                    editor.GeneratePng(false);
+
+                    contentControl = WordDocument.ContentControls.Add(WdContentControlType.wdContentControlPicture,
+                                                                           ref missing);
+
+                    contentControl.Range.InlineShapes.AddPicture(editor.PngFileOutput, ref missing, ref missing,
+                                                                 ref missing);
+                    // Sometime the the open state of the file is not update quickly enough,
+                    // So that we need to invoke GC to refresh the environment states.
+                    GC.Collect();
+                    GC.WaitForPendingFinalizers();
+                    // Delete the temporary png file
+                    try
+                    {
+                        File.Delete(editor.PngFileOutput);
+                    }
+                    catch
+                    {
+                        Log.Debug("couldn't delete: " + editor.PngFileOutput);
+                    }
                 }
 
-                CmlMolecule cmlMolecule =
-                    new CmlMolecule((XElement) newDocumentDepictionOption.MachineUnderstandableOption);
-                CanvasContainer editor = new CanvasContainer(contextObject, cmlMolecule);
-                editor.GeneratePng(false);
-
-                object missing = Type.Missing;
-                contentControl = WordDocument.ContentControls.Add(WdContentControlType.wdContentControlPicture,
-                                                                       ref missing);
-
-                contentControl.Range.InlineShapes.AddPicture(editor.PngFileOutput, ref missing, ref missing,
-                                                             ref missing);
-                // Sometime the the open state of the file is not update quickly enough,
-                // So that we need to invoke GC to refresh the environment states.
-                GC.Collect();
-                GC.WaitForPendingFinalizers();
-                // Delete the temporary png file
-                try
-                {
-                    File.Delete(editor.PngFileOutput);
-                }
-                catch
-                {
-                    Log.Debug("couldn't delete: " + editor.PngFileOutput);
-                }
             }
             else
             {
