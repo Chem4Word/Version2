@@ -20,7 +20,8 @@ namespace Chem4Word.Common
     {
         public string MachineId { get; set; }
         public string SystemOs { get; set; }
-        public string WordVersion { get; set; }
+        public string WordProduct { get; set; }
+        public int WordVersion { get; set; }
 
         private string CryptoRoot = @"SOFTWARE\Microsoft\Cryptography";
         private string ProductsRoot = @"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall";
@@ -180,24 +181,27 @@ namespace Chem4Word.Common
                         Debug.WriteLine(ex.Message);
                     }
 
+                    // Generate single number from major of word's version number
+                    WordVersion = GetOfficeVersionNumber(wordVersionNumber);
+
                     string sp = GetOfficeServicePack(wordVersionNumber);
                     if (!string.IsNullOrEmpty(sp))
                     {
                         officeProductName = officeProductName + sp;
                     }
 
-                    WordVersion = (officeProductName + " [" + wordVersionNumber + "]");
+                    WordProduct = (officeProductName + " [" + wordVersionNumber + "]");
                 }
                 else
                 {
-                    WordVersion = "Microsoft Word not found !";
+                    WordProduct = "Microsoft Word not found !";
                 }
                 #endregion
             }
             catch (Exception ex)
             {
                 Debug.WriteLine(ex.Message);
-                WordVersion = "Exception " + ex.Message;
+                WordProduct = "Exception " + ex.Message;
             }
 
             #endregion
@@ -236,6 +240,9 @@ namespace Chem4Word.Common
                     case 15:
                         version = 2013;
                         break;
+                    case 16:
+                        version = 2016;
+                        break;
                 }
             }
             return version;
@@ -243,13 +250,14 @@ namespace Chem4Word.Common
 
         private string GetOfficeServicePack(string wordVersionString)
         {
+            // Source: https://buildnumbers.wordpress.com/office/
+            // Plus correction from https://support.microsoft.com/en-us/kb/2121559
             string servicePack = "";
-            int major = GetOfficeVersionNumber(wordVersionString);
-            if (major > 2000)
+            if (WordVersion > 2000)
             {
                 string[] parts = wordVersionString.Split('.');
                 int build = int.Parse(parts[2]);
-                switch (major)
+                switch (WordVersion)
                 {
                     case 2007:
                         if (build >= 6213)
@@ -266,7 +274,7 @@ namespace Chem4Word.Common
                         }
                         break;
                     case 2010:
-                        if (build >= 6023)
+                        if (build >= 6029)
                         {
                             servicePack = "SP1";
                         }
@@ -280,6 +288,8 @@ namespace Chem4Word.Common
                         {
                             servicePack = "SP1";
                         }
+                        break;
+                    case 2016:
                         break;
                 }
             }

@@ -5,7 +5,6 @@
 //  the root directory of the distribution.
 // -----------------------------------------------------------------------
 
-
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -120,6 +119,10 @@ namespace Chem4Word.Core {
             wordApp.WindowBeforeDoubleClick += WordAppWindowBeforeDoubleClick;
         }
 
+        public int WordVersion()
+        {
+            return _telemetry.WordVersion();
+        }
 
         /// <summary>
         ///   Used to retrieve the item.
