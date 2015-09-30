@@ -331,7 +331,7 @@ namespace Chem4Word.Core.SmartTag
         /// <param name="cancelDefault"></param>
         private static void MarkAsChemistryZone(CommandBarButton ctrl, ref bool cancelDefault)
         {
-            string module = "MarkAsChemistryZone";
+            string module = "ChemistryContextMenuHelper.MarkAsChemistryZone()";
             string id = String.Empty;
             ChemistryZoneMatch selectedMatch = null;
             _core.WriteTelemetry(module, "Information", ctrl.Caption);

@@ -79,7 +79,7 @@ namespace Chem4Word.Core.SmartTag
         /// <param name="e"><see cref="Microsoft.Office.Tools.Word.ActionEventArgs"/></param>
         private void ConvertToChemistryZoneClick(object sender, ActionEventArgs e)
         {
-            string module = "ConvertToChemistryZoneClick()";
+            string module = "ChemistrySmartTag.ConvertToChemistryZoneClick()";
             try
             {
                 core.WriteTelemetry(module, "Information", e.Range.Text);
@@ -157,7 +157,7 @@ namespace Chem4Word.Core.SmartTag
         /// <param name="tokenList"><see cref="Microsoft.Office.Interop.SmartTag.ISmartTagTokenList"/></param>
         protected override void Recognize(string text, ISmartTagRecognizerSite site, ISmartTagTokenList tokenList)
         {
-            string module = "Recognize";
+            string module = "ChemistrySmartTag.Recognize()";
             try
             {
                 core.WriteTelemetry(module, "Information", text);

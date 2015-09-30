@@ -273,7 +273,7 @@ namespace Chem4Word.UI.ChemDoodle
                 switch (fileType)
                 {
                     case ".mol":
-                        Telemetry.Write("btnOpen_Click()", "Information", "Opening " + fileType + " file");
+                        Telemetry.Write("ChemDoodleEditorForm.btnOpen_Click()", "Information", "Opening " + fileType + " file");
                         myFile = new System.IO.StreamReader(openFile.FileName);
                         fileContent = myFile.ReadToEnd();
                         myFile.Close();
@@ -281,7 +281,7 @@ namespace Chem4Word.UI.ChemDoodle
                         validFileType = true;
                         break;
                     case ".cml":
-                        Telemetry.Write("btnOpen_Click()", "Information", "Opening " + fileType + " file");
+                        Telemetry.Write("ChemDoodleEditorForm.btnOpen_Click()", "Information", "Opening " + fileType + " file");
                         myFile = new System.IO.StreamReader(openFile.FileName);
                         fileContent = myFile.ReadToEnd();
                         myFile.Close();
@@ -345,7 +345,7 @@ namespace Chem4Word.UI.ChemDoodle
                 }
 
                 File.WriteAllText(saveFile.FileName, fileContent);
-                Telemetry.Write("btnSaveAs_Click()", "Information", "Saved " + fileType + " file");
+                Telemetry.Write("ChemDoodleEditorForm.btnSaveAs_Click()", "Information", "Saved " + fileType + " file");
             }
         }
     }
