@@ -83,7 +83,10 @@ namespace Chem4Word.Core {
             return contextObject;
         }
 
-        public void Refresh() {
+        public void Refresh()
+        {
+            string module = "ChemistryZone.Refresh()";
+            document.WriteTelemetry(module,"Information","Called");
             Unlock();
             DepictionOption documentDepictionOption = DepictionOption.CreateDepictionOption(Cml,
                                                                                             Properties.

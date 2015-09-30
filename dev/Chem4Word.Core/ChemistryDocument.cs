@@ -12,6 +12,7 @@ using System.Xml.Linq;
 using Chem4Word.Api;
 using Chem4Word.Api.Core;
 using Chem4Word.Api.Events;
+using Chem4Word.Common;
 using Chem4Word.Core.Properties;
 using Chem4Word.UI.TwoD;
 using log4net;
@@ -93,6 +94,11 @@ namespace Chem4Word.Core
             get { return core; }
         }
 
+        public void WriteTelemetry(string operation, string level, string message)
+        {
+            core.WriteTelemetry(operation, level, message);
+        }
+
         /// <summary>
         /// Gets number of Chemistry Zone in side this document.
         /// </summary>
@@ -138,6 +144,8 @@ namespace Chem4Word.Core
         public IChemistryZone RebindDocumentContentControl(IChemistryZone chemistryZone,
                                                            ChemistryZoneProperties newChemistryZoneProperties)
         {
+            string module = "ChemistryDocument.RebindDocumentContentControl(b)";
+            WriteTelemetry(module, "Information", "Called");
             ContentControl contentControl = null;
             string refVal = XmlMappingManager.GetCmlRefValueByZone(chemistryZone);
             DepictionOption newDocumentDepictionOption = DepictionOption.CreateDepictionOption(chemistryZone.Cml,
@@ -339,6 +347,9 @@ namespace Chem4Word.Core
             string refVal,
             ChemistryZoneProperties properties)
         {
+            string module = "ChemistryDocument.RebindDocumentContentControl(a)";
+            WriteTelemetry(module, "Information", "Called");
+
             // Check if the Content Control is Chemistry Zone
             if (Resources.ChemistryZoneAlias.Equals(existingContentControl.Title))
             {

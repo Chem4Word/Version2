@@ -805,6 +805,9 @@ namespace Chem4Word.AddIn {
         /// <param name = "sender">ID of ribbon control</param>
         /// <param name = "pressed">whether the Navigator button in the ribbon was pressed to generate this call</param>
         public void NavigatorClick(IRibbonControl sender, bool pressed) {
+
+            core.WriteTelemetry("ChemistryRibbon.NavigatorClick()", "Information", "Pressed " + pressed);
+
             CustomTaskPane custTaskPane = null;
             foreach (CustomTaskPane taskPane in customTaskPanes) {
                 if (wordApp.ActiveWindow == taskPane.Window) {
@@ -812,7 +815,6 @@ namespace Chem4Word.AddIn {
                 }
             }
 
-            core.WriteTelemetry("NavigatorClick()", "Information", "Pressed " + pressed);
             if (pressed)
             {
                 if (custTaskPane == null) {

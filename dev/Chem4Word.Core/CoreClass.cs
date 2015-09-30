@@ -200,7 +200,7 @@ namespace Chem4Word.Core {
         /// <param name = "fileName">File name that point to Cml or Xml file is going to be import into Word document</param>
         public IChemistryZone ImportCmlFile(string fileName)
         {
-            string module = "ImportCmlFile()";
+            string module = "CoreClass.ImportCmlFile()";
 
             string temp = Path.GetTempPath();
             string tempCmlFileName = Path.Combine(temp, "Blank.cml");
@@ -382,8 +382,11 @@ namespace Chem4Word.Core {
         /// <param name = "chemistryZoneProperties"></param>
         /// <param name = "linked">True: Linked CML, False: Unlinked CML.</param>
         public IChemistryZone CreateDuplicatedChemistryZone(IChemistryZone chemZone,
-                                                            ChemistryZoneProperties chemistryZoneProperties, bool linked) {
+                                                            ChemistryZoneProperties chemistryZoneProperties, bool linked)
+        {
             // TODO BOLD NUMBER options ...
+            string module = "CoreClass.CreateDuplicatedChemistryZone()";
+            WriteTelemetry(module, "Information", "Called");
             // waiting for user options class
             // do we destroy old number, autogenerate new number or prompt for new one?
             if (wordApp.Selection.Range.ContentControls.Count > 0) {
@@ -674,7 +677,10 @@ namespace Chem4Word.Core {
         /// <param name = "contextObject"></param>
         /// <param name = "chemistryZoneProperties"></param>
         public IChemistryZone AddNewContextObjectToDocument(Range range, ContextObject contextObject,
-                                                            ChemistryZoneProperties chemistryZoneProperties) {
+                                                            ChemistryZoneProperties chemistryZoneProperties)
+        {
+            string module = "CoreClass.AddNewContextObjectToDocument()";
+            WriteTelemetry(module, "Information", "Called");
             var documentDepictionOption = DepictionOption.CreateDepictionOption(contextObject.Cml,
                                                                                 chemistryZoneProperties.
                                                                                     DocumentDepictionOptionXPath);
@@ -832,7 +838,7 @@ namespace Chem4Word.Core {
         /// </summary>
         public void TweakDoodle2D(IChemistryZone selectedZone, bool newStructure)
         {
-            string module = "TweakDoodle2d()";
+            string module = "CoreClass.TweakDoodle2d()";
             try
             {
                 _telemetry.Write(module, "Information", "NewStructure: " + newStructure);
@@ -1076,7 +1082,7 @@ namespace Chem4Word.Core {
 
         private string GetSynonymFromChemSpider(string afterInchiKey)
         {
-            string module = "GetSynonymFromChemSpider()";
+            string module = "CoreClass.GetSynonymFromChemSpider()";
             string result = null;
             DateTime started = DateTime.Now;
 
@@ -1148,7 +1154,7 @@ namespace Chem4Word.Core {
 
         private string GetInchiKey(string molfile)
         {
-            string module = "GetInchiKey()";
+            string module = "CoreClass.GetInchiKey()";
             string result = null;
             DateTime started = DateTime.Now;
 
@@ -1269,8 +1275,8 @@ namespace Chem4Word.Core {
         /// <exception cref = "Exception">If there is not exactly one chemistry zone selected</exception>
         public void SaveSelectionIntoGallery(string galleryName)
         {
-            string module = "SaveSelectionIntoGallery()";
-            _telemetry.Write(module, "Information", galleryName);
+            string module = "CoreClass.SaveSelectionIntoGallery()";
+            _telemetry.Write(module, "Information", "'" + galleryName + "' saved into gallery");
             Microsoft.Office.Tools.Word.Document wordDoc =
                 Microsoft.Office.Tools.Word.Document.GetVstoObject(wordApp.ActiveWindow.Document);
             if (wordApp.ActiveWindow.Panes.Count > 0) {
@@ -1846,7 +1852,7 @@ namespace Chem4Word.Core {
 
         private void ActiveDocumentBuildingBlockInsert(Range wordRange, string name, string category, string blockType, string template)
         {
-            _telemetry.Write("ChemistryGallery", "Information", "Insert '" + name + "'");
+            _telemetry.Write("CoreClass.ActiveDocumentBuildingBlockInsert()", "Information", "Inserted '" + name + "' from gallery");
         }
 
         /// <summary>
@@ -2044,7 +2050,7 @@ namespace Chem4Word.Core {
         /// <returns></returns>
         public IChemistryZone OpsinLookUpClick()
         {
-            string module = "OpsinLookUpClick()";
+            string module = "CoreClass.OpsinLookUpClick()";
             _telemetry.Write(module, "Information", "");
             string searchTerm = string.Empty;
             if (wordApp.Selection.ContentControls.Count == 0 &&
@@ -2055,7 +2061,7 @@ namespace Chem4Word.Core {
         }
 
         public IChemistryZone OpsinLookUpSearch(string searchTerm) {
-            string module = "OpsinLookUpSearch()";
+            string module = "CoreClass.OpsinLookUpSearch()";
             _telemetry.Write(module, "Information", searchTerm);
             IChemistryZone chemistryZone = null;
             var opsinLookUp = new OpsinLookUp {SearchTerm = searchTerm};
@@ -2090,7 +2096,7 @@ namespace Chem4Word.Core {
         }
 
         public IChemistryZone PubChemLookUpSearch(string searchTerm) {
-            string module = "PubChemLookUpSearch()";
+            string module = "CoreClass.PubChemLookUpSearch()";
             _telemetry.Write(module, "Information", searchTerm);
 
             IChemistryZone chemistryZone = null;
@@ -2129,7 +2135,7 @@ namespace Chem4Word.Core {
         /// <summary>
         /// </summary>
         public IChemistryZone PubChemLookUpClick() {
-            string module = "PubChemLookUpClick()";
+            string module = "CoreClass.PubChemLookUpClick()";
             _telemetry.Write(module, "Information", "");
             string searchTerm = string.Empty;
             if (wordApp.Selection.ContentControls.Count == 0 &&
