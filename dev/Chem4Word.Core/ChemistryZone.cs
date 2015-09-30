@@ -98,22 +98,40 @@ namespace Chem4Word.Core {
                 if (document.WordVersion() > 2007)
                 {
                     // ToDo: Word 2010+ OoXml
+
+                    C4wOptions options = new C4wOptions();
+                    options.ColouredAtoms = true;
+                    options.ShowHydrogens = true;
+                    string guidString = Guid.NewGuid().ToString("N");
+                    string bookmarkName = "C4W_" + guidString;
+                    string tempfileName = OoXmlFile.CreateFromCml(Cml.ToString(), guidString, options);
+                    var missing = Type.Missing;
+                    contentControl.Range.Delete();
+                    contentControl.Range.InsertFile(tempfileName, bookmarkName);
+                    contentControl.Title = Resources.ChemistryZoneAlias;
+                    File.Delete(tempfileName);
+                    if (document.WordDocument.Bookmarks.Exists(bookmarkName))
+                    {
+                        document.WordDocument.Bookmarks[bookmarkName].Delete();
+                    }
                 }
                 else
                 {
                     // Existing code goes here
+
+                    var contexObject = AsContextObject();
+                    var cmlMolecule = new CmlMolecule((XElement)documentDepictionOption.MachineUnderstandableOption);
+                    var editor = new CanvasContainer(contexObject, cmlMolecule);
+                    editor.GeneratePng(false);
+
+                    var missing = Type.Missing;
+                    contentControl.Range.InlineShapes[1].Delete();
+                    contentControl.Range.InlineShapes.AddPicture(editor.PngFileOutput, ref missing, ref missing, ref missing);
+
+                    // Delete the png file
+                    File.Delete(editor.PngFileOutput);
                 }
 
-                var contexObject = AsContextObject();
-                var cmlMolecule = new CmlMolecule((XElement)documentDepictionOption.MachineUnderstandableOption);
-                var editor = new CanvasContainer(contexObject, cmlMolecule);
-                editor.GeneratePng(false);
-
-                var missing = Type.Missing;
-                contentControl.Range.InlineShapes[1].Delete();
-                contentControl.Range.InlineShapes.AddPicture(editor.PngFileOutput, ref missing, ref missing, ref missing);
-                // Delete the png file
-                File.Delete(editor.PngFileOutput);
             }
             else
             {

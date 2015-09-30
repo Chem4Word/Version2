@@ -21,7 +21,18 @@ namespace Chem4Word.Common
         public string MachineId { get; set; }
         public string SystemOs { get; set; }
         public string WordProduct { get; set; }
-        public int WordVersion { get; set; }
+
+        private int _wordVersion = -1;
+        public int WordVersion {
+            get
+            {
+                return _wordVersion;
+            }
+            set
+            {
+                _wordVersion = value;
+            }
+        }
 
         private string CryptoRoot = @"SOFTWARE\Microsoft\Cryptography";
         private string ProductsRoot = @"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall";

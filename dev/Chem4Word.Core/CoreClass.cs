@@ -47,6 +47,8 @@ using System.Timers;
 using Chem4Word.UI.ChemDoodle;
 using System.Net;
 using Chem4Word.Common;
+using Chem4Word.UI.Converters;
+using Chem4Word.UI.OOXML;
 
 namespace Chem4Word.Core {
     /// <summary>
@@ -240,11 +242,13 @@ namespace Chem4Word.Core {
                                                                                               navigatorDepictionOption,
                                                                                               true);
                 Range range = wordApp.ActiveDocument.ActiveWindow.Selection.Range;
-                //chemistryZone = AddNewContextObjectToDocument(range, contextObject,
-                //                                              documentDepictionOption,
-                //                                              navigatorDepictionOption);
                 chemistryZone = AddNewContextObjectToDocument(range, contextObject,
                                                               chemistryZoneProperties);
+                CmlMolecule mol = new CmlMolecule((XElement)documentDepictionOption.MachineUnderstandableOption);
+                if (!fileName.Equals(tempCmlFileName))
+                {
+                    _telemetry.Write(module, "Information", "Median Bond Length: " + mol.GetMedianBondLength());
+                }
             }
             else
             {
@@ -409,48 +413,71 @@ namespace Chem4Word.Core {
             ContentControl control;
             if (Depiction.Is2D(documentDepictionOption)) {
 
+                // Existing code goes here
+                // zone is 2D - therefore a picture content control is necessary  
+                var contexObject = chemZone.AsContextObject();
+                var cmlMolecule = new CmlMolecule((XElement)documentDepictionOption.MachineUnderstandableOption);
+                object missing = Type.Missing;
+
                 if (WordVersion() > 2007)
                 {
                     // ToDo: Word 2010+ OoXml
+
+                    C4wOptions options = new C4wOptions();
+                    options.ColouredAtoms = true;
+                    options.ShowHydrogens = true;
+                    string guidString = Guid.NewGuid().ToString("N");
+                    string bookmarkName = "C4W_" + guidString;
+                    string tempfileName = OoXmlFile.CreateFromCml(contexObject.Cml.ToString(), guidString, options);
+
+                    control = wordApp.ActiveDocument.ContentControls.Add(
+                        WdContentControlType.wdContentControlRichText, ref missing);
+
+                    control.Range.InsertFile(tempfileName, bookmarkName);
+                    File.Delete(tempfileName);
+
+                    if (wordApp.ActiveDocument.Bookmarks.Exists(bookmarkName))
+                    {
+                        wordApp.ActiveDocument.Bookmarks[bookmarkName].Delete();
+                    }
                 }
                 else
                 {
-                    // Existing code goes here
+                    var editor = new CanvasContainer(contexObject, cmlMolecule);
+                    editor.GeneratePng(false);
+
+                    control = wordApp.ActiveDocument.ContentControls.Add(
+                        WdContentControlType.wdContentControlPicture, ref missing);
+
+                    control.Range.InlineShapes.AddPicture(editor.PngFileOutput, ref missing, ref missing, ref missing);
+
+                    try
+                    {
+                        // Sometime the the open state of the file is not update quickly enough,
+                        // So that we need to invoke GC to refresh the environment states.
+                        GC.Collect();
+                        GC.WaitForPendingFinalizers();
+                        // Delete the png file
+                        File.Delete(editor.PngFileOutput);
+                    }
+                    catch (IOException)
+                    {
+                        /*
+                         * IOException occurs if the specified file is in use in which case 
+                         * we just move on - another temp file will exist in the temp directory 
+                         * which is not a tragedy
+                         */
+                    }
                 }
 
-                // zone is 2D - therefore a picture content control is necessary  
-                var contexObject = chemZone.AsContextObject();
-                var cmlMolecule = new CmlMolecule((XElement) documentDepictionOption.MachineUnderstandableOption);
-                var editor = new CanvasContainer(contexObject, cmlMolecule);
-                editor.GeneratePng(false);
-
-                object missing = Type.Missing;
-                control = wordApp.ActiveDocument.ContentControls.Add(
-                    WdContentControlType.wdContentControlPicture, ref missing);
-
-                control.Range.InlineShapes.AddPicture(editor.PngFileOutput, ref missing, ref missing, ref missing);
-
-                try {
-                    // Sometime the the open state of the file is not update quickly enough,
-                    // So that we need to invoke GC to refresh the environment states.
-                    GC.Collect();
-                    GC.WaitForPendingFinalizers();
-                    // Delete the png file
-                    File.Delete(editor.PngFileOutput);
-                } catch (IOException) {
-                    /*
-                     * IOException occurs if the specified file is in use in which case 
-                     * we just move on - another temp file will exist in the temp directory 
-                     * which is not a tragedy
-                     */
-                }
             } else {
-                // zone is 1D    
+                // zone is 1D
                 object missing = Type.Missing;
                 control = wordApp.ActiveDocument.ContentControls.Add(
                     WdContentControlType.wdContentControlRichText, ref missing);
                 CreateOneDZoneContent(ref control, documentDepictionOption);
             }
+
             control.Title = Properties.Resources.ChemistryZoneAlias;
 
             IChemistryZone newChemistryZone;
@@ -701,43 +728,70 @@ namespace Chem4Word.Core {
             ContentControl control;
             range.Select();
             object missing = Type.Missing;
+
+            // remove the current text from the selection before adding the picture
             range.Text = string.Empty;
+
             if (Depiction.Is2D(documentDepictionOption)) {
 
                 if (WordVersion() > 2007)
                 {
                     // ToDo: Word 2010+ OoXml
+
+                    control = wordApp.ActiveDocument.ContentControls.Add(
+                        WdContentControlType.wdContentControlRichText, ref missing);
+
+                    try
+                    {
+                        C4wOptions options = new C4wOptions();
+                        options.ColouredAtoms = true;
+                        options.ShowHydrogens = true;
+                        string guidString = Guid.NewGuid().ToString("N");
+                        string bookmarkName = "C4W_" + guidString;
+                        string tempfileName = OoXmlFile.CreateFromCml(contextObject.Cml.ToString(), guidString, options);
+
+                        control.Range.InsertFile(tempfileName, bookmarkName);
+
+                        if (wordApp.ActiveDocument.Bookmarks.Exists(bookmarkName))
+                        {
+                            wordApp.ActiveDocument.Bookmarks[bookmarkName].Delete();
+                        }
+                        File.Delete(tempfileName);
+                    }
+                    catch (Exception e)
+                    {
+                        MessageBox.Show(e.Message + "\n\n" + e.Source + "\n\n" + e.StackTrace,
+                                        Resources.CHEM_4_WORD_MESSAGE_BOX_TITLE, MessageBoxButton.OK,
+                                        MessageBoxImage.Stop);
+                    }
                 }
                 else
                 {
                     // Existing code goes here
+
+                    control = wordApp.ActiveDocument.ContentControls.Add(
+                        WdContentControlType.wdContentControlPicture, ref missing);
+
+                    try
+                    {
+                        CanvasContainer container = new CanvasContainer(contextObject,
+                                                                        new CmlMolecule((XElement)
+                                                                                        documentDepictionOption.
+                                                                                            MachineUnderstandableOption));
+                        container.GeneratePng(true);
+                        control.Range.InlineShapes.AddPicture(container.PngFileOutput, ref missing, ref missing, ref missing);
+                        // Delete the png file
+                        File.Delete(container.PngFileOutput);
+                        container = null;
+                    }
+                    catch (Exception e)
+                    {
+                        MessageBox.Show(e.Message + "\n\n" + e.Source + "\n\n" + e.StackTrace,
+                                        Resources.CHEM_4_WORD_MESSAGE_BOX_TITLE, MessageBoxButton.OK,
+                                        MessageBoxImage.Stop);
+                    }
                 }
 
-                // remove the current text from the selection before adding the picture
-                control = wordApp.ActiveDocument.ContentControls.Add(
-                    WdContentControlType.wdContentControlPicture, ref missing);
-
-                try {
-                    //EditorWindow dialog2DEditing = new EditorWindow(contextObject,
-                    //                                                documentDepictionOption.MachineUnderstandableOption);
-
-
-                    // dialog2DEditing.CreatePng();
-                    // control.Range.InlineShapes.AddPicture(dialog2DEditing.PngFileName, ref missing, ref missing, ref missing);
-                    CanvasContainer container = new CanvasContainer(contextObject,
-                                                                    new CmlMolecule((XElement)
-                                                                                    documentDepictionOption.
-                                                                                        MachineUnderstandableOption));
-                    container.GeneratePng(true);
-                    control.Range.InlineShapes.AddPicture(container.PngFileOutput, ref missing, ref missing, ref missing);
-                    // Delete the png file
-                    File.Delete(container.PngFileOutput);
-                    container = null;
-                } catch (Exception e) {
-                    MessageBox.Show(e.Message + "\n\n" + e.Source + "\n\n" + e.StackTrace,
-                                    Resources.CHEM_4_WORD_MESSAGE_BOX_TITLE, MessageBoxButton.OK,
-                                    MessageBoxImage.Stop);
-                }
             } else {
                 control = wordApp.ActiveDocument.ContentControls.Add(
                     WdContentControlType.wdContentControlRichText, ref missing);
@@ -872,8 +926,14 @@ namespace Chem4Word.Core {
                 Log.Debug("Converting CML to JSON");
                 tcd.Before_CML = selectedZone.Cml.ToString();
                 string normal = Chem4Word.UI.Converters.Cml.ToJson(selectedZone.Cml.ToString());
-                string inverted = Chem4Word.UI.Converters.Json.InvertY(normal);
-                tcd.Before_JSON = inverted;
+                if (WordVersion() > 2007)
+                {
+                    tcd.Before_JSON = normal;
+                }
+                else
+                {
+                    tcd.Before_JSON = Chem4Word.UI.Converters.Json.InvertY(normal); ;
+                }
                 #endregion
 
                 Log.Debug("Opening Editor");
@@ -885,9 +945,14 @@ namespace Chem4Word.Core {
                 {
                     #region Convert JSON to cml
                     Log.Debug("Converting JSON to CML");
-                    //tcd.After_CML = Chem4Word.UI.Converters.Json.ToCML(tcd.After_JSON);
-                    inverted = tcd.After_JSON;
-                    normal = Chem4Word.UI.Converters.Json.InvertY(inverted);
+                    if (WordVersion() > 2007)
+                    {
+                        normal = tcd.After_JSON;
+                    }
+                    else
+                    {
+                        normal = Chem4Word.UI.Converters.Json.InvertY(tcd.After_JSON);
+                    }
                     tcd.After_CML = Chem4Word.UI.Converters.Json.ToCML(normal);
                     #endregion
 
@@ -1070,6 +1135,11 @@ namespace Chem4Word.Core {
                         // No Label changes, simply overwrite Cml which causes refresh of png
                         selectedZone.Cml = XDocument.Parse(docAfter.InnerXml);
                     }
+
+                    XmlNode xmlNode = docAfter.SelectSingleNode("//cml:molecule", nsmgr1);
+                    XElement xElement = XElement.Parse(xmlNode.OuterXml);
+                    CmlMolecule mol = new CmlMolecule(xElement);
+                    _telemetry.Write(module, "Information", "Median Bond Length: " + mol.GetMedianBondLength());
                 }
                 else
                 {

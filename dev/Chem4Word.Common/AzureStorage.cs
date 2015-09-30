@@ -48,6 +48,9 @@ namespace Chem4Word.Common
 
             try
             {
+                Debug.WriteLine(messageEntity.Operation);
+                Debug.WriteLine("  " + messageEntity.Level + " - " + messageEntity.Message);
+
                 messageEntity.PartitionKey = "Chem4Word";
                 messageEntity.RowKey = string.Format("{0:D19}", DateTime.MaxValue.Ticks - DateTime.UtcNow.Ticks);
 

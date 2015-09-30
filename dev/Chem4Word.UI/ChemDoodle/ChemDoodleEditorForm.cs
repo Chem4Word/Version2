@@ -344,7 +344,7 @@ namespace Chem4Word.UI.ChemDoodle
                         break;
                 }
 
-                File.WriteAllText(saveFile.FileName, fileContent);
+                File.WriteAllText(saveFile.FileName, fileContent.Replace("utf-16", "utf-8"));
                 Telemetry.Write("ChemDoodleEditorForm.btnSaveAs_Click()", "Information", "Saved " + fileType + " file");
             }
         }
