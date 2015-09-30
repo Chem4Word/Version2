@@ -8,6 +8,8 @@ using System;
 using System.IO;
 using System.Xml.Linq;
 using Chem4Word.Api;
+using Chem4Word.Core.Properties;
+using Chem4Word.UI.OOXML;
 using Chem4Word.UI.TwoD;
 using log4net;
 using Microsoft.Office.Interop.Word;
@@ -92,8 +94,18 @@ namespace Chem4Word.Core {
                                                                                             Properties.
                                                                                                 DocumentDepictionOptionXPath);
             if (Depiction.Is2D(documentDepictionOption)) {
+
+                if (document.WordVersion() > 2007)
+                {
+                    // ToDo: Word 2010+ OoXml
+                }
+                else
+                {
+                    // Existing code goes here
+                }
+
                 var contexObject = AsContextObject();
-                var cmlMolecule = new CmlMolecule((XElement) documentDepictionOption.MachineUnderstandableOption);
+                var cmlMolecule = new CmlMolecule((XElement)documentDepictionOption.MachineUnderstandableOption);
                 var editor = new CanvasContainer(contexObject, cmlMolecule);
                 editor.GeneratePng(false);
 
@@ -102,7 +114,9 @@ namespace Chem4Word.Core {
                 contentControl.Range.InlineShapes.AddPicture(editor.PngFileOutput, ref missing, ref missing, ref missing);
                 // Delete the png file
                 File.Delete(editor.PngFileOutput);
-            } else {
+            }
+            else
+            {
                 // the document depiction is a 1D zone
                 document.Core.CreateOneDZoneContent(ref contentControl, documentDepictionOption);
             }

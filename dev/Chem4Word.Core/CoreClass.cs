@@ -408,6 +408,16 @@ namespace Chem4Word.Core {
                 DepictionOption.CreateDepictionOption(chemZone.Cml, chemistryZoneProperties.DocumentDepictionOptionXPath);
             ContentControl control;
             if (Depiction.Is2D(documentDepictionOption)) {
+
+                if (WordVersion() > 2007)
+                {
+                    // ToDo: Word 2010+ OoXml
+                }
+                else
+                {
+                    // Existing code goes here
+                }
+
                 // zone is 2D - therefore a picture content control is necessary  
                 var contexObject = chemZone.AsContextObject();
                 var cmlMolecule = new CmlMolecule((XElement) documentDepictionOption.MachineUnderstandableOption);
@@ -693,6 +703,16 @@ namespace Chem4Word.Core {
             object missing = Type.Missing;
             range.Text = string.Empty;
             if (Depiction.Is2D(documentDepictionOption)) {
+
+                if (WordVersion() > 2007)
+                {
+                    // ToDo: Word 2010+ OoXml
+                }
+                else
+                {
+                    // Existing code goes here
+                }
+
                 // remove the current text from the selection before adding the picture
                 control = wordApp.ActiveDocument.ContentControls.Add(
                     WdContentControlType.wdContentControlPicture, ref missing);
