@@ -756,6 +756,47 @@ namespace Numbo.Cml
             }
         }
 
+        public void ScaleToAverageBondLength(double newLength)
+        {
+            double? averageBondLength = GetAverageBondLength();
+
+            if (averageBondLength != 0 && newLength != 0)
+            {
+                double? scale = newLength / averageBondLength;
+
+                IEnumerable<CmlAtom> atoms = GetAtoms();
+
+                if (atoms.Count() > 0)
+                {
+                    foreach (CmlAtom atom in atoms)
+                    {
+                        atom.X2 *= scale;
+                        atom.Y2 *= scale;
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// get average bond length
+        /// </summary>
+        /// <returns></returns>
+        public Nullable<double> GetAverageBondLength()
+        {
+            Nullable<double> averageBondLength = null;
+            IEnumerable<CmlBond> bonds = GetBonds();
+            if (bonds.Count() > 0)
+            {
+                Nullable<double> total = 0;
+                foreach (CmlBond bond in bonds)
+                {
+                    total += bond.GetBondLength();
+                }
+                averageBondLength = total/bonds.Count();
+            }
+            return averageBondLength;
+        }
+
         /// <summary>
         /// get median bond length
         /// </summary>
