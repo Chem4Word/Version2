@@ -226,8 +226,10 @@ namespace Chem4Word.Core {
                     importMediator.ParseSeverity = ImportMediator.Severity.Auto;
                     break;
             }
+
             importMediator.Start(fileName);
             if (importMediator.Worked()) {
+
                 ContextObject contextObject = Cid.RemoveMoleculeBoldNumberLabels(importMediator.GetContextObject(),
                                                                                  importMediator.GetContextObject().Cml.
                                                                                      Root);
@@ -241,14 +243,24 @@ namespace Chem4Word.Core {
                 ChemistryZoneProperties chemistryZoneProperties = new ChemistryZoneProperties(documentDepictionOption,
                                                                                               navigatorDepictionOption,
                                                                                               true);
+
+                CmlMolecule mol = new CmlMolecule((XElement)documentDepictionOption.MachineUnderstandableOption);
+                double? averageBondLength = mol.GetAverageBondLength();
+
+                if (!fileName.Equals(tempCmlFileName))
+                {
+                    _telemetry.Write(module, "Information", "Bond Lengths; Median: " + mol.GetMedianBondLength() + " Average: " + averageBondLength);
+                }
+
+                if (WordVersion() > 2007 && averageBondLength < 5)
+                {
+                    mol.ScaleToAverageBondLength(20);
+                    _telemetry.Write(module, "Information", "Changed average bond length to 20");
+                }
+
                 Range range = wordApp.ActiveDocument.ActiveWindow.Selection.Range;
                 chemistryZone = AddNewContextObjectToDocument(range, contextObject,
                                                               chemistryZoneProperties);
-                CmlMolecule mol = new CmlMolecule((XElement)documentDepictionOption.MachineUnderstandableOption);
-                if (!fileName.Equals(tempCmlFileName))
-                {
-                    _telemetry.Write(module, "Information", "Median Bond Length: " + mol.GetMedianBondLength());
-                }
             }
             else
             {
@@ -2175,9 +2187,15 @@ namespace Chem4Word.Core {
                                                                               Setting.CollapseNavigatorDepiction);
 
                     Range range = wordApp.ActiveDocument.ActiveWindow.Selection.Range;
-                    //chemistryZone = AddNewContextObjectToDocument(range, contextObject,
-                    //                                              documentDepictionOption,
-                    //navigatorDepictionOption);
+
+                    CmlMolecule mol = new CmlMolecule((XElement)documentDepictionOption.MachineUnderstandableOption);
+                    double? averageBondLength = mol.GetAverageBondLength();
+                    if (WordVersion() > 2007 && averageBondLength < 5)
+                    {
+                        mol.ScaleToAverageBondLength(20);
+                        _telemetry.Write(module, "Information", "Changed average bond length to 20");
+                    }
+
                     chemistryZone = AddNewContextObjectToDocument(range, contextObject,
                                                                   chemistryZoneProperties);
                 }
@@ -2211,9 +2229,15 @@ namespace Chem4Word.Core {
                                                                               Setting.CollapseNavigatorDepiction);
 
                     Range range = wordApp.ActiveDocument.ActiveWindow.Selection.Range;
-                    //chemistryZone = AddNewContextObjectToDocument(range, contextObject,
-                    //                                              documentDepictionOption,
-                    //navigatorDepictionOption);
+
+                    CmlMolecule mol = new CmlMolecule((XElement)documentDepictionOption.MachineUnderstandableOption);
+                    double? averageBondLength = mol.GetAverageBondLength();
+                    if (WordVersion() > 2007 && averageBondLength < 5)
+                    {
+                        mol.ScaleToAverageBondLength(20);
+                        _telemetry.Write(module, "Information", "Changed average bond length to 20");
+                    }
+
                     chemistryZone = AddNewContextObjectToDocument(range, contextObject,
                                                                   chemistryZoneProperties);
                 }
