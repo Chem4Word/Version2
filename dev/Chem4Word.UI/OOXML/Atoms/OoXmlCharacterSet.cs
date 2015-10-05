@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Windows;
 
-namespace Word2010AddIn.OOXML.Atoms
+namespace Chem4Word.UI.OOXML.Atoms
 {
     public class OoXmlCharacterSet
     {

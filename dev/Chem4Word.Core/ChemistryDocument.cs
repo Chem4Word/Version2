@@ -174,7 +174,7 @@ namespace Chem4Word.Core
 
                 if (WordVersion() > 2007)
                 {
-                    // ToDo: Word 2010+ OoXml
+                    DateTime started = DateTime.Now;
 
                     C4wOptions options = new C4wOptions();
                     options.ColouredAtoms = true;
@@ -182,23 +182,27 @@ namespace Chem4Word.Core
                     string guidString = Guid.NewGuid().ToString("N");
                     string bookmarkName = "C4W_" + guidString;
                     string tempfileName = OoXmlFile.CreateFromCml(contextObject.Cml.ToString(), guidString, options);
+
                     contentControl =
                         WordDocument.ContentControls.Add(WdContentControlType.wdContentControlRichText,
                             ref missing);
                     contentControl.Range.InsertFile(tempfileName, bookmarkName);
-                    File.Delete(tempfileName);
 
                     if (WordDocument.Bookmarks.Exists(bookmarkName))
                     {
                         WordDocument.Bookmarks[bookmarkName].Delete();
                     }
+                    File.Delete(tempfileName);
+
+                    TimeSpan ts = DateTime.Now - started;
+                    core.WriteTelemetry(module, "Information", "Renedring OOXML took " + ts.TotalMilliseconds.ToString("0.0") + "ms");
                 }
                 else
                 {
                     // Existing code goes here
                     CmlMolecule cmlMolecule =
                         new CmlMolecule((XElement)newDocumentDepictionOption.MachineUnderstandableOption);
-                    CanvasContainer editor = new CanvasContainer(contextObject, cmlMolecule);
+                    CanvasContainer editor = new CanvasContainer(contextObject, cmlMolecule.CloneMolecule(1.54));
                     editor.GeneratePng(false);
 
                     contentControl = WordDocument.ContentControls.Add(WdContentControlType.wdContentControlPicture,

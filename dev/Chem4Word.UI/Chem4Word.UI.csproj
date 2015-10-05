@@ -176,7 +176,6 @@
     <Compile Include="OOXML\C4wOptions.cs" />
     <Compile Include="OOXML\CohenSutherland.cs" />
     <Compile Include="OOXML\Helper.cs" />
-    <Compile Include="OOXML\Molecule\Molecule.cs" />
     <Compile Include="OOXML\OoXmlFile.cs" />
     <Compile Include="OOXML\OoXmlMolecule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -97,7 +97,7 @@ namespace Chem4Word.UI.WebServices
                     break;
                 }
             }
-            CmlMolecule parent = new CmlMolecule((XElement)chosenDepiction.MachineUnderstandableOption);
+            CmlMolecule parent = new CmlMolecule((XElement)chosenDepiction.MachineUnderstandableOption).CloneMolecule(1.54);
             var editor = new CanvasContainer(contextObject, parent);
 
             editor.GeneratePng(true);

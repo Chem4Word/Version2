@@ -1,0 +1,18 @@
+<cml:cml convention="conventions:molecular" xmlns:conventions="http://www.xml-cml.org/convention/" xmlns:cml="http://www.xml-cml.org/schema" xmlns:cmlDict="http://www.xml-cml.org/dictionary/cml/" xmlns:nameDict="http://www.xml-cml.org/dictionary/cml/name/">
+  <cml:molecule id="m1">
+    <cml:atomArray>
+      <cml:atom id="a0" elementType="O" x2="294.704148004555" y2="136.324244660697" />
+      <cml:atom id="a1" elementType="H" x2="277.183101583231" y2="145.968565906995" />
+      <cml:atom id="a2" elementType="H" x2="311.816898416769" y2="146.675755339303" />
+    </cml:atomArray>
+    <cml:bondArray>
+      <cml:bond id="b0" atomRefs2="a0 a1" order="S" />
+      <cml:bond id="b1" atomRefs2="a0 a2" order="S" />
+    </cml:bondArray>
+    <cml:name dictRef="nameDict:iupac">oxidane</cml:name>
+    <cml:name dictRef="nameDict:trivial">water</cml:name>
+    <cml:formula concise="H 2 O 1"></cml:formula>
+    <name dictRef="nameDict:inchikey" xmlns="http://www.xml-cml.org/schema">XLYOFNOQVPJJNP-UHFFFAOYSA-N</name>
+    <name dictRef="nameDict:chemspider" xmlns="http://www.xml-cml.org/schema">Water</name>
+  </cml:molecule>
+</cml:cml>

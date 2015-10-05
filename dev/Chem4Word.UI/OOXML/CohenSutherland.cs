@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Windows;
+﻿using System.Windows;
 
-namespace Word2010AddIn.OOXML
+namespace Chem4Word.UI.OOXML
 {
     public static class CohenSutherland
     {

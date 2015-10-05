@@ -97,7 +97,7 @@ namespace Chem4Word.Core {
 
                 if (document.WordVersion() > 2007)
                 {
-                    // ToDo: Word 2010+ OoXml
+                    DateTime started = DateTime.Now;
 
                     C4wOptions options = new C4wOptions();
                     options.ColouredAtoms = true;
@@ -105,15 +105,20 @@ namespace Chem4Word.Core {
                     string guidString = Guid.NewGuid().ToString("N");
                     string bookmarkName = "C4W_" + guidString;
                     string tempfileName = OoXmlFile.CreateFromCml(Cml.ToString(), guidString, options);
+
                     var missing = Type.Missing;
                     contentControl.Range.Delete();
                     contentControl.Range.InsertFile(tempfileName, bookmarkName);
                     contentControl.Title = Resources.ChemistryZoneAlias;
-                    File.Delete(tempfileName);
+
                     if (document.WordDocument.Bookmarks.Exists(bookmarkName))
                     {
                         document.WordDocument.Bookmarks[bookmarkName].Delete();
                     }
+                    File.Delete(tempfileName);
+
+                    TimeSpan ts = DateTime.Now - started;
+                    document.WriteTelemetry(module, "Information", "Renedring OOXML took " + ts.TotalMilliseconds.ToString("0.0") + "ms");
                 }
                 else
                 {
@@ -121,7 +126,7 @@ namespace Chem4Word.Core {
 
                     var contexObject = AsContextObject();
                     var cmlMolecule = new CmlMolecule((XElement)documentDepictionOption.MachineUnderstandableOption);
-                    var editor = new CanvasContainer(contexObject, cmlMolecule);
+                    var editor = new CanvasContainer(contexObject, cmlMolecule.CloneMolecule(1.54));
                     editor.GeneratePng(false);
 
                     var missing = Type.Missing;

@@ -93,6 +93,28 @@ namespace Numbo.Cml
             : base(molecule)
         {}
 
+        public CmlMolecule CloneMolecule(double scale)
+        {
+            CmlMolecule cloned = new CmlMolecule();
+            foreach (CmlAtom atom in this.GetAtoms())
+            {
+                cloned.AddAtom(atom);
+            }
+            foreach (CmlBond bond in this.GetAllBonds())
+            {
+                cloned.AddBond(bond);
+            }
+            cloned.ScaleToAverageBondLength(scale);
+            //if (invertY)
+            //{
+            //    foreach (CmlAtom atom in cloned.GetAtoms())
+            //    {
+            //        atom.Y2 = -atom.Y2;
+            //    }
+            //}
+            return cloned;
+        }
+
         public string Chirality
         {
             get

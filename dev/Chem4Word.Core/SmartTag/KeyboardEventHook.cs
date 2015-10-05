@@ -109,7 +109,7 @@ namespace Chem4Word.Core.SmartTag
                 int vkCode = Marshal.ReadInt32(lParam);
                 Keys currentKey = (Keys) vkCode;
 
-                Log.Debug(currentKey);
+                //Log.Debug(currentKey);
 
                 // Check if the "Context Menu" key or "Shift+F10" was pressed.
                 if (currentKey == Keys.Apps || (this.isShiftKeyPressed && currentKey == Keys.F10))

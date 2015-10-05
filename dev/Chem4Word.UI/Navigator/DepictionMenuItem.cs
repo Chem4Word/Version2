@@ -11,6 +11,7 @@ using System.Windows.Controls;
 using System.Xml.Linq;
 using Chem4Word.UI.Tools;
 using Chem4Word.UI.TwoD;
+using Microsoft.Office.Interop.Word;
 using Numbo.Cml;
 using Numbo.Coa;
 using Image=System.Windows.Controls.Image;
@@ -33,7 +34,7 @@ namespace Chem4Word.UI.Navigator
             {
                 CanvasContainer editor = new CanvasContainer(contextObject,
                                                              new CmlMolecule(
-                                                                 (XElement) depictionOption.MachineUnderstandableOption));
+                                                                 (XElement) depictionOption.MachineUnderstandableOption).CloneMolecule(1.54));
                 editor.GeneratePng(true);
 
                 Image img = new Image

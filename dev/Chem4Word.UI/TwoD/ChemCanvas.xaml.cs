@@ -885,7 +885,7 @@ namespace Chem4Word.UI.TwoD
             get { return _co; }
             internal set
             {
-                Log.Info("setting CO");
+                //Log.Info("setting CO");
                 _co = value;
             }
         }
@@ -916,7 +916,7 @@ namespace Chem4Word.UI.TwoD
 
         public void TakeSnapshotOfContextObject()
         {
-            Log.Debug("Old context object cml:\n\n" + ContextObject.Cml);
+            //Log.Debug("Old context object cml:\n\n" + ContextObject.Cml);
             IsDirty = true;
             undoStack.Push(ContextObject.Clone());
             redoStack.Clear();
@@ -950,10 +950,10 @@ namespace Chem4Word.UI.TwoD
             StandardXOffset = border + ToScreenX(-xmin) + (maxBoundScreenCoords - molWidthScreenCoords) / 2;
             StandardYOffset = border + ToScreenY(-ymax) + (maxBoundScreenCoords - molHeightScreenCoords) / 2;
 
-            Log.Debug(string.Format("xmax {0} xmin {1} ymax {2} ymin {3}", xmax, xmin, ymax, ymin));
-            Log.Debug(string.Format("mol width (screen): {0} mol height (screen) {1}", molWidthScreenCoords,
-                                    molHeightScreenCoords));
-            Log.Debug(string.Format("x offset {0} y offset {1}", StandardXOffset, StandardYOffset));
+            //Log.Debug(string.Format("xmax {0} xmin {1} ymax {2} ymin {3}", xmax, xmin, ymax, ymin));
+            //Log.Debug(string.Format("mol width (screen): {0} mol height (screen) {1}", molWidthScreenCoords,
+            //                        molHeightScreenCoords));
+            //Log.Debug(string.Format("x offset {0} y offset {1}", StandardXOffset, StandardYOffset));
 
 
             var currentViewBox = ContextObject.ViewBoxDimensions;
@@ -967,10 +967,10 @@ namespace Chem4Word.UI.TwoD
                                                            Math.Abs(ymax - ymin) + 2);
             }
 
-            Log.Debug(string.Format("xmax {0} xmin {1} ymax {2} ymin {3}", xmax, xmin, ymax, ymin));
-            Log.Debug(string.Format("mol width (screen): {0} mol height (screen) {1}", molWidthScreenCoords,
-                                    molHeightScreenCoords));
-            Log.Debug(string.Format("x offset {0} y offset {1}", StandardXOffset, StandardYOffset));
+            //Log.Debug(string.Format("xmax {0} xmin {1} ymax {2} ymin {3}", xmax, xmin, ymax, ymin));
+            //Log.Debug(string.Format("mol width (screen): {0} mol height (screen) {1}", molWidthScreenCoords,
+            //                        molHeightScreenCoords));
+            //Log.Debug(string.Format("x offset {0} y offset {1}", StandardXOffset, StandardYOffset));
 
 
             TransformGroup tg = new TransformGroup();

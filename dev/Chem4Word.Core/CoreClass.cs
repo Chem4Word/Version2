@@ -420,6 +420,7 @@ namespace Chem4Word.Core {
                     }
                 }
             }
+
             DepictionOption documentDepictionOption =
                 DepictionOption.CreateDepictionOption(chemZone.Cml, chemistryZoneProperties.DocumentDepictionOptionXPath);
             ContentControl control;
@@ -433,7 +434,7 @@ namespace Chem4Word.Core {
 
                 if (WordVersion() > 2007)
                 {
-                    // ToDo: Word 2010+ OoXml
+                    DateTime started = DateTime.Now;
 
                     C4wOptions options = new C4wOptions();
                     options.ColouredAtoms = true;
@@ -446,16 +447,19 @@ namespace Chem4Word.Core {
                         WdContentControlType.wdContentControlRichText, ref missing);
 
                     control.Range.InsertFile(tempfileName, bookmarkName);
-                    File.Delete(tempfileName);
 
                     if (wordApp.ActiveDocument.Bookmarks.Exists(bookmarkName))
                     {
                         wordApp.ActiveDocument.Bookmarks[bookmarkName].Delete();
                     }
+                    File.Delete(tempfileName);
+
+                    TimeSpan ts = DateTime.Now - started;
+                    WriteTelemetry(module, "Information", "Renedring OOXML took " + ts.TotalMilliseconds.ToString("0.0") + "ms");
                 }
                 else
                 {
-                    var editor = new CanvasContainer(contexObject, cmlMolecule);
+                    var editor = new CanvasContainer(contexObject, cmlMolecule.CloneMolecule(1.54));
                     editor.GeneratePng(false);
 
                     control = wordApp.ActiveDocument.ContentControls.Add(
@@ -599,65 +603,76 @@ namespace Chem4Word.Core {
         ///   Check Chem4Word Gallery dictionary files in Local Application Data. C:\Users\[user-name]\AppData\Local\Chemistry Gallery
         ///   If there are some files missing, the Add-in will recover those files from Program folder. C:\Program Files\Chem4Word\Data
         /// </summary>
-        private void CheckForRecovery() {
-            if (!string.IsNullOrEmpty(assemblyDirectoryName))
+        private void CheckForRecovery()
+        {
+            string module = "CoreClass.CheckForRecovery()";
+            try
             {
-                // If is missing, Recover it.
-                if (!File.Exists(localAppDataFolder + @"\Chemistry Gallery\Chem4Word.dotx"))
+                if (!string.IsNullOrEmpty(assemblyDirectoryName))
                 {
-                    File.Copy(assemblyDirectoryName + @"\Data\Chem4Word.dotx",
-                              localAppDataFolder + @"\Chemistry Gallery\Chem4Word.dotx");
-                }
-
-                if (Directory.Exists(assemblyDirectoryName + @"\Data"))
-                {
-                    string[] cmlFiles = Directory.GetFiles(assemblyDirectoryName + @"\Data", @"*.cml");
-                    foreach (string file in cmlFiles)
+                    // If is missing, Recover it.
+                    if (!File.Exists(localAppDataFolder + @"\Chemistry Gallery\Chem4Word.dotx"))
                     {
-                        FileInfo fileInfor = new FileInfo(file);
-                        if (!File.Exists(localAppDataFolder + @"\Chemistry Gallery\" + fileInfor.Name))
+                        File.Copy(assemblyDirectoryName + @"\Data\Chem4Word.dotx",
+                                  localAppDataFolder + @"\Chemistry Gallery\Chem4Word.dotx");
+                    }
+
+                    if (Directory.Exists(assemblyDirectoryName + @"\Data"))
+                    {
+                        string[] cmlFiles = Directory.GetFiles(assemblyDirectoryName + @"\Data", @"*.cml");
+                        foreach (string file in cmlFiles)
                         {
-                            File.Copy(assemblyDirectoryName + @"\Data\" + fileInfor.Name,
-                                      localAppDataFolder + @"\Chemistry Gallery\" + fileInfor.Name);
+                            FileInfo fileInfor = new FileInfo(file);
+                            if (!File.Exists(localAppDataFolder + @"\Chemistry Gallery\" + fileInfor.Name))
+                            {
+                                File.Copy(assemblyDirectoryName + @"\Data\" + fileInfor.Name,
+                                          localAppDataFolder + @"\Chemistry Gallery\" + fileInfor.Name);
+                            }
                         }
                     }
-                }
 
-                if (!File.Exists(localAppDataFolder + @"\User Setting.xml"))
-                {
-                    File.Copy(assemblyDirectoryName + @"\User Setting.xml",
-                              localAppDataFolder + @"\User Setting.xml");
-                }
-                else
-                {
-                    XmlDataDocument existingUserSettings = new XmlDataDocument();
-                    XmlDataDocument latestUserSettings = new XmlDataDocument();
-
-                    existingUserSettings.Load(localAppDataFolder + @"\User Setting.xml");
-                    if (File.Exists(assemblyDirectoryName + @"\User Setting.xml"))
+                    if (!File.Exists(localAppDataFolder + @"\User Setting.xml"))
                     {
-                        latestUserSettings.Load(assemblyDirectoryName + @"\User Setting.xml");
+                        File.Copy(assemblyDirectoryName + @"\User Setting.xml",
+                                  localAppDataFolder + @"\User Setting.xml");
                     }
-
-                    if (existingUserSettings != null && latestUserSettings != null)
+                    else
                     {
-                        XmlNode existingUserSettingsNode = existingUserSettings.SelectSingleNode("/userSetting");
-                        XmlNode lastestUserSettingsNode = latestUserSettings.SelectSingleNode("/userSetting");
+                        XmlDataDocument existingUserSettings = new XmlDataDocument();
+                        XmlDataDocument latestUserSettings = new XmlDataDocument();
 
-                        if (existingUserSettingsNode != null && existingUserSettingsNode.HasChildNodes &&
-                            lastestUserSettingsNode != null && lastestUserSettingsNode.HasChildNodes)
+                        existingUserSettings.Load(localAppDataFolder + @"\User Setting.xml");
+                        if (File.Exists(assemblyDirectoryName + @"\User Setting.xml"))
                         {
-                            bool areEqual = CompareUserSettingsFile(existingUserSettingsNode, "/userSetting",
-                                                                    lastestUserSettingsNode);
+                            latestUserSettings.Load(assemblyDirectoryName + @"\User Setting.xml");
+                        }
 
-                            if (!areEqual)
+                        if (existingUserSettings != null && latestUserSettings != null)
+                        {
+                            XmlNode existingUserSettingsNode = existingUserSettings.SelectSingleNode("/userSetting");
+                            XmlNode lastestUserSettingsNode = latestUserSettings.SelectSingleNode("/userSetting");
+
+                            if (existingUserSettingsNode != null && existingUserSettingsNode.HasChildNodes &&
+                                lastestUserSettingsNode != null && lastestUserSettingsNode.HasChildNodes)
                             {
-                                File.Copy(assemblyDirectoryName + @"\User Setting.xml",
-                                          localAppDataFolder + @"\User Setting.xml", true);
+                                bool areEqual = CompareUserSettingsFile(existingUserSettingsNode, "/userSetting",
+                                                                        lastestUserSettingsNode);
+
+                                if (!areEqual)
+                                {
+                                    File.Copy(assemblyDirectoryName + @"\User Setting.xml",
+                                              localAppDataFolder + @"\User Setting.xml", true);
+                                }
                             }
                         }
                     }
                 }
+            }
+            catch (Exception Ex)
+            {
+                Debug.WriteLine(Ex.Message);
+                Log.Error(Ex.Message);
+                _telemetry.Write(module, "Exception", Ex.Message);
             }
         }
 
@@ -748,13 +763,13 @@ namespace Chem4Word.Core {
 
                 if (WordVersion() > 2007)
                 {
-                    // ToDo: Word 2010+ OoXml
-
                     control = wordApp.ActiveDocument.ContentControls.Add(
                         WdContentControlType.wdContentControlRichText, ref missing);
 
                     try
                     {
+                        DateTime started = DateTime.Now;
+
                         C4wOptions options = new C4wOptions();
                         options.ColouredAtoms = true;
                         options.ShowHydrogens = true;
@@ -769,6 +784,9 @@ namespace Chem4Word.Core {
                             wordApp.ActiveDocument.Bookmarks[bookmarkName].Delete();
                         }
                         File.Delete(tempfileName);
+
+                        TimeSpan ts = DateTime.Now - started;
+                        WriteTelemetry(module, "Information", "Renedring OOXML took " + ts.TotalMilliseconds.ToString("0.0") + "ms");
                     }
                     catch (Exception e)
                     {
@@ -788,8 +806,7 @@ namespace Chem4Word.Core {
                     {
                         CanvasContainer container = new CanvasContainer(contextObject,
                                                                         new CmlMolecule((XElement)
-                                                                                        documentDepictionOption.
-                                                                                            MachineUnderstandableOption));
+                                                                            documentDepictionOption.MachineUnderstandableOption).CloneMolecule(1.54));
                         container.GeneratePng(true);
                         control.Range.InlineShapes.AddPicture(container.PngFileOutput, ref missing, ref missing, ref missing);
                         // Delete the png file
@@ -1419,7 +1436,7 @@ namespace Chem4Word.Core {
                         // galleryName is already in SmartTag dictionary
                     else {
                         MessageBox.Show(
-                            string.Format(CultureInfo.InvariantCulture, "\"{0}\" was already in SmartTag Dictionary.",
+                            string.Format(CultureInfo.InvariantCulture, "Warning: \"{0}\" was already in the SmartTag Dictionary.",
                                           galleryName),
                             Resources.CHEM_4_WORD_MESSAGE_BOX_TITLE, MessageBoxButton.OK, MessageBoxImage.Stop);
                     }
