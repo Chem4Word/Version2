@@ -1,27 +1,21 @@
-﻿using DocumentFormat.OpenXml;
-using DocumentFormat.OpenXml.Wordprocessing;
-using A = DocumentFormat.OpenXml.Drawing;
-using Wp = DocumentFormat.OpenXml.Drawing.Wordprocessing;
-using Wpg = DocumentFormat.OpenXml.Office2010.Word.DrawingGroup;
-using Wps = DocumentFormat.OpenXml.Office2010.Word.DrawingShape;
-using Numbo;
-using Numbo.Cml;
-using Numbo.Coa;
-using System.Xml.Linq;
-using System;
-using System.Linq;
-using System.Diagnostics;
-using System.Xml;
+﻿using System;
 using System.Collections.Generic;
 using System.Windows;
-using Chem4Word.UI.OOXML;
+using System.Xml;
+using System.Xml.Linq;
+using Chem4Word.UI.OOXML.Atoms;
+using Chem4Word.UI.OOXML.Bonds;
 using Chem4Word.UI.TwoD;
-using Word2010AddIn.OOXML.Bonds;
-using Word2010AddIn.OOXML.Atoms;
+using DocumentFormat.OpenXml;
+using Numbo.Cml;
 using Numbo.Cml.Helpers;
-using Euclid;
+using A = DocumentFormat.OpenXml.Drawing;
+using Point = System.Windows.Point;
+using Run = DocumentFormat.OpenXml.Wordprocessing.Run;
+using Wp = DocumentFormat.OpenXml.Drawing.Wordprocessing;
+using Wpg = DocumentFormat.OpenXml.Office2010.Word.DrawingGroup;
 
-namespace Word2010AddIn.OOXML
+namespace Chem4Word.UI.OOXML
 {
     public class OoXmlMolecule
     {
@@ -242,7 +236,7 @@ namespace Word2010AddIn.OOXML
 
                 #region Step 5 - Create main OoXml drawing objects
 
-                Drawing drawing1 = new Drawing();
+                DocumentFormat.OpenXml.Wordprocessing.Drawing drawing1 = new DocumentFormat.OpenXml.Wordprocessing.Drawing();
                 A.Graphic graphic1 = CreateGraphic();
                 A.GraphicData graphicData1 = CreateGraphicData();
                 Wpg.WordprocessingGroup wordprocessingGroup1 = new Wpg.WordprocessingGroup();

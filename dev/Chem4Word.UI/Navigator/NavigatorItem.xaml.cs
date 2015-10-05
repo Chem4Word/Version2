@@ -195,7 +195,7 @@ namespace Chem4Word.UI.Navigator
         {
             expander.IsExpanded = true;
             thumbnailGrid.Children.Clear();
-            var parent = new CmlMolecule((XElement)twoDDepictionOption.MachineUnderstandableOption);
+            var parent = new CmlMolecule((XElement)twoDDepictionOption.MachineUnderstandableOption).CloneMolecule(1.54);
 
             var editor = new CanvasContainer(ContextObjectProperty, parent);
             

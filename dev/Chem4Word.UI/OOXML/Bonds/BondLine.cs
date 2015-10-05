@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Windows;
 
-namespace Word2010AddIn.OOXML.Bonds
+namespace Chem4Word.UI.OOXML.Bonds
 {
     public class BondLine
     {

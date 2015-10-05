@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Word2010AddIn.OOXML;
+﻿using System.Collections.Generic;
 using System.Windows;
 
-namespace Word2010AddIn.OOXML.Atoms
+namespace Chem4Word.UI.OOXML.Atoms
 {
     public class OoXmlCharacter
     {

@@ -2,7 +2,6 @@
 using DocumentFormat.OpenXml;
 using DocumentFormat.OpenXml.Packaging;
 using DocumentFormat.OpenXml.Wordprocessing;
-using Word2010AddIn.OOXML;
 
 namespace Chem4Word.UI.OOXML
 {

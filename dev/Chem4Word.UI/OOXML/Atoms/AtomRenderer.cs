@@ -1,19 +1,17 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Collections.Generic;
 using System.Windows;
+using Chem4Word.UI.TwoD;
 using DocumentFormat.OpenXml;
 using Numbo.Cml;
+using Numbo.Cml.Helpers;
+using Numbo.Coa;
 using A = DocumentFormat.OpenXml.Drawing;
+using Point = System.Windows.Point;
 using Wpg = DocumentFormat.OpenXml.Office2010.Word.DrawingGroup;
 using Wps = DocumentFormat.OpenXml.Office2010.Word.DrawingShape;
-using System;
-using System.Collections.Generic;
-using Chem4Word.UI.OOXML;
-using Chem4Word.UI.TwoD;
-using Numbo.Coa;
-using Numbo.Cml.Helpers;
-using Euclid;
 
-namespace Word2010AddIn.OOXML.Atoms
+namespace Chem4Word.UI.OOXML.Atoms
 {
     public class AtomRenderer
     {

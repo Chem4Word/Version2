@@ -221,8 +221,7 @@ namespace Chem4Word.AddIn {
             switch (core.WordVersion())
             {
                 case 2013:
-                case 2016:
-                    // Word 2013 and 2016 use upper case tab labels
+                    // Word 2013 uses upper case tab labels
                     sTabLabel = "CHEMISTRY";
                     break;
                 default:

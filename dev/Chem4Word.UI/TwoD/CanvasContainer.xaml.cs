@@ -48,8 +48,6 @@ namespace Chem4Word.UI.TwoD
             SetData(contextObject, molecule);
         }
 
-       
-
         public event EventHandler<EventArgs> Refreshed;
         /// <summary>
         /// Gets PNG file name.
@@ -98,12 +96,15 @@ namespace Chem4Word.UI.TwoD
         }
 
         /// <summary>
-        /// Generate PNG image froma givent temporary file name.
+        /// Generate PNG image from a given temporary file name.
         /// </summary>
-        public void GeneratePng(bool transparentBackground) {
-            Log.Info("drawing (transparent = "+transparentBackground+")");
+        public void GeneratePng(bool transparentBackground)
+        {
+            Log.Info("drawing (transparent = "+ transparentBackground+")");
+
             // redraw the molecule with new bounds and using the png border
             chemCanvas.GeneratePng();
+
             var originalBkg = chemCanvas.Background;
             try
             {
@@ -117,6 +118,7 @@ namespace Chem4Word.UI.TwoD
                 {
                     File.Delete(pngFile);
                 }
+
                 pngFile = pngFile.Replace(".tmp", ".png");
                 CreatePng(pngFile);
             }

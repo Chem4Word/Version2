@@ -1,18 +1,18 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
+using Chem4Word.UI.TwoD;
 using DocumentFormat.OpenXml;
+using Euclid;
 using Numbo.Cml;
+using Numbo.Cml.Helpers;
 using A = DocumentFormat.OpenXml.Drawing;
+using Point = System.Windows.Point;
 using Wpg = DocumentFormat.OpenXml.Office2010.Word.DrawingGroup;
 using Wps = DocumentFormat.OpenXml.Office2010.Word.DrawingShape;
-using Numbo.Cml.Helpers;
-using Euclid;
-using System;
-using Chem4Word.UI.OOXML;
-using Chem4Word.UI.TwoD;
 
-namespace Word2010AddIn.OOXML.Bonds
+namespace Chem4Word.UI.OOXML.Bonds
 {
     public class BondRenderer
     {

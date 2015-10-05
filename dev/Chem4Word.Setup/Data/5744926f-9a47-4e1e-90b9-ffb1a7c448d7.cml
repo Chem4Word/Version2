@@ -1,0 +1,19 @@
+<cml:cml convention="conventions:molecular" xmlns:conventions="http://www.xml-cml.org/convention/" xmlns:cml="http://www.xml-cml.org/schema" xmlns:cmlDict="http://www.xml-cml.org/dictionary/cml/" xmlns:nameDict="http://www.xml-cml.org/dictionary/cml/name/">
+  <cml:molecule id="m1">
+    <cml:atomArray>
+      <cml:atom id="a0" elementType="C" x2="280.29468963369" y2="143.222407718443" />
+      <cml:atom id="a1" elementType="C" x2="297" y2="133.577592281557" />
+      <cml:atom id="a2" elementType="O" x2="313.70531036631" y2="143.222407718443" />
+    </cml:atomArray>
+    <cml:bondArray>
+      <cml:bond id="b0" atomRefs2="a0 a1" order="S" />
+      <cml:bond id="b1" atomRefs2="a1 a2" order="S" />
+    </cml:bondArray>
+    <cml:name dictRef="nameDict:iupac">ethanol</cml:name>
+    <cml:name dictRef="nameDict:trivial">alcohol</cml:name>
+    <cml:formula concise="C 2 H 6 O 1" inline="CH_{3}CH_{2}OH"></cml:formula>
+    <cml:formula concise="C 2 H 6 O 1" inline="C_{2}H_{5}OH"></cml:formula>
+    <name dictRef="nameDict:inchikey" xmlns="http://www.xml-cml.org/schema">LFQSCWFLJHTTHZ-UHFFFAOYSA-N</name>
+    <name dictRef="nameDict:chemspider" xmlns="http://www.xml-cml.org/schema">Ethanol</name>
+  </cml:molecule>
+</cml:cml>
