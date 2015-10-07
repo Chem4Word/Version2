@@ -8,6 +8,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Xml.Linq;
 using Chem4Word.Api;
 using Chem4Word.Api.Core;
@@ -156,9 +157,7 @@ namespace Chem4Word.Core
             ContentControl contentControl = null;
             string refVal = XmlMappingManager.GetCmlRefValueByZone(chemistryZone);
             DepictionOption newDocumentDepictionOption = DepictionOption.CreateDepictionOption(chemistryZone.Cml,
-                                                                                               newChemistryZoneProperties
-                                                                                                   .
-                                                                                                   DocumentDepictionOptionXPath);
+                                                                                               newChemistryZoneProperties.DocumentDepictionOptionXPath);
             // before the current content control is deleted we must get the CML out of it
             // (the deletion causes the links to the CML to be broken)
             ContextObject contextObject = chemistryZone.AsContextObject();
@@ -175,6 +174,10 @@ namespace Chem4Word.Core
                 if (WordVersion() > 2007)
                 {
                     DateTime started = DateTime.Now;
+
+                    CmlMolecule mol = new CmlMolecule((XElement)newDocumentDepictionOption.MachineUnderstandableOption);
+                    core.WriteTelemetry(module, "Information", "Atoms: " + mol.GetAllAtoms().Count());
+                    core.WriteTelemetry(module, "Information", "Bonds: " + mol.GetAllBonds().Count());
 
                     C4wOptions options = new C4wOptions();
                     options.ColouredAtoms = true;
@@ -195,7 +198,7 @@ namespace Chem4Word.Core
                     File.Delete(tempfileName);
 
                     TimeSpan ts = DateTime.Now - started;
-                    core.WriteTelemetry(module, "Information", "Renedring OOXML took " + ts.TotalMilliseconds.ToString("0.0") + "ms");
+                    core.WriteTelemetry(module, "Information", "Rendering OOXML took " + ts.TotalMilliseconds.ToString("0.0") + "ms");
                 }
                 else
                 {

@@ -6,6 +6,7 @@
 // -----------------------------------------------------------------------
 using System;
 using System.IO;
+using System.Linq;
 using System.Xml.Linq;
 using Chem4Word.Api;
 using Chem4Word.Core.Properties;
@@ -99,6 +100,10 @@ namespace Chem4Word.Core {
                 {
                     DateTime started = DateTime.Now;
 
+                    CmlMolecule mol = new CmlMolecule((XElement)documentDepictionOption.MachineUnderstandableOption);
+                    document.WriteTelemetry(module, "Information", "Atoms: " + mol.GetAllAtoms().Count());
+                    document.WriteTelemetry(module, "Information", "Bonds: " + mol.GetAllBonds().Count());
+
                     C4wOptions options = new C4wOptions();
                     options.ColouredAtoms = true;
                     options.ShowHydrogens = true;
@@ -118,7 +123,7 @@ namespace Chem4Word.Core {
                     File.Delete(tempfileName);
 
                     TimeSpan ts = DateTime.Now - started;
-                    document.WriteTelemetry(module, "Information", "Renedring OOXML took " + ts.TotalMilliseconds.ToString("0.0") + "ms");
+                    document.WriteTelemetry(module, "Information", "Rendering OOXML took " + ts.TotalMilliseconds.ToString("0.0") + "ms");
                 }
                 else
                 {
@@ -158,7 +163,7 @@ namespace Chem4Word.Core {
 
         /// <summary>
         ///   Gets or sets back-end Cml. 
-        ///   <see cref = "System.Xml.Linq.XDocument, System.Xml.Linq, Version=3.5.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+        ///   <see cref = "XDocument.Xml.Linq, Version=3.5.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
         /// </summary>
         public XDocument Cml {
             get {

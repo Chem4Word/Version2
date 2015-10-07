@@ -98,6 +98,8 @@ namespace Chem4Word.Core {
             galleryDictionaryManager = new GalleryDictionaryManager();
             documentDictionary = new Dictionary<Document, IChemistryDocument>();
 
+            _telemetry = new Telemetry();
+
             // Check if [LocalApplicationData]\Chem4Word\Chemistry Gallery\Chem4Word.dotx is missing
             // Recover them from Program Folder
             CheckForRecovery();
@@ -107,7 +109,6 @@ namespace Chem4Word.Core {
 
             // Load user setting
             InitialiseUserSettings();
-            _telemetry = new Telemetry();
 
             //Register Events
             wordApp.WindowActivate += ApplicationWindowActivate;
@@ -231,15 +232,12 @@ namespace Chem4Word.Core {
             if (importMediator.Worked()) {
 
                 ContextObject contextObject = Cid.RemoveMoleculeBoldNumberLabels(importMediator.GetContextObject(),
-                                                                                 importMediator.GetContextObject().Cml.
-                                                                                     Root);
+                                                                                 importMediator.GetContextObject().Cml.Root);
 
                 DepictionOption documentDepictionOption = GetPreferedDocumentDepiction(contextObject,
-                                                                                       Setting.
-                                                                                           DocumentPreferedDepiction);
+                                                                                       Setting.DocumentPreferedDepiction);
                 DepictionOption navigatorDepictionOption = GetPreferedNavigatorDepiction(contextObject,
-                                                                                         Setting.
-                                                                                             NavigatorPreferedDepiction);
+                                                                                         Setting.NavigatorPreferedDepiction);
                 ChemistryZoneProperties chemistryZoneProperties = new ChemistryZoneProperties(documentDepictionOption,
                                                                                               navigatorDepictionOption,
                                                                                               true);
@@ -436,6 +434,9 @@ namespace Chem4Word.Core {
                 {
                     DateTime started = DateTime.Now;
 
+                    WriteTelemetry(module, "Information", "Atoms: " + cmlMolecule.GetAllAtoms().Count());
+                    WriteTelemetry(module, "Information", "Bonds: " + cmlMolecule.GetAllBonds().Count());
+
                     C4wOptions options = new C4wOptions();
                     options.ColouredAtoms = true;
                     options.ShowHydrogens = true;
@@ -455,7 +456,7 @@ namespace Chem4Word.Core {
                     File.Delete(tempfileName);
 
                     TimeSpan ts = DateTime.Now - started;
-                    WriteTelemetry(module, "Information", "Renedring OOXML took " + ts.TotalMilliseconds.ToString("0.0") + "ms");
+                    WriteTelemetry(module, "Information", "Rendering OOXML took " + ts.TotalMilliseconds.ToString("0.0") + "ms");
                 }
                 else
                 {
@@ -610,11 +611,16 @@ namespace Chem4Word.Core {
             {
                 if (!string.IsNullOrEmpty(assemblyDirectoryName))
                 {
-                    // If is missing, Recover it.
-                    if (!File.Exists(localAppDataFolder + @"\Chemistry Gallery\Chem4Word.dotx"))
+                    string templateFileName = "Chem4Word2010.dotx";
+                    if (WordVersion() == 2007)
                     {
-                        File.Copy(assemblyDirectoryName + @"\Data\Chem4Word.dotx",
-                                  localAppDataFolder + @"\Chemistry Gallery\Chem4Word.dotx");
+                        templateFileName = "Chem4Word2007.dotx";
+                    }
+                    // If is missing, Recover it.
+                    if (!File.Exists(localAppDataFolder + @"\Chemistry Gallery\" + templateFileName))
+                    {
+                        File.Copy(assemblyDirectoryName + @"\Data\" + templateFileName,
+                                  localAppDataFolder + @"\Chemistry Gallery\" + templateFileName);
                     }
 
                     if (Directory.Exists(assemblyDirectoryName + @"\Data"))
@@ -770,6 +776,10 @@ namespace Chem4Word.Core {
                     {
                         DateTime started = DateTime.Now;
 
+                        CmlMolecule mol = new CmlMolecule((XElement)documentDepictionOption.MachineUnderstandableOption);
+                        WriteTelemetry(module, "Information", "Atoms: " + mol.GetAllAtoms().Count());
+                        WriteTelemetry(module, "Information", "Bonds: " + mol.GetAllBonds().Count());
+
                         C4wOptions options = new C4wOptions();
                         options.ColouredAtoms = true;
                         options.ShowHydrogens = true;
@@ -786,7 +796,7 @@ namespace Chem4Word.Core {
                         File.Delete(tempfileName);
 
                         TimeSpan ts = DateTime.Now - started;
-                        WriteTelemetry(module, "Information", "Renedring OOXML took " + ts.TotalMilliseconds.ToString("0.0") + "ms");
+                        WriteTelemetry(module, "Information", "Rendering OOXML took " + ts.TotalMilliseconds.ToString("0.0") + "ms");
                     }
                     catch (Exception e)
                     {
@@ -961,7 +971,7 @@ namespace Chem4Word.Core {
                 }
                 else
                 {
-                    tcd.Before_JSON = Chem4Word.UI.Converters.Json.InvertY(normal); ;
+                    tcd.Before_JSON = Chem4Word.UI.Converters.Json.InvertY(normal);
                 }
                 #endregion
 
@@ -2011,7 +2021,12 @@ namespace Chem4Word.Core {
             {
                 // Save state of Saved flag
                 bool docWasSaved = wordDoc.Saved;
-                wordDoc.AttachedTemplate = localAppDataFolder + @"\Chemistry Gallery\Chem4Word.dotx";
+                string templateFileName = "Chem4Word2010.dotx";
+                if (WordVersion() == 2007)
+                {
+                    templateFileName = "Chem4Word2007.dotx";
+                }
+                wordDoc.AttachedTemplate = localAppDataFolder + @"\Chemistry Gallery\" + templateFileName;
                 if (docWasSaved)
                 {
                     // Re-instate state of Saved flag

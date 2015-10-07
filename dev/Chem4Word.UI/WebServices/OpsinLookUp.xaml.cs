@@ -82,10 +82,10 @@ namespace Chem4Word.UI.WebServices
             grid.Children.Clear();
         }
 
-        private void ShowResults(XDocument xDocument)
+        private void ShowResults(XDocument xDoc)
         {
-            //reader.Document = converter.Render(xDocument.Root);
-            ContextObject contextObject = new ContextObject(xDocument);
+            //reader.Document = converter.Render(xDoc.Root);
+            ContextObject contextObject = new ContextObject(xDoc);
             
             IEnumerable<DepictionOption> possibleDepictions = Depiction.PossibleDepictionOptions(contextObject);
             DepictionOption chosenDepiction = possibleDepictions.FirstOrDefault();
