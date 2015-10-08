@@ -1,0 +1,19 @@
+<cml:cml convention="conventions:molecular" xmlns:conventions="http://www.xml-cml.org/convention/" xmlns:cml="http://www.xml-cml.org/schema" xmlns:cmlDict="http://www.xml-cml.org/dictionary/cml/" xmlns:nameDict="http://www.xml-cml.org/dictionary/cml/name/">
+  <cml:molecule id="m1">
+    <cml:atomArray>
+      <cml:atom id="a0" elementType="C" x2="279.679491924311" y2="155.9" />
+      <cml:atom id="a1" elementType="C" x2="297" y2="145.9" />
+      <cml:atom id="a2" elementType="O" x2="314.320508075689" y2="155.9" />
+      <cml:atom id="a3" elementType="O" x2="297" y2="125.9" />
+    </cml:atomArray>
+    <cml:bondArray>
+      <cml:bond id="b0" atomRefs2="a0 a1" order="S" />
+      <cml:bond id="b1" atomRefs2="a1 a2" order="S" />
+      <cml:bond id="b2" atomRefs2="a1 a3" order="D" />
+    </cml:bondArray>
+    <cml:name dictRef="nameDict:systematic">acetic acid</cml:name>
+    <cml:formula concise="C 2 H 4 O 2"></cml:formula>
+    <name dictRef="nameDict:inchikey" xmlns="http://www.xml-cml.org/schema">QTBSBXVTEAMEQO-UHFFFAOYSA-N</name>
+    <name dictRef="nameDict:chemspider" xmlns="http://www.xml-cml.org/schema">Acetic acid</name>
+  </cml:molecule>
+</cml:cml>

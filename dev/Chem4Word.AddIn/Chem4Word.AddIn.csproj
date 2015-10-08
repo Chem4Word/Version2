@@ -273,12 +273,24 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <None Include="Chem4WordAddIn.pfx" />
+    <None Include="Data\1c6973ec-ff35-4faa-9521-d6119619d2bb.cml" />
+    <None Include="Data\21f620ca-7d2d-4301-86ab-f0d274be16e1.cml" />
+    <None Include="Data\4bebda7d-d06a-46d0-bc58-f5af0a182b31.cml" />
+    <None Include="Data\53b8e68e-50d1-480e-aff9-3bd5e1a7a683.cml" />
+    <None Include="Data\553e0907-773d-429c-99e6-f29f7b1d9ba9.cml" />
+    <None Include="Data\5744926f-9a47-4e1e-90b9-ffb1a7c448d7.cml" />
+    <None Include="Data\9058322b-78b8-4c49-bbb6-0cb2244ac01d.cml" />
+    <None Include="Data\a2f6a6b2-8f5a-485c-b839-94ea6e9b2bdf.cml" />
     <None Include="Data\Chem4Word2007.dotx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Data\Chem4Word2010.dotx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="Data\d53bc141-0f80-4ecb-990b-ec34a9778cbe.cml" />
+    <None Include="Data\d5e72420-f2c3-4f05-a294-23b3d49c1f02.cml" />
+    <None Include="Data\f771ae6d-4ac3-4bcd-b3a8-a32230db08f2.cml" />
+    <None Include="Data\f9f7d80b-f705-49b1-a86a-8da13f52d6cc.cml" />
     <None Include="EULA\Chemistry Add-in for Word EULA.rtf" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
