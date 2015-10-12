@@ -593,6 +593,7 @@
     <Resource Include="Resources\Images\Select_All.png" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Resources\ChemDoodle\C4W-Version-2010.txt" />
     <Content Include="Resources\ChemDoodle\Chem4Word.css" />
     <Content Include="Resources\ChemDoodle\Chem4Word.js" />
     <Content Include="Resources\ChemDoodle\HotLink-V5.2.3.htm" />
