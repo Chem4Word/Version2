@@ -1185,7 +1185,7 @@ namespace Chem4Word.Core {
                     // User Cancelled edit
                     if (newStructure)
                     {
-                        // ToDo - MAW - Delete the unedited structure
+                        // ToDo - MAW - How to delete the unedited structure
                     }
                 }
             }

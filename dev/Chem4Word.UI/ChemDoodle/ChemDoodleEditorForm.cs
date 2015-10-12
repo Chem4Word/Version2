@@ -103,22 +103,28 @@ namespace Chem4Word.UI.ChemDoodle
 
             string temp = Path.GetTempPath();
 
-            string cssfile = Properties.Resources.Chem4Word_css;
-            File.WriteAllText(Path.Combine(temp, "Chem4Word.css"), cssfile);
-
-            string jsfile = Properties.Resources.Chem4Word_js;
-            File.WriteAllText(Path.Combine(temp, "Chem4Word.js"), jsfile);
-
-            string htmlfile = Properties.Resources.Offline_html;
-            File.WriteAllText(Path.Combine(temp, "Editor.html"), htmlfile);
-
-            Byte[] bytes = Properties.Resources.ChemDoodleWeb_701_zip;
-            Stream stream = new MemoryStream(bytes);
-
-            // NB: Top level of zip file must be the folder ChemDoodleWeb
-            using (ZipFile zip = ZipFile.Read(stream))
+            if (!File.Exists(Path.Combine(temp, "C4W-Version-2010.txt")))
             {
-                zip.ExtractAll(temp, ExtractExistingFileAction.OverwriteSilently);
+                string markerfile = Properties.Resources.C4W_Version_2010_txt;
+                File.WriteAllText(Path.Combine(temp, "C4W-Version-2010.txt"), markerfile);
+
+                string cssfile = Properties.Resources.Chem4Word_css;
+                File.WriteAllText(Path.Combine(temp, "Chem4Word.css"), cssfile);
+
+                string jsfile = Properties.Resources.Chem4Word_js;
+                File.WriteAllText(Path.Combine(temp, "Chem4Word.js"), jsfile);
+
+                string htmlfile = Properties.Resources.Offline_html;
+                File.WriteAllText(Path.Combine(temp, "Editor.html"), htmlfile);
+
+                Byte[] bytes = Properties.Resources.ChemDoodleWeb_701_zip;
+                Stream stream = new MemoryStream(bytes);
+
+                // NB: Top level of zip file must be the folder ChemDoodleWeb
+                using (ZipFile zip = ZipFile.Read(stream))
+                {
+                    zip.ExtractAll(temp, ExtractExistingFileAction.OverwriteSilently);
+                }
             }
 
             browser.Navigate(Path.Combine(temp, "Editor.html"));
