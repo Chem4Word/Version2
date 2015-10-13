@@ -198,7 +198,7 @@ namespace Chem4Word.Core
                     File.Delete(tempfileName);
 
                     TimeSpan ts = DateTime.Now - started;
-                    core.WriteTelemetry(module, "Information", "Rendering OOXML took " + ts.TotalMilliseconds.ToString("0.0") + "ms");
+                    core.WriteTelemetry(module, "Information", "Rendering OOXML took " + ts.TotalMilliseconds.ToString("#,##0.0") + "ms");
                 }
                 else
                 {
