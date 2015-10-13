@@ -20,7 +20,6 @@ namespace Chem4Word.Common
         private bool _systemInfoSent = false;
 
         private SystemHelper _helper;
-        private AzureStorage _storage;
 
         public Telemetry()
         {
@@ -28,7 +27,6 @@ namespace Chem4Word.Common
             Debug.WriteLine(_helper.MachineId);
             Debug.WriteLine(_helper.SystemOs);
             Debug.WriteLine(_helper.WordProduct);
-            _storage = new AzureStorage();
         }
 
         private void WriteSystemInfo()
@@ -39,12 +37,13 @@ namespace Chem4Word.Common
             try
             {
                 // Write OS
+                AzureStorage storage = new AzureStorage();
                 MessageEntity me = new MessageEntity();
                 me.MachineId = _helper.MachineId;
                 me.Operation = "StartUp";
                 me.Level = "Information";
                 me.Message = _helper.SystemOs;
-                result1 = _storage.WriteMessage(me);
+                result1 = storage.WriteMessage(me);
             }
             catch (Exception ex)
             {
@@ -54,12 +53,13 @@ namespace Chem4Word.Common
             try
             {
                 // Write Word version
+                AzureStorage storage = new AzureStorage();
                 MessageEntity me = new MessageEntity();
                 me.MachineId = _helper.MachineId;
                 me.Operation = "StartUp";
                 me.Level = "Information";
                 me.Message = _helper.WordProduct;
-                result2 = _storage.WriteMessage(me);
+                result2 = storage.WriteMessage(me);
             }
             catch (Exception ex)
             {
@@ -71,6 +71,7 @@ namespace Chem4Word.Common
 
         public void Write(string operation, string level, string message)
         {
+            AzureStorage storage = new AzureStorage();
             if (!_systemInfoSent)
             {
                 WriteSystemInfo();
@@ -80,7 +81,7 @@ namespace Chem4Word.Common
             me.Operation = operation;
             me.Level = level;
             me.Message = message;
-            _storage.WriteMessage(me);
+            storage.WriteMessage(me);
         }
 
         public int WordVersion()

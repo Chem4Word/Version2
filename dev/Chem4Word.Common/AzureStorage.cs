@@ -9,6 +9,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Data.Services.Client;
 using System.Linq;
 using System.Text;
 using Microsoft.WindowsAzure;
@@ -59,7 +60,9 @@ namespace Chem4Word.Common
 
                 var serviceContext = cloudTableClient.GetDataServiceContext();
                 serviceContext.AddObject(tableName, messageEntity);
-                serviceContext.SaveChanges();
+                //serviceContext.SaveChanges();
+                serviceContext.BeginSaveChangesWithRetries(SaveChangesOptions.Batch,
+                (asyncResult => serviceContext.EndSaveChangesWithRetries(asyncResult)), null);
             }
             catch (Exception ex)
             {
