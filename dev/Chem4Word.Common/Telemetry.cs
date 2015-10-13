@@ -8,10 +8,7 @@
 // -----------------------------------------------------------------------
 
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
 
 namespace Chem4Word.Common
 {
@@ -71,11 +68,12 @@ namespace Chem4Word.Common
 
         public void Write(string operation, string level, string message)
         {
-            AzureStorage storage = new AzureStorage();
             if (!_systemInfoSent)
             {
                 WriteSystemInfo();
             }
+
+            AzureStorage storage = new AzureStorage();
             MessageEntity me = new MessageEntity();
             me.MachineId = _helper.MachineId;
             me.Operation = operation;

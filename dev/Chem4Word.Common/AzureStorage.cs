@@ -60,9 +60,15 @@ namespace Chem4Word.Common
 
                 TableServiceContext serviceContext = cloudTableClient.GetDataServiceContext();
                 serviceContext.AddObject(tableName, messageEntity);
-                serviceContext.SaveChanges();
+
+                //serviceContext.SaveChanges();
+                serviceContext.SaveChangesWithRetries();
+
+                // Both of the following randomly generate errors in claaback ???
                 //serviceContext.BeginSaveChangesWithRetries(SaveChangesOptions.Batch,
                 //    (asyncResult => serviceContext.EndSaveChangesWithRetries(asyncResult)), null);
+                //serviceContext.BeginSaveChanges(SaveChangesOptions.Batch,
+                //    (asyncResult => serviceContext.EndSaveChanges(asyncResult)), null);
             }
             catch (Exception ex)
             {
