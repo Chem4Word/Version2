@@ -62,7 +62,7 @@ namespace Chem4Word.Common
                 serviceContext.AddObject(tableName, messageEntity);
 
                 //serviceContext.SaveChanges();
-                serviceContext.SaveChangesWithRetries();
+                //serviceContext.SaveChangesWithRetries();
 
                 // Both of the following randomly generate errors in callback ???
                 //serviceContext.BeginSaveChangesWithRetries(SaveChangesOptions.Batch, 
@@ -70,10 +70,10 @@ namespace Chem4Word.Common
                 //serviceContext.BeginSaveChanges(SaveChangesOptions.Batch,
                 //    (asyncResult => serviceContext.EndSaveChanges(asyncResult)), null);
 
-                //IAsyncResult asyncResult = serviceContext.BeginSaveChangesWithRetries(SaveChangesOptions.Batch,
-                //    null, null);
-                //DataServiceResponse response = serviceContext.EndSaveChangesWithRetries(asyncResult);
-                //int statusCode = response.BatchStatusCode;
+                IAsyncResult asyncResult = serviceContext.BeginSaveChangesWithRetries(SaveChangesOptions.Batch,
+                    null, null);
+                DataServiceResponse response = serviceContext.EndSaveChangesWithRetries(asyncResult);
+                int statusCode = response.BatchStatusCode;
             }
             catch (Exception ex)
             {
