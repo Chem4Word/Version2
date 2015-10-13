@@ -64,11 +64,16 @@ namespace Chem4Word.Common
                 //serviceContext.SaveChanges();
                 serviceContext.SaveChangesWithRetries();
 
-                // Both of the following randomly generate errors in claaback ???
-                //serviceContext.BeginSaveChangesWithRetries(SaveChangesOptions.Batch,
+                // Both of the following randomly generate errors in callback ???
+                //serviceContext.BeginSaveChangesWithRetries(SaveChangesOptions.Batch, 
                 //    (asyncResult => serviceContext.EndSaveChangesWithRetries(asyncResult)), null);
                 //serviceContext.BeginSaveChanges(SaveChangesOptions.Batch,
                 //    (asyncResult => serviceContext.EndSaveChanges(asyncResult)), null);
+
+                //IAsyncResult asyncResult = serviceContext.BeginSaveChangesWithRetries(SaveChangesOptions.Batch,
+                //    null, null);
+                //DataServiceResponse response = serviceContext.EndSaveChangesWithRetries(asyncResult);
+                //int statusCode = response.BatchStatusCode;
             }
             catch (Exception ex)
             {

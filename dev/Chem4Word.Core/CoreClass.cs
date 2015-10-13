@@ -456,7 +456,7 @@ namespace Chem4Word.Core {
                     File.Delete(tempfileName);
 
                     TimeSpan ts = DateTime.Now - started;
-                    WriteTelemetry(module, "Information", "Rendering OOXML took " + ts.TotalMilliseconds.ToString("0.0") + "ms");
+                    WriteTelemetry(module, "Information", "Rendering OOXML took " + ts.TotalMilliseconds.ToString("#,##0.0") + "ms");
                 }
                 else
                 {
@@ -796,7 +796,7 @@ namespace Chem4Word.Core {
                         File.Delete(tempfileName);
 
                         TimeSpan ts = DateTime.Now - started;
-                        WriteTelemetry(module, "Information", "Rendering OOXML took " + ts.TotalMilliseconds.ToString("0.0") + "ms");
+                        WriteTelemetry(module, "Information", "Rendering OOXML took " + ts.TotalMilliseconds.ToString("#,##0.0") + "ms");
                     }
                     catch (Exception e)
                     {
@@ -1178,7 +1178,7 @@ namespace Chem4Word.Core {
                     XmlNode xmlNode = docAfter.SelectSingleNode("//cml:molecule", nsmgr1);
                     XElement xElement = XElement.Parse(xmlNode.OuterXml);
                     CmlMolecule mol = new CmlMolecule(xElement);
-                    _telemetry.Write(module, "Information", "Median Bond Length: " + mol.GetMedianBondLength());
+                    _telemetry.Write(module, "Information", "Bond Lengths; Median: " + mol.GetMedianBondLength() + " Average: " + mol.GetAverageBondLength());
                 }
                 else
                 {
@@ -1277,7 +1277,7 @@ namespace Chem4Word.Core {
             }
 
             TimeSpan ts = DateTime.Now - started;
-            _telemetry.Write(module, "Information", "Duration " + ts.TotalMilliseconds + "ms");
+            _telemetry.Write(module, "Information", "Duration " + ts.TotalMilliseconds.ToString("##,###.0") + "ms");
 
             return result;
         }
@@ -1306,7 +1306,7 @@ namespace Chem4Word.Core {
             }
 
             TimeSpan ts = DateTime.Now - started;
-            _telemetry.Write(module, "Information", "Duration " + ts.TotalMilliseconds + "ms");
+            _telemetry.Write(module, "Information", "Duration " + ts.TotalMilliseconds.ToString("##,###.0") + "ms");
 
             return result;
         }
