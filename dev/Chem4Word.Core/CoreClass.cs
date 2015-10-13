@@ -1587,11 +1587,9 @@ namespace Chem4Word.Core {
 
 
             //Load dictionary
-         
-                _termDictionary = new TermDictionaryManager(assemblyDirectoryName + @"\SmartTag");
-                _termDictionary.LoadLocalDictionary(localAppDataFolder + @"\SmartTag");
-            
-            
+            _termDictionary = new TermDictionaryManager(assemblyDirectoryName + @"\SmartTag");
+            _termDictionary.LoadLocalDictionary(localAppDataFolder + @"\SmartTag");
+
             Recognize(latex, 0, 0, true);
             selectedMatch = _zoneMatches.Find(match => match.Text == latex);
             if (string.IsNullOrEmpty(Convert.ToString(selectedMatch)))
@@ -2128,12 +2126,11 @@ namespace Chem4Word.Core {
                     //Temp workaround for delete
                     newContentControl.Title = "CONTENTCONTROL_FLAGGED_FOR_DELETE";
 
-                    _timerToDeleteContexCtrl = new Timer(300);
+                    _timerToDeleteContexCtrl = new Timer(3000);
                     _timerToDeleteContexCtrl.Elapsed += new ElapsedEventHandler(_timerToDeleteContexCtrl_Elapsed);
                     controlToTimer = newContentControl;
                     _timerToDeleteContexCtrl.Start();
 
-                    
                     AddNewContextObjectToDocument(range, contextObject,
                                                   chemistryZoneProperties);
                 }
@@ -2145,16 +2142,26 @@ namespace Chem4Word.Core {
 
         void _timerToDeleteContexCtrl_Elapsed(object sender, ElapsedEventArgs e)
         {
+            Debug.WriteLine("_timerToDeleteContexCtrl_Elapsed()");
             try
             {
-                foreach (ContentControl item in wordApp.ActiveDocument.ContentControls)
+                if (wordApp != null && wordApp.ActiveDocument != null)
                 {
-                    if (item.Title.CompareTo("CONTENTCONTROL_FLAGGED_FOR_DELETE") == 0)
-                        item.Delete(true);
+                    foreach (ContentControl item in wordApp.ActiveDocument.ContentControls)
+                    {
+                        if (item.Title.CompareTo("CONTENTCONTROL_FLAGGED_FOR_DELETE") == 0)
+                        {
+                            Debug.WriteLine("Deleting temporary Content Control " + item.ID);
+                            item.Delete(true);
+                        }
+                    }
                 }
                 _timerToDeleteContexCtrl.Elapsed -= _timerToDeleteContexCtrl_Elapsed;
             }
-            catch { }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Exception in _timerToDeleteContexCtrl_Elapsed() - " + ex.Message);
+            }
         }
 
         /// <summary>
