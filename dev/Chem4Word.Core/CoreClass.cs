@@ -1186,6 +1186,7 @@ namespace Chem4Word.Core {
                     if (newStructure)
                     {
                         // ToDo - MAW - How to delete the unedited structure
+                        selectedZone.ContentControl.Delete(true);
                     }
                 }
             }

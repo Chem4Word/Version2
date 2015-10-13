@@ -58,11 +58,11 @@ namespace Chem4Word.Common
                 CloudStorageAccount storageAccount = new CloudStorageAccount(new StorageCredentialsAccountAndKey(accountName, accountKey), true);
                 CloudTableClient cloudTableClient = storageAccount.CreateCloudTableClient();
 
-                var serviceContext = cloudTableClient.GetDataServiceContext();
+                TableServiceContext serviceContext = cloudTableClient.GetDataServiceContext();
                 serviceContext.AddObject(tableName, messageEntity);
-                //serviceContext.SaveChanges();
-                serviceContext.BeginSaveChangesWithRetries(SaveChangesOptions.Batch,
-                (asyncResult => serviceContext.EndSaveChangesWithRetries(asyncResult)), null);
+                serviceContext.SaveChanges();
+                //serviceContext.BeginSaveChangesWithRetries(SaveChangesOptions.Batch,
+                //    (asyncResult => serviceContext.EndSaveChangesWithRetries(asyncResult)), null);
             }
             catch (Exception ex)
             {
