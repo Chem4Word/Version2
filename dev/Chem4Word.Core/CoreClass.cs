@@ -253,7 +253,8 @@ namespace Chem4Word.Core {
                 if (WordVersion() > 2007 && averageBondLength < 5)
                 {
                     mol.ScaleToAverageBondLength(20);
-                    _telemetry.Write(module, "Information", "Changed average bond length to 20");
+                    _telemetry.Write(module, "Information",
+                        "Changed average bond length from " + averageBondLength + " to 20");
                 }
 
                 Range range = wordApp.ActiveDocument.ActiveWindow.Selection.Range;
@@ -2233,7 +2234,8 @@ namespace Chem4Word.Core {
                     if (WordVersion() > 2007 && averageBondLength < 5)
                     {
                         mol.ScaleToAverageBondLength(20);
-                        _telemetry.Write(module, "Information", "Changed average bond length to 20");
+                        _telemetry.Write(module, "Information",
+                            "Changed average bond length from " + averageBondLength + " to 20");
                     }
 
                     chemistryZone = AddNewContextObjectToDocument(range, contextObject,
@@ -2275,7 +2277,8 @@ namespace Chem4Word.Core {
                     if (WordVersion() > 2007 && averageBondLength < 5)
                     {
                         mol.ScaleToAverageBondLength(20);
-                        _telemetry.Write(module, "Information", "Changed average bond length to 20");
+                        _telemetry.Write(module, "Information",
+                            "Changed average bond length from " + averageBondLength + " to 20");
                     }
 
                     chemistryZone = AddNewContextObjectToDocument(range, contextObject,
