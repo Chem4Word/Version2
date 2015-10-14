@@ -89,7 +89,7 @@ namespace Numbo.Cml
             get
             {
                 return (DelegateElement.Attribute(CmlAttribute.Max) != null)
-                           ? SafeDoubleParser.Parse(DelegateElement.Attribute(CmlAttribute.Max).Value)
+                           ? SafeDouble.Parse(DelegateElement.Attribute(CmlAttribute.Max).Value)
                            : Double.NaN;
             }
             set { DelegateElement.SetAttributeValue(CmlAttribute.Max, value.ToString(CultureInfo.InvariantCulture)); }
@@ -100,7 +100,7 @@ namespace Numbo.Cml
             get
             {
                 return (DelegateElement.Attribute(CmlAttribute.Min) != null)
-                           ? SafeDoubleParser.Parse(DelegateElement.Attribute(CmlAttribute.Min).Value)
+                           ? SafeDouble.Parse(DelegateElement.Attribute(CmlAttribute.Min).Value)
                            : Double.NaN;
             }
             set { DelegateElement.SetAttributeValue(CmlAttribute.Min, value.ToString(CultureInfo.InvariantCulture)); }

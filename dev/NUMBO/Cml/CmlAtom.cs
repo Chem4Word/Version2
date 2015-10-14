@@ -69,7 +69,7 @@ namespace Numbo.Cml
                 return (countAttribute == null || countAttribute.Value == null ||
                         string.Empty.Equals(countAttribute.Value))
                     ? (double?) null
-                    : SafeDoubleParser.Parse(countAttribute.Value);
+                    : SafeDouble.Parse(countAttribute.Value);
             }
             set { DelegateElement.SetAttributeValue(CmlAttribute.Count, value.ToString()); }
         }
@@ -233,7 +233,7 @@ namespace Numbo.Cml
             return (att == null || att.Value == null || string.Empty.Equals(att.Value))
                        ?
                            (double?) null
-                       : SafeDoubleParser.Parse(att.Value);
+                       : SafeDouble.Parse(att.Value);
         }
 
         private void SetCoord(string attName, double value)

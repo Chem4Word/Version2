@@ -150,7 +150,7 @@ namespace Chem4Word.UI.ChemDoodle
             
             if (obj != null)
             {
-                double averageBondLength = SafeDoubleParser.Parse(obj.ToString());
+                double averageBondLength = SafeDouble.Parse(obj.ToString());
 
                 if (averageBondLength < 5)
                 {
@@ -301,7 +301,7 @@ namespace Chem4Word.UI.ChemDoodle
                 if (validFileType)
                 {
                     object obj = ExecuteJavaScript("GetAverageBondLength");
-                    double averageBondLength = SafeDoubleParser.Parse(obj.ToString());
+                    double averageBondLength = SafeDouble.Parse(obj.ToString());
 
                     if (averageBondLength < 5)
                     {

@@ -1794,8 +1794,8 @@ namespace Numbo.Coa
                 /// TODO hack - schema specifies that x2 and y2 must be doubles 
                 /// ideally the Linq system should automatically convert from string
                 /// this may mean defining how CMLElements should serialise and deserialize to Linq
-                double xval = SafeDoubleParser.Parse(x2.Value);
-                double yval = SafeDoubleParser.Parse(y2.Value);
+                double xval = SafeDouble.Parse(x2.Value);
+                double yval = SafeDouble.Parse(y2.Value);
                 if ((xval.Equals(double.NaN)) || (yval.Equals(double.NaN)))
                 {
                     throw new ArgumentException("Element has coordinate that is not a number.");
