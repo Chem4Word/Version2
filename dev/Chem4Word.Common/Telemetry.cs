@@ -31,16 +31,16 @@ namespace Chem4Word.Common
             bool result1 = false;
             bool result2 = false;
 
+            AzureStorage storage = new AzureStorage();
             try
             {
                 // Write OS
-                AzureStorage storage = new AzureStorage();
-                MessageEntity me = new MessageEntity();
-                me.MachineId = _helper.MachineId;
-                me.Operation = "StartUp";
-                me.Level = "Information";
-                me.Message = _helper.SystemOs;
-                result1 = storage.WriteMessage(me);
+                MessageEntity me1 = new MessageEntity();
+                me1.MachineId = _helper.MachineId;
+                me1.Operation = "StartUp";
+                me1.Level = "Information";
+                me1.Message = _helper.SystemOs;
+                result1 = storage.WriteMessage(me1);
             }
             catch (Exception ex)
             {
@@ -50,13 +50,12 @@ namespace Chem4Word.Common
             try
             {
                 // Write Word version
-                AzureStorage storage = new AzureStorage();
-                MessageEntity me = new MessageEntity();
-                me.MachineId = _helper.MachineId;
-                me.Operation = "StartUp";
-                me.Level = "Information";
-                me.Message = _helper.WordProduct;
-                result2 = storage.WriteMessage(me);
+                MessageEntity me2 = new MessageEntity();
+                me2.MachineId = _helper.MachineId;
+                me2.Operation = "StartUp";
+                me2.Level = "Information";
+                me2.Message = _helper.WordProduct;
+                result2 = storage.WriteMessage(me2);
             }
             catch (Exception ex)
             {
