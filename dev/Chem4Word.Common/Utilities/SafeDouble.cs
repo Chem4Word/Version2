@@ -9,10 +9,11 @@
 
 using System;
 using System.Globalization;
+using System.Xml;
 
 namespace Chem4Word.Common.Utilities
 {
-    public static class SafeDoubleParser
+    public static class SafeDouble
     {
         public static double Parse(string source)
         {
@@ -20,6 +21,18 @@ namespace Chem4Word.Common.Utilities
 
             var fixedSource = source.Replace(separatorChar, '.');
             var result = Convert.ToDouble(fixedSource, CultureInfo.InvariantCulture);
+
+            return result;
+        }
+
+        public static string AsString(double? source, string format)
+        {
+            string result = "{null}";
+
+            if (source != null)
+            {
+                result = source.Value.ToString(format);
+            }
 
             return result;
         }

@@ -37,7 +37,7 @@ namespace Numbo.Cml
             get
             {
                 return (DelegateElement.Attribute(CmlAttribute.XValue) != null)
-                           ? SafeDoubleParser.Parse(DelegateElement.Attribute(CmlAttribute.XValue).Value)
+                           ? SafeDouble.Parse(DelegateElement.Attribute(CmlAttribute.XValue).Value)
                            : Double.NaN;
             }
             set { DelegateElement.SetAttributeValue(CmlAttribute.XValue, value.ToString(CultureInfo.InvariantCulture)); }
@@ -48,7 +48,7 @@ namespace Numbo.Cml
             get
             {
                 return (DelegateElement.Attribute(CmlAttribute.YValue) != null)
-                           ? SafeDoubleParser.Parse(DelegateElement.Attribute(CmlAttribute.YValue).Value)
+                           ? SafeDouble.Parse(DelegateElement.Attribute(CmlAttribute.YValue).Value)
                            : Double.NaN;
             }
             set { DelegateElement.SetAttributeValue(CmlAttribute.YValue, value.ToString(CultureInfo.InvariantCulture)); }
@@ -59,7 +59,7 @@ namespace Numbo.Cml
             get
             {
                 return (DelegateElement.Attribute(CmlAttribute.XMax) != null)
-                           ? SafeDoubleParser.Parse(DelegateElement.Attribute(CmlAttribute.XMax).Value)
+                           ? SafeDouble.Parse(DelegateElement.Attribute(CmlAttribute.XMax).Value)
                            : Double.NaN;
             }
             set { DelegateElement.SetAttributeValue(CmlAttribute.XMax, value.ToString(CultureInfo.InvariantCulture)); }
@@ -70,7 +70,7 @@ namespace Numbo.Cml
             get
             {
                 return (DelegateElement.Attribute(CmlAttribute.XMin) != null)
-                           ? SafeDoubleParser.Parse(DelegateElement.Attribute(CmlAttribute.XMin).Value)
+                           ? SafeDouble.Parse(DelegateElement.Attribute(CmlAttribute.XMin).Value)
                            : Double.NaN;
             }
             set { DelegateElement.SetAttributeValue(CmlAttribute.XMin, value.ToString(CultureInfo.InvariantCulture)); }

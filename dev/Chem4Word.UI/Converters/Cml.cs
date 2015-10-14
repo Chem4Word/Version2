@@ -64,15 +64,15 @@ namespace Chem4Word.UI.Converters
                         if (string.IsNullOrEmpty(z3))
                         {
                             // 2D co-ordinates supplied
-                            jAtom.Add(new JProperty("x", SafeDoubleParser.Parse(x2)));
-                            jAtom.Add(new JProperty("y", SafeDoubleParser.Parse(y2)));
+                            jAtom.Add(new JProperty("x", SafeDouble.Parse(x2)));
+                            jAtom.Add(new JProperty("y", SafeDouble.Parse(y2)));
                         }
                         else
                         {
                             // 3D co-ordinates supplied
-                            jAtom.Add(new JProperty("x", SafeDoubleParser.Parse(x3)));
-                            jAtom.Add(new JProperty("y", SafeDoubleParser.Parse(y3)));
-                            jAtom.Add(new JProperty("z", SafeDoubleParser.Parse(z3)));
+                            jAtom.Add(new JProperty("x", SafeDouble.Parse(x3)));
+                            jAtom.Add(new JProperty("y", SafeDouble.Parse(y3)));
+                            jAtom.Add(new JProperty("z", SafeDouble.Parse(z3)));
                         }
 
                         if (!atomLabel.Equals("C"))

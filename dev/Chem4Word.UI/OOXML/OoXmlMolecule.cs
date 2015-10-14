@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Windows;
 using System.Xml;
 using System.Xml.Linq;
@@ -29,7 +30,7 @@ namespace Chem4Word.UI.OOXML
         private Rect m_canvasExtents;
         private List<AtomLabelCharacter> m_AtomLabelCharacters;
         private List<BondLine> m_BondLines;
-        private SortedDictionary<string, Ring> m_rings;
+        //private SortedDictionary<string, Ring> m_rings;
         private C4wOptions m_options;
 
         public OoXmlMolecule(string cml, C4wOptions options)
@@ -69,7 +70,7 @@ namespace Chem4Word.UI.OOXML
             m_options = options;
             m_AtomLabelCharacters = new List<AtomLabelCharacter>();
             m_BondLines = new List<BondLine>();
-            m_rings = new SortedDictionary<string, Ring>();
+            //m_rings = new SortedDictionary<string, Ring>();
 
             //int i = 0;
             //foreach (CmlBond bond in m_bonds)
@@ -105,10 +106,11 @@ namespace Chem4Word.UI.OOXML
         public Run GenerateRun()
         {
             Run run1 = new Run();
-
             //try
             //{
 
+                Debug.WriteLine("OoXmlMolecule.GenerateRun() Starting Step 1");
+                DateTime started = DateTime.Now;
                 #region Step 1 - Generate Atom Labels
 
                 AtomRenderer ar = new AtomRenderer(m_canvasExtents, m_AtomLabelCharacters, ref m_ooxmlId);
@@ -121,7 +123,11 @@ namespace Chem4Word.UI.OOXML
                 }
 
                 #endregion
+                TimeSpan ts = DateTime.Now - started;
+                Debug.WriteLine("Elapsed time " + ts.TotalMilliseconds.ToString("##,##0.0") + "ms");
 
+                Debug.WriteLine("OoXmlMolecule.GenerateRun() Starting Step 2");
+                started = DateTime.Now;
                 #region Step 2 - Generate Bond Lines
 
                 BondRenderer br = new BondRenderer(m_canvasExtents, m_BondLines, ref m_ooxmlId, m_medianBondLength);
@@ -131,7 +137,11 @@ namespace Chem4Word.UI.OOXML
                     br.CreateBondLines(bond);
                 }
                 #endregion
+                ts = DateTime.Now - started;
+                Debug.WriteLine("Elapsed time " + ts.TotalMilliseconds.ToString("##,##0.0") + "ms");
 
+                Debug.WriteLine("OoXmlMolecule.GenerateRun() Starting Step 3");
+                started = DateTime.Now;
                 #region Step 3 - Increase canvas size
                 // to accomodate extra space required by label characters
 
@@ -159,7 +169,11 @@ namespace Chem4Word.UI.OOXML
                 //Debug.WriteLine(m_canvasExtents);
 
                 #endregion
+                ts = DateTime.Now - started;
+                Debug.WriteLine("Elapsed time " + ts.TotalMilliseconds.ToString("##,##0.0") + "ms");
 
+                Debug.WriteLine("OoXmlMolecule.GenerateRun() Starting Step 4");
+                started = DateTime.Now;
                 #region Step 4 - Shrink bond lines
                 // so that they do not overlap label characters
 
@@ -233,7 +247,11 @@ namespace Chem4Word.UI.OOXML
                 }
 
                 #endregion
+                ts = DateTime.Now - started;
+                Debug.WriteLine("Elapsed time " + ts.TotalMilliseconds.ToString("##,##0.0") + "ms");
 
+                Debug.WriteLine("OoXmlMolecule.GenerateRun() Starting Step 5");
+                started = DateTime.Now;
                 #region Step 5 - Create main OoXml drawing objects
 
                 DocumentFormat.OpenXml.Wordprocessing.Drawing drawing1 = new DocumentFormat.OpenXml.Wordprocessing.Drawing();
@@ -245,7 +263,11 @@ namespace Chem4Word.UI.OOXML
                 Wp.Inline inline1 = CreateInline(graphicData1, wordprocessingGroup1);
 
                 #endregion
+                ts = DateTime.Now - started;
+                Debug.WriteLine("Elapsed time " + ts.TotalMilliseconds.ToString("##,##0.0") + "ms");
 
+                Debug.WriteLine("OoXmlMolecule.GenerateRun() Starting Step 6");
+                started = DateTime.Now;
                 #region Step 6 - Create and append OoXml objects for Atom Labels
 
                 ar = new AtomRenderer(m_canvasExtents, m_AtomLabelCharacters, ref m_ooxmlId);
@@ -255,8 +277,12 @@ namespace Chem4Word.UI.OOXML
                 }
 
                 #endregion
+                ts = DateTime.Now - started;
+                Debug.WriteLine("Elapsed time " + ts.TotalMilliseconds.ToString("##,##0.0") + "ms");
 
-                #region Step 7 - Create and append OoXml objects for Hash and Wedge Bond Lines
+                Debug.WriteLine("OoXmlMolecule.GenerateRun() Starting Step 7");
+                started = DateTime.Now;
+                #region Step 7 - Create and append OoXml objects for Bond Lines
 
                 br = new BondRenderer(m_canvasExtents, m_BondLines, ref m_ooxmlId, m_medianBondLength);
                 foreach (BondLine bl in m_BondLines)
@@ -274,7 +300,11 @@ namespace Chem4Word.UI.OOXML
                 }
 
                 #endregion
+                ts = DateTime.Now - started;
+                Debug.WriteLine("Elapsed time " + ts.TotalMilliseconds.ToString("##,##0.0") + "ms");
 
+                Debug.WriteLine("OoXmlMolecule.GenerateRun() Starting Step 8");
+                started = DateTime.Now;
                 #region Step 8 - Append OoXml drawing objects to OoXml run object
 
                 graphicData1.Append(wordprocessingGroup1);
@@ -284,8 +314,9 @@ namespace Chem4Word.UI.OOXML
                 run1.Append(drawing1);
 
                 #endregion
-
-            //}
+                ts = DateTime.Now - started;
+                Debug.WriteLine("Elapsed time " + ts.TotalMilliseconds.ToString("##,##0.0") + "ms");
+                //}
             //catch (Exception ex)
             //{
             //    Debug.WriteLine(ex.Message);

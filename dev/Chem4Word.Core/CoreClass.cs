@@ -47,6 +47,7 @@ using System.Timers;
 using Chem4Word.UI.ChemDoodle;
 using System.Net;
 using Chem4Word.Common;
+using Chem4Word.Common.Utilities;
 using Chem4Word.UI.Converters;
 using Chem4Word.UI.OOXML;
 
@@ -247,14 +248,17 @@ namespace Chem4Word.Core {
 
                 if (!fileName.Equals(tempCmlFileName))
                 {
-                    _telemetry.Write(module, "Information", "Bond Lengths; Median: " + mol.GetMedianBondLength() + " Average: " + averageBondLength);
+                    _telemetry.Write(module, "Information", "Bond Lengths; Median: "
+                        + SafeDouble.AsString(mol.GetMedianBondLength(), "#0.000")
+                        + " Average: " + SafeDouble.AsString(averageBondLength, "#0.000"));
                 }
 
                 if (WordVersion() > 2007 && averageBondLength < 5)
                 {
                     mol.ScaleToAverageBondLength(20);
                     _telemetry.Write(module, "Information",
-                        "Changed average bond length from " + averageBondLength + " to 20");
+                        "Changed average bond length from "
+                        + SafeDouble.AsString(averageBondLength, "#0.000") + " to 20");
                 }
 
                 Range range = wordApp.ActiveDocument.ActiveWindow.Selection.Range;
@@ -448,7 +452,10 @@ namespace Chem4Word.Core {
                     control = wordApp.ActiveDocument.ContentControls.Add(
                         WdContentControlType.wdContentControlRichText, ref missing);
 
+                    DateTime started2 = DateTime.Now;
                     control.Range.InsertFile(tempfileName, bookmarkName);
+                    TimeSpan ts2 = DateTime.Now - started2;
+                    WriteTelemetry(module, "Information", "Range.InsertFile took " + ts2.TotalMilliseconds.ToString("#,##0.0") + "ms");
 
                     if (wordApp.ActiveDocument.Bookmarks.Exists(bookmarkName))
                     {
@@ -788,7 +795,10 @@ namespace Chem4Word.Core {
                         string bookmarkName = "C4W_" + guidString;
                         string tempfileName = OoXmlFile.CreateFromCml(contextObject.Cml.ToString(), guidString, options);
 
+                        DateTime started2 = DateTime.Now;
                         control.Range.InsertFile(tempfileName, bookmarkName);
+                        TimeSpan ts2 = DateTime.Now - started2;
+                        WriteTelemetry(module, "Information", "Range.InsertFile took " + ts2.TotalMilliseconds.ToString("#,##0.0") + "ms");
 
                         if (wordApp.ActiveDocument.Bookmarks.Exists(bookmarkName))
                         {
@@ -1179,7 +1189,9 @@ namespace Chem4Word.Core {
                     XmlNode xmlNode = docAfter.SelectSingleNode("//cml:molecule", nsmgr1);
                     XElement xElement = XElement.Parse(xmlNode.OuterXml);
                     CmlMolecule mol = new CmlMolecule(xElement);
-                    _telemetry.Write(module, "Information", "Bond Lengths; Median: " + mol.GetMedianBondLength() + " Average: " + mol.GetAverageBondLength());
+                    _telemetry.Write(module, "Information", "Bond Lengths; Median: "
+                        + SafeDouble.AsString(mol.GetMedianBondLength(), "#0.000")
+                        + " Average: " + SafeDouble.AsString(mol.GetAverageBondLength(), "#0.000"));
                 }
                 else
                 {

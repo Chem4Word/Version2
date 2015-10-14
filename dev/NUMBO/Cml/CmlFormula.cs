@@ -65,7 +65,7 @@ namespace Numbo.Cml
                         string.Empty.Equals(countAttribute.Value))
                            ?
                                (double?) null
-                           : SafeDoubleParser.Parse(countAttribute.Value);
+                           : SafeDouble.Parse(countAttribute.Value);
             }
             set { DelegateElement.SetAttributeValue(CmlAttribute.Count, value.ToString()); }
         }

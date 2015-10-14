@@ -189,7 +189,10 @@ namespace Chem4Word.Core
                     contentControl =
                         WordDocument.ContentControls.Add(WdContentControlType.wdContentControlRichText,
                             ref missing);
+                    DateTime started2 = DateTime.Now;
                     contentControl.Range.InsertFile(tempfileName, bookmarkName);
+                    TimeSpan ts2 = DateTime.Now - started2;
+                    core.WriteTelemetry(module, "Information", "Range.InsertFile took " + ts2.TotalMilliseconds.ToString("#,##0.0") + "ms");
 
                     if (WordDocument.Bookmarks.Exists(bookmarkName))
                     {
