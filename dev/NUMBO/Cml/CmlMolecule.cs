@@ -104,7 +104,10 @@ namespace Numbo.Cml
             {
                 cloned.AddBond(bond);
             }
-            cloned.ScaleToAverageBondLength(scale);
+            if (this.GetAllBonds().Count > 0 && scale > 0)
+            {
+                cloned.ScaleToAverageBondLength(scale);
+            }
             //if (invertY)
             //{
             //    foreach (CmlAtom atom in cloned.GetAtoms())
@@ -780,20 +783,23 @@ namespace Numbo.Cml
 
         public void ScaleToAverageBondLength(double newLength)
         {
-            double? averageBondLength = GetAverageBondLength();
-
-            if (averageBondLength != 0 && newLength != 0)
+            if (GetAllBonds().Count > 0)
             {
-                double? scale = newLength / averageBondLength;
+                double? averageBondLength = GetAverageBondLength();
 
-                IEnumerable<CmlAtom> atoms = GetAtoms();
-
-                if (atoms.Count() > 0)
+                if (averageBondLength != 0 && newLength > 0)
                 {
-                    foreach (CmlAtom atom in atoms)
+                    double? scale = newLength / averageBondLength;
+
+                    IEnumerable<CmlAtom> atoms = GetAtoms();
+
+                    if (atoms.Count() > 0)
                     {
-                        atom.X2 *= scale;
-                        atom.Y2 *= scale;
+                        foreach (CmlAtom atom in atoms)
+                        {
+                            atom.X2 *= scale;
+                            atom.Y2 *= scale;
+                        }
                     }
                 }
             }
