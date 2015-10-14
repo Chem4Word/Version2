@@ -15,6 +15,7 @@ using System.Text;
 using Microsoft.WindowsAzure;
 using Microsoft.WindowsAzure.StorageClient;
 using System.Diagnostics;
+using System.Threading;
 
 namespace Chem4Word.Common
 {
@@ -46,7 +47,6 @@ namespace Chem4Word.Common
         public bool WriteMessage(MessageEntity messageEntity)
         {
             bool success = true;
-
             try
             {
                 Debug.WriteLine(messageEntity.Operation);
@@ -61,26 +61,13 @@ namespace Chem4Word.Common
                 TableServiceContext serviceContext = cloudTableClient.GetDataServiceContext();
                 serviceContext.AddObject(tableName, messageEntity);
 
-                //serviceContext.SaveChanges();
-                //serviceContext.SaveChangesWithRetries();
-
-                // Both of the following randomly generate errors in callback ???
-                //serviceContext.BeginSaveChangesWithRetries(SaveChangesOptions.Batch, 
-                //    (asyncResult => serviceContext.EndSaveChangesWithRetries(asyncResult)), null);
-                //serviceContext.BeginSaveChanges(SaveChangesOptions.Batch,
-                //    (asyncResult => serviceContext.EndSaveChanges(asyncResult)), null);
-
-                IAsyncResult asyncResult = serviceContext.BeginSaveChangesWithRetries(SaveChangesOptions.Batch,
-                    null, null);
-                DataServiceResponse response = serviceContext.EndSaveChangesWithRetries(asyncResult);
-                int statusCode = response.BatchStatusCode;
+                serviceContext.SaveChanges();
             }
             catch (Exception ex)
             {
-                Debug.WriteLine("Exception: " + ex.Message);
                 success = false;
+                Debug.WriteLine("Exception: " + ex.Message);
             }
-
             return success;
         }
     }
