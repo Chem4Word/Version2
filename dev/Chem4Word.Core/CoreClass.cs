@@ -76,7 +76,7 @@ namespace Chem4Word.Core {
 
         private static TermDictionaryManager _termDictionary;
 
-        static Timer _timerToDeleteContexCtrl;
+        static Timer _purgeTimer;
         ContentControl controlToTimer;
 
         private static Telemetry _telemetry;
@@ -2092,7 +2092,10 @@ namespace Chem4Word.Core {
         /// </summary>
         /// <param name = "newContentControl"></param>
         /// <param name = "inUndoRedo"></param>
-        private void ActiveDocumentContentControlAfterAdd(ContentControl newContentControl, bool inUndoRedo) {
+        private void ActiveDocumentContentControlAfterAdd(ContentControl newContentControl, bool inUndoRedo)
+        {
+            string module = "CoreClass.ActiveDocumentContentControlAfterAdd()";
+
             if (inUndoRedo) {
                 // TODO JAT only show this message if high level alerts are turned on
                 MessageBox.Show("You have now unbound the backing CML from the on screen representation",
@@ -2135,16 +2138,16 @@ namespace Chem4Word.Core {
 
                     // Disable Document events while adding New Contect Object
                     ActiveChemistryDocument.EventTurnOn = false;
-                    AddNewContextObjectToDocument(range, contextObject,
-                                                  chemistryZoneProperties);
+                    _telemetry.Write(module, "Debug", "Inserting New Context Object");
+                    AddNewContextObjectToDocument(range, contextObject, chemistryZoneProperties);
                     ActiveChemistryDocument.EventTurnOn = true;
 
                     // Start timer to delete flagged Content Control(s) hopefully only one!
-                    _timerToDeleteContexCtrl = new Timer(333);
-                    _timerToDeleteContexCtrl.Elapsed += new ElapsedEventHandler(TimerToDeleteContexCtrl_Elapsed);
+                    _purgeTimer = new Timer(333);
+                    _purgeTimer.Elapsed += new ElapsedEventHandler(PurgeTimer_Elapsed);
                     controlToTimer = newContentControl;
-                    _timerToDeleteContexCtrl.Start();
-
+                    _purgeTimer.Start();
+                    _telemetry.Write(module, "Debug", "Purge Timer Started");
                 }
             } catch (Exception ex) {
                 MessageBox.Show(ex.Message, Resources.CHEM_4_WORD_MESSAGE_BOX_TITLE, MessageBoxButton.OK,
@@ -2152,9 +2155,9 @@ namespace Chem4Word.Core {
             }
         }
 
-        void TimerToDeleteContexCtrl_Elapsed(object sender, ElapsedEventArgs e)
+        void PurgeTimer_Elapsed(object sender, ElapsedEventArgs e)
         {
-            Debug.WriteLine("TimerToDeleteContexCtrl_Elapsed()");
+            Debug.WriteLine("PurgeTimer_Elapsed()");
             try
             {
                 if (wordApp != null && wordApp.ActiveDocument != null)
@@ -2164,15 +2167,16 @@ namespace Chem4Word.Core {
                         if (item.Title.CompareTo("CONTENTCONTROL_FLAGGED_FOR_DELETE") == 0)
                         {
                             Debug.WriteLine("Deleting flagged Content Control " + item.ID);
+                            _telemetry.Write("CoreClass.PurgeTimer_Elapsed()", "Debug", "Deleting flagged Content Control " + item.ID);
                             item.Delete(true);
                         }
                     }
                 }
-                _timerToDeleteContexCtrl.Elapsed -= TimerToDeleteContexCtrl_Elapsed;
+                _purgeTimer.Elapsed -= PurgeTimer_Elapsed;
             }
             catch (Exception ex)
             {
-                Debug.WriteLine("Exception in TimerToDeleteContexCtrl_Elapsed() - " + ex.Message);
+                Debug.WriteLine("Exception in PurgeTimer_Elapsed() - " + ex.Message);
             }
         }
 
