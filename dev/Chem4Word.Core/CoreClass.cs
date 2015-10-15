@@ -2130,22 +2130,21 @@ namespace Chem4Word.Core {
                     // because the imported content control is a picture we now need to change the depictions to the preferred setting
                     Range range = wordApp.ActiveDocument.ActiveWindow.Selection.Range;
 
-                    //TODO: move delete code to event when gallery is clicked. 
-                    //newContentControl.Title = string.Empty;
-                    //ActiveChemistryDocument.EventTurnOn = false;
-                    //newContentControl.Delete(true);
-                    //ActiveChemistryDocument.EventTurnOn = true;
-
-                    //Temp workaround for delete
+                    //Flag the old Content Control for delete
                     newContentControl.Title = "CONTENTCONTROL_FLAGGED_FOR_DELETE";
 
-                    _timerToDeleteContexCtrl = new Timer(3000);
-                    _timerToDeleteContexCtrl.Elapsed += new ElapsedEventHandler(_timerToDeleteContexCtrl_Elapsed);
+                    // Disable Document events while adding New Contect Object
+                    ActiveChemistryDocument.EventTurnOn = false;
+                    AddNewContextObjectToDocument(range, contextObject,
+                                                  chemistryZoneProperties);
+                    ActiveChemistryDocument.EventTurnOn = true;
+
+                    // Start timer to delete flagged Content Control(s) hopefully only one!
+                    _timerToDeleteContexCtrl = new Timer(333);
+                    _timerToDeleteContexCtrl.Elapsed += new ElapsedEventHandler(TimerToDeleteContexCtrl_Elapsed);
                     controlToTimer = newContentControl;
                     _timerToDeleteContexCtrl.Start();
 
-                    AddNewContextObjectToDocument(range, contextObject,
-                                                  chemistryZoneProperties);
                 }
             } catch (Exception ex) {
                 MessageBox.Show(ex.Message, Resources.CHEM_4_WORD_MESSAGE_BOX_TITLE, MessageBoxButton.OK,
@@ -2153,9 +2152,9 @@ namespace Chem4Word.Core {
             }
         }
 
-        void _timerToDeleteContexCtrl_Elapsed(object sender, ElapsedEventArgs e)
+        void TimerToDeleteContexCtrl_Elapsed(object sender, ElapsedEventArgs e)
         {
-            Debug.WriteLine("_timerToDeleteContexCtrl_Elapsed()");
+            Debug.WriteLine("TimerToDeleteContexCtrl_Elapsed()");
             try
             {
                 if (wordApp != null && wordApp.ActiveDocument != null)
@@ -2164,16 +2163,16 @@ namespace Chem4Word.Core {
                     {
                         if (item.Title.CompareTo("CONTENTCONTROL_FLAGGED_FOR_DELETE") == 0)
                         {
-                            Debug.WriteLine("Deleting temporary Content Control " + item.ID);
+                            Debug.WriteLine("Deleting flagged Content Control " + item.ID);
                             item.Delete(true);
                         }
                     }
                 }
-                _timerToDeleteContexCtrl.Elapsed -= _timerToDeleteContexCtrl_Elapsed;
+                _timerToDeleteContexCtrl.Elapsed -= TimerToDeleteContexCtrl_Elapsed;
             }
             catch (Exception ex)
             {
-                Debug.WriteLine("Exception in _timerToDeleteContexCtrl_Elapsed() - " + ex.Message);
+                Debug.WriteLine("Exception in TimerToDeleteContexCtrl_Elapsed() - " + ex.Message);
             }
         }
 
@@ -2247,7 +2246,8 @@ namespace Chem4Word.Core {
                     {
                         mol.ScaleToAverageBondLength(20);
                         _telemetry.Write(module, "Information",
-                            "Changed average bond length from " + averageBondLength + " to 20");
+                            "Changed average bond length from "
+                            + SafeDouble.AsString(averageBondLength, "#0.000") + " to 20");
                     }
 
                     chemistryZone = AddNewContextObjectToDocument(range, contextObject,
@@ -2290,7 +2290,8 @@ namespace Chem4Word.Core {
                     {
                         mol.ScaleToAverageBondLength(20);
                         _telemetry.Write(module, "Information",
-                            "Changed average bond length from " + averageBondLength + " to 20");
+                            "Changed average bond length from "
+                            + SafeDouble.AsString(averageBondLength, "#0.000") + " to 20");
                     }
 
                     chemistryZone = AddNewContextObjectToDocument(range, contextObject,
