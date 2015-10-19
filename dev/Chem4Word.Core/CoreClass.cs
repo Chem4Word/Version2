@@ -2140,6 +2140,7 @@ namespace Chem4Word.Core {
                     ActiveChemistryDocument.EventTurnOn = false;
                     _telemetry.Write(module, "Debug", "Inserting New Context Object");
                     AddNewContextObjectToDocument(range, contextObject, chemistryZoneProperties);
+                    _telemetry.Write(module, "Debug", "Inserted New Context Object");
                     ActiveChemistryDocument.EventTurnOn = true;
 
                     // Start timer to delete flagged Content Control(s) hopefully only one!
