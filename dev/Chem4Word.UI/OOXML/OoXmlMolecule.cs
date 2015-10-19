@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Windows;
 using System.Xml;
 using System.Xml.Linq;
 using Chem4Word.UI.OOXML.Atoms;
 using Chem4Word.UI.OOXML.Bonds;
 using Chem4Word.UI.TwoD;
+using Chem4Word.UI.UIControls;
 using DocumentFormat.OpenXml;
 using Numbo.Cml;
 using Numbo.Cml.Helpers;
@@ -106,187 +108,222 @@ namespace Chem4Word.UI.OOXML
         public Run GenerateRun()
         {
             Run run1 = new Run();
-            //try
-            //{
 
-                Debug.WriteLine("OoXmlMolecule.GenerateRun() Starting Step 1");
-                DateTime started = DateTime.Now;
-                #region Step 1 - Generate Atom Labels
+            ProgressBar pb = new ProgressBar();
 
-                AtomRenderer ar = new AtomRenderer(m_canvasExtents, m_AtomLabelCharacters, ref m_ooxmlId);
+            Debug.WriteLine("OoXmlMolecule.GenerateRun() Starting Step 1");
+            DateTime started = DateTime.Now;
+            #region Step 1 - Generate Atom Labels
 
-                // Create Characters
+            AtomRenderer ar = new AtomRenderer(m_canvasExtents, m_AtomLabelCharacters, ref m_ooxmlId);
+
+            // Create Characters
+            if (m_atoms.Count() > 1)
+            {
+                pb.Message = "Processing Atoms";
+                pb.Value = 1;
+                pb.Maximum = m_atoms.Count();
+                pb.Show();
+
                 foreach (CmlAtom atom in m_atoms)
                 {
                     //Debug.WriteLine("Atom: " + atom.Id + " " + atom.ElementType);
+                    pb.Increment(1);
                     ar.CreateAtomLabelCharacters(atom, m_options);
                 }
+            }
 
-                #endregion
-                TimeSpan ts = DateTime.Now - started;
-                Debug.WriteLine("Elapsed time " + ts.TotalMilliseconds.ToString("##,##0.0") + "ms");
+            #endregion
+            TimeSpan ts = DateTime.Now - started;
+            Debug.WriteLine("Elapsed time " + ts.TotalMilliseconds.ToString("##,##0.0") + "ms");
 
-                Debug.WriteLine("OoXmlMolecule.GenerateRun() Starting Step 2");
-                started = DateTime.Now;
-                #region Step 2 - Generate Bond Lines
+            Debug.WriteLine("OoXmlMolecule.GenerateRun() Starting Step 2");
+            started = DateTime.Now;
+            #region Step 2 - Generate Bond Lines
 
-                BondRenderer br = new BondRenderer(m_canvasExtents, m_BondLines, ref m_ooxmlId, m_medianBondLength);
+            BondRenderer br = new BondRenderer(m_canvasExtents, m_BondLines, ref m_ooxmlId, m_medianBondLength);
+
+            if (m_bonds.Count() > 1)
+            {
+                pb.Message = "Processing Bonds";
+                pb.Value = 1;
+                pb.Maximum = m_bonds.Count();
+                pb.Show();
 
                 foreach (CmlBond bond in m_bonds)
                 {
+                    pb.Increment(1);
                     br.CreateBondLines(bond);
                 }
-                #endregion
-                ts = DateTime.Now - started;
-                Debug.WriteLine("Elapsed time " + ts.TotalMilliseconds.ToString("##,##0.0") + "ms");
+            }
+            #endregion
+            ts = DateTime.Now - started;
+            Debug.WriteLine("Elapsed time " + ts.TotalMilliseconds.ToString("##,##0.0") + "ms");
 
-                Debug.WriteLine("OoXmlMolecule.GenerateRun() Starting Step 3");
-                started = DateTime.Now;
-                #region Step 3 - Increase canvas size
-                // to accomodate extra space required by label characters
+            Debug.WriteLine("OoXmlMolecule.GenerateRun() Starting Step 3");
+            started = DateTime.Now;
+            #region Step 3 - Increase canvas size
+            // to accomodate extra space required by label characters
 
-                //Debug.WriteLine(m_canvasExtents);
+            //Debug.WriteLine(m_canvasExtents);
 
-                double xMin = m_moleculeExtents.Left;
-                double xMax = m_moleculeExtents.Right;
-                double yMin = m_moleculeExtents.Top;
-                double yMax = m_moleculeExtents.Bottom;
+            double xMin = m_moleculeExtents.Left;
+            double xMax = m_moleculeExtents.Right;
+            double yMin = m_moleculeExtents.Top;
+            double yMax = m_moleculeExtents.Bottom;
 
-                foreach (AtomLabelCharacter alc in m_AtomLabelCharacters)
+            foreach (AtomLabelCharacter alc in m_AtomLabelCharacters)
+            {
+                xMin = Math.Min(xMin, alc.Position.X);
+                xMax = Math.Max(xMax, alc.Position.X + Helper.ScaleTtfToCml(alc.Character.BlackBoxX));
+                yMin = Math.Min(yMin, alc.Position.Y);
+                yMax = Math.Max(yMax, alc.Position.Y + Helper.ScaleTtfToCml(alc.Character.BlackBoxY));
+            }
+
+            // Create new canvas extents
+            m_canvasExtents = new Rect(xMin - Helper.DRAWING_MARGIN,
+                                        yMin - Helper.DRAWING_MARGIN,
+                                        xMax - xMin + (2 * Helper.DRAWING_MARGIN),
+                                        yMax - yMin + (2 * Helper.DRAWING_MARGIN));
+
+            //Debug.WriteLine(m_canvasExtents);
+
+            #endregion
+            ts = DateTime.Now - started;
+            Debug.WriteLine("Elapsed time " + ts.TotalMilliseconds.ToString("##,##0.0") + "ms");
+
+            Debug.WriteLine("OoXmlMolecule.GenerateRun() Starting Step 4");
+            started = DateTime.Now;
+            #region Step 4 - Shrink bond lines
+            // so that they do not overlap label characters
+
+            foreach (AtomLabelCharacter alc in m_AtomLabelCharacters)
+            {
+                Rect a = new Rect(alc.Position.X - Helper.CHARACTER_CLIPPING_MARGIN, alc.Position.Y - Helper.CHARACTER_CLIPPING_MARGIN,
+                                Helper.ScaleTtfToCml(alc.Character.BlackBoxX) + (Helper.CHARACTER_CLIPPING_MARGIN * 2),
+                                Helper.ScaleTtfToCml(alc.Character.BlackBoxY) + (Helper.CHARACTER_CLIPPING_MARGIN * 2));
+
+                //Debug.WriteLine("Character: " + alc.Ascii + " Rectangle: " + a);
+
+                if (alc.IsSubScript)
                 {
-                    xMin = Math.Min(xMin, alc.Position.X);
-                    xMax = Math.Max(xMax, alc.Position.X + Helper.ScaleTtfToCml(alc.Character.BlackBoxX));
-                    yMin = Math.Min(yMin, alc.Position.Y);
-                    yMax = Math.Max(yMax, alc.Position.Y + Helper.ScaleTtfToCml(alc.Character.BlackBoxY));
+                    a.Width = Helper.ScaleTtfToCml(alc.Character.BlackBoxX) * Helper.SUBSCRIPT_SCALE_FACTOR;
+                    a.Height = Helper.ScaleTtfToCml(alc.Character.BlackBoxY) * Helper.SUBSCRIPT_SCALE_FACTOR;
                 }
 
-                // Create new canvas extents
-                m_canvasExtents = new Rect(xMin - Helper.DRAWING_MARGIN,
-                                            yMin - Helper.DRAWING_MARGIN,
-                                            xMax - xMin + (2 * Helper.DRAWING_MARGIN),
-                                            yMax - yMin + (2 * Helper.DRAWING_MARGIN));
-
-                //Debug.WriteLine(m_canvasExtents);
-
-                #endregion
-                ts = DateTime.Now - started;
-                Debug.WriteLine("Elapsed time " + ts.TotalMilliseconds.ToString("##,##0.0") + "ms");
-
-                Debug.WriteLine("OoXmlMolecule.GenerateRun() Starting Step 4");
-                started = DateTime.Now;
-                #region Step 4 - Shrink bond lines
-                // so that they do not overlap label characters
-
-                foreach (AtomLabelCharacter alc in m_AtomLabelCharacters)
+                foreach (BondLine bl in m_BondLines)
                 {
-                    Rect a = new Rect(alc.Position.X - Helper.CHARACTER_CLIPPING_MARGIN, alc.Position.Y - Helper.CHARACTER_CLIPPING_MARGIN,
-                                    Helper.ScaleTtfToCml(alc.Character.BlackBoxX) + (Helper.CHARACTER_CLIPPING_MARGIN * 2),
-                                    Helper.ScaleTtfToCml(alc.Character.BlackBoxY) + (Helper.CHARACTER_CLIPPING_MARGIN * 2));
+                    Point start = new Point(bl.StartX, bl.StartY);
+                    Point end = new Point(bl.EndX, bl.EndY);
 
-                    //Debug.WriteLine("Character: " + alc.Ascii + " Rectangle: " + a);
+                    //Debug.WriteLine("  Line Start Point: " + start);
+                    //Debug.WriteLine("  Line   End Point: " + end);
 
-                    if (alc.IsSubScript)
+                    if (CohenSutherland.ClipLine(a, ref start, ref end))
                     {
-                        a.Width = Helper.ScaleTtfToCml(alc.Character.BlackBoxX) * Helper.SUBSCRIPT_SCALE_FACTOR;
-                        a.Height = Helper.ScaleTtfToCml(alc.Character.BlackBoxY) * Helper.SUBSCRIPT_SCALE_FACTOR;
-                    }
+                        //Debug.WriteLine("    Clipped Line Start Point: " + start);
+                        //Debug.WriteLine("    Clipped Line   End Point: " + end);
 
-                    foreach (BondLine bl in m_BondLines)
-                    {
-                        Point start = new Point(bl.StartX, bl.StartY);
-                        Point end = new Point(bl.EndX, bl.EndY);
+                        bool bClipped = false;
 
-                        //Debug.WriteLine("  Line Start Point: " + start);
-                        //Debug.WriteLine("  Line   End Point: " + end);
-
-                        if (CohenSutherland.ClipLine(a, ref start, ref end))
+                        if (bl.StartX == start.X && bl.StartY == start.Y)
                         {
-                            //Debug.WriteLine("    Clipped Line Start Point: " + start);
-                            //Debug.WriteLine("    Clipped Line   End Point: " + end);
+                            bl.StartX = end.X;
+                            bl.StartY = end.Y;
+                            bClipped = true;
+                        }
+                        if (bl.EndX == end.X && bl.EndY == end.Y)
+                        {
+                            bl.EndX = start.X;
+                            bl.EndY = start.Y;
+                            bClipped = true;
+                        }
 
-                            bool bClipped = false;
-
-                            if (bl.StartX == start.X && bl.StartY == start.Y)
+                        if (bClipped)
+                        {
+                            start = new Point(bl.StartX, bl.StartY);
+                            end = new Point(bl.EndX, bl.EndY);
+                            //Debug.WriteLine("    New Line Start Point: " + start);
+                            //Debug.WriteLine("    New Line   End Point: " + end);
+                        }
+                        else
+                        {
+                            // Line was clipped at both ends; hopefully never get here.
+                            Vector vstart = new Point(bl.StartX, bl.StartY) - start;
+                            Vector vend = new Point(bl.EndX, bl.EndY) - end;
+                            if (vstart.Length < vend.Length)
                             {
                                 bl.StartX = end.X;
                                 bl.StartY = end.Y;
-                                bClipped = true;
-                            }
-                            if (bl.EndX == end.X && bl.EndY == end.Y)
-                            {
-                                bl.EndX = start.X;
-                                bl.EndY = start.Y;
-                                bClipped = true;
-                            }
-
-                            if (bClipped)
-                            {
-                                start = new Point(bl.StartX, bl.StartY);
-                                end = new Point(bl.EndX, bl.EndY);
-                                //Debug.WriteLine("    New Line Start Point: " + start);
-                                //Debug.WriteLine("    New Line   End Point: " + end);
                             }
                             else
                             {
-                                // Line was clipped at both ends; hopefully never get here.
-                                Vector vstart = new Point(bl.StartX, bl.StartY) - start;
-                                Vector vend = new Point(bl.EndX, bl.EndY) - end;
-                                if (vstart.Length < vend.Length)
-                                {
-                                    bl.StartX = end.X;
-                                    bl.StartY = end.Y;
-                                }
-                                else
-                                {
-                                    bl.EndX = start.X;
-                                    bl.EndY = start.Y;
-                                }
+                                bl.EndX = start.X;
+                                bl.EndY = start.Y;
                             }
                         }
                     }
                 }
+            }
 
-                #endregion
-                ts = DateTime.Now - started;
-                Debug.WriteLine("Elapsed time " + ts.TotalMilliseconds.ToString("##,##0.0") + "ms");
+            #endregion
+            ts = DateTime.Now - started;
+            Debug.WriteLine("Elapsed time " + ts.TotalMilliseconds.ToString("##,##0.0") + "ms");
 
-                Debug.WriteLine("OoXmlMolecule.GenerateRun() Starting Step 5");
-                started = DateTime.Now;
-                #region Step 5 - Create main OoXml drawing objects
+            Debug.WriteLine("OoXmlMolecule.GenerateRun() Starting Step 5");
+            started = DateTime.Now;
+            #region Step 5 - Create main OoXml drawing objects
 
-                DocumentFormat.OpenXml.Wordprocessing.Drawing drawing1 = new DocumentFormat.OpenXml.Wordprocessing.Drawing();
-                A.Graphic graphic1 = CreateGraphic();
-                A.GraphicData graphicData1 = CreateGraphicData();
-                Wpg.WordprocessingGroup wordprocessingGroup1 = new Wpg.WordprocessingGroup();
+            DocumentFormat.OpenXml.Wordprocessing.Drawing drawing1 = new DocumentFormat.OpenXml.Wordprocessing.Drawing();
+            A.Graphic graphic1 = CreateGraphic();
+            A.GraphicData graphicData1 = CreateGraphicData();
+            Wpg.WordprocessingGroup wordprocessingGroup1 = new Wpg.WordprocessingGroup();
 
-                // Create Inline Drawing using canvas extents
-                Wp.Inline inline1 = CreateInline(graphicData1, wordprocessingGroup1);
+            // Create Inline Drawing using canvas extents
+            Wp.Inline inline1 = CreateInline(graphicData1, wordprocessingGroup1);
 
-                #endregion
-                ts = DateTime.Now - started;
-                Debug.WriteLine("Elapsed time " + ts.TotalMilliseconds.ToString("##,##0.0") + "ms");
+            #endregion
+            ts = DateTime.Now - started;
+            Debug.WriteLine("Elapsed time " + ts.TotalMilliseconds.ToString("##,##0.0") + "ms");
 
-                Debug.WriteLine("OoXmlMolecule.GenerateRun() Starting Step 6");
-                started = DateTime.Now;
-                #region Step 6 - Create and append OoXml objects for Atom Labels
+            Debug.WriteLine("OoXmlMolecule.GenerateRun() Starting Step 6");
+            started = DateTime.Now;
+            #region Step 6 - Create and append OoXml objects for Atom Labels
 
-                ar = new AtomRenderer(m_canvasExtents, m_AtomLabelCharacters, ref m_ooxmlId);
+            ar = new AtomRenderer(m_canvasExtents, m_AtomLabelCharacters, ref m_ooxmlId);
+            if (m_AtomLabelCharacters.Count > 1)
+            {
+                pb.Message = "Rendering Atoms";
+                pb.Value = 1;
+                pb.Maximum = m_AtomLabelCharacters.Count;
+                pb.Show();
+
                 foreach (AtomLabelCharacter alc in m_AtomLabelCharacters)
                 {
+                    pb.Increment(1);
                     ar.DrawAtomLabelCharacter(wordprocessingGroup1, alc);
                 }
+            }
 
-                #endregion
-                ts = DateTime.Now - started;
-                Debug.WriteLine("Elapsed time " + ts.TotalMilliseconds.ToString("##,##0.0") + "ms");
+            #endregion
+            ts = DateTime.Now - started;
+            Debug.WriteLine("Elapsed time " + ts.TotalMilliseconds.ToString("##,##0.0") + "ms");
 
-                Debug.WriteLine("OoXmlMolecule.GenerateRun() Starting Step 7");
-                started = DateTime.Now;
-                #region Step 7 - Create and append OoXml objects for Bond Lines
+            Debug.WriteLine("OoXmlMolecule.GenerateRun() Starting Step 7");
+            started = DateTime.Now;
+            #region Step 7 - Create and append OoXml objects for Bond Lines
 
-                br = new BondRenderer(m_canvasExtents, m_BondLines, ref m_ooxmlId, m_medianBondLength);
+            br = new BondRenderer(m_canvasExtents, m_BondLines, ref m_ooxmlId, m_medianBondLength);
+            if (m_BondLines.Count > 1)
+            {
+                pb.Message = "Rendering Bonds";
+                pb.Value = 1;
+                pb.Maximum = m_AtomLabelCharacters.Count;
+                pb.Show();
+
                 foreach (BondLine bl in m_BondLines)
                 {
+                    pb.Increment(1);
                     switch (bl.Type)
                     {
                         case "wedge":
@@ -298,30 +335,27 @@ namespace Chem4Word.UI.OOXML
                             break;
                     }
                 }
+            }
 
-                #endregion
-                ts = DateTime.Now - started;
-                Debug.WriteLine("Elapsed time " + ts.TotalMilliseconds.ToString("##,##0.0") + "ms");
+            #endregion
+            ts = DateTime.Now - started;
+            Debug.WriteLine("Elapsed time " + ts.TotalMilliseconds.ToString("##,##0.0") + "ms");
 
-                Debug.WriteLine("OoXmlMolecule.GenerateRun() Starting Step 8");
-                started = DateTime.Now;
-                #region Step 8 - Append OoXml drawing objects to OoXml run object
+            Debug.WriteLine("OoXmlMolecule.GenerateRun() Starting Step 8");
+            started = DateTime.Now;
+            #region Step 8 - Append OoXml drawing objects to OoXml run object
 
-                graphicData1.Append(wordprocessingGroup1);
-                graphic1.Append(graphicData1);
-                inline1.Append(graphic1);
-                drawing1.Append(inline1);
-                run1.Append(drawing1);
+            graphicData1.Append(wordprocessingGroup1);
+            graphic1.Append(graphicData1);
+            inline1.Append(graphic1);
+            drawing1.Append(inline1);
+            run1.Append(drawing1);
 
-                #endregion
-                ts = DateTime.Now - started;
-                Debug.WriteLine("Elapsed time " + ts.TotalMilliseconds.ToString("##,##0.0") + "ms");
-                //}
-            //catch (Exception ex)
-            //{
-            //    Debug.WriteLine(ex.Message);
-            //}
+            #endregion
+            ts = DateTime.Now - started;
+            Debug.WriteLine("Elapsed time " + ts.TotalMilliseconds.ToString("##,##0.0") + "ms");
 
+            pb.Hide();
             return run1;
         }
 
