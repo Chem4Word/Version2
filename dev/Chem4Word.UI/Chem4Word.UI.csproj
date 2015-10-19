@@ -235,6 +235,12 @@
     </Compile>
     <Compile Include="TwoD\RadialPanel.cs" />
     <Compile Include="TwoD\ViewBox.cs" />
+    <Compile Include="UIControls\ProgressBar.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UIControls\ProgressBar.Designer.cs">
+      <DependentUpon>ProgressBar.cs</DependentUpon>
+    </Compile>
     <Compile Include="UIControls\SearchTextBox.cs" />
     <Compile Include="WebServices\OpsinLookUp.xaml.cs">
       <DependentUpon>OpsinLookUp.xaml</DependentUpon>
@@ -486,6 +492,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ChemDoodle\ChemDoodleEditorForm.resx">
       <DependentUpon>ChemDoodleEditorForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UIControls\ProgressBar.resx">
+      <DependentUpon>ProgressBar.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
