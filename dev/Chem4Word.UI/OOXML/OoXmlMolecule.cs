@@ -124,13 +124,12 @@ namespace Chem4Word.UI.OOXML
                 pb.Value = 1;
                 pb.Maximum = m_atoms.Count();
                 pb.Show();
-
-                foreach (CmlAtom atom in m_atoms)
-                {
-                    //Debug.WriteLine("Atom: " + atom.Id + " " + atom.ElementType);
-                    pb.Increment(1);
-                    ar.CreateAtomLabelCharacters(atom, m_options);
-                }
+            }
+            foreach (CmlAtom atom in m_atoms)
+            {
+                //Debug.WriteLine("Atom: " + atom.Id + " " + atom.ElementType);
+                pb.Increment(1);
+                ar.CreateAtomLabelCharacters(atom, m_options);
             }
 
             #endregion
@@ -149,12 +148,11 @@ namespace Chem4Word.UI.OOXML
                 pb.Value = 1;
                 pb.Maximum = m_bonds.Count();
                 pb.Show();
-
-                foreach (CmlBond bond in m_bonds)
-                {
-                    pb.Increment(1);
-                    br.CreateBondLines(bond);
-                }
+            }
+            foreach (CmlBond bond in m_bonds)
+            {
+                pb.Increment(1);
+                br.CreateBondLines(bond);
             }
             #endregion
             ts = DateTime.Now - started;
@@ -297,12 +295,11 @@ namespace Chem4Word.UI.OOXML
                 pb.Value = 1;
                 pb.Maximum = m_AtomLabelCharacters.Count;
                 pb.Show();
-
-                foreach (AtomLabelCharacter alc in m_AtomLabelCharacters)
-                {
-                    pb.Increment(1);
-                    ar.DrawAtomLabelCharacter(wordprocessingGroup1, alc);
-                }
+            }
+            foreach (AtomLabelCharacter alc in m_AtomLabelCharacters)
+            {
+                pb.Increment(1);
+                ar.DrawAtomLabelCharacter(wordprocessingGroup1, alc);
             }
 
             #endregion
@@ -320,20 +317,19 @@ namespace Chem4Word.UI.OOXML
                 pb.Value = 1;
                 pb.Maximum = m_AtomLabelCharacters.Count;
                 pb.Show();
-
-                foreach (BondLine bl in m_BondLines)
+            }
+            foreach (BondLine bl in m_BondLines)
+            {
+                pb.Increment(1);
+                switch (bl.Type)
                 {
-                    pb.Increment(1);
-                    switch (bl.Type)
-                    {
-                        case "wedge":
-                        case "hash":
-                            br.DrawWedgeBond(wordprocessingGroup1, bl);
-                            break;
-                        default:
-                            br.DrawBondLine(wordprocessingGroup1, bl);
-                            break;
-                    }
+                    case "wedge":
+                    case "hash":
+                        br.DrawWedgeBond(wordprocessingGroup1, bl);
+                        break;
+                    default:
+                        br.DrawBondLine(wordprocessingGroup1, bl);
+                        break;
                 }
             }
 
