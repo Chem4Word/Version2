@@ -1118,6 +1118,7 @@ namespace Chem4Word.Core {
                     #endregion
 
                     pb.Hide();
+                    pb.Close();
 
                     #region Save New Inchi-Key (if found)
                     if (afterInchiKey != null)
@@ -1335,6 +1336,7 @@ namespace Chem4Word.Core {
             catch (Exception ex)
             {
                 _telemetry.Write(module, "Exception", ex.Message);
+                _telemetry.Write(module, "Exception(Data)", molfile);
                 Log.Error("GetInchiKey() - Exception - " + ex.Message);
             }
 

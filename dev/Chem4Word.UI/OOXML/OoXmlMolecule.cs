@@ -358,6 +358,8 @@ namespace Chem4Word.UI.OOXML
             Debug.WriteLine("Elapsed time " + ts.TotalMilliseconds.ToString("##,##0.0") + "ms");
 
             pb.Hide();
+            pb.Close();
+
             return run1;
         }
 
