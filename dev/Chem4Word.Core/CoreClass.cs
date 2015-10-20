@@ -50,6 +50,7 @@ using Chem4Word.Common;
 using Chem4Word.Common.Utilities;
 using Chem4Word.UI.Converters;
 using Chem4Word.UI.OOXML;
+using Chem4Word.UI.UIControls;
 
 namespace Chem4Word.Core {
     /// <summary>
@@ -1085,19 +1086,38 @@ namespace Chem4Word.Core {
                     }
                     #endregion
 
+                    ProgressBar pb = new ProgressBar();
+                    pb.Value = 0;
+                    pb.Maximum = 2;
+
                     #region Get Inchi-Keys from Chem Spider
                     Log.Debug("Get Inchi-Keys from Chem Spider");
                     if (string.IsNullOrEmpty(beforeInchiKey))
                     {
+                        pb.Show();
+                        pb.Message = "Requesting InchiKey (before) from ChemSpider";
+                        pb.Increment(1);
+
                         beforeInchiKey = GetInchiKey(tcd.Before_MolFile);
                     }
+
+                    pb.Show();
+                    pb.Message = "Requesting InchiKey (after) from ChemSpider";
+                    pb.Increment(1);
+
                     afterInchiKey = GetInchiKey(tcd.After_MolFile);
                     #endregion
+
+                    pb.Show();
+                    pb.Message = "Obtaining Synonym from ChemSpider";
+                    pb.Increment(1);
 
                     #region Get Synonym from ChemSpider
                     Log.Debug("Get Synonym from ChemSpider");
                     string afterSynonym = GetSynonymFromChemSpider(afterInchiKey);
                     #endregion
+
+                    pb.Hide();
 
                     #region Save New Inchi-Key (if found)
                     if (afterInchiKey != null)

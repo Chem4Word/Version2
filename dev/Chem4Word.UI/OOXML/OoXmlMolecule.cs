@@ -120,11 +120,12 @@ namespace Chem4Word.UI.OOXML
             // Create Characters
             if (m_atoms.Count() > 1)
             {
-                pb.Message = "Processing Atoms";
-                pb.Value = 1;
-                pb.Maximum = m_atoms.Count();
                 pb.Show();
             }
+            pb.Message = "Processing Atoms";
+            pb.Value = 0;
+            pb.Maximum = m_atoms.Count() - 1;
+
             foreach (CmlAtom atom in m_atoms)
             {
                 //Debug.WriteLine("Atom: " + atom.Id + " " + atom.ElementType);
@@ -144,11 +145,12 @@ namespace Chem4Word.UI.OOXML
 
             if (m_bonds.Count() > 1)
             {
-                pb.Message = "Processing Bonds";
-                pb.Value = 1;
-                pb.Maximum = m_bonds.Count();
                 pb.Show();
             }
+            pb.Message = "Processing Bonds";
+            pb.Value = 0;
+            pb.Maximum = m_bonds.Count() - 1;
+
             foreach (CmlBond bond in m_bonds)
             {
                 pb.Increment(1);
@@ -289,13 +291,15 @@ namespace Chem4Word.UI.OOXML
             #region Step 6 - Create and append OoXml objects for Atom Labels
 
             ar = new AtomRenderer(m_canvasExtents, m_AtomLabelCharacters, ref m_ooxmlId);
-            if (m_AtomLabelCharacters.Count > 1)
+
+            if (m_atoms.Count() > 1)
             {
-                pb.Message = "Rendering Atoms";
-                pb.Value = 1;
-                pb.Maximum = m_AtomLabelCharacters.Count;
                 pb.Show();
             }
+            pb.Message = "Rendering Atoms";
+            pb.Value = 0;
+            pb.Maximum = m_AtomLabelCharacters.Count - 1;
+
             foreach (AtomLabelCharacter alc in m_AtomLabelCharacters)
             {
                 pb.Increment(1);
@@ -311,13 +315,15 @@ namespace Chem4Word.UI.OOXML
             #region Step 7 - Create and append OoXml objects for Bond Lines
 
             br = new BondRenderer(m_canvasExtents, m_BondLines, ref m_ooxmlId, m_medianBondLength);
-            if (m_BondLines.Count > 1)
+
+            if (m_bonds.Count() > 1)
             {
-                pb.Message = "Rendering Bonds";
-                pb.Value = 1;
-                pb.Maximum = m_AtomLabelCharacters.Count;
                 pb.Show();
             }
+            pb.Message = "Rendering Bonds";
+            pb.Value = 0;
+            pb.Maximum = m_BondLines.Count - 1;
+
             foreach (BondLine bl in m_BondLines)
             {
                 pb.Increment(1);
