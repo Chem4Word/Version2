@@ -357,6 +357,7 @@ namespace Chem4Word.UI.OOXML
             ts = DateTime.Now - started;
             Debug.WriteLine("Elapsed time " + ts.TotalMilliseconds.ToString("##,##0.0") + "ms");
 
+            pb.Value = 0;
             pb.Hide();
             pb.Close();
 
