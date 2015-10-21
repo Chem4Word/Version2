@@ -1095,14 +1095,14 @@ namespace Chem4Word.Core {
                     if (string.IsNullOrEmpty(beforeInchiKey))
                     {
                         pb.Show();
-                        pb.Message = "Requesting InchiKey (before) from ChemSpider";
+                        pb.Message = "Obtaining InchiKey (before) from ChemSpider";
                         pb.Increment(1);
 
                         beforeInchiKey = GetInchiKey(tcd.Before_MolFile);
                     }
 
                     pb.Show();
-                    pb.Message = "Requesting InchiKey (after) from ChemSpider";
+                    pb.Message = "Obtaining InchiKey (after) from ChemSpider";
                     pb.Increment(1);
 
                     afterInchiKey = GetInchiKey(tcd.After_MolFile);
@@ -1117,6 +1117,7 @@ namespace Chem4Word.Core {
                     string afterSynonym = GetSynonymFromChemSpider(afterInchiKey);
                     #endregion
 
+                    pb.Value = 0;
                     pb.Hide();
                     pb.Close();
 
@@ -1223,6 +1224,8 @@ namespace Chem4Word.Core {
                         selectedZone.ContentControl.Delete(true);
                     }
                 }
+
+                tcd.Close();
             }
             catch (Exception ex)
             {

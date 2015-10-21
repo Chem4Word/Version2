@@ -30,6 +30,7 @@ namespace Chem4Word.Common
         {
             bool result1 = false;
             bool result2 = false;
+            bool result3 = false;
 
             AzureStorage storage = new AzureStorage();
             try
@@ -62,7 +63,22 @@ namespace Chem4Word.Common
                 Debug.WriteLine("Exception " + ex.Message);
             }
 
-            _systemInfoSent = result1 && result2;
+            try
+            {
+                // Write AddIn Version
+                MessageEntity me3 = new MessageEntity();
+                me3.MachineId = _helper.MachineId;
+                me3.Operation = "StartUp";
+                me3.Level = "Information";
+                me3.Message = _helper.AddInVersion;
+                result3 = storage.WriteMessage(me3);
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Exception " + ex.Message);
+            }
+
+            _systemInfoSent = result1 && result2 && result3;
         }
 
         public void Write(string operation, string level, string message)

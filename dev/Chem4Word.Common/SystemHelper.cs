@@ -11,6 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using Microsoft.Win32;
 
@@ -21,6 +22,7 @@ namespace Chem4Word.Common
         public string MachineId { get; set; }
         public string SystemOs { get; set; }
         public string WordProduct { get; set; }
+        public string AddInVersion { get; set; }
 
         private int _wordVersion = -1;
         public int WordVersion {
@@ -216,6 +218,9 @@ namespace Chem4Word.Common
             }
 
             #endregion
+
+            Version procuctVersion = Assembly.GetExecutingAssembly().GetName().Version;
+            AddInVersion = "Chem4Word V" + procuctVersion.ToString();
         }
 
         private string HKLM_GetString(string path, string key)
