@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows;
+using Chem4Word.Common;
 using Chem4Word.UI.TwoD;
 using DocumentFormat.OpenXml;
 using Numbo.Cml;
@@ -19,18 +20,22 @@ namespace Chem4Word.UI.OOXML.Atoms
         private long m_ooxmlId;
         private OoXmlCharacterSet m_charset;
         private List<AtomLabelCharacter> m_AtomLabelCharacters;
+        private Telemetry _telemetry;
 
-        public AtomRenderer(Rect canvasExtents, List<AtomLabelCharacter> atomLabelCharacters, ref long ooxmlId)
+        public AtomRenderer(Rect canvasExtents, List<AtomLabelCharacter> atomLabelCharacters, ref long ooxmlId, Telemetry telemetry)
         {
             m_charset = new OoXmlCharacterSet();
             m_canvasExtents = canvasExtents;
             m_ooxmlId = ooxmlId;
             m_AtomLabelCharacters = atomLabelCharacters;
+            _telemetry = telemetry;
         }
 
         public void CreateAtomLabelCharacters(CmlAtom atom, C4wOptions options)
         {
             //Debug.WriteLine("Atom: " + atom.Id + " is " + atom.ElementType);
+            string module = "CreateAtomLabelCharacters()";
+            //_telemetry.Write(module, "Debug", "Atom: " + atom.Id + " is " + atom.ElementType);
 
             Point p1;
             Point p2;

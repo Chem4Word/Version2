@@ -4,40 +4,48 @@ namespace Chem4Word.UI.OOXML
 {
     public static class CohenSutherland
     {
+        // Fixed with help from https://gist.github.com/oliverheilig/7777382 http://jsil.org/try/#7717256
+
         public const int Left = 1;
         public const int Right = 2;
         public const int Top = 8;
         public const int Bottom = 4;
 
+        private const double epsilon = 1e-4;
+
         public static int ComputeOutCode(Rect rect, double x, double y)
         {
             int code = 0;
-            if (y > rect.Bottom)
+
+            if (y - rect.Bottom > epsilon)  // y > rect.Bottom
                 code |= Bottom;
-            if (y < rect.Top)
+            if (rect.Top - y > epsilon)     // y < rect.Top
                 code |= Top;
-            if (x > rect.Right)
+            if (x - rect.Right > epsilon)   // x > rect.Right
                 code |= Right;
-            if (x < rect.Left)
+            if (rect.Left - x > epsilon)    // x < rect.Left
                 code |= Left;
+
             return code;
         }
 
         public static int ComputeInCode(Rect rect, double x, double y)
         {
             int code = 0;
-            if (y < rect.Bottom)
+
+            if (rect.Bottom - y > epsilon)  // y < rect.Bottom
                 code |= Bottom;
-            if (y > rect.Top)
+            if (y - rect.Top > epsilon)     // y > rect.Top
                 code |= Top;
-            if (x < rect.Right)
+            if (rect.Right - x > epsilon)   // x < rect.Right
                 code |= Right;
-            if (x > rect.Left)
+            if (x - rect.Left > epsilon)    // x > rect.Left
                 code |= Left;
+
             return code;
         }
 
-        public static bool ClipLine(Rect rect, ref Point a, ref Point b)
+        public static bool ClipLine(Rect rect, ref Point a, ref Point b, out int attempts)
         {
             double x1 = a.X, x2 = b.X, y1 = a.Y, y2 = b.Y;
             double xmin = rect.Left, xmax = rect.Right, ymin = rect.Top, ymax = rect.Bottom;
@@ -46,7 +54,7 @@ namespace Chem4Word.UI.OOXML
             int outCode2 = ComputeOutCode(rect, x2, y2);
 
             bool accept = false, done = false;
-
+            attempts = 0;
             while (!done)
             {
                 // Trivial accept, both points inside rectangle
@@ -90,6 +98,11 @@ namespace Chem4Word.UI.OOXML
                         outCode1 = ComputeOutCode(rect, x1 = x, y1 = y);
                     else
                         outCode2 = ComputeOutCode(rect, x2 = x, y2 = y);
+                }
+                attempts++;
+                if (attempts > 99)
+                {
+                    done = true;
                 }
             }
 

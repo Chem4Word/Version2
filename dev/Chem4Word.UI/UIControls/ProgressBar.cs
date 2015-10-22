@@ -49,13 +49,8 @@ namespace Chem4Word.UI.UIControls
 
         public string Message
         {
-            get { return textBox1.Text; }
-            set
-            {
-                textBox1.Text = value;
-                textBox1.SelectionStart = 0;
-                textBox1.SelectionLength = 0;
-            }
+            get { return label1.Text; }
+            set { label1.Text = value; }
         }
 
         public ProgressBar()
@@ -65,12 +60,11 @@ namespace Chem4Word.UI.UIControls
 
         public void Increment(int value)
         {
-            if (progressBar1.Value + value < progressBar1.Maximum)
-            {
-                progressBar1.Increment(value);
-                progressBar1.Refresh();
-            }
+            progressBar1.Increment(value);
+            progressBar1.Refresh();
+            this.Refresh();
             Application.DoEvents();
+            //System.Threading.Thread.Sleep(5);
         }
     }
 }

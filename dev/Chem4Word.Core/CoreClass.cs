@@ -46,6 +46,7 @@ using System.Text.RegularExpressions;
 using System.Timers;
 using Chem4Word.UI.ChemDoodle;
 using System.Net;
+using System.Reflection;
 using Chem4Word.Common;
 using Chem4Word.Common.Utilities;
 using Chem4Word.UI.Converters;
@@ -81,6 +82,11 @@ namespace Chem4Word.Core {
         ContentControl controlToTimer;
 
         private static Telemetry _telemetry;
+
+        public Telemetry GetTelemety()
+        {
+            return _telemetry;
+        }
 
         static CoreClass() {
             // Required to initialise the WPF context, prevents a bug in the RibbonControl.
@@ -448,10 +454,12 @@ namespace Chem4Word.Core {
                     options.ShowHydrogens = true;
                     string guidString = Guid.NewGuid().ToString("N");
                     string bookmarkName = "C4W_" + guidString;
-                    string tempfileName = OoXmlFile.CreateFromCml(contexObject.Cml.ToString(), guidString, options);
+                    OoXmlFile ooXmlFile = new OoXmlFile(_telemetry);
+                    string tempfileName = ooXmlFile.CreateFromCml(contexObject.Cml.ToString(), guidString, options);
 
                     control = wordApp.ActiveDocument.ContentControls.Add(
                         WdContentControlType.wdContentControlRichText, ref missing);
+                    control.SetPlaceholderText(Text: " ");
 
                     DateTime started2 = DateTime.Now;
                     control.Range.InsertFile(tempfileName, bookmarkName);
@@ -474,6 +482,7 @@ namespace Chem4Word.Core {
 
                     control = wordApp.ActiveDocument.ContentControls.Add(
                         WdContentControlType.wdContentControlPicture, ref missing);
+                    control.SetPlaceholderText(Text: " ");
 
                     control.Range.InlineShapes.AddPicture(editor.PngFileOutput, ref missing, ref missing, ref missing);
 
@@ -501,6 +510,7 @@ namespace Chem4Word.Core {
                 object missing = Type.Missing;
                 control = wordApp.ActiveDocument.ContentControls.Add(
                     WdContentControlType.wdContentControlRichText, ref missing);
+                control.SetPlaceholderText(Text: " ");
                 CreateOneDZoneContent(ref control, documentDepictionOption);
             }
 
@@ -774,12 +784,16 @@ namespace Chem4Word.Core {
             // remove the current text from the selection before adding the picture
             range.Text = string.Empty;
 
-            if (Depiction.Is2D(documentDepictionOption)) {
+            ActiveChemistryDocument.EventTurnOn = false;
+
+            if (Depiction.Is2D(documentDepictionOption))
+            {
 
                 if (WordVersion() > 2007)
                 {
                     control = wordApp.ActiveDocument.ContentControls.Add(
                         WdContentControlType.wdContentControlRichText, ref missing);
+                    control.SetPlaceholderText(Text: " ");
 
                     try
                     {
@@ -794,7 +808,8 @@ namespace Chem4Word.Core {
                         options.ShowHydrogens = true;
                         string guidString = Guid.NewGuid().ToString("N");
                         string bookmarkName = "C4W_" + guidString;
-                        string tempfileName = OoXmlFile.CreateFromCml(contextObject.Cml.ToString(), guidString, options);
+                        OoXmlFile ooXmlFile = new OoXmlFile(_telemetry);
+                        string tempfileName = ooXmlFile.CreateFromCml(contextObject.Cml.ToString(), guidString, options);
 
                         DateTime started2 = DateTime.Now;
                         control.Range.InsertFile(tempfileName, bookmarkName);
@@ -823,6 +838,7 @@ namespace Chem4Word.Core {
 
                     control = wordApp.ActiveDocument.ContentControls.Add(
                         WdContentControlType.wdContentControlPicture, ref missing);
+                    control.SetPlaceholderText(Text: " ");
 
                     try
                     {
@@ -846,6 +862,7 @@ namespace Chem4Word.Core {
             } else {
                 control = wordApp.ActiveDocument.ContentControls.Add(
                     WdContentControlType.wdContentControlRichText, ref missing);
+                control.SetPlaceholderText(Text: " ");
                 CreateOneDZoneContent(ref control, documentDepictionOption);
             }
             control.Title = Properties.Resources.ChemistryZoneAlias;
@@ -857,6 +874,9 @@ namespace Chem4Word.Core {
             wordApp.Selection.SetRange(addedChemZone.ContentControl.Range.End + 1,
                                        addedChemZone.ContentControl.Range.End + 1);
             addedChemZone.Lock();
+
+            ActiveChemistryDocument.EventTurnOn = false;
+
             return addedChemZone;
         }
 
@@ -2018,7 +2038,27 @@ namespace Chem4Word.Core {
 
         private void ActiveDocumentBuildingBlockInsert(Range wordRange, string name, string category, string blockType, string template)
         {
-            _telemetry.Write("CoreClass.ActiveDocumentBuildingBlockInsert()", "Information", "Inserted '" + name + "' from gallery");
+            string module = "CoreClass.ActiveDocumentBuildingBlockInsert()";
+            _telemetry.Write(module, "Information", "Inserted '" + name + "' from gallery");
+
+            // Start timer to delete flagged Content Control(s) hopefully only one!
+            _purgeTimer = new Timer(333);
+            _purgeTimer.Elapsed += new ElapsedEventHandler(PurgeTimer_Elapsed);
+            _purgeTimer.Start();
+            _telemetry.Write(module, "Debug", "Purge Timer Started");
+
+            //if (wordApp != null && wordApp.ActiveDocument != null)
+            //{
+            //    foreach (ContentControl item in wordApp.ActiveDocument.ContentControls)
+            //    {
+            //        if (item.Title.CompareTo("CONTENTCONTROL_FLAGGED_FOR_DELETE") == 0)
+            //        {
+            //            Debug.WriteLine("Deleting flagged Content Control " + item.ID);
+            //            _telemetry.Write(module, "Debug", "Deleting flagged Content Control " + item.ID);
+            //            item.Delete(true);
+            //        }
+            //    }
+            //}
         }
 
         /// <summary>
@@ -2155,25 +2195,27 @@ namespace Chem4Word.Core {
                         new ChemistryZoneProperties(documentDepictionOption, navigatorDepictionOption,
                                                     Setting.CollapseNavigatorDepiction);
 
+                    //Flag the old Content Control for delete
+                    newContentControl.Title = "CONTENTCONTROL_FLAGGED_FOR_DELETE";
+                    newContentControl.LockContents = false;
+                    newContentControl.Range.Text = " ";
+                    newContentControl.SetPlaceholderText(Text: " ");
+
                     // because the imported content control is a picture we now need to change the depictions to the preferred setting
                     Range range = wordApp.ActiveDocument.ActiveWindow.Selection.Range;
 
-                    //Flag the old Content Control for delete
-                    newContentControl.Title = "CONTENTCONTROL_FLAGGED_FOR_DELETE";
-
+                    _telemetry.Write(module, "Debug", "Inserting New Context Object");
                     // Disable Document events while adding New Contect Object
                     ActiveChemistryDocument.EventTurnOn = false;
-                    _telemetry.Write(module, "Debug", "Inserting New Context Object");
                     AddNewContextObjectToDocument(range, contextObject, chemistryZoneProperties);
-                    _telemetry.Write(module, "Debug", "Inserted New Context Object");
                     ActiveChemistryDocument.EventTurnOn = true;
+                    _telemetry.Write(module, "Debug", "Inserted New Context Object");
 
-                    // Start timer to delete flagged Content Control(s) hopefully only one!
-                    _purgeTimer = new Timer(333);
-                    _purgeTimer.Elapsed += new ElapsedEventHandler(PurgeTimer_Elapsed);
-                    controlToTimer = newContentControl;
-                    _purgeTimer.Start();
-                    _telemetry.Write(module, "Debug", "Purge Timer Started");
+                    //// Start timer to delete flagged Content Control(s) hopefully only one!
+                    //_purgeTimer = new Timer(333);
+                    //_purgeTimer.Elapsed += new ElapsedEventHandler(PurgeTimer_Elapsed);
+                    //_purgeTimer.Start();
+                    //_telemetry.Write(module, "Debug", "Purge Timer Started");
                 }
             } catch (Exception ex) {
                 MessageBox.Show(ex.Message, Resources.CHEM_4_WORD_MESSAGE_BOX_TITLE, MessageBoxButton.OK,

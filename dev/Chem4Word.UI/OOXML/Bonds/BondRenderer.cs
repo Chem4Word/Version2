@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
+using Chem4Word.Common;
 using Chem4Word.UI.TwoD;
 using DocumentFormat.OpenXml;
 using Euclid;
@@ -20,23 +21,26 @@ namespace Chem4Word.UI.OOXML.Bonds
         private long m_ooxmlId;
         private List<BondLine> m_BondLines;
         private double m_medianBondLength;
+        private Telemetry _telemetry;
 
-        public BondRenderer(Rect canvasExtents, List<BondLine> bondLines, ref long ooxmlId, double medianBondLength)
+        public BondRenderer(Rect canvasExtents, List<BondLine> bondLines, ref long ooxmlId, double medianBondLength, Telemetry telemetry)
         {
             m_canvasExtents = canvasExtents;
             m_ooxmlId = ooxmlId;
             m_BondLines = bondLines;
             m_medianBondLength = medianBondLength;
+            _telemetry = telemetry;
         }
 
         /// <summary>
         /// Creates the lines for a bond
         /// </summary>
-        /// <param name="wordprocessingGroup1">Where to add the bond lines</param>
         /// <param name="bond"></param>
         public void CreateBondLines(CmlBond bond)
         {
             //Debug.WriteLine("Bond: " + bond.Id);
+            string module = "CreateBondLines()";
+            //_telemetry.Write(module, "Debug", "Bond: " + bond.ToString());
 
             IEnumerable<CmlAtom> bondatoms = bond.GetAtoms();
             IEnumerable<Ring> rings = bond.GetRingList();
@@ -44,6 +48,7 @@ namespace Chem4Word.UI.OOXML.Bonds
             foreach (Ring r in rings)
             {
                 ringCount++;
+                break;
             }
             //Debug.WriteLine("  Ring Count: " + ringCount);
 

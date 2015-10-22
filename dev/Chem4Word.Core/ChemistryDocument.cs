@@ -38,6 +38,11 @@ namespace Chem4Word.Core
         private readonly XmlMappingManager xmlMappingManager;
         private int num;
 
+        public Telemetry GetTelemetry()
+        {
+            return core.GetTelemety();
+        }
+
         /// <summary>  
         /// Initializes a new instance of the Document class. <see cref="ChemistryDocument"/>
         /// </summary>
@@ -184,7 +189,8 @@ namespace Chem4Word.Core
                     options.ShowHydrogens = true;
                     string guidString = Guid.NewGuid().ToString("N");
                     string bookmarkName = "C4W_" + guidString;
-                    string tempfileName = OoXmlFile.CreateFromCml(contextObject.Cml.ToString(), guidString, options);
+                    OoXmlFile ooXmlFile = new OoXmlFile(core.GetTelemety());
+                    string tempfileName = ooXmlFile.CreateFromCml(contextObject.Cml.ToString(), guidString, options);
 
                     contentControl =
                         WordDocument.ContentControls.Add(WdContentControlType.wdContentControlRichText,
