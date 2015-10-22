@@ -1,12 +1,21 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
+using Chem4Word.Common;
 using DocumentFormat.OpenXml;
 using DocumentFormat.OpenXml.Packaging;
 using DocumentFormat.OpenXml.Wordprocessing;
 
 namespace Chem4Word.UI.OOXML
 {
-    public static class OoXmlFile
+    public class OoXmlFile
     {
+        private Telemetry _telemetry;
+
+        public OoXmlFile(Telemetry telemetry)
+        {
+            _telemetry = telemetry;
+        }
+
         /// <summary>
         /// Create an OpenXml Word Document from the CML
         /// </summary>
@@ -14,7 +23,7 @@ namespace Chem4Word.UI.OOXML
         /// <param name="guid">Bookmark to create</param>
         /// <param name="options">Options to use when rendering</param>
         /// <returns></returns>
-        public static string CreateFromCml(string cml, string guid, C4wOptions options)
+        public string CreateFromCml(string cml, string guid, C4wOptions options)
         {
             string fileName = Path.Combine(Path.GetTempPath(), guid + ".docx");
             string bookmarkName = "C4W_" + guid;
@@ -33,6 +42,9 @@ namespace Chem4Word.UI.OOXML
                 package.MainDocumentPart.Document.Save();
             }
 
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
+
             return fileName;
         }
 
@@ -42,7 +54,7 @@ namespace Chem4Word.UI.OOXML
         /// <param name="docbody"></param>
         /// <param name="cml"></param>
         /// <param name="bookmarkName"></param>
-        private static void AddPictureFromCml(Body docbody, string cml, string bookmarkName, C4wOptions options)
+        private void AddPictureFromCml(Body docbody, string cml, string bookmarkName, C4wOptions options)
         {
             Paragraph paragraph1 = new Paragraph();
             if (!string.IsNullOrEmpty(bookmarkName))
@@ -53,7 +65,7 @@ namespace Chem4Word.UI.OOXML
                 paragraph1.Append(bookmarkstart);
             }
 
-            OoXmlMolecule pic = new OoXmlMolecule(cml, options);
+            OoXmlMolecule pic = new OoXmlMolecule(cml, options, _telemetry);
             paragraph1.Append(pic.GenerateRun());
 
             if (!string.IsNullOrEmpty(bookmarkName))

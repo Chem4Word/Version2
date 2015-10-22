@@ -9,6 +9,7 @@ using System.IO;
 using System.Linq;
 using System.Xml.Linq;
 using Chem4Word.Api;
+using Chem4Word.Common;
 using Chem4Word.Core.Properties;
 using Chem4Word.UI.OOXML;
 using Chem4Word.UI.TwoD;
@@ -109,7 +110,8 @@ namespace Chem4Word.Core {
                     options.ShowHydrogens = true;
                     string guidString = Guid.NewGuid().ToString("N");
                     string bookmarkName = "C4W_" + guidString;
-                    string tempfileName = OoXmlFile.CreateFromCml(Cml.ToString(), guidString, options);
+                    OoXmlFile ooXmlFile = new OoXmlFile(document.GetTelemetry());
+                    string tempfileName = ooXmlFile.CreateFromCml(Cml.ToString(), guidString, options);
 
                     var missing = Type.Missing;
                     contentControl.Range.Delete();

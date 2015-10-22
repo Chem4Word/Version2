@@ -5,6 +5,7 @@ using System.Linq;
 using System.Windows;
 using System.Xml;
 using System.Xml.Linq;
+using Chem4Word.Common;
 using Chem4Word.UI.OOXML.Atoms;
 using Chem4Word.UI.OOXML.Bonds;
 using Chem4Word.UI.TwoD;
@@ -34,9 +35,12 @@ namespace Chem4Word.UI.OOXML
         private List<BondLine> m_BondLines;
         //private SortedDictionary<string, Ring> m_rings;
         private C4wOptions m_options;
+        private Telemetry _telemetry;
 
-        public OoXmlMolecule(string cml, C4wOptions options)
+        public OoXmlMolecule(string cml, C4wOptions options, Telemetry telemetry)
         {
+            _telemetry = telemetry;
+
             #region Load cml string into CmlMolecule
 
             XmlDocument docBefore = new XmlDocument();
@@ -107,15 +111,18 @@ namespace Chem4Word.UI.OOXML
 
         public Run GenerateRun()
         {
+            string module = "OoXmlMolucule.GenerateRun()";
+
             Run run1 = new Run();
 
             ProgressBar pb = new ProgressBar();
 
             Debug.WriteLine("OoXmlMolecule.GenerateRun() Starting Step 1");
+            _telemetry.Write(module, "Debug", "Starting Step 1");
             DateTime started = DateTime.Now;
             #region Step 1 - Generate Atom Labels
 
-            AtomRenderer ar = new AtomRenderer(m_canvasExtents, m_AtomLabelCharacters, ref m_ooxmlId);
+            AtomRenderer ar = new AtomRenderer(m_canvasExtents, m_AtomLabelCharacters, ref m_ooxmlId, _telemetry);
 
             // Create Characters
             if (m_atoms.Count() > 1)
@@ -138,10 +145,11 @@ namespace Chem4Word.UI.OOXML
             Debug.WriteLine("Elapsed time " + ts.TotalMilliseconds.ToString("##,##0.0") + "ms");
 
             Debug.WriteLine("OoXmlMolecule.GenerateRun() Starting Step 2");
+            _telemetry.Write(module, "Debug", "Starting Step 2");
             started = DateTime.Now;
             #region Step 2 - Generate Bond Lines
 
-            BondRenderer br = new BondRenderer(m_canvasExtents, m_BondLines, ref m_ooxmlId, m_medianBondLength);
+            BondRenderer br = new BondRenderer(m_canvasExtents, m_BondLines, ref m_ooxmlId, m_medianBondLength, _telemetry);
 
             if (m_bonds.Count() > 1)
             {
@@ -156,11 +164,13 @@ namespace Chem4Word.UI.OOXML
                 pb.Increment(1);
                 br.CreateBondLines(bond);
             }
+
             #endregion
             ts = DateTime.Now - started;
             Debug.WriteLine("Elapsed time " + ts.TotalMilliseconds.ToString("##,##0.0") + "ms");
 
             Debug.WriteLine("OoXmlMolecule.GenerateRun() Starting Step 3");
+            _telemetry.Write(module, "Debug", "Starting Step 3");
             started = DateTime.Now;
             #region Step 3 - Increase canvas size
             // to accomodate extra space required by label characters
@@ -193,17 +203,28 @@ namespace Chem4Word.UI.OOXML
             Debug.WriteLine("Elapsed time " + ts.TotalMilliseconds.ToString("##,##0.0") + "ms");
 
             Debug.WriteLine("OoXmlMolecule.GenerateRun() Starting Step 4");
+            _telemetry.Write(module, "Debug", "Starting Step 4");
             started = DateTime.Now;
             #region Step 4 - Shrink bond lines
             // so that they do not overlap label characters
 
+            if (m_atoms.Count() > 1)
+            {
+                pb.Show();
+            }
+            pb.Message = "Clipping Bond Lines";
+            pb.Value = 0;
+            pb.Maximum = (m_AtomLabelCharacters.Count * m_BondLines.Count) - 1;
+
             foreach (AtomLabelCharacter alc in m_AtomLabelCharacters)
             {
+                pb.Increment(1);
                 Rect a = new Rect(alc.Position.X - Helper.CHARACTER_CLIPPING_MARGIN, alc.Position.Y - Helper.CHARACTER_CLIPPING_MARGIN,
                                 Helper.ScaleTtfToCml(alc.Character.BlackBoxX) + (Helper.CHARACTER_CLIPPING_MARGIN * 2),
                                 Helper.ScaleTtfToCml(alc.Character.BlackBoxY) + (Helper.CHARACTER_CLIPPING_MARGIN * 2));
 
                 //Debug.WriteLine("Character: " + alc.Ascii + " Rectangle: " + a);
+                //_telemetry.Write(module, "Debug", "Character: " + alc.Ascii + " Rectangle: " + a);
 
                 if (alc.IsSubScript)
                 {
@@ -211,19 +232,21 @@ namespace Chem4Word.UI.OOXML
                     a.Height = Helper.ScaleTtfToCml(alc.Character.BlackBoxY) * Helper.SUBSCRIPT_SCALE_FACTOR;
                 }
 
+                //_telemetry.Write(module, "Debug", "m_BondLines.Count " + m_BondLines.Count);
                 foreach (BondLine bl in m_BondLines)
                 {
+                    pb.Increment(1);
                     Point start = new Point(bl.StartX, bl.StartY);
                     Point end = new Point(bl.EndX, bl.EndY);
 
+                    //_telemetry.Write(module, "Debug", "Line from " + start + " to " + end);
                     //Debug.WriteLine("  Line Start Point: " + start);
                     //Debug.WriteLine("  Line   End Point: " + end);
-
-                    if (CohenSutherland.ClipLine(a, ref start, ref end))
+                    int attempts = 0;
+                    if (CohenSutherland.ClipLine(a, ref start, ref end, out attempts))
                     {
                         //Debug.WriteLine("    Clipped Line Start Point: " + start);
                         //Debug.WriteLine("    Clipped Line   End Point: " + end);
-
                         bool bClipped = false;
 
                         if (bl.StartX == start.X && bl.StartY == start.Y)
@@ -243,12 +266,14 @@ namespace Chem4Word.UI.OOXML
                         {
                             start = new Point(bl.StartX, bl.StartY);
                             end = new Point(bl.EndX, bl.EndY);
+                            //_telemetry.Write(module, "Debug", "Clipped Line from " + start + " to " + end);
                             //Debug.WriteLine("    New Line Start Point: " + start);
                             //Debug.WriteLine("    New Line   End Point: " + end);
                         }
                         else
                         {
                             // Line was clipped at both ends; hopefully never get here.
+                            //_telemetry.Write(module, "Debug", "Clipped at both ends");
                             Vector vstart = new Point(bl.StartX, bl.StartY) - start;
                             Vector vend = new Point(bl.EndX, bl.EndY) - end;
                             if (vstart.Length < vend.Length)
@@ -263,7 +288,9 @@ namespace Chem4Word.UI.OOXML
                             }
                         }
                     }
+                    //_telemetry.Write(module, "Debug", "CohenSutherland.ClipLine " + attempts + " attempts");
                 }
+                //_telemetry.Write(module, "Debug", "m_BondLines.Count (After) " + m_BondLines.Count);
             }
 
             #endregion
@@ -271,6 +298,8 @@ namespace Chem4Word.UI.OOXML
             Debug.WriteLine("Elapsed time " + ts.TotalMilliseconds.ToString("##,##0.0") + "ms");
 
             Debug.WriteLine("OoXmlMolecule.GenerateRun() Starting Step 5");
+            _telemetry.Write(module, "Debug", "Starting Step 5");
+
             started = DateTime.Now;
             #region Step 5 - Create main OoXml drawing objects
 
@@ -287,10 +316,11 @@ namespace Chem4Word.UI.OOXML
             Debug.WriteLine("Elapsed time " + ts.TotalMilliseconds.ToString("##,##0.0") + "ms");
 
             Debug.WriteLine("OoXmlMolecule.GenerateRun() Starting Step 6");
+            _telemetry.Write(module, "Debug", "Starting Step 6");
             started = DateTime.Now;
             #region Step 6 - Create and append OoXml objects for Atom Labels
 
-            ar = new AtomRenderer(m_canvasExtents, m_AtomLabelCharacters, ref m_ooxmlId);
+            ar = new AtomRenderer(m_canvasExtents, m_AtomLabelCharacters, ref m_ooxmlId, _telemetry);
 
             if (m_atoms.Count() > 1)
             {
@@ -303,6 +333,7 @@ namespace Chem4Word.UI.OOXML
             foreach (AtomLabelCharacter alc in m_AtomLabelCharacters)
             {
                 pb.Increment(1);
+                //_telemetry.Write(module, "Debug", "Rendering " + alc.Ascii);
                 ar.DrawAtomLabelCharacter(wordprocessingGroup1, alc);
             }
 
@@ -311,10 +342,11 @@ namespace Chem4Word.UI.OOXML
             Debug.WriteLine("Elapsed time " + ts.TotalMilliseconds.ToString("##,##0.0") + "ms");
 
             Debug.WriteLine("OoXmlMolecule.GenerateRun() Starting Step 7");
+            _telemetry.Write(module, "Debug", "Starting Step 7");
             started = DateTime.Now;
             #region Step 7 - Create and append OoXml objects for Bond Lines
 
-            br = new BondRenderer(m_canvasExtents, m_BondLines, ref m_ooxmlId, m_medianBondLength);
+            br = new BondRenderer(m_canvasExtents, m_BondLines, ref m_ooxmlId, m_medianBondLength, _telemetry);
 
             if (m_bonds.Count() > 1)
             {
@@ -327,6 +359,7 @@ namespace Chem4Word.UI.OOXML
             foreach (BondLine bl in m_BondLines)
             {
                 pb.Increment(1);
+                //_telemetry.Write(module, "Debug", "Rendering " + bl.Type + " line");
                 switch (bl.Type)
                 {
                     case "wedge":
@@ -344,6 +377,7 @@ namespace Chem4Word.UI.OOXML
             Debug.WriteLine("Elapsed time " + ts.TotalMilliseconds.ToString("##,##0.0") + "ms");
 
             Debug.WriteLine("OoXmlMolecule.GenerateRun() Starting Step 8");
+            _telemetry.Write(module, "Debug", "Starting Step 8");
             started = DateTime.Now;
             #region Step 8 - Append OoXml drawing objects to OoXml run object
 
