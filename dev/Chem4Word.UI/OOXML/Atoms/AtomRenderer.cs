@@ -64,11 +64,11 @@ namespace Chem4Word.UI.OOXML.Atoms
             //Debug.WriteLine("  Bond Count: " + bonds.Count);
             //Debug.WriteLine("  Ring Count: " + ringCount);
 
-            List<CmlAtom> atoms = new List<CmlAtom>();
+            List<CmlAtom> connectedAtoms = new List<CmlAtom>();
             foreach (CmlBond bond in bonds)
             {
                 CmlAtom other = bond.GetAtomAtOtherEnd(atom);
-                atoms.Add(other);
+                connectedAtoms.Add(other);
             }
 
             #region Decide if atom label is to be displayed
@@ -83,9 +83,9 @@ namespace Chem4Word.UI.OOXML.Atoms
                 if (bonds.Count == 2)
                 {
                     p1 = new Point((double)atom.X2, (double)atom.Y2);
-                    p2 = new Point((double)atoms[0].X2, (double)atoms[0].Y2);
+                    p2 = new Point((double)connectedAtoms[0].X2, (double)connectedAtoms[0].Y2);
                     Vector v1 = p1 - p2;
-                    p2 = new Point((double)atoms[1].X2, (double)atoms[1].Y2);
+                    p2 = new Point((double)connectedAtoms[1].X2, (double)connectedAtoms[1].Y2);
                     Vector v2 = p1 - p2;
                     angle1 = CoordinateTool.AngleBetween(v1, v2);
                     if (180 - (Math.Abs(angle1)) < 8)
@@ -223,7 +223,7 @@ namespace Chem4Word.UI.OOXML.Atoms
                     {
                         case 1:
                             p1 = new Point((double)atom.X2, (double)atom.Y2);
-                            p2 = new Point((double)atoms[0].X2, (double)atoms[0].Y2);
+                            p2 = new Point((double)connectedAtoms[0].X2, (double)connectedAtoms[0].Y2);
                             angle2 = CoordinateTool.AngleBetween(p1, p2);
                             break;
                         case 2:
@@ -232,8 +232,8 @@ namespace Chem4Word.UI.OOXML.Atoms
                                 // Find outgoing angle
                                 p1 = new Point((double)atom.X2, (double)atom.Y2);
                                 p2 = CoordinateTool.GetMidPoint(
-                                    new Point((double)atoms[0].X2, (double)atoms[0].Y2),
-                                    new Point((double)atoms[1].X2, (double)atoms[1].Y2));
+                                    new Point((double)connectedAtoms[0].X2, (double)connectedAtoms[0].Y2),
+                                    new Point((double)connectedAtoms[1].X2, (double)connectedAtoms[1].Y2));
                                 angle2 = CoordinateTool.AngleBetween(p1, p2);
                             }
                             else
@@ -242,9 +242,9 @@ namespace Chem4Word.UI.OOXML.Atoms
                                 {
                                     // Find average bond angle
                                     p1 = new Point((double)atom.X2, (double)atom.Y2);
-                                    p2 = new Point((double)atoms[0].X2, (double)atoms[0].Y2);
+                                    p2 = new Point((double)connectedAtoms[0].X2, (double)connectedAtoms[0].Y2);
                                     double angle2a = CoordinateTool.AngleBetween(p1, p2);
-                                    p2 = new Point((double)atoms[1].X2, (double)atoms[1].Y2);
+                                    p2 = new Point((double)connectedAtoms[1].X2, (double)connectedAtoms[1].Y2);
                                     double angle2b = CoordinateTool.AngleBetween(p2, p1);
                                     angle2 = (angle2a + angle2b) / 2;
                                 }
@@ -253,8 +253,8 @@ namespace Chem4Word.UI.OOXML.Atoms
                                     // Find outgoing angle
                                     p1 = new Point((double)atom.X2, (double)atom.Y2);
                                     p2 = CoordinateTool.GetMidPoint(
-                                        new Point((double)atoms[0].X2, (double)atoms[0].Y2),
-                                        new Point((double)atoms[1].X2, (double)atoms[1].Y2));
+                                        new Point((double)connectedAtoms[0].X2, (double)connectedAtoms[0].Y2),
+                                        new Point((double)connectedAtoms[1].X2, (double)connectedAtoms[1].Y2));
                                     angle2 = CoordinateTool.AngleBetween(p1, p2);
                                 }
                             }

@@ -2046,19 +2046,6 @@ namespace Chem4Word.Core {
             _purgeTimer.Elapsed += new ElapsedEventHandler(PurgeTimer_Elapsed);
             _purgeTimer.Start();
             _telemetry.Write(module, "Debug", "Purge Timer Started");
-
-            //if (wordApp != null && wordApp.ActiveDocument != null)
-            //{
-            //    foreach (ContentControl item in wordApp.ActiveDocument.ContentControls)
-            //    {
-            //        if (item.Title.CompareTo("CONTENTCONTROL_FLAGGED_FOR_DELETE") == 0)
-            //        {
-            //            Debug.WriteLine("Deleting flagged Content Control " + item.ID);
-            //            _telemetry.Write(module, "Debug", "Deleting flagged Content Control " + item.ID);
-            //            item.Delete(true);
-            //        }
-            //    }
-            //}
         }
 
         /// <summary>
@@ -2210,12 +2197,6 @@ namespace Chem4Word.Core {
                     AddNewContextObjectToDocument(range, contextObject, chemistryZoneProperties);
                     ActiveChemistryDocument.EventTurnOn = true;
                     _telemetry.Write(module, "Debug", "Inserted New Context Object");
-
-                    //// Start timer to delete flagged Content Control(s) hopefully only one!
-                    //_purgeTimer = new Timer(333);
-                    //_purgeTimer.Elapsed += new ElapsedEventHandler(PurgeTimer_Elapsed);
-                    //_purgeTimer.Start();
-                    //_telemetry.Write(module, "Debug", "Purge Timer Started");
                 }
             } catch (Exception ex) {
                 MessageBox.Show(ex.Message, Resources.CHEM_4_WORD_MESSAGE_BOX_TITLE, MessageBoxButton.OK,

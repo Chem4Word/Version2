@@ -99,8 +99,9 @@ namespace Chem4Word.UI.OOXML
                     else
                         outCode2 = ComputeOutCode(rect, x2 = x, y2 = y);
                 }
+
                 attempts++;
-                if (attempts > 99)
+                if (attempts > 15)
                 {
                     done = true;
                 }
