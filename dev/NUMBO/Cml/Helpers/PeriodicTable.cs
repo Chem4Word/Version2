@@ -919,8 +919,7 @@ namespace Numbo.Cml.Helpers
                     count = 5;
                     break;
                 case (Element.As):
-                    count =
-                        5;
+                    count = 5;
                     break;
                 case (Element.O):
                     count = 6;
@@ -981,7 +980,7 @@ namespace Numbo.Cml.Helpers
             int[] valencies;
             switch (element) {
                 case Element.Du:
-                    valencies = V012;
+                    valencies = V012;  // Can't draw using ChemDoodle !
                     break;
                 case Element.B:
                     valencies = V3;
@@ -990,16 +989,16 @@ namespace Numbo.Cml.Helpers
                     valencies = V4;
                     break;
                 case Element.N:
-                    valencies = V35;
+                    valencies = V3; // V35; // Make same as ChemDoodle
                     break;
                 case Element.O:
                     valencies = V2;
                     break;
                 case Element.P:
-                    valencies = V35;
+                    valencies = V3; // V35; // Make same as ChemDoodle
                     break;
                 case Element.S:
-                    valencies = V246;
+                    valencies = V2; // V246; // Make same as ChemDoodle
                     break;
                 case Element.F:
                 case Element.Cl:

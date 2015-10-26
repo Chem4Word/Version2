@@ -24,6 +24,7 @@ namespace Chem4Word.UI.OOXML
     public class OoXmlMolecule
     {
         private long m_ooxmlId = 1;
+        private const double epsilon = 1e-4;
 
         private CmlMolecule m_molecule;
         private IEnumerable<CmlBond> m_bonds;
@@ -143,6 +144,7 @@ namespace Chem4Word.UI.OOXML
             #endregion
             TimeSpan ts = DateTime.Now - started;
             Debug.WriteLine("Elapsed time " + ts.TotalMilliseconds.ToString("##,##0.0") + "ms");
+            _telemetry.Write(module, "Debug", "Elapsed time " + ts.TotalMilliseconds.ToString("##,##0.0") + "ms");
 
             Debug.WriteLine("OoXmlMolecule.GenerateRun() Starting Step 2");
             _telemetry.Write(module, "Debug", "Starting Step 2");
@@ -168,6 +170,7 @@ namespace Chem4Word.UI.OOXML
             #endregion
             ts = DateTime.Now - started;
             Debug.WriteLine("Elapsed time " + ts.TotalMilliseconds.ToString("##,##0.0") + "ms");
+            _telemetry.Write(module, "Debug", "Elapsed time " + ts.TotalMilliseconds.ToString("##,##0.0") + "ms");
 
             Debug.WriteLine("OoXmlMolecule.GenerateRun() Starting Step 3");
             _telemetry.Write(module, "Debug", "Starting Step 3");
@@ -201,6 +204,7 @@ namespace Chem4Word.UI.OOXML
             #endregion
             ts = DateTime.Now - started;
             Debug.WriteLine("Elapsed time " + ts.TotalMilliseconds.ToString("##,##0.0") + "ms");
+            _telemetry.Write(module, "Debug", "Elapsed time " + ts.TotalMilliseconds.ToString("##,##0.0") + "ms");
 
             Debug.WriteLine("OoXmlMolecule.GenerateRun() Starting Step 4");
             _telemetry.Write(module, "Debug", "Starting Step 4");
@@ -242,6 +246,7 @@ namespace Chem4Word.UI.OOXML
                     //_telemetry.Write(module, "Debug", "Line from " + start + " to " + end);
                     //Debug.WriteLine("  Line Start Point: " + start);
                     //Debug.WriteLine("  Line   End Point: " + end);
+
                     int attempts = 0;
                     if (CohenSutherland.ClipLine(a, ref start, ref end, out attempts))
                     {
@@ -249,13 +254,13 @@ namespace Chem4Word.UI.OOXML
                         //Debug.WriteLine("    Clipped Line   End Point: " + end);
                         bool bClipped = false;
 
-                        if (bl.StartX == start.X && bl.StartY == start.Y)
+                        if (Math.Abs(bl.StartX - start.X) < epsilon && Math.Abs(bl.StartY - start.Y) < epsilon)
                         {
                             bl.StartX = end.X;
                             bl.StartY = end.Y;
                             bClipped = true;
                         }
-                        if (bl.EndX == end.X && bl.EndY == end.Y)
+                        if (Math.Abs(bl.EndX - end.X) < epsilon && Math.Abs(bl.EndY - end.Y) < epsilon)
                         {
                             bl.EndX = start.X;
                             bl.EndY = start.Y;
@@ -272,6 +277,17 @@ namespace Chem4Word.UI.OOXML
                         }
                         else
                         {
+                            _telemetry.Write(module, "Warning", "Line was clipped at both ends");
+                            _telemetry.Write(module, "Info", "Character: " + alc.Ascii + " Rectangle: " + a);
+                            _telemetry.Write(module, "Warning", "Original; From " + bl.StartX.ToString("#0.0000")
+                                                                        + "," + bl.StartY.ToString("#0.0000")
+                                                                        + " To" + bl.EndX.ToString("#0.0000")
+                                                                        + "," + bl.EndY.ToString("#0.0000"));
+                            _telemetry.Write(module, "Warning", "Clipped; From " + start.X.ToString("#0.0000")
+                                                                        + "," + start.Y.ToString("#0.0000")
+                                                                        + " To" + end.X.ToString("#0.0000")
+                                                                        + "," + end.Y.ToString("#0.0000"));
+
                             // Line was clipped at both ends; hopefully never get here.
                             //_telemetry.Write(module, "Debug", "Clipped at both ends");
                             Vector vstart = new Point(bl.StartX, bl.StartY) - start;
@@ -288,7 +304,10 @@ namespace Chem4Word.UI.OOXML
                             }
                         }
                     }
-                    //_telemetry.Write(module, "Debug", "CohenSutherland.ClipLine " + attempts + " attempts");
+                    if (attempts >= 15)
+                    {
+                        _telemetry.Write(module, "Error", "CohenSutherland.ClipLine() bombed out after " + attempts + " loops");
+                    }
                 }
                 //_telemetry.Write(module, "Debug", "m_BondLines.Count (After) " + m_BondLines.Count);
             }
@@ -296,6 +315,7 @@ namespace Chem4Word.UI.OOXML
             #endregion
             ts = DateTime.Now - started;
             Debug.WriteLine("Elapsed time " + ts.TotalMilliseconds.ToString("##,##0.0") + "ms");
+            _telemetry.Write(module, "Debug", "Elapsed time " + ts.TotalMilliseconds.ToString("##,##0.0") + "ms");
 
             Debug.WriteLine("OoXmlMolecule.GenerateRun() Starting Step 5");
             _telemetry.Write(module, "Debug", "Starting Step 5");
@@ -314,6 +334,7 @@ namespace Chem4Word.UI.OOXML
             #endregion
             ts = DateTime.Now - started;
             Debug.WriteLine("Elapsed time " + ts.TotalMilliseconds.ToString("##,##0.0") + "ms");
+            _telemetry.Write(module, "Debug", "Elapsed time " + ts.TotalMilliseconds.ToString("##,##0.0") + "ms");
 
             Debug.WriteLine("OoXmlMolecule.GenerateRun() Starting Step 6");
             _telemetry.Write(module, "Debug", "Starting Step 6");
@@ -340,6 +361,7 @@ namespace Chem4Word.UI.OOXML
             #endregion
             ts = DateTime.Now - started;
             Debug.WriteLine("Elapsed time " + ts.TotalMilliseconds.ToString("##,##0.0") + "ms");
+            _telemetry.Write(module, "Debug", "Elapsed time " + ts.TotalMilliseconds.ToString("##,##0.0") + "ms");
 
             Debug.WriteLine("OoXmlMolecule.GenerateRun() Starting Step 7");
             _telemetry.Write(module, "Debug", "Starting Step 7");
@@ -375,6 +397,7 @@ namespace Chem4Word.UI.OOXML
             #endregion
             ts = DateTime.Now - started;
             Debug.WriteLine("Elapsed time " + ts.TotalMilliseconds.ToString("##,##0.0") + "ms");
+            _telemetry.Write(module, "Debug", "Elapsed time " + ts.TotalMilliseconds.ToString("##,##0.0") + "ms");
 
             Debug.WriteLine("OoXmlMolecule.GenerateRun() Starting Step 8");
             _telemetry.Write(module, "Debug", "Starting Step 8");
@@ -390,6 +413,7 @@ namespace Chem4Word.UI.OOXML
             #endregion
             ts = DateTime.Now - started;
             Debug.WriteLine("Elapsed time " + ts.TotalMilliseconds.ToString("##,##0.0") + "ms");
+            _telemetry.Write(module, "Debug", "Elapsed time " + ts.TotalMilliseconds.ToString("##,##0.0") + "ms");
 
             pb.Value = 0;
             pb.Hide();
