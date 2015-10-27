@@ -74,7 +74,9 @@ namespace Chem4Word.Core.UserSetting
                     this.NavigatorPreferedDepiction.SelectedItem = this.navigatorPreferedDepictionInline;
                     break;
             }
-            this.checkBox1.IsChecked = Setting.CollapseNavigatorDepiction;
+            this.chkCollapseNavigator.IsChecked = Setting.CollapseNavigatorDepiction;
+            this.chkRenderAtomsInColour.IsChecked = Setting.RenderAtomsInColour;
+            this.chkShowImplicitHydrogens.IsChecked = Setting.RenderImplicitHydrogens;
         }
 
         private void documentPreferedDepictionMouseMove(object sender, MouseEventArgs e)
@@ -181,31 +183,34 @@ namespace Chem4Word.Core.UserSetting
             }
 
             // set collapse navigator option
-            Setting.CollapseNavigatorDepiction = (checkBox1.IsChecked == true);
+            Setting.CollapseNavigatorDepiction = (chkCollapseNavigator.IsChecked == true);
 
-            /// Write to Setting File
+            // Set OoXml Options
+            Setting.RenderAtomsInColour = (chkRenderAtomsInColour.IsChecked == true);
+            Setting.RenderImplicitHydrogens = (chkShowImplicitHydrogens.IsChecked == true);
+
+            /// Write to Settings File
             using (XmlWriter xw = XmlWriter.Create(settingfile))
             {
                 XDocument userSetting = new XDocument(new XElement("userSetting",
                                                                    new XElement("importOption",
                                                                                 new XAttribute("value",
-                                                                                               Setting.
-                                                                                                   Import.ToString())),
+                                                                                               Setting.Import.ToString())),
                                                                    new XElement("documentPreferedDepiction",
                                                                                 new XAttribute("value",
-                                                                                               Setting.
-                                                                                                   DocumentPreferedDepiction
-                                                                                                   .ToString())),
+                                                                                               Setting.DocumentPreferedDepiction.ToString())),
                                                                    new XElement("navigatorPreferedDepiction",
                                                                                 new XAttribute("value",
-                                                                                               Setting.
-                                                                                                   NavigatorPreferedDepiction
-                                                                                                   .ToString())),
+                                                                                               Setting.NavigatorPreferedDepiction.ToString())),
                                                                                                    new XElement("collapseNavigatorDepiction",
                                                                                 new XAttribute("value",
-                                                                                               Setting.
-                                                                                                   CollapseNavigatorDepiction
-                                                                                                   .ToString()))
+                                                                                               Setting.CollapseNavigatorDepiction.ToString())),
+                                                                   new XElement("ooXmlRenderAtomsInColour",
+                                                                                new XAttribute("value",
+                                                                                               Setting.RenderAtomsInColour.ToString())),
+                                                                   new XElement("ooXmlRenderImplicitHydrogens",
+                                                                                new XAttribute("value",
+                                                                                               Setting.RenderImplicitHydrogens.ToString()))
 
                                                           ));
                 userSetting.WriteTo(xw);

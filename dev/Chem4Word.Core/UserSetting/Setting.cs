@@ -23,6 +23,10 @@ namespace Chem4Word.Core.UserSetting
         public static NavPreferedDepiction NavigatorPreferedDepiction { get; set; }
 
         public static bool CollapseNavigatorDepiction { get; set; }
+
+        public static bool RenderAtomsInColour { get; set; }
+
+        public static bool RenderImplicitHydrogens { get; set; }
     }
 
     public enum ImportSetting

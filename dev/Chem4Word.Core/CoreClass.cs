@@ -328,6 +328,16 @@ namespace Chem4Word.Core {
             bool.TryParse(userSetting.Root.Element("collapseNavigatorDepiction").Attribute("value").Value,
                           out collapseNavigatorDepiction);
             Setting.CollapseNavigatorDepiction = collapseNavigatorDepiction;
+
+            bool ooXmlRenderAtomsInColour;
+            bool.TryParse(userSetting.Root.Element("ooXmlRenderAtomsInColour").Attribute("value").Value,
+                          out ooXmlRenderAtomsInColour);
+            Setting.RenderAtomsInColour = ooXmlRenderAtomsInColour;
+
+            bool ooXmlRenderImplicitHydrogens;
+            bool.TryParse(userSetting.Root.Element("ooXmlRenderImplicitHydrogens").Attribute("value").Value,
+                          out ooXmlRenderImplicitHydrogens);
+            Setting.RenderImplicitHydrogens = ooXmlRenderImplicitHydrogens;
         }
 
         private void WordAppWindowBeforeDoubleClick(Selection Sel, ref bool Cancel) {
@@ -450,8 +460,8 @@ namespace Chem4Word.Core {
                     WriteTelemetry(module, "Information", "Bonds: " + cmlMolecule.GetAllBonds().Count());
 
                     C4wOptions options = new C4wOptions();
-                    options.ColouredAtoms = true;
-                    options.ShowHydrogens = true;
+                    options.ColouredAtoms = Setting.RenderAtomsInColour;
+                    options.ShowHydrogens = Setting.RenderImplicitHydrogens;
                     string guidString = Guid.NewGuid().ToString("N");
                     string bookmarkName = "C4W_" + guidString;
                     OoXmlFile ooXmlFile = new OoXmlFile(_telemetry);
@@ -804,8 +814,8 @@ namespace Chem4Word.Core {
                         WriteTelemetry(module, "Information", "Bonds: " + mol.GetAllBonds().Count());
 
                         C4wOptions options = new C4wOptions();
-                        options.ColouredAtoms = true;
-                        options.ShowHydrogens = true;
+                        options.ColouredAtoms = Setting.RenderAtomsInColour;
+                        options.ShowHydrogens = Setting.RenderImplicitHydrogens;
                         string guidString = Guid.NewGuid().ToString("N");
                         string bookmarkName = "C4W_" + guidString;
                         OoXmlFile ooXmlFile = new OoXmlFile(_telemetry);
@@ -991,6 +1001,10 @@ namespace Chem4Word.Core {
                 #region Fire up ChemDoodle editor
                 
                 ChemDoodleEditorForm tcd = new ChemDoodleEditorForm();
+
+                tcd.UserOptions = new C4wOptions();
+                tcd.UserOptions.ShowHydrogens = Setting.RenderImplicitHydrogens;
+
                 tcd.Telemetry = _telemetry;
 
                 #region Convert cml to JSON

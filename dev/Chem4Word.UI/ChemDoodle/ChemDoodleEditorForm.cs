@@ -49,8 +49,7 @@ namespace Chem4Word.UI.ChemDoodle
         public ChemDoodleEditorForm()
         {
             InitializeComponent();
-            // ToDo: Get from User Settings
-            UserOptions = new C4wOptions();
+
             Application.AddMessageFilter(this);
         }
 
