@@ -11,6 +11,7 @@ using System.Xml.Linq;
 using Chem4Word.Api;
 using Chem4Word.Common;
 using Chem4Word.Core.Properties;
+using Chem4Word.Core.UserSetting;
 using Chem4Word.UI.OOXML;
 using Chem4Word.UI.TwoD;
 using log4net;
@@ -106,8 +107,8 @@ namespace Chem4Word.Core {
                     document.WriteTelemetry(module, "Information", "Bonds: " + mol.GetAllBonds().Count());
 
                     C4wOptions options = new C4wOptions();
-                    options.ColouredAtoms = true;
-                    options.ShowHydrogens = true;
+                    options.ColouredAtoms = Setting.RenderAtomsInColour;
+                    options.ShowHydrogens = Setting.RenderImplicitHydrogens;
                     string guidString = Guid.NewGuid().ToString("N");
                     string bookmarkName = "C4W_" + guidString;
                     OoXmlFile ooXmlFile = new OoXmlFile(document.GetTelemetry());

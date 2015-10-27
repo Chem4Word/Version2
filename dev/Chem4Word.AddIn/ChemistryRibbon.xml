@@ -22,7 +22,7 @@
             <button id="splitButtonEdit" label="Edit" getImage="GetEditImage" onAction="EditClick" screentip="Chemistry Editor" supertip="Add or edit representations of your molecule, including graphical 2D, names, labels and formulae." />
             <menu id="EditMenu">
               <button id="tweakDoodle" onAction="TweakDoodleClick" getEnabled="GetTweak2DEnable" label="Edit 2D - (ChemDoodle)" getImage="GetChemImage" />
-              <button id="tweak2D" onAction="Tweak2DClick" getEnabled="GetTweak2DEnable" label="Edit 2D - (WPF)" getImage="GetChemImage" />
+              <!--<button id="tweak2D" onAction="Tweak2DClick" getEnabled="GetTweak2DEnable" label="Edit 2D - (WPF)" getImage="GetChemImage" />-->
               <button id="editLabels" onAction="EditLabelsClick" getEnabled="GetSaveSelectionEnable" label="Edit Labels" getImage="GetEditLabelsImage" />
             </menu>
           </splitButton>
