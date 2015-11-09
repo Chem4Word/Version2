@@ -80,6 +80,12 @@ namespace Chem4Word.UI.Converters
                             jAtom.Add(new JProperty("l", atomLabel));
                         }
 
+                        string charge = GetAttribute(atom, "formalCharge");
+                        if (!string.IsNullOrEmpty(charge))
+                        {
+                            jAtom.Add(new JProperty("c", Int32.Parse(charge)));
+                        }
+
                         jAtomsArray.Add(jAtom);
                         atomCount++;
                     }
