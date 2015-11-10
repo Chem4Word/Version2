@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <userSetting>
-<importOption value="Auto" />
-<documentPreferedDepiction value="TwoD" />
-<navigatorPreferedDepiction value="ConciseFormula" />
-<collapseNavigatorDepiction value="True" />
+	<importOption value="Auto" />
+	<documentPreferedDepiction value="TwoD" />
+	<navigatorPreferedDepiction value="ConciseFormula" />
+	<collapseNavigatorDepiction value="True" />
+	<ooXmlRenderAtomsInColour value="True" />
+	<ooXmlRenderImplicitHydrogens value="True" />
 </userSetting>
