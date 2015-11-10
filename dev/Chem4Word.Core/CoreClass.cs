@@ -97,37 +97,49 @@ namespace Chem4Word.Core {
         ///   Initializes a new instance of the Core class.
         /// </summary>
         public CoreClass(Application wordApplication) {
-            Log.Info("creating a new CORE - word app: " + wordApplication);
-            // Initialization
-            localAppDataFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-                                              Properties.Resources.CHEM4WORD_LOCATION);
-            assemblyDirectoryName = GetAssemblyDirectoryName();
-            wordApp = wordApplication;
-            galleryDictionaryManager = new GalleryDictionaryManager();
-            documentDictionary = new Dictionary<Document, IChemistryDocument>();
+            string module = "CoreClass()";
 
+            Log.Info("creating a new CORE - word app: " + wordApplication);
             _telemetry = new Telemetry();
 
-            // Check if [LocalApplicationData]\Chem4Word\Chemistry Gallery\Chem4Word.dotx is missing
-            // Recover them from Program Folder
-            CheckForRecovery();
+            try
+            {
+                // Initialization
+                localAppDataFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
+                                                  Properties.Resources.CHEM4WORD_LOCATION);
+                assemblyDirectoryName = GetAssemblyDirectoryName();
+                wordApp = wordApplication;
+                galleryDictionaryManager = new GalleryDictionaryManager();
+                documentDictionary = new Dictionary<Document, IChemistryDocument>();
 
-            // Load SmartTag
-            smartTag = new ChemistrySmartTag(this);
+                // Check if [LocalApplicationData]\Chem4Word\Chemistry Gallery\Chem4Word{version}.dotx
+                //  is missing and recover it from Program Folder if necessary
+                CheckForRecovery();
 
-            // Load user setting
-            InitialiseUserSettings();
+                // Load SmartTag
+                smartTag = new ChemistrySmartTag(this);
 
-            //Register Events
-            wordApp.WindowActivate += ApplicationWindowActivate;
-            wordApp.WindowSelectionChange += WordAppWindowSelectionChange;
-            wordApp.DocumentOpen += WordAppDocumentOpen;
-            wordApp.DocumentChange += WordAppDocumentChange;
-            wordApp.DocumentBeforeClose += WordAppDocumentBeforeClose;
-            wordApp.DocumentBeforeSave += WordAppDocumentBeforeSave;
-            wordApp.WindowDeactivate += ApplicationWindowDeactivate;
-            wordApp.WindowBeforeRightClick += ChemistryContextMenuHelper.Instance(this, wordApp).WindowBeforeRightClick;
-            wordApp.WindowBeforeDoubleClick += WordAppWindowBeforeDoubleClick;
+                // Load user setting
+                InitialiseUserSettings();
+
+                //Register Events
+                wordApp.WindowActivate += ApplicationWindowActivate;
+                wordApp.WindowSelectionChange += WordAppWindowSelectionChange;
+
+                wordApp.DocumentOpen += WordAppDocumentOpen;
+                wordApp.DocumentChange += WordAppDocumentChange;
+                wordApp.DocumentBeforeClose += WordAppDocumentBeforeClose;
+                wordApp.DocumentBeforeSave += WordAppDocumentBeforeSave;
+
+                wordApp.WindowDeactivate += ApplicationWindowDeactivate;
+                wordApp.WindowBeforeRightClick += ChemistryContextMenuHelper.Instance(this, wordApp).WindowBeforeRightClick;
+                wordApp.WindowBeforeDoubleClick += WordAppWindowBeforeDoubleClick;
+            }
+            catch (Exception ex)
+            {
+                _telemetry.Write(module, "Exception", ex.Message);
+                throw;
+            }
         }
 
         public int WordVersion()
@@ -309,35 +321,44 @@ namespace Chem4Word.Core {
 
         #endregion
 
-        private void InitialiseUserSettings() {
-            XDocument userSetting = XDocument.Load(localAppDataFolder + @"\User Setting.xml");
-            string importOption = userSetting.Root.Element("importOption").Attribute("value").Value;
-            Setting.Import =
-                (ImportSetting) Enum.Parse(typeof (ImportSetting), importOption, true);
-            string documentPreferedDepiction =
-                userSetting.Root.Element("documentPreferedDepiction").Attribute("value").Value;
-            Setting.DocumentPreferedDepiction = (DocPreferedDepiction)
-                                                Enum.Parse(typeof (DocPreferedDepiction),
-                                                           documentPreferedDepiction, true);
-            string navigatorPreferedDepiction =
-                userSetting.Root.Element("navigatorPreferedDepiction").Attribute("value").Value;
-            Setting.NavigatorPreferedDepiction = (NavPreferedDepiction)
-                                                 Enum.Parse(typeof (NavPreferedDepiction),
-                                                            navigatorPreferedDepiction, true);
-            bool collapseNavigatorDepiction;
-            bool.TryParse(userSetting.Root.Element("collapseNavigatorDepiction").Attribute("value").Value,
-                          out collapseNavigatorDepiction);
-            Setting.CollapseNavigatorDepiction = collapseNavigatorDepiction;
+        private void InitialiseUserSettings()
+        {
+            string module = "InitialiseUserSettings()";
+            try
+            {
+                XDocument userSetting = XDocument.Load(localAppDataFolder + @"\User Setting.xml");
+                string importOption = userSetting.Root.Element("importOption").Attribute("value").Value;
+                Setting.Import =
+                    (ImportSetting)Enum.Parse(typeof(ImportSetting), importOption, true);
+                string documentPreferedDepiction =
+                    userSetting.Root.Element("documentPreferedDepiction").Attribute("value").Value;
+                Setting.DocumentPreferedDepiction = (DocPreferedDepiction)
+                                                    Enum.Parse(typeof(DocPreferedDepiction),
+                                                               documentPreferedDepiction, true);
+                string navigatorPreferedDepiction =
+                    userSetting.Root.Element("navigatorPreferedDepiction").Attribute("value").Value;
+                Setting.NavigatorPreferedDepiction = (NavPreferedDepiction)
+                                                     Enum.Parse(typeof(NavPreferedDepiction),
+                                                                navigatorPreferedDepiction, true);
+                bool collapseNavigatorDepiction;
+                bool.TryParse(userSetting.Root.Element("collapseNavigatorDepiction").Attribute("value").Value,
+                              out collapseNavigatorDepiction);
+                Setting.CollapseNavigatorDepiction = collapseNavigatorDepiction;
 
-            bool ooXmlRenderAtomsInColour;
-            bool.TryParse(userSetting.Root.Element("ooXmlRenderAtomsInColour").Attribute("value").Value,
-                          out ooXmlRenderAtomsInColour);
-            Setting.RenderAtomsInColour = ooXmlRenderAtomsInColour;
+                bool ooXmlRenderAtomsInColour;
+                bool.TryParse(userSetting.Root.Element("ooXmlRenderAtomsInColour").Attribute("value").Value,
+                              out ooXmlRenderAtomsInColour);
+                Setting.RenderAtomsInColour = ooXmlRenderAtomsInColour;
 
-            bool ooXmlRenderImplicitHydrogens;
-            bool.TryParse(userSetting.Root.Element("ooXmlRenderImplicitHydrogens").Attribute("value").Value,
-                          out ooXmlRenderImplicitHydrogens);
-            Setting.RenderImplicitHydrogens = ooXmlRenderImplicitHydrogens;
+                bool ooXmlRenderImplicitHydrogens;
+                bool.TryParse(userSetting.Root.Element("ooXmlRenderImplicitHydrogens").Attribute("value").Value,
+                              out ooXmlRenderImplicitHydrogens);
+                Setting.RenderImplicitHydrogens = ooXmlRenderImplicitHydrogens;
+            }
+            catch (Exception ex)
+            {
+                _telemetry.Write(module, "Exception", ex.Message);
+            }
         }
 
         private void WordAppWindowBeforeDoubleClick(Selection Sel, ref bool Cancel) {
@@ -1543,34 +1564,6 @@ namespace Chem4Word.Core {
             UserSettingOption userSettingOption =
                 new UserSettingOption(localAppDataFolder + @"\User Setting.xml");
             bool? dialogResult = userSettingOption.ShowDialog();
-
-            //if (dialogResult != null)
-            //{
-            //    if (dialogResult.Value)
-            //    {
-            //        using (XmlWriter xw = XmlWriter.Create(localAppDataFolder + @"\User Setting.xml"))
-            //        {
-            //            XDocument userSetting = new XDocument(new XElement("userSetting",
-            //                                                               new XElement("importOption",
-            //                                                                            new XAttribute("value",
-            //                                                                                           Setting.
-            //                                                                                               Import.
-            //                                                                                               ToString())),
-            //                                                               new XElement("documentPreferedDepiction",
-            //                                                                            new XAttribute("value",
-            //                                                                                           Setting.
-            //                                                                                               DocumentPreferedDepiction
-            //                                                                                               .ToString())),
-            //                                                               new XElement("navigatorPreferedDepiction",
-            //                                                                            new XAttribute("value",
-            //                                                                                           Setting.
-            //                                                                                               NavigatorPreferedDepiction
-            //                                                                                               .ToString()))
-            //                                                      ));
-            //            userSetting.WriteTo(xw);
-            //        }
-            //    }
-            //}
         }
 
         /// <summary>
