@@ -107,6 +107,8 @@ namespace Chem4Word.Common
                 string officeProductName = "";
 
                 RegistryKey localMachine = Registry.LocalMachine;
+
+                #region Pass #1
                 RegistryKey products = localMachine.OpenSubKey(ProductsRootWow6432, false);
                 if (products != null)
                 {
@@ -129,8 +131,10 @@ namespace Chem4Word.Common
                         }
                     }
                 }
+                #endregion
 
-                if (!string.IsNullOrEmpty(officeProductName))
+                #region Pass #2 (if required)
+                if (string.IsNullOrEmpty(officeProductName))
                 {
                     products = localMachine.OpenSubKey(ProductsRoot, false);
                     if (products != null)
@@ -155,6 +159,7 @@ namespace Chem4Word.Common
                         }
                     }
                 }
+                #endregion
 
                 #endregion
 

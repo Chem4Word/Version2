@@ -70,7 +70,11 @@ namespace Chem4Word.Common
                 me3.MachineId = _helper.MachineId;
                 me3.Operation = "StartUp";
                 me3.Level = "Information";
+#if DEBUG
+                me3.Message = _helper.AddInVersion + " (debug)";
+#else
                 me3.Message = _helper.AddInVersion + " (beta 1)";
+#endif
                 result3 = storage.WriteMessage(me3);
             }
             catch (Exception ex)
