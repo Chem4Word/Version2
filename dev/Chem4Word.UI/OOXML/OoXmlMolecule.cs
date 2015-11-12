@@ -281,11 +281,11 @@ namespace Chem4Word.UI.OOXML
                             _telemetry.Write(module, "Info", "Character: " + alc.Ascii + " Rectangle: " + a);
                             _telemetry.Write(module, "Warning", "Original; From " + bl.StartX.ToString("#0.0000")
                                                                         + "," + bl.StartY.ToString("#0.0000")
-                                                                        + " To" + bl.EndX.ToString("#0.0000")
+                                                                        + " To " + bl.EndX.ToString("#0.0000")
                                                                         + "," + bl.EndY.ToString("#0.0000"));
                             _telemetry.Write(module, "Warning", "Clipped; From " + start.X.ToString("#0.0000")
                                                                         + "," + start.Y.ToString("#0.0000")
-                                                                        + " To" + end.X.ToString("#0.0000")
+                                                                        + " To " + end.X.ToString("#0.0000")
                                                                         + "," + end.Y.ToString("#0.0000"));
 
                             // Line was clipped at both ends; hopefully never get here.
@@ -302,6 +302,11 @@ namespace Chem4Word.UI.OOXML
                                 bl.EndX = start.X;
                                 bl.EndY = start.Y;
                             }
+
+                            _telemetry.Write(module, "Warning", "Resultant; From " + bl.StartX.ToString("#0.0000")
+                                                                        + "," + bl.StartY.ToString("#0.0000")
+                                                                        + " To " + bl.EndX.ToString("#0.0000")
+                                                                        + "," + bl.EndY.ToString("#0.0000"));
                         }
                     }
                     if (attempts >= 15)
