@@ -31,8 +31,10 @@ namespace Chem4Word.Common
             bool result1 = false;
             bool result2 = false;
             bool result3 = false;
+            bool result4 = false;
 
             AzureStorage storage = new AzureStorage();
+
             try
             {
                 // Write OS
@@ -50,12 +52,12 @@ namespace Chem4Word.Common
 
             try
             {
-                // Write Word version
+                // Write Ip Adress
                 MessageEntity me2 = new MessageEntity();
                 me2.MachineId = _helper.MachineId;
                 me2.Operation = "StartUp";
                 me2.Level = "Information";
-                me2.Message = _helper.WordProduct;
+                me2.Message = _helper.IpAddress;
                 result2 = storage.WriteMessage(me2);
             }
             catch (Exception ex)
@@ -65,16 +67,12 @@ namespace Chem4Word.Common
 
             try
             {
-                // Write AddIn Version
+                // Write Word version
                 MessageEntity me3 = new MessageEntity();
                 me3.MachineId = _helper.MachineId;
                 me3.Operation = "StartUp";
                 me3.Level = "Information";
-#if DEBUG
-                me3.Message = _helper.AddInVersion + " (debug)";
-#else
-                me3.Message = _helper.AddInVersion + " (beta 1)";
-#endif
+                me3.Message = _helper.WordProduct;
                 result3 = storage.WriteMessage(me3);
             }
             catch (Exception ex)
@@ -82,7 +80,26 @@ namespace Chem4Word.Common
                 Debug.WriteLine("Exception " + ex.Message);
             }
 
-            _systemInfoSent = result1 && result2 && result3;
+            try
+            {
+                // Write AddIn Version
+                MessageEntity me4 = new MessageEntity();
+                me4.MachineId = _helper.MachineId;
+                me4.Operation = "StartUp";
+                me4.Level = "Information";
+#if DEBUG
+                me4.Message = _helper.AddInVersion + " (debug)";
+#else
+                me4.Message = _helper.AddInVersion + " (beta 1a)";
+#endif
+                result4 = storage.WriteMessage(me4);
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Exception " + ex.Message);
+            }
+
+            _systemInfoSent = result1 && result2 && result3 && result4;
         }
 
         public void Write(string operation, string level, string message)

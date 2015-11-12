@@ -10,9 +10,12 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
 using System.Linq;
+using System.Net;
 using System.Reflection;
 using System.Text;
+using System.Text.RegularExpressions;
 using Microsoft.Win32;
 
 namespace Chem4Word.Common
@@ -23,6 +26,7 @@ namespace Chem4Word.Common
         public string SystemOs { get; set; }
         public string WordProduct { get; set; }
         public string AddInVersion { get; set; }
+        public string IpAddress { get; set; }
 
         private int _wordVersion = -1;
         public int WordVersion {
@@ -37,8 +41,8 @@ namespace Chem4Word.Common
         }
 
         private string CryptoRoot = @"SOFTWARE\Microsoft\Cryptography";
-        private string ProductsRoot = @"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall";
-        private string ProductsRootWow6432 = @"SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall";
+        //private string ProductsRoot = @"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall";
+        //private string ProductsRootWow6432 = @"SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall";
 
         public SystemHelper()
         {
@@ -87,7 +91,10 @@ namespace Chem4Word.Common
                     sb.Append(" [");
                     sb.Append(operatingSystem.Version.ToString());
                     sb.Append("]");
-                    SystemOs = sb.ToString().Replace(Environment.NewLine, "").Replace("Service Pack ", "SP");
+
+                    string cultureName = CultureInfo.CurrentCulture.Name;
+
+                    SystemOs = sb.ToString().Replace(Environment.NewLine, "").Replace("Service Pack ", "SP") + " " + cultureName;
                 }
             }
             catch (Exception ex)
@@ -108,58 +115,58 @@ namespace Chem4Word.Common
 
                 RegistryKey localMachine = Registry.LocalMachine;
 
-                #region Pass #1
-                RegistryKey products = localMachine.OpenSubKey(ProductsRootWow6432, false);
-                if (products != null)
-                {
-                    string[] productFolders = products.GetSubKeyNames();
+                //#region Pass #1
+                //RegistryKey products = localMachine.OpenSubKey(ProductsRootWow6432, false);
+                //if (products != null)
+                //{
+                //    string[] productFolders = products.GetSubKeyNames();
 
-                    foreach (string p in productFolders)
-                    {
-                        RegistryKey installProperties = products.OpenSubKey(p);
-                        if (installProperties != null)
-                        {
-                            string parentDisplayName = (string)installProperties.GetValue("ParentDisplayName");
-                            string displayName = (string)installProperties.GetValue("DisplayName");
-                            if ((parentDisplayName != null) && (parentDisplayName.StartsWith("Microsoft Office")))
-                            {
-                                //Debug.WriteLine(parentDisplayName);
-                                officeProductName = parentDisplayName;
-                                //MessageBox.Show("Uninstall Wow6432Node " + officeProductName);
-                                break;
-                            }
-                        }
-                    }
-                }
-                #endregion
+                //    foreach (string p in productFolders)
+                //    {
+                //        RegistryKey installProperties = products.OpenSubKey(p);
+                //        if (installProperties != null)
+                //        {
+                //            string parentDisplayName = (string)installProperties.GetValue("ParentDisplayName");
+                //            string displayName = (string)installProperties.GetValue("DisplayName");
+                //            if ((parentDisplayName != null) && (parentDisplayName.StartsWith("Microsoft Office")))
+                //            {
+                //                //Debug.WriteLine(parentDisplayName);
+                //                officeProductName = parentDisplayName;
+                //                //MessageBox.Show("Uninstall Wow6432Node " + officeProductName);
+                //                break;
+                //            }
+                //        }
+                //    }
+                //}
+                //#endregion
 
-                #region Pass #2 (if required)
-                if (string.IsNullOrEmpty(officeProductName))
-                {
-                    products = localMachine.OpenSubKey(ProductsRoot, false);
-                    if (products != null)
-                    {
-                        string[] productFolders = products.GetSubKeyNames();
+                //#region Pass #2 (if required)
+                //if (string.IsNullOrEmpty(officeProductName))
+                //{
+                //    products = localMachine.OpenSubKey(ProductsRoot, false);
+                //    if (products != null)
+                //    {
+                //        string[] productFolders = products.GetSubKeyNames();
 
-                        foreach (string p in productFolders)
-                        {
-                            RegistryKey installProperties = products.OpenSubKey(p);
-                            if (installProperties != null)
-                            {
-                                string parentDisplayName = (string)installProperties.GetValue("ParentDisplayName");
-                                string displayName = (string)installProperties.GetValue("DisplayName");
-                                if ((parentDisplayName != null) && (parentDisplayName.StartsWith("Microsoft Office")))
-                                {
-                                    //Debug.WriteLine(parentDisplayName);
-                                    officeProductName = parentDisplayName;
-                                    //MessageBox.Show("Uninstall " + officeProductName);
-                                    break;
-                                }
-                            }
-                        }
-                    }
-                }
-                #endregion
+                //        foreach (string p in productFolders)
+                //        {
+                //            RegistryKey installProperties = products.OpenSubKey(p);
+                //            if (installProperties != null)
+                //            {
+                //                string parentDisplayName = (string)installProperties.GetValue("ParentDisplayName");
+                //                string displayName = (string)installProperties.GetValue("DisplayName");
+                //                if ((parentDisplayName != null) && (parentDisplayName.StartsWith("Microsoft Office")))
+                //                {
+                //                    //Debug.WriteLine(parentDisplayName);
+                //                    officeProductName = parentDisplayName;
+                //                    //MessageBox.Show("Uninstall " + officeProductName);
+                //                    break;
+                //                }
+                //            }
+                //        }
+                //    }
+                //}
+                //#endregion
 
                 #endregion
 
@@ -225,7 +232,9 @@ namespace Chem4Word.Common
             #endregion
 
             Version procuctVersion = Assembly.GetExecutingAssembly().GetName().Version;
-            AddInVersion = "Chem4Word V" + procuctVersion.ToString();
+            AddInVersion = "Chem4Word V" + procuctVersion;
+
+            IpAddress = GetExternalIPV4Address();
         }
 
         private string HKLM_GetString(string path, string key)
@@ -241,6 +250,24 @@ namespace Chem4Word.Common
                 return "";
             }
         }
+
+        private string GetExternalIPV4Address()
+        {
+            string externalIp = "IpAddress ";
+            try
+            {
+                string webPage = (new WebClient()).DownloadString("http://checkip.dyndns.org/");
+                externalIp += (new Regex(@"\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}")).Matches(webPage)[0];
+            }
+            catch
+            {
+                // Something went wrong
+                externalIp += "Unknown";
+            }
+
+            return externalIp;
+        }
+
 
         private int GetOfficeVersionNumber(string wordVersionString)
         {
