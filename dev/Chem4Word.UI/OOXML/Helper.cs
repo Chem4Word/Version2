@@ -12,7 +12,9 @@ namespace Chem4Word.UI.OOXML
         public const double MULTIPLE_BOND_OFFSET_PERCENTAGE = 0.2;
 
         public const double SUBSCRIPT_SCALE_FACTOR = 0.6;
+
         public const double SUBSCRIPT_DROP_FACTOR = 0.75;
+        public const double SUPERSCRIPT_RAISE_FACTOR = 0.25;
 
         private const double EMUS_PER_TTF_POINT = 37.5;
         private const double EMUS_PER_CML_POINT = 9500;

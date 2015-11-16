@@ -48,8 +48,21 @@ namespace Chem4Word.UI.OOXML.Atoms
             //atomLabel = "H" + "abcdefHghijklmnopqrstuvwxHCyz" + "H";
             //atomLabel = "ABCHDEFGHIJKLMNOHPQRSHTUVWXYZ";
 
+            // Get Charge for use later on
+            int iCharge = 0;
+            if (atom.FormalCharge != null)
+            {
+                iCharge = atom.FormalCharge.Value;
+            }
+            int iAbsCharge = Math.Abs(iCharge);
+
+            // Get Implicit Hydrogen Count for use later on
             int implicitHCount = ChemicalIntelligence.GetImplicitHydrogenCount(atom);
+
             Point cursorPosition = new Point((double)atom.X2, (double)atom.Y2);
+            Point chargeCursorPosition = new Point((double)atom.X2, (double)atom.Y2);
+            Point thisCharacterPosition;
+
             double lastOffset = 0;
 
             //Debug.WriteLine("  X: " + atom.X2 + " Y: " + atom.Y2 + " Implicit H Count: " + implicitHCount);
@@ -92,6 +105,11 @@ namespace Chem4Word.UI.OOXML.Atoms
                     {
                         showLabel = true;
                     }
+                }
+                // Force on if atom has charge
+                if (iAbsCharge > 0)
+                {
+                    showLabel = true;
                 }
             }
 
@@ -141,7 +159,7 @@ namespace Chem4Word.UI.OOXML.Atoms
 
                 #endregion
 
-                #region Step 1 - Measure Bounding Box for all Characters
+                #region Step 1 - Measure Bounding Box for all Characters of label
 
                 double xMin = cursorPosition.X;
                 double yMin = cursorPosition.Y;
@@ -154,7 +172,7 @@ namespace Chem4Word.UI.OOXML.Atoms
                     OoXmlCharacter c = m_charset.GetOoXmlCharacter(chr);
                     if (c != null)
                     {
-                        Point thisCharacterPosition = new Point(cursorPosition.X, cursorPosition.Y);
+                        thisCharacterPosition = new Point(cursorPosition.X, cursorPosition.Y);
 
                         // Handle Descenders
                         thisCharacterPosition.Offset(0, Helper.ScaleTtfToCml(c.GlyphOrigin.Y + c.BlackBoxY));
@@ -164,13 +182,20 @@ namespace Chem4Word.UI.OOXML.Atoms
                             thisCharacterPosition.Offset(0, Helper.ScaleTtfToCml(c.OffsetY));
                         }
 
+                        xMax = Math.Max(xMax, cursorPosition.X + Helper.ScaleTtfToCml(c.BlackBoxX));
+                        yMax = Math.Max(yMax, cursorPosition.Y + Helper.ScaleTtfToCml(c.BlackBoxY));
+
+                        // Uncomment the following to disable offsetting for terminal atoms
+                        //if (bonds.Count == 1)
+                        //{
+                        //    break;
+                        //}
+
                         if (idx < atomLabel.Length - 1)
                         {
                             // Move to next Character position
                             cursorPosition.Offset(Helper.ScaleTtfToCml(c.CellIncX), 0);
                         }
-                        xMax = Math.Max(xMax, cursorPosition.X + Helper.ScaleTtfToCml(c.BlackBoxX));
-                        yMax = Math.Max(yMax, cursorPosition.Y + Helper.ScaleTtfToCml(c.BlackBoxY));
                     }
                 }
 
@@ -191,7 +216,7 @@ namespace Chem4Word.UI.OOXML.Atoms
                     OoXmlCharacter c = m_charset.GetOoXmlCharacter(chr);
                     if (c != null)
                     {
-                        Point thisCharacterPosition = new Point(cursorPosition.X, cursorPosition.Y);
+                        thisCharacterPosition = new Point(cursorPosition.X, cursorPosition.Y);
 
                         // Handle Descenders
                         thisCharacterPosition.Offset(0, Helper.ScaleTtfToCml(c.GlyphOrigin.Y + c.BlackBoxY));
@@ -206,6 +231,7 @@ namespace Chem4Word.UI.OOXML.Atoms
                         // Move to next Character position
                         lastOffset = Helper.ScaleTtfToCml(c.CellIncX);
                         cursorPosition.Offset(Helper.ScaleTtfToCml(c.CellIncX), 0);
+                        chargeCursorPosition = new Point(cursorPosition.X, cursorPosition.Y);
                     }
                 }
 
@@ -215,6 +241,25 @@ namespace Chem4Word.UI.OOXML.Atoms
 
                 if (options.ShowHydrogens && implicitHCount > 0)
                 {
+
+                    OoXmlCharacter hydrogenCharacter = m_charset.GetOoXmlCharacter('H');
+                    string numbers = "012345";
+                    OoXmlCharacter implicitValueCharacter = m_charset.GetOoXmlCharacter(numbers[implicitHCount]);
+                    //OoXmlCharacter chargeSignCharacter = null;
+                    //OoXmlCharacter chargeValueCharacter = null;
+                    //if (iCharge != 0)
+                    //{
+                    //    if (iCharge >= 1)
+                    //    {
+                    //        chargeSignCharacter = m_charset.GetOoXmlCharacter('+');
+                    //    }
+                    //    if (iCharge <= 1)
+                    //    {
+                    //        chargeSignCharacter = m_charset.GetOoXmlCharacter('-');
+                    //    }
+                    //    // We are not using this character now just getting it for position offsets if required
+                    //    chargeValueCharacter = m_charset.GetOoXmlCharacter('1');
+                    //}
 
                     #region Determine NESW
 
@@ -310,15 +355,33 @@ namespace Chem4Word.UI.OOXML.Atoms
                     #endregion
 
                     #region Add H
-                    OoXmlCharacter h = m_charset.GetOoXmlCharacter('H');
-                    if (h != null)
+                    if (hydrogenCharacter != null)
                     {
                         switch (nesw)
                         {
                             case "N":
                                 if (bonds.Count > 1)
                                 {
-                                    cursorPosition.Offset(-lastOffset, Helper.ScaleTtfToCml(-h.BlackBoxY) - Helper.CHARACTER_CLIPPING_MARGIN);
+                                    if (iCharge == 0)
+                                    {
+                                        cursorPosition.Offset(-lastOffset, Helper.ScaleTtfToCml(-hydrogenCharacter.BlackBoxY) - Helper.CHARACTER_CLIPPING_MARGIN);
+                                    }
+                                    else
+                                    {
+                                        cursorPosition.Offset(-lastOffset, Helper.ScaleTtfToCml(-hydrogenCharacter.BlackBoxY) - Helper.CHARACTER_CLIPPING_MARGIN);
+                                        if (implicitHCount > 1)
+                                        {
+                                            cursorPosition.Offset(0, Helper.ScaleTtfToCml(-implicitValueCharacter.BlackBoxY / 2) - Helper.CHARACTER_CLIPPING_MARGIN);
+                                        }
+                                        //if (iAbsCharge > 1)
+                                        //{
+                                        //    cursorPosition.Offset(0, Helper.ScaleTtfToCml(-chargeSignCharacter.BlackBoxY / 2) - Helper.CHARACTER_CLIPPING_MARGIN);
+                                        //}
+                                        //else
+                                        //{
+                                        //    cursorPosition.Offset(0, Helper.ScaleTtfToCml(-chargeValueCharacter.BlackBoxY / 2) - Helper.CHARACTER_CLIPPING_MARGIN);
+                                        //}
+                                    }
                                 }
                                 break;
                             case "E":
@@ -327,66 +390,122 @@ namespace Chem4Word.UI.OOXML.Atoms
                             case "S":
                                 if (bonds.Count > 1)
                                 {
-                                    cursorPosition.Offset(-lastOffset, Helper.ScaleTtfToCml(h.BlackBoxY) + Helper.CHARACTER_CLIPPING_MARGIN);
+                                    cursorPosition.Offset(-lastOffset, Helper.ScaleTtfToCml(hydrogenCharacter.BlackBoxY) + Helper.CHARACTER_CLIPPING_MARGIN);
                                 }
                                 break;
                             case "W":
                                 if (implicitHCount == 1)
                                 {
-                                    cursorPosition.Offset(Helper.ScaleTtfToCml(-(h.CellIncX * 2 )), 0);
+                                    cursorPosition.Offset(Helper.ScaleTtfToCml(-(hydrogenCharacter.CellIncX * 2 )), 0);
                                 }
                                 else
                                 {
-                                    cursorPosition.Offset(Helper.ScaleTtfToCml(-(h.CellIncX * 2.5)), 0);
+                                    cursorPosition.Offset(Helper.ScaleTtfToCml(-(hydrogenCharacter.CellIncX * 2.5)), 0);
                                 }
                                 break;
                         }
 
-                        Point thisCharacterPosition = new Point(cursorPosition.X, cursorPosition.Y);
+                        thisCharacterPosition = new Point(cursorPosition.X, cursorPosition.Y);
 
                         // Handle Descenders
-                        thisCharacterPosition.Offset(0, Helper.ScaleTtfToCml(h.GlyphOrigin.Y + h.BlackBoxY));
-                        if (h.OffsetY != 0)
+                        thisCharacterPosition.Offset(0, Helper.ScaleTtfToCml(hydrogenCharacter.GlyphOrigin.Y + hydrogenCharacter.BlackBoxY));
+                        if (hydrogenCharacter.OffsetY != 0)
                         {
-                            thisCharacterPosition.Offset(0, Helper.ScaleTtfToCml(h.OffsetY));
+                            thisCharacterPosition.Offset(0, Helper.ScaleTtfToCml(hydrogenCharacter.OffsetY));
                         }
-                        AtomLabelCharacter alc = new AtomLabelCharacter(thisCharacterPosition, h, atomColour, 'H');
+                        AtomLabelCharacter alc = new AtomLabelCharacter(thisCharacterPosition, hydrogenCharacter, atomColour, 'H');
                         m_AtomLabelCharacters.Add(alc);
 
                         // Move to next Character position
-                        cursorPosition.Offset(Helper.ScaleTtfToCml(h.CellIncX), 0);
+                        cursorPosition.Offset(Helper.ScaleTtfToCml(hydrogenCharacter.CellIncX), 0);
+                        if (nesw.Equals("E"))
+                        {
+                            chargeCursorPosition = new Point(cursorPosition.X, cursorPosition.Y);
+                        }
                     }
                     #endregion
 
                     #region Add number
                     if (implicitHCount > 1)
                     {
-                        string numbers = "01234";
-                        OoXmlCharacter n = m_charset.GetOoXmlCharacter(numbers[implicitHCount]);
-                        if (n != null)
+                        if (implicitValueCharacter != null)
                         {
-                            Point thisCharacterPosition = new Point(cursorPosition.X, cursorPosition.Y);
+                            thisCharacterPosition = new Point(cursorPosition.X, cursorPosition.Y);
 
                             // Handle Descenders
-                            thisCharacterPosition.Offset(0, Helper.ScaleTtfToCml(n.GlyphOrigin.Y + n.BlackBoxY));
-                            if (n.OffsetY != 0)
+                            thisCharacterPosition.Offset(0, Helper.ScaleTtfToCml(implicitValueCharacter.GlyphOrigin.Y + implicitValueCharacter.BlackBoxY));
+                            if (implicitValueCharacter.OffsetY != 0)
                             {
-                                thisCharacterPosition.Offset(0, Helper.ScaleTtfToCml(n.OffsetY) * Helper.SUBSCRIPT_SCALE_FACTOR);
+                                thisCharacterPosition.Offset(0, Helper.ScaleTtfToCml(implicitValueCharacter.OffsetY) * Helper.SUBSCRIPT_SCALE_FACTOR);
                             }
 
                             // Drop the subscript Character
-                            thisCharacterPosition.Offset(0, Helper.ScaleTtfToCml(h.BlackBoxX * Helper.SUBSCRIPT_DROP_FACTOR));
+                            thisCharacterPosition.Offset(0, Helper.ScaleTtfToCml(hydrogenCharacter.BlackBoxX * Helper.SUBSCRIPT_DROP_FACTOR));
 
-                            AtomLabelCharacter alc = new AtomLabelCharacter(thisCharacterPosition, n, atomColour, numbers[implicitHCount]);
+                            AtomLabelCharacter alc = new AtomLabelCharacter(thisCharacterPosition, implicitValueCharacter, atomColour, numbers[implicitHCount]);
                             alc.IsSubScript = true;
                             m_AtomLabelCharacters.Add(alc);
 
                             // Move to next Character position
-                            cursorPosition.Offset(Helper.ScaleTtfToCml(n.CellIncX) * Helper.SUBSCRIPT_SCALE_FACTOR, 0);
+                            cursorPosition.Offset(Helper.ScaleTtfToCml(implicitValueCharacter.CellIncX) * Helper.SUBSCRIPT_SCALE_FACTOR, 0);
                         }
                     }
                     #endregion
 
+                }
+
+                #endregion
+
+                #region Step 5 - Add Charge if required
+
+                if (iCharge != 0)
+                {
+                    char sign = '.';
+                    OoXmlCharacter chargeSignCharacter = null;
+                    if (iCharge >= 1)
+                    {
+                        sign = '+';
+                        chargeSignCharacter = m_charset.GetOoXmlCharacter('+');
+                    }
+                    if (iCharge <= 1)
+                    {
+                        sign = '-';
+                        chargeSignCharacter = m_charset.GetOoXmlCharacter('-');
+                    }
+
+                    if (iAbsCharge > 1)
+                    {
+                        string digits = iAbsCharge.ToString();
+                        // Insert digits
+                        foreach (char chr in digits)
+                        {
+                            OoXmlCharacter chargeValueCharacter = m_charset.GetOoXmlCharacter(chr);
+
+                            thisCharacterPosition = new Point(chargeCursorPosition.X, chargeCursorPosition.Y);
+
+                            // Raise the superscript Character
+                            thisCharacterPosition.Offset(0, -Helper.ScaleTtfToCml(chargeValueCharacter.BlackBoxX * Helper.SUPERSCRIPT_RAISE_FACTOR));
+
+                            AtomLabelCharacter alcc = new AtomLabelCharacter(thisCharacterPosition,
+                                chargeValueCharacter, atomColour, chr);
+                            alcc.IsSubScript = true;
+                            m_AtomLabelCharacters.Add(alcc);
+
+                            // Move to next Character position
+                            chargeCursorPosition.Offset(Helper.ScaleTtfToCml(chargeValueCharacter.CellIncX) * Helper.SUBSCRIPT_SCALE_FACTOR, 0);
+                        }
+                    }
+
+                    // Insert sign
+                    thisCharacterPosition = new Point(chargeCursorPosition.X, chargeCursorPosition.Y);
+
+                    // Raise the superscript Character
+                    thisCharacterPosition.Offset(0, -Helper.ScaleTtfToCml(chargeSignCharacter.BlackBoxX * Helper.SUPERSCRIPT_RAISE_FACTOR));
+
+                    AtomLabelCharacter alcs = new AtomLabelCharacter(thisCharacterPosition,
+                        chargeSignCharacter, atomColour, sign);
+                    alcs.IsSubScript = true;
+                    m_AtomLabelCharacters.Add(alcs);
                 }
 
                 #endregion

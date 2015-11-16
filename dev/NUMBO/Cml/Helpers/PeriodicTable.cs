@@ -972,39 +972,37 @@ namespace Numbo.Cml.Helpers
         private static readonly int[] V2 = new[] { 2 };
         private static readonly int[] V3 = new[] { 3 };
         private static readonly int[] V4 = new[] { 4 };
-        private static readonly int[] V35 = new[] { 3,5 };
-        private static readonly int[] V246 = new[] { 2,4,6 };
-        private static readonly int[] V012 = new[] { 0,1,2 };
+        //private static readonly int[] V35 = new[] { 3,5 };
+        //private static readonly int[] V246 = new[] { 2,4,6 };
+        //private static readonly int[] V012 = new[] { 0,1,2 };
         
         public static IEnumerable<int> GetAllowedValencies(Element element) {
             int[] valencies;
             switch (element) {
-                case Element.Du:
-                    valencies = V012;  // Can't draw using ChemDoodle !
-                    break;
-                case Element.B:
-                    valencies = V3;
-                    break;
                 case Element.C:
+                case Element.Si:
                     valencies = V4;
-                    break;
-                case Element.N:
-                    valencies = V3; // V35; // Make same as ChemDoodle
-                    break;
-                case Element.O:
-                    valencies = V2;
                     break;
                 case Element.P:
                     valencies = V3; // V35; // Make same as ChemDoodle
                     break;
+                case Element.N:
+                    valencies = V3; // V35; // Make same as ChemDoodle
+                    break;
+                case Element.B:
+                case Element.As:
+                    valencies = V3;
+                    break;
+                case Element.O:
+                case Element.Se:
+                case Element.Te:
+                    valencies = V2;
+                    break;
                 case Element.S:
                     valencies = V2; // V246; // Make same as ChemDoodle
                     break;
-                case Element.F:
-                case Element.Cl:
-                case Element.Br:
-                case Element.I:
-                    valencies = V1;
+                case Element.Du:
+                    valencies = V1; // V012;  // Can't draw using ChemDoodle !
                     break;
                 default:
                     valencies = V1;
