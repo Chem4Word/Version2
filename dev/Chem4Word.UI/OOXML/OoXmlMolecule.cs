@@ -23,6 +23,8 @@ namespace Chem4Word.UI.OOXML
 {
     public class OoXmlMolecule
     {
+        private bool CLIP_LINES = true;
+
         private long m_ooxmlId = 1;
         private const double epsilon = 1e-4;
 
@@ -35,8 +37,8 @@ namespace Chem4Word.UI.OOXML
         private List<AtomLabelCharacter> m_AtomLabelCharacters;
         private List<BondLine> m_BondLines;
         //private SortedDictionary<string, Ring> m_rings;
-        private C4wOptions m_options;
         private Telemetry _telemetry;
+        private C4wOptions m_options;
 
         public OoXmlMolecule(string cml, C4wOptions options, Telemetry telemetry)
         {
@@ -206,121 +208,124 @@ namespace Chem4Word.UI.OOXML
             Debug.WriteLine("Elapsed time " + ts.TotalMilliseconds.ToString("##,##0.0") + "ms");
             _telemetry.Write(module, "Debug", "Elapsed time " + ts.TotalMilliseconds.ToString("##,##0.0") + "ms");
 
-            Debug.WriteLine("OoXmlMolecule.GenerateRun() Starting Step 4");
-            _telemetry.Write(module, "Debug", "Starting Step 4");
-            started = DateTime.Now;
-            #region Step 4 - Shrink bond lines
-            // so that they do not overlap label characters
-
-            if (m_atoms.Count() > 1)
+            if (CLIP_LINES)
             {
-                pb.Show();
-            }
-            pb.Message = "Clipping Bond Lines";
-            pb.Value = 0;
-            pb.Maximum = (m_AtomLabelCharacters.Count * m_BondLines.Count) - 1;
+                Debug.WriteLine("OoXmlMolecule.GenerateRun() Starting Step 4");
+                _telemetry.Write(module, "Debug", "Starting Step 4");
+                started = DateTime.Now;
+                #region Step 4 - Shrink bond lines
+                // so that they do not overlap label characters
 
-            foreach (AtomLabelCharacter alc in m_AtomLabelCharacters)
-            {
-                pb.Increment(1);
-                Rect a = new Rect(alc.Position.X - Helper.CHARACTER_CLIPPING_MARGIN, alc.Position.Y - Helper.CHARACTER_CLIPPING_MARGIN,
-                                Helper.ScaleTtfToCml(alc.Character.BlackBoxX) + (Helper.CHARACTER_CLIPPING_MARGIN * 2),
-                                Helper.ScaleTtfToCml(alc.Character.BlackBoxY) + (Helper.CHARACTER_CLIPPING_MARGIN * 2));
-
-                //Debug.WriteLine("Character: " + alc.Ascii + " Rectangle: " + a);
-                //_telemetry.Write(module, "Debug", "Character: " + alc.Ascii + " Rectangle: " + a);
-
-                if (alc.IsSubScript)
+                if (m_atoms.Count() > 1)
                 {
-                    a.Width = Helper.ScaleTtfToCml(alc.Character.BlackBoxX) * Helper.SUBSCRIPT_SCALE_FACTOR;
-                    a.Height = Helper.ScaleTtfToCml(alc.Character.BlackBoxY) * Helper.SUBSCRIPT_SCALE_FACTOR;
+                    pb.Show();
                 }
+                pb.Message = "Clipping Bond Lines";
+                pb.Value = 0;
+                pb.Maximum = (m_AtomLabelCharacters.Count * m_BondLines.Count) - 1;
 
-                //_telemetry.Write(module, "Debug", "m_BondLines.Count " + m_BondLines.Count);
-                foreach (BondLine bl in m_BondLines)
+                foreach (AtomLabelCharacter alc in m_AtomLabelCharacters)
                 {
                     pb.Increment(1);
-                    Point start = new Point(bl.StartX, bl.StartY);
-                    Point end = new Point(bl.EndX, bl.EndY);
+                    Rect a = new Rect(alc.Position.X - Helper.CHARACTER_CLIPPING_MARGIN, alc.Position.Y - Helper.CHARACTER_CLIPPING_MARGIN,
+                                    Helper.ScaleTtfToCml(alc.Character.BlackBoxX) + (Helper.CHARACTER_CLIPPING_MARGIN * 2),
+                                    Helper.ScaleTtfToCml(alc.Character.BlackBoxY) + (Helper.CHARACTER_CLIPPING_MARGIN * 2));
 
-                    //_telemetry.Write(module, "Debug", "Line from " + start + " to " + end);
-                    //Debug.WriteLine("  Line Start Point: " + start);
-                    //Debug.WriteLine("  Line   End Point: " + end);
+                    //Debug.WriteLine("Character: " + alc.Ascii + " Rectangle: " + a);
+                    //_telemetry.Write(module, "Debug", "Character: " + alc.Ascii + " Rectangle: " + a);
 
-                    int attempts = 0;
-                    if (CohenSutherland.ClipLine(a, ref start, ref end, out attempts))
+                    if (alc.IsSubScript)
                     {
-                        //Debug.WriteLine("    Clipped Line Start Point: " + start);
-                        //Debug.WriteLine("    Clipped Line   End Point: " + end);
-                        bool bClipped = false;
+                        a.Width = Helper.ScaleTtfToCml(alc.Character.BlackBoxX) * Helper.SUBSCRIPT_SCALE_FACTOR;
+                        a.Height = Helper.ScaleTtfToCml(alc.Character.BlackBoxY) * Helper.SUBSCRIPT_SCALE_FACTOR;
+                    }
 
-                        if (Math.Abs(bl.StartX - start.X) < epsilon && Math.Abs(bl.StartY - start.Y) < epsilon)
-                        {
-                            bl.StartX = end.X;
-                            bl.StartY = end.Y;
-                            bClipped = true;
-                        }
-                        if (Math.Abs(bl.EndX - end.X) < epsilon && Math.Abs(bl.EndY - end.Y) < epsilon)
-                        {
-                            bl.EndX = start.X;
-                            bl.EndY = start.Y;
-                            bClipped = true;
-                        }
+                    //_telemetry.Write(module, "Debug", "m_BondLines.Count " + m_BondLines.Count);
+                    foreach (BondLine bl in m_BondLines)
+                    {
+                        pb.Increment(1);
+                        Point start = new Point(bl.StartX, bl.StartY);
+                        Point end = new Point(bl.EndX, bl.EndY);
 
-                        if (bClipped)
-                        {
-                            start = new Point(bl.StartX, bl.StartY);
-                            end = new Point(bl.EndX, bl.EndY);
-                            //_telemetry.Write(module, "Debug", "Clipped Line from " + start + " to " + end);
-                            //Debug.WriteLine("    New Line Start Point: " + start);
-                            //Debug.WriteLine("    New Line   End Point: " + end);
-                        }
-                        else
-                        {
-                            _telemetry.Write(module, "Warning", "Line was clipped at both ends");
-                            _telemetry.Write(module, "Info", "Character: " + alc.Ascii + " Rectangle: " + a);
-                            _telemetry.Write(module, "Warning", "Original; From " + bl.StartX.ToString("#0.0000")
-                                                                        + "," + bl.StartY.ToString("#0.0000")
-                                                                        + " To " + bl.EndX.ToString("#0.0000")
-                                                                        + "," + bl.EndY.ToString("#0.0000"));
-                            _telemetry.Write(module, "Warning", "Clipped; From " + start.X.ToString("#0.0000")
-                                                                        + "," + start.Y.ToString("#0.0000")
-                                                                        + " To " + end.X.ToString("#0.0000")
-                                                                        + "," + end.Y.ToString("#0.0000"));
+                        //_telemetry.Write(module, "Debug", "Line from " + start + " to " + end);
+                        //Debug.WriteLine("  Line Start Point: " + start);
+                        //Debug.WriteLine("  Line   End Point: " + end);
 
-                            // Line was clipped at both ends; hopefully never get here.
-                            //_telemetry.Write(module, "Debug", "Clipped at both ends");
-                            Vector vstart = new Point(bl.StartX, bl.StartY) - start;
-                            Vector vend = new Point(bl.EndX, bl.EndY) - end;
-                            if (vstart.Length < vend.Length)
+                        int attempts = 0;
+                        if (CohenSutherland.ClipLine(a, ref start, ref end, out attempts))
+                        {
+                            //Debug.WriteLine("    Clipped Line Start Point: " + start);
+                            //Debug.WriteLine("    Clipped Line   End Point: " + end);
+                            bool bClipped = false;
+
+                            if (Math.Abs(bl.StartX - start.X) < epsilon && Math.Abs(bl.StartY - start.Y) < epsilon)
                             {
                                 bl.StartX = end.X;
                                 bl.StartY = end.Y;
+                                bClipped = true;
                             }
-                            else
+                            if (Math.Abs(bl.EndX - end.X) < epsilon && Math.Abs(bl.EndY - end.Y) < epsilon)
                             {
                                 bl.EndX = start.X;
                                 bl.EndY = start.Y;
+                                bClipped = true;
                             }
 
-                            _telemetry.Write(module, "Warning", "Resultant; From " + bl.StartX.ToString("#0.0000")
-                                                                        + "," + bl.StartY.ToString("#0.0000")
-                                                                        + " To " + bl.EndX.ToString("#0.0000")
-                                                                        + "," + bl.EndY.ToString("#0.0000"));
+                            if (bClipped)
+                            {
+                                start = new Point(bl.StartX, bl.StartY);
+                                end = new Point(bl.EndX, bl.EndY);
+                                //_telemetry.Write(module, "Debug", "Clipped Line from " + start + " to " + end);
+                                //Debug.WriteLine("    New Line Start Point: " + start);
+                                //Debug.WriteLine("    New Line   End Point: " + end);
+                            }
+                            else
+                            {
+                                _telemetry.Write(module, "Warning", "Line was clipped at both ends");
+                                _telemetry.Write(module, "Info", "Character: " + alc.Ascii + " Rectangle: " + a);
+                                _telemetry.Write(module, "Warning", "Original; From " + bl.StartX.ToString("#0.0000")
+                                                                            + "," + bl.StartY.ToString("#0.0000")
+                                                                            + " To " + bl.EndX.ToString("#0.0000")
+                                                                            + "," + bl.EndY.ToString("#0.0000"));
+                                _telemetry.Write(module, "Warning", "Clipped; From " + start.X.ToString("#0.0000")
+                                                                            + "," + start.Y.ToString("#0.0000")
+                                                                            + " To " + end.X.ToString("#0.0000")
+                                                                            + "," + end.Y.ToString("#0.0000"));
+
+                                // Line was clipped at both ends; hopefully never get here.
+                                //_telemetry.Write(module, "Debug", "Clipped at both ends");
+                                Vector vstart = new Point(bl.StartX, bl.StartY) - start;
+                                Vector vend = new Point(bl.EndX, bl.EndY) - end;
+                                if (vstart.Length < vend.Length)
+                                {
+                                    bl.StartX = end.X;
+                                    bl.StartY = end.Y;
+                                }
+                                else
+                                {
+                                    bl.EndX = start.X;
+                                    bl.EndY = start.Y;
+                                }
+
+                                _telemetry.Write(module, "Warning", "Resultant; From " + bl.StartX.ToString("#0.0000")
+                                                                            + "," + bl.StartY.ToString("#0.0000")
+                                                                            + " To " + bl.EndX.ToString("#0.0000")
+                                                                            + "," + bl.EndY.ToString("#0.0000"));
+                            }
+                        }
+                        if (attempts >= 15)
+                        {
+                            _telemetry.Write(module, "Error", "CohenSutherland.ClipLine() bombed out after " + attempts + " loops");
                         }
                     }
-                    if (attempts >= 15)
-                    {
-                        _telemetry.Write(module, "Error", "CohenSutherland.ClipLine() bombed out after " + attempts + " loops");
-                    }
+                    //_telemetry.Write(module, "Debug", "m_BondLines.Count (After) " + m_BondLines.Count);
                 }
-                //_telemetry.Write(module, "Debug", "m_BondLines.Count (After) " + m_BondLines.Count);
-            }
 
-            #endregion
-            ts = DateTime.Now - started;
-            Debug.WriteLine("Elapsed time " + ts.TotalMilliseconds.ToString("##,##0.0") + "ms");
-            _telemetry.Write(module, "Debug", "Elapsed time " + ts.TotalMilliseconds.ToString("##,##0.0") + "ms");
+                #endregion
+                ts = DateTime.Now - started;
+                Debug.WriteLine("Elapsed time " + ts.TotalMilliseconds.ToString("##,##0.0") + "ms");
+                _telemetry.Write(module, "Debug", "Elapsed time " + ts.TotalMilliseconds.ToString("##,##0.0") + "ms");
+            }
 
             Debug.WriteLine("OoXmlMolecule.GenerateRun() Starting Step 5");
             _telemetry.Write(module, "Debug", "Starting Step 5");

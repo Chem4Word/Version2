@@ -11,6 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Reflection;
@@ -256,13 +257,30 @@ namespace Chem4Word.Common
             string externalIp = "IpAddress ";
             try
             {
-                string webPage = (new WebClient()).DownloadString("http://checkip.dyndns.org/");
-                externalIp += (new Regex(@"\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}")).Matches(webPage)[0];
+                string url = "http://checkip.dyndns.org";
+
+                HttpWebRequest request = WebRequest.Create(url) as HttpWebRequest;
+                request.Timeout = 500; // 0.5 seconds
+                HttpWebResponse response;
+                response = (HttpWebResponse)request.GetResponse();
+                if (HttpStatusCode.OK.Equals(response.StatusCode))
+                {
+                    using (var reader = new StreamReader(response.GetResponseStream()))
+                    {
+                        string webPage = reader.ReadToEnd();
+                        externalIp += (new Regex(@"\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}")).Matches(webPage)[0].ToString();
+                    }
+                }
+                else
+                {
+                    // Something went wrong
+                    externalIp += "0.0.0.0";
+                }
             }
             catch
             {
                 // Something went wrong
-                externalIp += "Unknown";
+                externalIp += "0.0.0.0";
             }
 
             return externalIp;

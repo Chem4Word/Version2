@@ -1512,8 +1512,7 @@ namespace Numbo.Coa
 
         /// <summary>
         /// GetImplicitHydrogenCount shows the number of hydrogen atoms to add to a heteroatom.
-        /// Only applies to specific atoms: C, O, N, S, P (there are probably more!)
-        /// We could also use this to add terminal hydrogens, e.g, -CH3, =CH2 etc
+        /// Only applies to specific atoms: B, C, N, O, F, Si, P, S, Cl, As, Se, Br, Te, I, At
         /// </summary>
         /// <param name="atom"></param>
         /// <returns>number of hydrogens required</returns>
@@ -1522,18 +1521,51 @@ namespace Numbo.Coa
             // Return -1 if we don't need to do anything
             int iHydrogenCount = -1;
 
-            // Applicable elements
-            if (PeriodicTable.Element.C.Equals(PeriodicTable.GetElement(atom.ElementType)) ||
-                PeriodicTable.Element.O.Equals(PeriodicTable.GetElement(atom.ElementType)) ||
-                PeriodicTable.Element.N.Equals(PeriodicTable.GetElement(atom.ElementType)) ||
-                PeriodicTable.Element.S.Equals(PeriodicTable.GetElement(atom.ElementType)) ||
-                PeriodicTable.Element.P.Equals(PeriodicTable.GetElement(atom.ElementType)))
-            {
+            string appliesTo = "B,C,N,O,F,Si,P,S,Cl,As,Se,Br,Te,I,At";
 
-                int iBondCount = (int)atom.GetBondOrderSum();
-                int iValence = PeriodicTable.GetValence(PeriodicTable.GetElement(atom.ElementType), (int)atom.GetBondOrderSum());
-                // Return the number of hydrogens to add
-                iHydrogenCount = iValence - iBondCount;
+            if (appliesTo.Contains(atom.ElementType))
+            {
+                int? iBondOrderSum = atom.GetBondOrderSum();
+                int iBondCount = 0;
+                if (iBondOrderSum != null)
+                {
+                    iBondCount = iBondOrderSum.Value;
+                }
+                int iCharge = 0;
+                if (atom.FormalCharge != null)
+                {
+                    iCharge = atom.FormalCharge.Value;
+                }
+                int iValence = PeriodicTable.GetValence(PeriodicTable.GetElement(atom.ElementType), iBondCount);
+
+                int iDiff = iValence - iBondCount;
+
+                if (iCharge > 0)
+                {
+                    int iVdiff = 4 - iValence;
+                    if (iCharge <= iVdiff)
+                    {
+                        iDiff += iCharge;
+                    }
+                    else
+                    {
+                        iDiff = 4 - iBondCount - iCharge + iVdiff;
+                    }
+                }
+                else
+                {
+                    iDiff += iCharge;
+                }
+
+                // Ensure iHydrogenCount returned is never -ve
+                if (iDiff >= 0)
+                {
+                    iHydrogenCount = iDiff;
+                }
+                else
+                {
+                    iHydrogenCount = 0;
+                }
             }
 
             return iHydrogenCount;
