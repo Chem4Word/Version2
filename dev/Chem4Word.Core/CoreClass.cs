@@ -2045,14 +2045,22 @@ namespace Chem4Word.Core {
 
         private void ActiveDocumentBuildingBlockInsert(Range wordRange, string name, string category, string blockType, string template)
         {
-            string module = "CoreClass.ActiveDocumentBuildingBlockInsert()";
-            _telemetry.Write(module, "Information", "Inserted '" + name + "' from gallery");
+            //category "chemistry"
+            //blockType "Custom 5"
 
-            // Start timer to delete flagged Content Control(s) hopefully only one!
-            _purgeTimer = new Timer(333);
-            _purgeTimer.Elapsed += new ElapsedEventHandler(PurgeTimer_Elapsed);
-            _purgeTimer.Start();
-            _telemetry.Write(module, "Debug", "Purge Timer Started");
+            string module = "CoreClass.ActiveDocumentBuildingBlockInsert()";
+
+            if (category.ToLower().Equals("chemistry") && blockType.ToLower().Equals("custom 5"))
+            {
+                // Only handle our stuff
+                _telemetry.Write(module, "Information", "Inserted '" + name + "' from gallery");
+
+                // Start timer to delete flagged Content Control(s) hopefully only one!
+                _purgeTimer = new Timer(333);
+                _purgeTimer.Elapsed += new ElapsedEventHandler(PurgeTimer_Elapsed);
+                _purgeTimer.Start();
+                _telemetry.Write(module, "Debug", "Purge Timer Started");
+            }
         }
 
         /// <summary>

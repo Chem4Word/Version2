@@ -257,7 +257,7 @@ namespace Chem4Word.Common
             string externalIp = "IpAddress ";
             try
             {
-                string url = "http://checkip.dyndns.org";
+                string url = "http://checkip.dyndns.org/"; // Trailing slash is important ...
 
                 HttpWebRequest request = WebRequest.Create(url) as HttpWebRequest;
                 request.Timeout = 500; // 0.5 seconds
@@ -277,10 +277,11 @@ namespace Chem4Word.Common
                     externalIp += "0.0.0.0";
                 }
             }
-            catch
+            catch (Exception ex)
             {
+                Debug.WriteLine(ex.Message);
                 // Something went wrong
-                externalIp += "0.0.0.0";
+                externalIp += "0.0.0.0 - " + ex.Message;
             }
 
             return externalIp;
