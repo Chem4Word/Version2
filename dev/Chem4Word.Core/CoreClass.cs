@@ -1571,6 +1571,7 @@ namespace Chem4Word.Core {
         /// <param name = "contextObject"></param>
         /// <param name = "documentDepictionOptionsInUse"></param>
         /// <param name = "navigatorDepictionOptionsInUse"></param>
+        /// <param name = "showEvaluate"></param>
         /// <returns></returns>
         private static ContextObjectAndDialogResultHolder EditLabels(ContextObject contextObject,
                                                                      Dictionary
@@ -1582,9 +1583,8 @@ namespace Chem4Word.Core {
                                                                     bool showEvaluate) {
             var returnContextObject = contextObject.Clone();
             var result = false;
-            EditLabels editLabels;
             try {
-                editLabels = new EditLabels(contextObject,
+                EditLabels editLabels = new EditLabels(contextObject,
                                             documentDepictionOptionsInUse,
                                             navigatorDepictionOptionsInUse,
                                             showEvaluate);
@@ -1596,7 +1596,7 @@ namespace Chem4Word.Core {
                 throw new NumboException("Chemistry Object was broken:\n Cannot find custom CML.", e);
             } catch (Exception e) {
                 throw new NumboException("Error Editing Label:\n" + e.Message, e);
-            } 
+            }
             return new ContextObjectAndDialogResultHolder(returnContextObject, result);
         }
 
