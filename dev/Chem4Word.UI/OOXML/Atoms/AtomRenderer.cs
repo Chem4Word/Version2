@@ -444,7 +444,7 @@ namespace Chem4Word.UI.OOXML.Atoms
                         sign = '+';
                         chargeSignCharacter = m_charset.GetOoXmlCharacter('+');
                     }
-                    if (iCharge <= 1)
+                    else if (iCharge <= 1)
                     {
                         sign = '-';
                         chargeSignCharacter = m_charset.GetOoXmlCharacter('-');
