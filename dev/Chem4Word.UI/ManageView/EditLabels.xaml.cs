@@ -44,6 +44,7 @@ namespace Chem4Word.UI.ManageView
         /// <param name="contextObject"></param>
         /// <param name="documentDepictionOptionsInUse"></param>
         /// <param name="navigatorDepictionOptionsInUse"></param>
+        /// /// <param name="showEvaluate"></param>
         public EditLabels(ContextObject contextObject,
                           Dictionary<DepictionOption, ICollection<IChemistryZone>> documentDepictionOptionsInUse,
                           Dictionary<DepictionOption, ICollection<IChemistryZone>> navigatorDepictionOptionsInUse,
