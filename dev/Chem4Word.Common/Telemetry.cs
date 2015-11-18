@@ -50,20 +50,21 @@ namespace Chem4Word.Common
                 Debug.WriteLine("Exception " + ex.Message);
             }
 
-            try
-            {
-                // Write Ip Adress
-                MessageEntity me2 = new MessageEntity();
-                me2.MachineId = _helper.MachineId;
-                me2.Operation = "StartUp";
-                me2.Level = "Information";
-                me2.Message = _helper.IpAddress;
-                result2 = storage.WriteMessage(me2);
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine("Exception " + ex.Message);
-            }
+            //try
+            //{
+            //    // Write Ip Adress
+            //    MessageEntity me2 = new MessageEntity();
+            //    me2.MachineId = _helper.MachineId;
+            //    me2.Operation = "StartUp";
+            //    me2.Level = "Information";
+            //    me2.Message = _helper.IpAddress;
+            //    result2 = storage.WriteMessage(me2);
+            //}
+            //catch (Exception ex)
+            //{
+            //    Debug.WriteLine("Exception " + ex.Message);
+            //}
+            result2 = true;
 
             try
             {
@@ -90,7 +91,7 @@ namespace Chem4Word.Common
 #if DEBUG
                 me4.Message = _helper.AddInVersion + " (debug)";
 #else
-                me4.Message = _helper.AddInVersion + " (beta 1a)";
+                me4.Message = _helper.AddInVersion + " (beta 2)";
 #endif
                 result4 = storage.WriteMessage(me4);
             }
