@@ -17,6 +17,7 @@ using System.Net;
 using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading;
 using Microsoft.Win32;
 
 namespace Chem4Word.Common
@@ -235,7 +236,9 @@ namespace Chem4Word.Common
             Version procuctVersion = Assembly.GetExecutingAssembly().GetName().Version;
             AddInVersion = "Chem4Word V" + procuctVersion;
 
-            IpAddress = GetExternalIPV4Address();
+            ParameterizedThreadStart pts = new ParameterizedThreadStart(GetExternalIpv4Address);
+            Thread t = new Thread(pts);
+            t.Start(null);
         }
 
         private string HKLM_GetString(string path, string key)
@@ -252,15 +255,17 @@ namespace Chem4Word.Common
             }
         }
 
-        private string GetExternalIPV4Address()
+        private void GetExternalIpv4Address(object o)
         {
-            string externalIp = "IpAddress ";
+            IpAddress = "IpAddress ";
+            DateTime started = DateTime.Now;
+
             try
             {
                 string url = "http://chem4word.azurewebsites.net/client-ip.php";
 
                 HttpWebRequest request = WebRequest.Create(url) as HttpWebRequest;
-                request.Timeout = 1000; // 1 second
+                //request.Timeout = 15000; // 15 seconds
                 HttpWebResponse response;
                 response = (HttpWebResponse)request.GetResponse();
                 if (HttpStatusCode.OK.Equals(response.StatusCode))
@@ -268,23 +273,24 @@ namespace Chem4Word.Common
                     using (var reader = new StreamReader(response.GetResponseStream()))
                     {
                         string webPage = reader.ReadToEnd();
-                        externalIp += (new Regex(@"\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}")).Matches(webPage)[0].ToString();
+                        IpAddress += (new Regex(@"\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}")).Matches(webPage)[0].ToString();
                     }
                 }
                 else
                 {
                     // Something went wrong
-                    externalIp += "0.0.0.0";
+                    IpAddress += "0.0.0.0";
                 }
             }
             catch (Exception ex)
             {
                 Debug.WriteLine(ex.Message);
                 // Something went wrong
-                externalIp += "0.0.0.0 - " + ex.Message;
+                IpAddress += "0.0.0.0 - " + ex.Message;
             }
 
-            return externalIp;
+            TimeSpan ts = DateTime.Now - started;
+            Debug.WriteLine("Obtaining External IP Address took " + ts.TotalMilliseconds.ToString("#,000.0" + "ms"));
         }
 
 
