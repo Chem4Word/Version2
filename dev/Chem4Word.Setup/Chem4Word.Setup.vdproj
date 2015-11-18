@@ -111,18 +111,6 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_09F4D36EE2AC4AF8D6297A6526DAEEE4"
-        "OwnerKey" = "8:_1EA43CA64CB4FE0F1F1211AF761E0ADF"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_09F4D36EE2AC4AF8D6297A6526DAEEE4"
-        "OwnerKey" = "8:_CD1AEA5FB41F076F29850710EFE3FF71"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_0AB784C3407B4783B4B485496FC9D3FA"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -453,12 +441,6 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_3B25BEDE47C449AC8B8882C50D68D3CD"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_3B9945CF1BAB4FC59157B36183C88B25"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -531,19 +513,7 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_4252BAF4170D4D95A1A7337D09F95615"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_440109B9A1784583B2646D25EE50B478"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_449B2F5E8B23483996CC36FC232EC624"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -556,12 +526,6 @@
         "Entry"
         {
         "MsmKey" = "8:_45FDD9ACC56441599AD6A0F443F17AD9"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_4915F1F7B38C4A42A0EAFD92F8C4FF03"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -622,12 +586,6 @@
         "Entry"
         {
         "MsmKey" = "8:_4E87E0EC65F04D2FBA54E3E3E3924C7F"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_4FB30E84374C405EBAE15689AB9446DF"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -772,12 +730,6 @@
         "Entry"
         {
         "MsmKey" = "8:_610A038CC40A48F69C735C073EC66B29"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_64097E6E2FD846F69D5C9FBC7FC4A3CE"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -1329,12 +1281,6 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_A7A74DB2ADAC4BD89BB5E06B7C0A66D4"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_A92F5CE1ED7C4980AEA08BC310BD2F15"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -1612,12 +1558,6 @@
         "Entry"
         {
         "MsmKey" = "8:_C5D462FDCBC946B3BB4F7258955C5219"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_C6CB31D638694B8C9A254BF2F0346255"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -2267,7 +2207,7 @@
                 {
                 "Name" = "8:.NET Framework"
                 "Message" = "8:[VSDNETMSG]"
-                "FrameworkVersion" = "8:3.5.30729                           "
+                "FrameworkVersion" = "8:3.5.30729                            "
                 "AllowLaterVersions" = "11:FALSE"
                 "InstallUrl" = "8:http://go.microsoft.com/fwlink/?LinkId=76617"
                 }
@@ -3601,26 +3541,6 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_3B25BEDE47C449AC8B8882C50D68D3CD"
-            {
-            "SourcePath" = "8:Data\\4bebda7d-d06a-46d0-bc58-f5af0a182b31.cml"
-            "TargetName" = "8:4bebda7d-d06a-46d0-bc58-f5af0a182b31.cml"
-            "Tag" = "8:"
-            "Folder" = "8:_C6FE2119F56A4D78B16BD5DE715E195C"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_3B9945CF1BAB4FC59157B36183C88B25"
             {
             "SourcePath" = "8:SmartTag\\2662.cml"
@@ -3861,52 +3781,12 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_4252BAF4170D4D95A1A7337D09F95615"
-            {
-            "SourcePath" = "8:Data\\f9f7d80b-f705-49b1-a86a-8da13f52d6cc.cml"
-            "TargetName" = "8:f9f7d80b-f705-49b1-a86a-8da13f52d6cc.cml"
-            "Tag" = "8:"
-            "Folder" = "8:_C6FE2119F56A4D78B16BD5DE715E195C"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_440109B9A1784583B2646D25EE50B478"
             {
             "SourcePath" = "8:SmartTag\\11125.cml"
             "TargetName" = "8:11125.cml"
             "Tag" = "8:"
             "Folder" = "8:_00B359562F0A4D6CB4FF723319366F4B"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_449B2F5E8B23483996CC36FC232EC624"
-            {
-            "SourcePath" = "8:Data\\User Setting.xml"
-            "TargetName" = "8:User Setting.xml"
-            "Tag" = "8:"
-            "Folder" = "8:_C6FE2119F56A4D78B16BD5DE715E195C"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -3947,26 +3827,6 @@
             "TargetName" = "8:6093213.cml"
             "Tag" = "8:"
             "Folder" = "8:_00B359562F0A4D6CB4FF723319366F4B"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_4915F1F7B38C4A42A0EAFD92F8C4FF03"
-            {
-            "SourcePath" = "8:Data\\5744926f-9a47-4e1e-90b9-ffb1a7c448d7.cml"
-            "TargetName" = "8:5744926f-9a47-4e1e-90b9-ffb1a7c448d7.cml"
-            "Tag" = "8:"
-            "Folder" = "8:_C6FE2119F56A4D78B16BD5DE715E195C"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -4167,26 +4027,6 @@
             "TargetName" = "8:24387.cml"
             "Tag" = "8:"
             "Folder" = "8:_00B359562F0A4D6CB4FF723319366F4B"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_4FB30E84374C405EBAE15689AB9446DF"
-            {
-            "SourcePath" = "8:Data\\53b8e68e-50d1-480e-aff9-3bd5e1a7a683.cml"
-            "TargetName" = "8:53b8e68e-50d1-480e-aff9-3bd5e1a7a683.cml"
-            "Tag" = "8:"
-            "Folder" = "8:_C6FE2119F56A4D78B16BD5DE715E195C"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -4499,7 +4339,7 @@
             "SharedLegacy" = "11:FALSE"
             "PackageAs" = "3:1"
             "Register" = "3:1"
-            "Exclude" = "11:FALSE"
+            "Exclude" = "11:TRUE"
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
@@ -4629,26 +4469,6 @@
             "TargetName" = "8:5994.cml"
             "Tag" = "8:"
             "Folder" = "8:_00B359562F0A4D6CB4FF723319366F4B"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_64097E6E2FD846F69D5C9FBC7FC4A3CE"
-            {
-            "SourcePath" = "8:Data\\1c6973ec-ff35-4faa-9521-d6119619d2bb.cml"
-            "TargetName" = "8:1c6973ec-ff35-4faa-9521-d6119619d2bb.cml"
-            "Tag" = "8:"
-            "Folder" = "8:_C6FE2119F56A4D78B16BD5DE715E195C"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -6260,26 +6080,6 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_A7A74DB2ADAC4BD89BB5E06B7C0A66D4"
-            {
-            "SourcePath" = "8:Data\\Chem4Word.dotx"
-            "TargetName" = "8:Chem4Word.dotx"
-            "Tag" = "8:"
-            "Folder" = "8:_C6FE2119F56A4D78B16BD5DE715E195C"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_A92F5CE1ED7C4980AEA08BC310BD2F15"
             {
             "SourcePath" = "8:SmartTag\\24530.cml"
@@ -7081,26 +6881,6 @@
             "TargetName" = "8:methionine.cml"
             "Tag" = "8:"
             "Folder" = "8:_00B359562F0A4D6CB4FF723319366F4B"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_C6CB31D638694B8C9A254BF2F0346255"
-            {
-            "SourcePath" = "8:Data\\21f620ca-7d2d-4301-86ab-f0d274be16e1.cml"
-            "TargetName" = "8:21f620ca-7d2d-4301-86ab-f0d274be16e1.cml"
-            "Tag" = "8:"
-            "Folder" = "8:_C6FE2119F56A4D78B16BD5DE715E195C"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -8170,28 +7950,6 @@
                     }
                 }
             }
-            "{1525181F-901A-416C-8A58-119130FE478E}:_D2230EB5AF3F4611AE2ACAF80815411E"
-            {
-            "Name" = "8:#1922"
-            "AlwaysCreate" = "11:FALSE"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Property" = "8:TemplateFolder"
-                "Folders"
-                {
-                    "{9EF0B969-E518-4E46-987F-47570745A589}:_3DCEC85A67664BB88B61FCCD4BF18D35"
-                    {
-                    "Name" = "8:Chemistry Gallery1"
-                    "AlwaysCreate" = "11:FALSE"
-                    "Condition" = "8:"
-                    "Transitive" = "11:FALSE"
-                    "Property" = "8:_04C4830856B94099952648BBDFF540E9"
-                        "Folders"
-                        {
-                        }
-                    }
-                }
-            }
             "{1525181F-901A-416C-8A58-119130FE478E}:_E89ECFC4A3D44CE789CCD091EB925474"
             {
             "Name" = "8:#1919"
@@ -8262,7 +8020,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Chemistry Add-in for Word"
         "ProductCode" = "8:{896B5410-EA22-4E46-AC77-AB9563D8D8A6}"
-        "PackageCode" = "8:{DFE51711-9E94-4120-BED6-7037A9677396}"
+        "PackageCode" = "8:{40A4EF07-4EF1-4130-A397-24D0C6689482}"
         "UpgradeCode" = "8:{5DD696D5-5339-41F7-B081-3A556855D260}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
