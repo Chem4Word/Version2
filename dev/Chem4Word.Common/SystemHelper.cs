@@ -14,8 +14,6 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
-using System.Net.Cache;
-using System.Net.Sockets;
 using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -29,6 +27,7 @@ namespace Chem4Word.Common
         public string SystemOs { get; set; }
         public string WordProduct { get; set; }
         public string AddInVersion { get; set; }
+        public string IpAddress { get; set; }
 
         private int _wordVersion = -1;
         public int WordVersion {
@@ -235,6 +234,8 @@ namespace Chem4Word.Common
 
             Version procuctVersion = Assembly.GetExecutingAssembly().GetName().Version;
             AddInVersion = "Chem4Word V" + procuctVersion;
+
+            IpAddress = GetExternalIPV4Address();
         }
 
         private string HKLM_GetString(string path, string key)
@@ -250,6 +251,42 @@ namespace Chem4Word.Common
                 return "";
             }
         }
+
+        private string GetExternalIPV4Address()
+        {
+            string externalIp = "IpAddress ";
+            try
+            {
+                string url = "http://chem4word.azurewebsites.net/client-ip.php";
+
+                HttpWebRequest request = WebRequest.Create(url) as HttpWebRequest;
+                request.Timeout = 1000; // 1 second
+                HttpWebResponse response;
+                response = (HttpWebResponse)request.GetResponse();
+                if (HttpStatusCode.OK.Equals(response.StatusCode))
+                {
+                    using (var reader = new StreamReader(response.GetResponseStream()))
+                    {
+                        string webPage = reader.ReadToEnd();
+                        externalIp += (new Regex(@"\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}")).Matches(webPage)[0].ToString();
+                    }
+                }
+                else
+                {
+                    // Something went wrong
+                    externalIp += "0.0.0.0";
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+                // Something went wrong
+                externalIp += "0.0.0.0 - " + ex.Message;
+            }
+
+            return externalIp;
+        }
+
 
         private int GetOfficeVersionNumber(string wordVersionString)
         {
