@@ -1583,7 +1583,28 @@ namespace Chem4Word.Core {
                                                                     bool showEvaluate) {
             var returnContextObject = contextObject.Clone();
             var result = false;
-            try {
+            if (contextObject == null)
+            {
+                throw new NumboException("contextObject is null");
+            }
+            if (documentDepictionOptionsInUse == null)
+            {
+                throw new NumboException("documentDepictionOptionsInUse is null");
+            }
+            if (documentDepictionOptionsInUse.Count == 0)
+            {
+                throw new NumboException("documentDepictionOptionsInUse is empty");
+            }
+            if (navigatorDepictionOptionsInUse == null)
+            {
+                throw new NumboException("navigatorDepictionOptionsInUse is null");
+            }
+            if (navigatorDepictionOptionsInUse.Count == 0)
+            {
+                throw new NumboException("navigatorDepictionOptionsInUse is empty");
+            }
+            try
+            {
                 EditLabels editLabels = new EditLabels(contextObject,
                                             documentDepictionOptionsInUse,
                                             navigatorDepictionOptionsInUse,
@@ -1593,7 +1614,7 @@ namespace Chem4Word.Core {
                     result = true;
                 }
             } catch (ArgumentNullException e) {
-                throw new NumboException("Chemistry Object was broken:\n Cannot find custom CML.", e);
+                throw new NumboException("Chemistry Object was broken:\nCannot find custom CML.", e);
             } catch (Exception e) {
                 throw new NumboException("Error Editing Label:\n" + e.Message, e);
             }
@@ -2200,8 +2221,11 @@ namespace Chem4Word.Core {
                     //Flag the old Content Control for delete
                     newContentControl.Title = "CONTENTCONTROL_FLAGGED_FOR_DELETE";
                     newContentControl.LockContents = false;
-                    newContentControl.Range.Text = " ";
-                    newContentControl.SetPlaceholderText(Text: " ");
+                    if (WordVersion() > 2007)
+                    {
+                        newContentControl.Range.Text = " ";
+                        newContentControl.SetPlaceholderText(Text: " ");
+                    }
 
                     // because the imported content control is a picture we now need to change the depictions to the preferred setting
                     Range range = wordApp.ActiveDocument.ActiveWindow.Selection.Range;
