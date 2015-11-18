@@ -245,21 +245,6 @@ namespace Chem4Word.UI.OOXML.Atoms
                     OoXmlCharacter hydrogenCharacter = m_charset.GetOoXmlCharacter('H');
                     string numbers = "012345";
                     OoXmlCharacter implicitValueCharacter = m_charset.GetOoXmlCharacter(numbers[implicitHCount]);
-                    //OoXmlCharacter chargeSignCharacter = null;
-                    //OoXmlCharacter chargeValueCharacter = null;
-                    //if (iCharge != 0)
-                    //{
-                    //    if (iCharge >= 1)
-                    //    {
-                    //        chargeSignCharacter = m_charset.GetOoXmlCharacter('+');
-                    //    }
-                    //    if (iCharge <= 1)
-                    //    {
-                    //        chargeSignCharacter = m_charset.GetOoXmlCharacter('-');
-                    //    }
-                    //    // We are not using this character now just getting it for position offsets if required
-                    //    chargeValueCharacter = m_charset.GetOoXmlCharacter('1');
-                    //}
 
                     #region Determine NESW
 
@@ -371,16 +356,8 @@ namespace Chem4Word.UI.OOXML.Atoms
                                         cursorPosition.Offset(-lastOffset, Helper.ScaleTtfToCml(-hydrogenCharacter.BlackBoxY) - Helper.CHARACTER_CLIPPING_MARGIN);
                                         if (implicitHCount > 1)
                                         {
-                                            cursorPosition.Offset(0, Helper.ScaleTtfToCml(-implicitValueCharacter.BlackBoxY / 2) - Helper.CHARACTER_CLIPPING_MARGIN);
+                                            cursorPosition.Offset(0, Helper.ScaleTtfToCml(-implicitValueCharacter.BlackBoxY * Helper.SUBSCRIPT_SCALE_FACTOR / 2) - Helper.CHARACTER_CLIPPING_MARGIN);
                                         }
-                                        //if (iAbsCharge > 1)
-                                        //{
-                                        //    cursorPosition.Offset(0, Helper.ScaleTtfToCml(-chargeSignCharacter.BlackBoxY / 2) - Helper.CHARACTER_CLIPPING_MARGIN);
-                                        //}
-                                        //else
-                                        //{
-                                        //    cursorPosition.Offset(0, Helper.ScaleTtfToCml(-chargeValueCharacter.BlackBoxY / 2) - Helper.CHARACTER_CLIPPING_MARGIN);
-                                        //}
                                     }
                                 }
                                 break;
