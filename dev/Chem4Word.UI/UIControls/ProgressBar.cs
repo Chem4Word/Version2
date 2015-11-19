@@ -66,7 +66,7 @@ namespace Chem4Word.UI.UIControls
             progressBar1.Refresh();
             this.Refresh();
             Application.DoEvents();
-            Debug.WriteLine(progressBar1.Value + "/" + progressBar1.Maximum);
+            //Debug.WriteLine(progressBar1.Value + "/" + progressBar1.Maximum);
             Thread.Sleep(5);
         }
     }

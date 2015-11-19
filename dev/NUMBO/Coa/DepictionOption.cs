@@ -6,6 +6,7 @@
 // -----------------------------------------------------------------------
 using System;
 using System.Collections;
+using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Text;
@@ -327,6 +328,8 @@ namespace Numbo.Coa {
                     s = stringBuilder.ToString();
                 }
             }
+
+            Debug.WriteLine("GetAsLatexFormattedString() :- " + s);
             return s;
         }
 
