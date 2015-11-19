@@ -111,6 +111,18 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_09F4D36EE2AC4AF8D6297A6526DAEEE4"
+        "OwnerKey" = "8:_1EA43CA64CB4FE0F1F1211AF761E0ADF"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_09F4D36EE2AC4AF8D6297A6526DAEEE4"
+        "OwnerKey" = "8:_CD1AEA5FB41F076F29850710EFE3FF71"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_0AB784C3407B4783B4B485496FC9D3FA"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -208,13 +220,13 @@
         "Entry"
         {
         "MsmKey" = "8:_1C3327D0F9299E9B0474ADA312B7640C"
-        "OwnerKey" = "8:_5099AE5C7DFE492A9C9DF1CA4C9470E9"
+        "OwnerKey" = "8:_CD1AEA5FB41F076F29850710EFE3FF71"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_1C3327D0F9299E9B0474ADA312B7640C"
-        "OwnerKey" = "8:_CD1AEA5FB41F076F29850710EFE3FF71"
+        "OwnerKey" = "8:_5099AE5C7DFE492A9C9DF1CA4C9470E9"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -274,13 +286,13 @@
         "Entry"
         {
         "MsmKey" = "8:_23A152037CE61D61805702BD804C47A9"
-        "OwnerKey" = "8:_5099AE5C7DFE492A9C9DF1CA4C9470E9"
+        "OwnerKey" = "8:_1C3327D0F9299E9B0474ADA312B7640C"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_23A152037CE61D61805702BD804C47A9"
-        "OwnerKey" = "8:_1C3327D0F9299E9B0474ADA312B7640C"
+        "OwnerKey" = "8:_5099AE5C7DFE492A9C9DF1CA4C9470E9"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -352,6 +364,12 @@
         "Entry"
         {
         "MsmKey" = "8:_29DB4D439FE3487DA9BDCDAF479F0C62"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_29F402E00FB547929DA2F17A3EFE21D4"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -814,7 +832,13 @@
         "Entry"
         {
         "MsmKey" = "8:_6DE508F331C2CB31A44F409C739E9DAE"
-        "OwnerKey" = "8:_1C3327D0F9299E9B0474ADA312B7640C"
+        "OwnerKey" = "8:_5099AE5C7DFE492A9C9DF1CA4C9470E9"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_6DE508F331C2CB31A44F409C739E9DAE"
+        "OwnerKey" = "8:_1EA43CA64CB4FE0F1F1211AF761E0ADF"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -826,13 +850,7 @@
         "Entry"
         {
         "MsmKey" = "8:_6DE508F331C2CB31A44F409C739E9DAE"
-        "OwnerKey" = "8:_5099AE5C7DFE492A9C9DF1CA4C9470E9"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_6DE508F331C2CB31A44F409C739E9DAE"
-        "OwnerKey" = "8:_1EA43CA64CB4FE0F1F1211AF761E0ADF"
+        "OwnerKey" = "8:_1C3327D0F9299E9B0474ADA312B7640C"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -1894,12 +1912,6 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_1C3327D0F9299E9B0474ADA312B7640C"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_8F22B3A684A44287909010CB7AD11E41"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -1907,12 +1919,6 @@
         {
         "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_5099AE5C7DFE492A9C9DF1CA4C9470E9"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_23A152037CE61D61805702BD804C47A9"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -1937,6 +1943,18 @@
         {
         "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_CD1AEA5FB41F076F29850710EFE3FF71"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_1C3327D0F9299E9B0474ADA312B7640C"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_23A152037CE61D61805702BD804C47A9"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -2207,7 +2225,7 @@
                 {
                 "Name" = "8:.NET Framework"
                 "Message" = "8:[VSDNETMSG]"
-                "FrameworkVersion" = "8:3.5.30729                            "
+                "FrameworkVersion" = "8:3.5.30729                             "
                 "AllowLaterVersions" = "11:FALSE"
                 "InstallUrl" = "8:http://go.microsoft.com/fwlink/?LinkId=76617"
                 }
@@ -3247,6 +3265,26 @@
             "TargetName" = "8:24850.cml"
             "Tag" = "8:"
             "Folder" = "8:_00B359562F0A4D6CB4FF723319366F4B"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_29F402E00FB547929DA2F17A3EFE21D4"
+            {
+            "SourcePath" = "8:..\\Chem4Word.AddIn\\User Setting.xml"
+            "TargetName" = "8:User Setting.xml"
+            "Tag" = "8:"
+            "Folder" = "8:_C6FE2119F56A4D78B16BD5DE715E195C"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -8020,7 +8058,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Chemistry Add-in for Word"
         "ProductCode" = "8:{896B5410-EA22-4E46-AC77-AB9563D8D8A6}"
-        "PackageCode" = "8:{40A4EF07-4EF1-4130-A397-24D0C6689482}"
+        "PackageCode" = "8:{36A34CBD-BDE8-4C8B-91AB-9850A76CF745}"
         "UpgradeCode" = "8:{5DD696D5-5339-41F7-B081-3A556855D260}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"

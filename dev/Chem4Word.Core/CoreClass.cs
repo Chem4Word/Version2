@@ -267,9 +267,14 @@ namespace Chem4Word.Core {
 
                 if (!fileName.Equals(tempCmlFileName))
                 {
-                    _telemetry.Write(module, "Information", "Bond Lengths; Median: "
-                        + SafeDouble.AsString(mol.GetMedianBondLength(), "#0.000")
-                        + " Average: " + SafeDouble.AsString(averageBondLength, "#0.000"));
+                    if (mol.GetAllBonds().Count > 0)
+                    {
+                        _telemetry.Write(module, "Information", "Bond Lengths; Median: "
+                                                                +
+                                                                SafeDouble.AsString(mol.GetMedianBondLength(), "#0.000")
+                                                                + " Average: " +
+                                                                SafeDouble.AsString(averageBondLength, "#0.000"));
+                    }
                 }
 
                 if (WordVersion() > 2007 && averageBondLength < 5)
@@ -1266,9 +1271,14 @@ namespace Chem4Word.Core {
                     XmlNode xmlNode = docAfter.SelectSingleNode("//cml:molecule", nsmgr1);
                     XElement xElement = XElement.Parse(xmlNode.OuterXml);
                     CmlMolecule mol = new CmlMolecule(xElement);
-                    _telemetry.Write(module, "Information", "Bond Lengths; Median: "
-                        + SafeDouble.AsString(mol.GetMedianBondLength(), "#0.000")
-                        + " Average: " + SafeDouble.AsString(mol.GetAverageBondLength(), "#0.000"));
+                    if (mol.GetAllBonds().Count > 0)
+                    {
+                        _telemetry.Write(module, "Information", "Bond Lengths; Median: "
+                                                                +
+                                                                SafeDouble.AsString(mol.GetMedianBondLength(), "#0.000")
+                                                                + " Average: " +
+                                                                SafeDouble.AsString(mol.GetAverageBondLength(), "#0.000"));
+                    }
                 }
                 else
                 {
