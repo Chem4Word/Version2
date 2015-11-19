@@ -863,6 +863,7 @@ namespace Chem4Word.Core {
                     }
                     catch (Exception e)
                     {
+                        _telemetry.Write(module, "Exception", e.Message);
                         MessageBox.Show(e.Message + "\n\n" + e.Source + "\n\n" + e.StackTrace,
                                         Resources.CHEM_4_WORD_MESSAGE_BOX_TITLE, MessageBoxButton.OK,
                                         MessageBoxImage.Stop);
@@ -889,6 +890,7 @@ namespace Chem4Word.Core {
                     }
                     catch (Exception e)
                     {
+                        _telemetry.Write(module, "Exception", e.Message);
                         MessageBox.Show(e.Message + "\n\n" + e.Source + "\n\n" + e.StackTrace,
                                         Resources.CHEM_4_WORD_MESSAGE_BOX_TITLE, MessageBoxButton.OK,
                                         MessageBoxImage.Stop);
@@ -1148,7 +1150,7 @@ namespace Chem4Word.Core {
 
                     ProgressBar pb = new ProgressBar();
                     pb.Value = 0;
-                    pb.Maximum = 2;
+                    pb.Maximum = 3;
 
                     #region Get Inchi-Keys from Chem Spider
                     Log.Debug("Get Inchi-Keys from Chem Spider");
@@ -1794,6 +1796,7 @@ namespace Chem4Word.Core {
         private static void Recognize(string paragraphText, int selectionRangeStart, int cursorPosition,
                                     bool isSelection)
         {
+            string module = "CoreClass.Recognize()";
             paragraphText = paragraphText.Trim();
 
             if (!String.IsNullOrEmpty(paragraphText))
@@ -1822,16 +1825,13 @@ namespace Chem4Word.Core {
                 }
                 catch (Exception ex)
                 {
+                    _telemetry.Write(module, "Exception", ex.Message);
                     MessageBox.Show(ex.Message,
                                     UI.Properties.Resources.CHEM_4_WORD_MESSAGE_BOX_TITLE, MessageBoxButton.OK,
                                     MessageBoxImage.Error);
                 }
             }
         }
-
-
-
-
 
         /// <summary>
         ///   Gets the DepictionOption for the document or propmts the user for the information
@@ -2248,6 +2248,7 @@ namespace Chem4Word.Core {
                     _telemetry.Write(module, "Debug", "Inserted New Context Object");
                 }
             } catch (Exception ex) {
+                _telemetry.Write(module, "Exception", ex.Message);
                 MessageBox.Show(ex.Message, Resources.CHEM_4_WORD_MESSAGE_BOX_TITLE, MessageBoxButton.OK,
                                 MessageBoxImage.Stop);
             }

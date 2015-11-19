@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace Chem4Word.UI.UIControls
@@ -64,7 +66,8 @@ namespace Chem4Word.UI.UIControls
             progressBar1.Refresh();
             this.Refresh();
             Application.DoEvents();
-            //System.Threading.Thread.Sleep(5);
+            Debug.WriteLine(progressBar1.Value + "/" + progressBar1.Maximum);
+            Thread.Sleep(5);
         }
     }
 }
