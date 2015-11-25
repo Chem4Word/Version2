@@ -43,8 +43,6 @@ namespace Chem4Word.Common
         }
 
         private string CryptoRoot = @"SOFTWARE\Microsoft\Cryptography";
-        //private string ProductsRoot = @"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall";
-        //private string ProductsRootWow6432 = @"SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall";
 
         public SystemHelper()
         {
@@ -117,58 +115,45 @@ namespace Chem4Word.Common
 
                 RegistryKey localMachine = Registry.LocalMachine;
 
-                //#region Pass #1
-                //RegistryKey products = localMachine.OpenSubKey(ProductsRootWow6432, false);
-                //if (products != null)
-                //{
-                //    string[] productFolders = products.GetSubKeyNames();
+                #region Get Guid
 
-                //    foreach (string p in productFolders)
-                //    {
-                //        RegistryKey installProperties = products.OpenSubKey(p);
-                //        if (installProperties != null)
-                //        {
-                //            string parentDisplayName = (string)installProperties.GetValue("ParentDisplayName");
-                //            string displayName = (string)installProperties.GetValue("DisplayName");
-                //            if ((parentDisplayName != null) && (parentDisplayName.StartsWith("Microsoft Office")))
-                //            {
-                //                //Debug.WriteLine(parentDisplayName);
-                //                officeProductName = parentDisplayName;
-                //                //MessageBox.Show("Uninstall Wow6432Node " + officeProductName);
-                //                break;
-                //            }
-                //        }
-                //    }
-                //}
-                //#endregion
+                string value1 = string.Empty;
 
-                //#region Pass #2 (if required)
-                //if (string.IsNullOrEmpty(officeProductName))
-                //{
-                //    products = localMachine.OpenSubKey(ProductsRoot, false);
-                //    if (products != null)
-                //    {
-                //        string[] productFolders = products.GetSubKeyNames();
+                RegistryKey key1 = Registry.ClassesRoot.OpenSubKey("Word.Document");
+                if (key1 != null)
+                {
+                    RegistryKey current = key1.OpenSubKey("CurVer");
+                    if (current != null) value1 = current.GetValue("").ToString();
+                }
+                //Debug.WriteLine(@"Word.Document\CurVer\(default) --> " + value1);
 
-                //        foreach (string p in productFolders)
-                //        {
-                //            RegistryKey installProperties = products.OpenSubKey(p);
-                //            if (installProperties != null)
-                //            {
-                //                string parentDisplayName = (string)installProperties.GetValue("ParentDisplayName");
-                //                string displayName = (string)installProperties.GetValue("DisplayName");
-                //                if ((parentDisplayName != null) && (parentDisplayName.StartsWith("Microsoft Office")))
-                //                {
-                //                    //Debug.WriteLine(parentDisplayName);
-                //                    officeProductName = parentDisplayName;
-                //                    //MessageBox.Show("Uninstall " + officeProductName);
-                //                    break;
-                //                }
-                //            }
-                //        }
-                //    }
-                //}
-                //#endregion
+                string value2 = string.Empty;
+
+                if (!string.IsNullOrEmpty(value1))
+                {
+                    RegistryKey key2 = Registry.ClassesRoot.OpenSubKey(value1);
+                    if (key2 != null)
+                    {
+                        RegistryKey icon = key2.OpenSubKey("DefaultIcon");
+                        if (icon != null) value2 = icon.GetValue("").ToString();
+                    }
+                    //Debug.WriteLine(value1 + @"\DefaultIcon\(default) --> " + value2);
+                }
+
+                if (!string.IsNullOrEmpty(value2))
+                {
+                    int start = value2.IndexOf("{", StringComparison.Ordinal);
+                    int end = value2.IndexOf("}", StringComparison.Ordinal);
+                    if (end > start)
+                    {
+                        string officeGuid = value2.Substring(start, end - start + 1);
+                        Debug.WriteLine("Office Guid: " + officeGuid);
+
+                        officeProductName = DecodeOfficeGuid(officeGuid);
+                    }
+                }
+
+                #endregion
 
                 #endregion
 
@@ -373,6 +358,174 @@ namespace Chem4Word.Common
             }
 
             return servicePack;
+        }
+
+        private string DecodeOfficeGuid(string officeGuid)
+        {
+            // Office 2007 https://support.microsoft.com/en-us/kb/928516
+            // Office 2010 https://support.microsoft.com/en-us/kb/2186281
+            // Office 2013 https://support.microsoft.com/en-us/kb/2786054
+
+            //           1         2         3
+            // 01234567890123456789012345678901234567
+            // {BRMMmmmm-PPPP-LLLL-p000-D000000FF1CE}
+
+            // The following table describes the characters of the GUID. 
+            // B    Release version 0-9, A-F 
+            // R    Release type 0-9, A-F 
+            // MM   Major version 0-9 
+            // mmmm Minor version 0-9 
+            // PPPP Product ID 0-9, A-F 
+            // LLLL Language identifier 0-9, A-F 
+            // p    0 for x86, 1 for x64 0-1 
+            // 000  Reserved for future use, currently 0 0 
+            // D    1 for debug, 0 for ship 0-1 
+            // 000000FF1CE Office Family ID
+
+            string result = "";
+
+            string releaseVersion = officeGuid.Substring(1, 1);
+            string releaseType = officeGuid.Substring(2, 1);
+            string majorVersion = officeGuid.Substring(3, 2);
+            string minorVersion = officeGuid.Substring(5, 4);
+            string productId = officeGuid.Substring(10, 4);
+            string language = officeGuid.Substring(15, 4);
+            string bitFlag = officeGuid.Substring(20, 1);
+            string debugFlag = officeGuid.Substring(25, 1);
+
+            int major = int.Parse(majorVersion);
+
+            switch (major)
+            {
+                case 12:
+                    // Office 2007
+                    switch (productId)
+                    {
+                        case "0011":
+                            result = "Microsoft Office Professional Plus 2007";
+                            break;
+                        case "0012":
+                            result = "Microsoft Office Standard 2007";
+                            break;
+                        case "0013":
+                            result = "Microsoft Office Basic 2007";
+                            break;
+                        case "0014":
+                            result = "Microsoft Office Professional 2007";
+                            break;
+                        case "001A":
+                            result = "Microsoft Office Word 2007";
+                            break;
+                        case "002E":
+                            result = "Microsoft Office Ultimate 2007";
+                            break;
+                        case "002F":
+                            result = "Microsoft Office Home and Student 2007";
+                            break;
+                        case "0030":
+                            result = "Microsoft Office Enterprise 2007";
+                            break;
+                        case "0031":
+                            result = "Microsoft Office Professional Hybrid 2007";
+                            break;
+                        case "0033":
+                            result = "Microsoft Office Personal 2007";
+                            break;
+                        case "0035":
+                            result = "Microsoft Office Professional Hybrid 2007";
+                            break;
+                        case "00BA":
+                            result = "Microsoft Office Groove 2007";
+                            break;
+                        case "00CA":
+                            result = "Microsoft Office Small Business 2007";
+                            break;
+                        default:
+                            result = "Microsoft Office 2007 " + officeGuid;
+                            break;
+                    }
+                    break;
+                case 14:
+                    // Office 2010
+                    switch (productId)
+                    {
+                        case "0011":
+                            result = "Microsoft Office Professional Plus 2010";
+                            break;
+                        case "0012":
+                            result = "Microsoft Office Standard 2010";
+                            break;
+                        case "0013":
+                            result = "Microsoft Office Home and Business 2010";
+                            break;
+                        case "0014":
+                            result = "Microsoft Office Professional 2010";
+                            break;
+                        case "001B":
+                            result = "Microsoft Word 2010";
+                            break;
+                        case "002F":
+                            result = "Microsoft Office Home and Student 2010";
+                            break;
+                        case "008B":
+                            result = "Microsoft Office Small Business Basics 2010";
+                            break;
+                        case "011D":
+                            result = "Microsoft Office Professional Plus Subscription 2010";
+                            break;
+                        default:
+                            result = "Microsoft Office 2010 " + officeGuid;
+                            break;
+                    }
+                    break;
+                case 15:
+                    // Office 2013
+                    switch (productId)
+                    {
+                        case "000F":
+                            result = "Microsoft Office 365 (2013) Pro Plus";
+                            break;
+                        case "0011":
+                            result = "Microsoft Office Professional Plus 2013";
+                            break;
+                        case "0012":
+                            result = "Microsoft Office Standard 2013";
+                            break;
+                        case "0013":
+                            result = "Microsoft Office Home and Business 2013";
+                            break;
+                        case "0014":
+                            result = "Microsoft Office Professional 2013";
+                            break;
+                        case "001B":
+                            result = "Microsoft Word 2013";
+                            break;
+                        case "002F":
+                            result = "Microsoft Office Home and Student 2013";
+                            break;
+                        default:
+                            result = "Microsoft Office 2013 " + officeGuid;
+                            break;
+                    }
+                    break;
+                case 16:
+                    // Office 2016
+                    switch (productId)
+                    {
+                        case "000F":
+                            result = "Microsoft Office 2016 Professional Plus - en-us";
+                            break;
+                        case "":
+                            result = "";
+                            break;
+                        default:
+                            result = "Microsoft Office 2016 " + officeGuid;
+                            break;
+                    }
+                    break;
+            }
+
+            return result;
         }
     }
 

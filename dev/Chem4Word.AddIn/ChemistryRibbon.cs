@@ -245,7 +245,7 @@ namespace Chem4Word.AddIn
             // Need to check which version of Word is loading the ribbon
             string sVersion = this.wordApp.Version;
             string sTabLabel = "";
-            switch (core.WordVersion())
+            switch (core.WordVersion)
             {
                 case 2013:
                     // Word 2013 uses upper case tab labels

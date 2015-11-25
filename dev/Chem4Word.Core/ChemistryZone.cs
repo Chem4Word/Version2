@@ -98,7 +98,7 @@ namespace Chem4Word.Core {
                                                                                                 DocumentDepictionOptionXPath);
             if (Depiction.Is2D(documentDepictionOption)) {
 
-                if (document.WordVersion() > 2007)
+                if (document.WordVersion > 2007)
                 {
                     DateTime started = DateTime.Now;
 
