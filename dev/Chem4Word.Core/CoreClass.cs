@@ -142,9 +142,12 @@ namespace Chem4Word.Core {
             }
         }
 
-        public int WordVersion()
+        public int WordVersion
         {
-            return _telemetry.WordVersion();
+            get
+            {
+                return _telemetry.WordVersion;
+            }
         }
 
         /// <summary>
@@ -277,7 +280,7 @@ namespace Chem4Word.Core {
                     }
                 }
 
-                if (WordVersion() > 2007 && averageBondLength < 5)
+                if (WordVersion > 2007 && averageBondLength < 5)
                 {
                     mol.ScaleToAverageBondLength(20);
                     _telemetry.Write(module, "Information",
@@ -478,7 +481,7 @@ namespace Chem4Word.Core {
                 var cmlMolecule = new CmlMolecule((XElement)documentDepictionOption.MachineUnderstandableOption);
                 object missing = Type.Missing;
 
-                if (WordVersion() > 2007)
+                if (WordVersion > 2007)
                 {
                     DateTime started = DateTime.Now;
 
@@ -667,7 +670,7 @@ namespace Chem4Word.Core {
                 if (!string.IsNullOrEmpty(assemblyDirectoryName))
                 {
                     string templateFileName = "Chem4Word2010.dotx";
-                    if (WordVersion() == 2007)
+                    if (WordVersion == 2007)
                     {
                         templateFileName = "Chem4Word2007.dotx";
                     }
@@ -825,7 +828,7 @@ namespace Chem4Word.Core {
             if (Depiction.Is2D(documentDepictionOption))
             {
 
-                if (WordVersion() > 2007)
+                if (WordVersion > 2007)
                 {
                     control = wordApp.ActiveDocument.ContentControls.Add(
                         WdContentControlType.wdContentControlRichText, ref missing);
@@ -1039,7 +1042,7 @@ namespace Chem4Word.Core {
                 Log.Debug("Converting CML to JSON");
                 tcd.Before_CML = selectedZone.Cml.ToString();
                 string normal = Chem4Word.UI.Converters.Cml.ToJson(selectedZone.Cml.ToString());
-                if (WordVersion() > 2007)
+                if (WordVersion > 2007)
                 {
                     tcd.Before_JSON = normal;
                 }
@@ -1058,7 +1061,7 @@ namespace Chem4Word.Core {
                 {
                     #region Convert JSON to cml
                     Log.Debug("Converting JSON to CML");
-                    if (WordVersion() > 2007)
+                    if (WordVersion > 2007)
                     {
                         normal = tcd.After_JSON;
                     }
@@ -2132,7 +2135,7 @@ namespace Chem4Word.Core {
                 // Save state of Saved flag
                 bool docWasSaved = wordDoc.Saved;
                 string templateFileName = "Chem4Word2010.dotx";
-                if (WordVersion() == 2007)
+                if (WordVersion == 2007)
                 {
                     templateFileName = "Chem4Word2007.dotx";
                 }
@@ -2231,7 +2234,7 @@ namespace Chem4Word.Core {
                     //Flag the old Content Control for delete
                     newContentControl.Title = "CONTENTCONTROL_FLAGGED_FOR_DELETE";
                     newContentControl.LockContents = false;
-                    if (WordVersion() > 2007)
+                    if (WordVersion > 2007)
                     {
                         newContentControl.Range.Text = " ";
                         newContentControl.SetPlaceholderText(Text: " ");
@@ -2345,7 +2348,7 @@ namespace Chem4Word.Core {
 
                     CmlMolecule mol = new CmlMolecule((XElement)documentDepictionOption.MachineUnderstandableOption);
                     double? averageBondLength = mol.GetAverageBondLength();
-                    if (WordVersion() > 2007 && averageBondLength < 5)
+                    if (WordVersion > 2007 && averageBondLength < 5)
                     {
                         mol.ScaleToAverageBondLength(20);
                         _telemetry.Write(module, "Information",
@@ -2389,7 +2392,7 @@ namespace Chem4Word.Core {
 
                     CmlMolecule mol = new CmlMolecule((XElement)documentDepictionOption.MachineUnderstandableOption);
                     double? averageBondLength = mol.GetAverageBondLength();
-                    if (WordVersion() > 2007 && averageBondLength < 5)
+                    if (WordVersion > 2007 && averageBondLength < 5)
                     {
                         mol.ScaleToAverageBondLength(20);
                         _telemetry.Write(module, "Information",

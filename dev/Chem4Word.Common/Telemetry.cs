@@ -18,6 +18,13 @@ namespace Chem4Word.Common
 
         private SystemHelper _helper;
 
+        public int WordVersion {
+            get
+            {
+                return _helper.WordVersion;
+            }
+        }
+
         public Telemetry()
         {
             _helper = new SystemHelper();
@@ -117,11 +124,6 @@ namespace Chem4Word.Common
             me.Level = level;
             me.Message = message;
             storage.WriteMessage(me);
-        }
-
-        public int WordVersion()
-        {
-            return _helper.WordVersion;
         }
     }
 }

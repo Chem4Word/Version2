@@ -108,9 +108,9 @@ namespace Chem4Word.Core
             core.WriteTelemetry(operation, level, message);
         }
 
-        public int WordVersion()
+        public int WordVersion
         {
-            return core.WordVersion();
+            get { return core.WordVersion; }
         }
 
         /// <summary>
@@ -177,7 +177,7 @@ namespace Chem4Word.Core
             {
                 object missing = Type.Missing;
 
-                if (WordVersion() > 2007)
+                if (WordVersion > 2007)
                 {
                     DateTime started = DateTime.Now;
 
