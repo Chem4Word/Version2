@@ -47,11 +47,14 @@ using System.Timers;
 using Chem4Word.UI.ChemDoodle;
 using System.Net;
 using System.Reflection;
+using System.Windows.Forms;
 using Chem4Word.Common;
 using Chem4Word.Common.Utilities;
 using Chem4Word.UI.Converters;
 using Chem4Word.UI.OOXML;
-using Chem4Word.UI.UIControls;
+using MessageBox = System.Windows.MessageBox;
+using ProgressBar = Chem4Word.UI.UIControls.ProgressBar;
+using Timer = System.Timers.Timer;
 
 namespace Chem4Word.Core {
     /// <summary>
@@ -734,13 +737,25 @@ namespace Chem4Word.Core {
 
                 if (WordVersion > 2007)
                 {
+                    string openxmlsdklink = "http://www.microsoft.com/en-gb/download/details.aspx?id=5124";
+
                     bool found64 =
                         File.Exists(@"C:\Program Files (x86)\Open XML SDK\V2.0\lib\DocumentFormat.OpenXml.dll");
                     bool found32 =
                         File.Exists(@"C:\Program Files\Open XML SDK\V2.0\lib\DocumentFormat.OpenXml.dll");
                     if (!(found32 || found64))
                     {
-                        MessageBox.Show("Please install Open XML SDK (OpenXMLSDKv2.msi) from http://www.microsoft.com/en-gb/download/details.aspx?id=5124", "Open XML SDK Not found");
+                        MessageBoxResult answer =
+                        MessageBox.Show("Warning: The \"Open XML SDK 2.0\" is missing!" + Environment.NewLine + Environment.NewLine
+                                + "Without this publication quality structures will not render." + Environment.NewLine + Environment.NewLine
+                                + "Do you want to download the installer (OpenXMLSDKv2.msi) from microsoft at " + openxmlsdklink,
+                            "Open XML SDK 2.0 Not found",
+                            MessageBoxButton.YesNo,
+                            MessageBoxImage.Warning);
+                        if (answer == MessageBoxResult.Yes)
+                        {
+                            Process.Start(openxmlsdklink);
+                        }
                     }
                 }
             }
