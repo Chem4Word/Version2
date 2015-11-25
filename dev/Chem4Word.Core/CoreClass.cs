@@ -734,7 +734,11 @@ namespace Chem4Word.Core {
 
                 if (WordVersion > 2007)
                 {
-                    if (!File.Exists(@"C:\Program Files (x86)\Open XML SDK\V2.0\lib\DocumentFormat.OpenXml.dll"))
+                    bool found64 =
+                        File.Exists(@"C:\Program Files (x86)\Open XML SDK\V2.0\lib\DocumentFormat.OpenXml.dll");
+                    bool found32 =
+                        File.Exists(@"C:\Program Files\Open XML SDK\V2.0\lib\DocumentFormat.OpenXml.dll");
+                    if (!(found32 || found64))
                     {
                         MessageBox.Show("Please install Open XML SDK (OpenXMLSDKv2.msi) from http://www.microsoft.com/en-gb/download/details.aspx?id=5124", "Open XML SDK Not found");
                     }
