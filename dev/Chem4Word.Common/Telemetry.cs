@@ -98,7 +98,7 @@ namespace Chem4Word.Common
 #if DEBUG
                 me4.Message = _helper.AddInVersion + " (debug)";
 #else
-                me4.Message = _helper.AddInVersion + " (beta 3)";
+                me4.Message = _helper.AddInVersion + " (beta 4)";
 #endif
                 result4 = storage.WriteMessage(me4);
             }
@@ -112,18 +112,21 @@ namespace Chem4Word.Common
 
         public void Write(string operation, string level, string message)
         {
-            if (!_systemInfoSent)
+            if (!string.IsNullOrEmpty(_helper.IpAddress) && !_helper.IpAddress.Contains("0.0.0.0"))
             {
-                WriteSystemInfo();
-            }
+                if (!_systemInfoSent)
+                {
+                    WriteSystemInfo();
+                }
 
-            AzureStorage storage = new AzureStorage();
-            MessageEntity me = new MessageEntity();
-            me.MachineId = _helper.MachineId;
-            me.Operation = operation;
-            me.Level = level;
-            me.Message = message;
-            storage.WriteMessage(me);
+                AzureStorage storage = new AzureStorage();
+                MessageEntity me = new MessageEntity();
+                me.MachineId = _helper.MachineId;
+                me.Operation = operation;
+                me.Level = level;
+                me.Message = message;
+                storage.WriteMessage(me);
+            }
         }
     }
 }

@@ -52,6 +52,8 @@ using Chem4Word.Common;
 using Chem4Word.Common.Utilities;
 using Chem4Word.UI.Converters;
 using Chem4Word.UI.OOXML;
+using DocumentFormat.OpenXml;
+using DocumentFormat.OpenXml.Packaging;
 using MessageBox = System.Windows.MessageBox;
 using ProgressBar = Chem4Word.UI.UIControls.ProgressBar;
 using Timer = System.Timers.Timer;
@@ -672,31 +674,62 @@ namespace Chem4Word.Core {
             {
                 if (!string.IsNullOrEmpty(assemblyDirectoryName))
                 {
+                    #region Templates
+
                     string templateFileName = "Chem4Word2010.dotx";
+                    string sourcePath = @"Template-2010";
                     if (WordVersion == 2007)
                     {
                         templateFileName = "Chem4Word2007.dotx";
-                    }
-                    // If is missing, Recover it.
-                    if (!File.Exists(localAppDataFolder + @"\Chemistry Gallery\" + templateFileName))
-                    {
-                        File.Copy(assemblyDirectoryName + @"\Data\" + templateFileName,
-                                  localAppDataFolder + @"\Chemistry Gallery\" + templateFileName);
+                        sourcePath = @"Template-2007";
                     }
 
-                    if (Directory.Exists(assemblyDirectoryName + @"\Data"))
+                    // If files are missing, recover them
+                    if (!Directory.Exists(localAppDataFolder + @"\Chemistry Gallery"))
                     {
-                        string[] cmlFiles = Directory.GetFiles(assemblyDirectoryName + @"\Data", @"*.cml");
-                        foreach (string file in cmlFiles)
+                        Directory.CreateDirectory(localAppDataFolder + @"\Chemistry Gallery");
+                    }
+
+                    if (!File.Exists(localAppDataFolder + @"\Chemistry Gallery\" + templateFileName))
+                    {
+                        string[] galleryFiles = Directory.GetFiles(assemblyDirectoryName + @"\Data\" + sourcePath);
+                        foreach (string file in galleryFiles)
                         {
                             FileInfo fileInfor = new FileInfo(file);
                             if (!File.Exists(localAppDataFolder + @"\Chemistry Gallery\" + fileInfor.Name))
                             {
-                                File.Copy(assemblyDirectoryName + @"\Data\" + fileInfor.Name,
+                                File.Copy(assemblyDirectoryName + @"\Data\" + sourcePath + @"\" + fileInfor.Name,
                                           localAppDataFolder + @"\Chemistry Gallery\" + fileInfor.Name);
                             }
                         }
                     }
+
+                    #endregion
+
+                    #region Smart Tags
+
+                    if (!Directory.Exists(localAppDataFolder + @"\SmartTag"))
+                    {
+                        Directory.CreateDirectory(localAppDataFolder + @"\SmartTag");
+                    }
+
+                    if (!File.Exists(localAppDataFolder + @"\SmartTag\smart-tag-dict.xml"))
+                    {
+                        string[] smartTagFiles = Directory.GetFiles(assemblyDirectoryName + @"\Data\SmartTag");
+                        foreach (string file in smartTagFiles)
+                        {
+                            FileInfo fileInfor = new FileInfo(file);
+                            if (!File.Exists(localAppDataFolder + @"\SmartTag\" + fileInfor.Name))
+                            {
+                                File.Copy(assemblyDirectoryName + @"\Data\SmartTag\" + fileInfor.Name,
+                                          localAppDataFolder + @"\SmartTag\" + fileInfor.Name);
+                            }
+                        }
+                    }
+
+                    #endregion
+
+                    #region User Settings
 
                     if (!File.Exists(localAppDataFolder + @"\User Setting.xml"))
                     {
@@ -733,30 +766,8 @@ namespace Chem4Word.Core {
                             }
                         }
                     }
-                }
 
-                if (WordVersion > 2007)
-                {
-                    string openxmlsdklink = "http://www.microsoft.com/en-gb/download/details.aspx?id=5124";
-
-                    bool found64 =
-                        File.Exists(@"C:\Program Files (x86)\Open XML SDK\V2.0\lib\DocumentFormat.OpenXml.dll");
-                    bool found32 =
-                        File.Exists(@"C:\Program Files\Open XML SDK\V2.0\lib\DocumentFormat.OpenXml.dll");
-                    if (!(found32 || found64))
-                    {
-                        MessageBoxResult answer =
-                        MessageBox.Show("Warning: The \"Open XML SDK 2.0\" is missing!" + Environment.NewLine + Environment.NewLine
-                                + "Without this publication quality structures will not render." + Environment.NewLine + Environment.NewLine
-                                + "Do you want to download the installer (OpenXMLSDKv2.msi) from microsoft at " + openxmlsdklink,
-                            "Open XML SDK 2.0 Not found",
-                            MessageBoxButton.YesNo,
-                            MessageBoxImage.Warning);
-                        if (answer == MessageBoxResult.Yes)
-                        {
-                            Process.Start(openxmlsdklink);
-                        }
-                    }
+                    #endregion
                 }
             }
             catch (Exception Ex)
