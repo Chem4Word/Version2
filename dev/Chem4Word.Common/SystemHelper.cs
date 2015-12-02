@@ -242,7 +242,6 @@ namespace Chem4Word.Common
 
         private void GetExternalIpv4Address(object o)
         {
-            IpAddress = "IpAddress ";
             DateTime started = DateTime.Now;
 
             try
@@ -258,20 +257,20 @@ namespace Chem4Word.Common
                     using (var reader = new StreamReader(response.GetResponseStream()))
                     {
                         string webPage = reader.ReadToEnd();
-                        IpAddress += (new Regex(@"\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}")).Matches(webPage)[0].ToString();
+                        IpAddress = "IpAddress " + (new Regex(@"\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}")).Matches(webPage)[0].ToString();
                     }
                 }
                 else
                 {
                     // Something went wrong
-                    IpAddress += "0.0.0.0";
+                    IpAddress = "IpAddress 0.0.0.0";
                 }
             }
             catch (Exception ex)
             {
                 Debug.WriteLine(ex.Message);
                 // Something went wrong
-                IpAddress += "0.0.0.0 - " + ex.Message;
+                IpAddress = "IpAddress 0.0.0.0 - " + ex.Message;
             }
 
             TimeSpan ts = DateTime.Now - started;

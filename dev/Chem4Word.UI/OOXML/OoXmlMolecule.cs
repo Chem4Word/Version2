@@ -121,7 +121,7 @@ namespace Chem4Word.UI.OOXML
             ProgressBar pb = new ProgressBar();
 
             Debug.WriteLine("OoXmlMolecule.GenerateRun() Starting Step 1");
-            _telemetry.Write(module, "Debug", "Starting Step 1");
+            //_telemetry.Write(module, "Debug", "Starting Step 1");
             DateTime started = DateTime.Now;
             #region Step 1 - Generate Atom Labels
 
@@ -146,10 +146,10 @@ namespace Chem4Word.UI.OOXML
             #endregion
             TimeSpan ts = DateTime.Now - started;
             Debug.WriteLine("Elapsed time " + ts.TotalMilliseconds.ToString("##,##0.0") + "ms");
-            _telemetry.Write(module, "Debug", "Elapsed time " + ts.TotalMilliseconds.ToString("##,##0.0") + "ms");
+            //_telemetry.Write(module, "Debug", "Elapsed time " + ts.TotalMilliseconds.ToString("##,##0.0") + "ms");
 
             Debug.WriteLine("OoXmlMolecule.GenerateRun() Starting Step 2");
-            _telemetry.Write(module, "Debug", "Starting Step 2");
+            //_telemetry.Write(module, "Debug", "Starting Step 2");
             started = DateTime.Now;
             #region Step 2 - Generate Bond Lines
 
@@ -172,10 +172,10 @@ namespace Chem4Word.UI.OOXML
             #endregion
             ts = DateTime.Now - started;
             Debug.WriteLine("Elapsed time " + ts.TotalMilliseconds.ToString("##,##0.0") + "ms");
-            _telemetry.Write(module, "Debug", "Elapsed time " + ts.TotalMilliseconds.ToString("##,##0.0") + "ms");
+            //_telemetry.Write(module, "Debug", "Elapsed time " + ts.TotalMilliseconds.ToString("##,##0.0") + "ms");
 
             Debug.WriteLine("OoXmlMolecule.GenerateRun() Starting Step 3");
-            _telemetry.Write(module, "Debug", "Starting Step 3");
+            //_telemetry.Write(module, "Debug", "Starting Step 3");
             started = DateTime.Now;
             #region Step 3 - Increase canvas size
             // to accomodate extra space required by label characters
@@ -206,12 +206,12 @@ namespace Chem4Word.UI.OOXML
             #endregion
             ts = DateTime.Now - started;
             Debug.WriteLine("Elapsed time " + ts.TotalMilliseconds.ToString("##,##0.0") + "ms");
-            _telemetry.Write(module, "Debug", "Elapsed time " + ts.TotalMilliseconds.ToString("##,##0.0") + "ms");
+            //_telemetry.Write(module, "Debug", "Elapsed time " + ts.TotalMilliseconds.ToString("##,##0.0") + "ms");
 
             if (CLIP_LINES)
             {
                 Debug.WriteLine("OoXmlMolecule.GenerateRun() Starting Step 4");
-                _telemetry.Write(module, "Debug", "Starting Step 4");
+                //_telemetry.Write(module, "Debug", "Starting Step 4");
                 started = DateTime.Now;
                 #region Step 4 - Shrink bond lines
                 // so that they do not overlap label characters
@@ -324,12 +324,11 @@ namespace Chem4Word.UI.OOXML
                 #endregion
                 ts = DateTime.Now - started;
                 Debug.WriteLine("Elapsed time " + ts.TotalMilliseconds.ToString("##,##0.0") + "ms");
-                _telemetry.Write(module, "Debug", "Elapsed time " + ts.TotalMilliseconds.ToString("##,##0.0") + "ms");
+                //_telemetry.Write(module, "Debug", "Elapsed time " + ts.TotalMilliseconds.ToString("##,##0.0") + "ms");
             }
 
             Debug.WriteLine("OoXmlMolecule.GenerateRun() Starting Step 5");
-            _telemetry.Write(module, "Debug", "Starting Step 5");
-
+            //_telemetry.Write(module, "Debug", "Starting Step 5");
             started = DateTime.Now;
             #region Step 5 - Create main OoXml drawing objects
 
@@ -344,10 +343,10 @@ namespace Chem4Word.UI.OOXML
             #endregion
             ts = DateTime.Now - started;
             Debug.WriteLine("Elapsed time " + ts.TotalMilliseconds.ToString("##,##0.0") + "ms");
-            _telemetry.Write(module, "Debug", "Elapsed time " + ts.TotalMilliseconds.ToString("##,##0.0") + "ms");
+            //_telemetry.Write(module, "Debug", "Elapsed time " + ts.TotalMilliseconds.ToString("##,##0.0") + "ms");
 
             Debug.WriteLine("OoXmlMolecule.GenerateRun() Starting Step 6");
-            _telemetry.Write(module, "Debug", "Starting Step 6");
+            //_telemetry.Write(module, "Debug", "Starting Step 6");
             started = DateTime.Now;
             #region Step 6 - Create and append OoXml objects for Atom Labels
 
@@ -371,10 +370,10 @@ namespace Chem4Word.UI.OOXML
             #endregion
             ts = DateTime.Now - started;
             Debug.WriteLine("Elapsed time " + ts.TotalMilliseconds.ToString("##,##0.0") + "ms");
-            _telemetry.Write(module, "Debug", "Elapsed time " + ts.TotalMilliseconds.ToString("##,##0.0") + "ms");
+            //_telemetry.Write(module, "Debug", "Elapsed time " + ts.TotalMilliseconds.ToString("##,##0.0") + "ms");
 
             Debug.WriteLine("OoXmlMolecule.GenerateRun() Starting Step 7");
-            _telemetry.Write(module, "Debug", "Starting Step 7");
+            //_telemetry.Write(module, "Debug", "Starting Step 7");
             started = DateTime.Now;
             #region Step 7 - Create and append OoXml objects for Bond Lines
 
@@ -407,10 +406,10 @@ namespace Chem4Word.UI.OOXML
             #endregion
             ts = DateTime.Now - started;
             Debug.WriteLine("Elapsed time " + ts.TotalMilliseconds.ToString("##,##0.0") + "ms");
-            _telemetry.Write(module, "Debug", "Elapsed time " + ts.TotalMilliseconds.ToString("##,##0.0") + "ms");
+            //_telemetry.Write(module, "Debug", "Elapsed time " + ts.TotalMilliseconds.ToString("##,##0.0") + "ms");
 
             Debug.WriteLine("OoXmlMolecule.GenerateRun() Starting Step 8");
-            _telemetry.Write(module, "Debug", "Starting Step 8");
+            //_telemetry.Write(module, "Debug", "Starting Step 8");
             started = DateTime.Now;
             #region Step 8 - Append OoXml drawing objects to OoXml run object
 
@@ -423,7 +422,7 @@ namespace Chem4Word.UI.OOXML
             #endregion
             ts = DateTime.Now - started;
             Debug.WriteLine("Elapsed time " + ts.TotalMilliseconds.ToString("##,##0.0") + "ms");
-            _telemetry.Write(module, "Debug", "Elapsed time " + ts.TotalMilliseconds.ToString("##,##0.0") + "ms");
+            //_telemetry.Write(module, "Debug", "Elapsed time " + ts.TotalMilliseconds.ToString("##,##0.0") + "ms");
 
             pb.Value = 0;
             pb.Hide();
