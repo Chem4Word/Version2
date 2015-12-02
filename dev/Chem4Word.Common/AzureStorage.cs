@@ -36,6 +36,7 @@ namespace Chem4Word.Common
             {
                 CloudStorageAccount storageAccount = new CloudStorageAccount(new StorageCredentialsAccountAndKey(accountName, accountKey), true);
                 CloudTableClient cloudTableClient = storageAccount.CreateCloudTableClient();
+                cloudTableClient.Timeout = TimeSpan.FromSeconds(2);
                 cloudTableClient.CreateTableIfNotExist(tableName);
             }
             catch (Exception ex)
@@ -57,6 +58,7 @@ namespace Chem4Word.Common
 
                 CloudStorageAccount storageAccount = new CloudStorageAccount(new StorageCredentialsAccountAndKey(accountName, accountKey), true);
                 CloudTableClient cloudTableClient = storageAccount.CreateCloudTableClient();
+                cloudTableClient.Timeout = TimeSpan.FromSeconds(2);
 
                 TableServiceContext serviceContext = cloudTableClient.GetDataServiceContext();
                 serviceContext.AddObject(tableName, messageEntity);
