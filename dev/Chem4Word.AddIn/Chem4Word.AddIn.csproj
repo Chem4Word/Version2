@@ -60,6 +60,8 @@
     <FriendlyName>Chem4Word.AddIn</FriendlyName>
     <OfficeApplicationDescription />
     <LoadBehavior>3</LoadBehavior>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
   </PropertyGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
@@ -176,7 +178,6 @@
     This section specifies references for the project.
   -->
   <ItemGroup>
-    <Reference Include="Accessibility" />
     <Reference Include="Chem4Word.Font">
       <HintPath>..\Libs\Chem4Word.Font.dll</HintPath>
     </Reference>
@@ -194,8 +195,6 @@
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
     <Reference Include="System" />
-    <Reference Include="System.AddIn" />
-    <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
@@ -203,9 +202,6 @@
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
     <Reference Include="System.Xml.Linq">
-      <RequiredTargetFramework>3.5</RequiredTargetFramework>
-    </Reference>
-    <Reference Include="System.Data.DataSetExtensions">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
   </ItemGroup>
@@ -218,9 +214,6 @@
       <RequiredTargetFramework>3.0</RequiredTargetFramework>
     </Reference>
     <Reference Include="PresentationFramework">
-      <RequiredTargetFramework>3.0</RequiredTargetFramework>
-    </Reference>
-    <Reference Include="UIAutomationProvider">
       <RequiredTargetFramework>3.0</RequiredTargetFramework>
     </Reference>
     <Reference Include="WindowsBase">
@@ -991,6 +984,7 @@
     <None Include="Data\SmartTag\valine.cml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -1016,10 +1010,6 @@
       <Project>{B416CED3-D6BB-4A85-A3B3-8DBBDF1CD823}</Project>
       <Name>Chem4Word.Api</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Chem4Word.Common\Chem4Word.Common.csproj">
-      <Project>{0E9761B5-72BE-4ED5-8239-6428451C150D}</Project>
-      <Name>Chem4Word.Common</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Chem4Word.Core\Chem4Word.Core.csproj">
       <Project>{5F68794D-D25F-4FD2-A51C-942665E7EE52}</Project>
       <Name>Chem4Word.Core</Name>
@@ -1027,10 +1017,6 @@
     <ProjectReference Include="..\Chem4Word.UI\Chem4Word.UI.csproj">
       <Project>{83CB424B-E829-44D0-9D5F-E49C3B285D10}</Project>
       <Name>Chem4Word.UI</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Euclid\Euclid.csproj">
-      <Project>{D78B7D21-FA43-45B5-86FF-E03DFA55C4BC}</Project>
-      <Name>Euclid</Name>
     </ProjectReference>
     <ProjectReference Include="..\NUMBO\Numbo.csproj">
       <Project>{C19EC9B8-0051-47FD-A129-310CCA3CB411}</Project>
@@ -1112,4 +1098,11 @@
     </VisualStudio>
   </ProjectExtensions>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v10.0\OfficeTools\Microsoft.VisualStudio.Tools.Office.targets" />
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
+  </Target>
 </Project>

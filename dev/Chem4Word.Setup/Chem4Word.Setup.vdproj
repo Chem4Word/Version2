@@ -75,6 +75,18 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_09F4D36EE2AC4AF8D6297A6526DAEEE4"
+        "OwnerKey" = "8:_1EA43CA64CB4FE0F1F1211AF761E0ADF"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_09F4D36EE2AC4AF8D6297A6526DAEEE4"
+        "OwnerKey" = "8:_CD1AEA5FB41F076F29850710EFE3FF71"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_0A40637360F448189E07FB7A7D32631A"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -2207,7 +2219,7 @@
                 {
                 "Name" = "8:.NET Framework"
                 "Message" = "8:[VSDNETMSG]"
-                "FrameworkVersion" = "8:3.5.30729                              "
+                "FrameworkVersion" = "8:3.5.30729                               "
                 "AllowLaterVersions" = "11:FALSE"
                 "InstallUrl" = "8:http://go.microsoft.com/fwlink/?LinkId=76617"
                 }
@@ -4139,7 +4151,7 @@
             "SharedLegacy" = "11:FALSE"
             "PackageAs" = "3:1"
             "Register" = "3:1"
-            "Exclude" = "11:TRUE"
+            "Exclude" = "11:FALSE"
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }

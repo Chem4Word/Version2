@@ -9,7 +9,6 @@
 
 using System;
 using System.Globalization;
-using System.Xml;
 
 namespace Chem4Word.Common.Utilities
 {
