@@ -14,7 +14,6 @@ using System.Collections.Generic;
 using System.Net;
 using System.Text;
 using System.Security.AccessControl;
-using Microsoft.Build.Utilities;
 using System.Reflection;
 
 namespace CustomInstaller

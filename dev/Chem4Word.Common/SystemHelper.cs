@@ -12,7 +12,6 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
-using System.Linq;
 using System.Net;
 using System.Reflection;
 using System.Text;
@@ -187,6 +186,11 @@ namespace Chem4Word.Common
                         {
                             officeProductName = fi.ProductName;
                         }
+                        // Get a bit more information about this version
+                        if (officeProductName.Contains("-0000000FF1CE}"))
+                        {
+                            officeProductName += Environment.NewLine + fi.ProductName;
+                        }
                     }
                     catch (Exception ex)
                     {
@@ -276,7 +280,6 @@ namespace Chem4Word.Common
             TimeSpan ts = DateTime.Now - started;
             Debug.WriteLine("Obtaining External IP Address took " + ts.TotalMilliseconds.ToString("#,000.0" + "ms"));
         }
-
 
         private int GetOfficeVersionNumber(string wordVersionString)
         {
@@ -397,7 +400,7 @@ namespace Chem4Word.Common
             switch (major)
             {
                 case 12:
-                    // Office 2007
+                    #region Office 2007
                     switch (productId)
                     {
                         case "0011":
@@ -444,8 +447,9 @@ namespace Chem4Word.Common
                             break;
                     }
                     break;
+                    #endregion
                 case 14:
-                    // Office 2010
+                    #region Office 2010
                     switch (productId)
                     {
                         case "0011":
@@ -466,6 +470,9 @@ namespace Chem4Word.Common
                         case "002F":
                             result = "Microsoft Office Home and Student 2010";
                             break;
+                        case "003D":
+                            result = "Microsoft Office Home and Student 2010";
+                            break;
                         case "008B":
                             result = "Microsoft Office Small Business Basics 2010";
                             break;
@@ -477,8 +484,9 @@ namespace Chem4Word.Common
                             break;
                     }
                     break;
+                    #endregion
                 case 15:
-                    // Office 2013
+                    #region Office 2013
                     switch (productId)
                     {
                         case "000F":
@@ -507,8 +515,9 @@ namespace Chem4Word.Common
                             break;
                     }
                     break;
+                    #endregion
                 case 16:
-                    // Office 2016
+                    #region Office 2016
                     switch (productId)
                     {
                         case "000F":
@@ -522,6 +531,7 @@ namespace Chem4Word.Common
                             break;
                     }
                     break;
+                    #endregion
             }
 
             return result;
