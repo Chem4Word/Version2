@@ -112,14 +112,7 @@
 						</GridViewColumn.CellTemplate>
 						<GridViewColumnHeader Content="Formula" Tag="Formula" Click="SortClick" />
 					</GridViewColumn>
-					<GridViewColumn>
-						<GridViewColumn.CellTemplate>
-							<DataTemplate>
-								<TextBlock Background="{Binding RelativeSource={RelativeSource AncestorType=ListViewItem}, Path=Background}" TextWrapping="WrapWithOverflow" Text="{Binding  Path=Smiles}" MaxWidth="250" />
-							</DataTemplate>
-						</GridViewColumn.CellTemplate>
-						<GridViewColumnHeader Content="SMILES" Tag="Smiles" Click="SortClick" />
-					</GridViewColumn>
+
 				</GridView>
 			</ListView.View>
 		</ListView>
