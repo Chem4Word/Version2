@@ -2412,28 +2412,20 @@ namespace Chem4Word.Core
                 if (Properties.Resources.ChemistryZoneAlias.Equals(newContentControl.Title))
                 {
                     // Get the CML associated with the GUID of the Content saved in the Gallery (the tag)
+                    XDocument cml = null;
                     string cmlString = galleryDictionaryManager.GetCmlString(newContentControl.Tag + string.Empty);
-                    XDocument cml = new XDocument();
-                    if (cmlString.Trim() != string.Empty)
+                    if (!string.IsNullOrEmpty(cmlString))
                     {
-                        cml = XDocument.Parse(cmlString);
-                        newContentControl.XMLMapping.Delete();
+                        if (cmlString.Trim() != string.Empty)
+                        {
+                            cml = XDocument.Parse(cmlString);
+                            newContentControl.XMLMapping.Delete();
+                        }
                     }
 
                     // Clear Tag value - indicates that this is a chemistry zone in its own right rather than
                     // being a gallery item still
                     newContentControl.Tag = string.Empty;
-
-                    ContextObject contextObject = new ContextObject(cml);
-                    DepictionOption documentDepictionOption = GetPreferedDocumentDepiction(contextObject,
-                                                                                           Setting.
-                                                                                               DocumentPreferedDepiction);
-                    DepictionOption navigatorDepictionOption = GetPreferedNavigatorDepiction(contextObject,
-                                                                                             Setting.
-                                                                                                 NavigatorPreferedDepiction);
-                    ChemistryZoneProperties chemistryZoneProperties =
-                        new ChemistryZoneProperties(documentDepictionOption, navigatorDepictionOption,
-                                                    Setting.CollapseNavigatorDepiction);
 
                     //Flag the old Content Control for delete
                     newContentControl.Title = "CONTENTCONTROL_FLAGGED_FOR_DELETE";
@@ -2444,15 +2436,42 @@ namespace Chem4Word.Core
                         newContentControl.SetPlaceholderText(Text: " ");
                     }
 
-                    // because the imported content control is a picture we now need to change the depictions to the preferred setting
-                    Range range = wordApp.ActiveDocument.ActiveWindow.Selection.Range;
+                    if (cml != null)
+                    {
+                        ContextObject contextObject = new ContextObject(cml);
+                        DepictionOption documentDepictionOption = GetPreferedDocumentDepiction(contextObject,
+                            Setting.
+                                DocumentPreferedDepiction);
+                        DepictionOption navigatorDepictionOption = GetPreferedNavigatorDepiction(contextObject,
+                            Setting.
+                                NavigatorPreferedDepiction);
+                        ChemistryZoneProperties chemistryZoneProperties =
+                            new ChemistryZoneProperties(documentDepictionOption, navigatorDepictionOption,
+                                Setting.CollapseNavigatorDepiction);
 
-                    _telemetry.Write(module, "Debug", "Inserting New Context Object");
-                    // Disable Document events while adding New Contect Object
-                    ActiveChemistryDocument.EventTurnOn = false;
-                    AddNewContextObjectToDocument(range, contextObject, chemistryZoneProperties);
-                    ActiveChemistryDocument.EventTurnOn = true;
-                    _telemetry.Write(module, "Debug", "Inserted New Context Object");
+                        // because the imported content control is a picture we now need to change the depictions to the preferred setting
+                        Range range = wordApp.ActiveDocument.ActiveWindow.Selection.Range;
+
+                        _telemetry.Write(module, "Debug", "Inserting New Context Object");
+                        // Disable Document events while adding New Contect Object
+                        ActiveChemistryDocument.EventTurnOn = false;
+                        AddNewContextObjectToDocument(range, contextObject, chemistryZoneProperties);
+                        ActiveChemistryDocument.EventTurnOn = true;
+                        _telemetry.Write(module, "Debug", "Inserted New Context Object");
+                    }
+                    else
+                    {
+                        _telemetry.Write(module, "Debug", "Paste of chemistry content control without cml detected");
+                        MessageBox.Show("Paste of chemistry content control without cml detected." +
+                            Environment.NewLine + "Please use Chemistry Navigator if you wish to make a copy.",
+                            Resources.CHEM_4_WORD_MESSAGE_BOX_TITLE, MessageBoxButton.OK,
+                                MessageBoxImage.Stop);
+                        // Start timer to delete flagged Content Control(s) hopefully only one!
+                        _purgeTimer = new Timer(333);
+                        _purgeTimer.Elapsed += new ElapsedEventHandler(PurgeTimer_Elapsed);
+                        _purgeTimer.Start();
+                        _telemetry.Write(module, "Debug", "Purge Timer Started");
+                    }
                 }
             }
             catch (Exception ex)
