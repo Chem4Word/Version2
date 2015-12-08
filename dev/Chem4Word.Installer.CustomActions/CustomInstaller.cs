@@ -164,17 +164,17 @@ namespace CustomInstaller
                     // http://www.microsoft.com/en-gb/download/details.aspx?id=5124
                     // https://download.microsoft.com/download/2/7/F/27FF6744-D970-4FFB-90B8-5226B2B82E0A/OpenXMLSDKv2.msi
 
-                    //string openXmkSdkDirectLink = "https://download.microsoft.com/download/2/7/F/27FF6744-D970-4FFB-90B8-5226B2B82E0A/OpenXMLSDKv2.msi";
+                    string openXmkSdkDirectLink = "https://download.microsoft.com/download/2/7/F/27FF6744-D970-4FFB-90B8-5226B2B82E0A/OpenXMLSDKv2.msi";
 
-                    //string tempPath = Path.GetTempPath();
-                    //string msiFile = Path.Combine(tempPath, "OpenXMLSDKv2.msi");
+                    string tempPath = Path.GetTempPath();
+                    string msiFile = Path.Combine(tempPath, "OpenXMLSDKv2.msi");
 
-                    //WebClient client = new WebClient();
-                    //client.DownloadFile(openXmkSdkDirectLink, msiFile);
-                    //Process p = new Process();
-                    //p.StartInfo.FileName = msiFile;
-                    //p.StartInfo.Arguments = "/passive";
-                    //p.Start();
+                    WebClient client = new WebClient();
+                    client.DownloadFile(openXmkSdkDirectLink, msiFile);
+                    Process p = new Process();
+                    p.StartInfo.FileName = msiFile;
+                    p.StartInfo.Arguments = "/passive";
+                    p.Start();
                 }
                 catch (Exception ex)
                 {
