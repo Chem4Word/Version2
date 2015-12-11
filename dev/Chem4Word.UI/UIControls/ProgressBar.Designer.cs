@@ -61,6 +61,7 @@
             this.Name = "ProgressBar";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Chem4Word ProgressBar";
+            this.TopMost = true;
             this.ResumeLayout(false);
 
         }
