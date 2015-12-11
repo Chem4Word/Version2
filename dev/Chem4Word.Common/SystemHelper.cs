@@ -415,7 +415,7 @@ namespace Chem4Word.Common
                         case "0014":
                             result = "Microsoft Office Professional 2007";
                             break;
-                        case "001A":
+                        case "001B":
                             result = "Microsoft Office Word 2007";
                             break;
                         case "002E":
@@ -468,9 +468,6 @@ namespace Chem4Word.Common
                             result = "Microsoft Word 2010";
                             break;
                         case "002F":
-                            result = "Microsoft Office Home and Student 2010";
-                            break;
-                        case "003D":
                             result = "Microsoft Office Home and Student 2010";
                             break;
                         case "008B":
@@ -532,6 +529,11 @@ namespace Chem4Word.Common
                     }
                     break;
                     #endregion
+            }
+
+            if (bitFlag.Equals("1"))
+            {
+                result += " 64bit";
             }
 
             return result;
