@@ -200,17 +200,31 @@ namespace Chem4Word.UI.Navigator
             var editor = new CanvasContainer(ContextObjectProperty, parent);
             
             editor.GeneratePng(true);
-
+            // Create new bitmap image
+            Image ImageTemp = new Image();
+            // Get png from editor as bitmap
+            Bitmap imageBitmap = (Bitmap)Bitmap.FromFile(editor.PngFileOutput);
+            imageBitmap.RotateFlip(RotateFlipType.RotateNoneFlipY);
+            ImageTemp.Source = ToBitmapSource(imageBitmap);
+            // Put it in the right position
+            ImageTemp.VerticalAlignment = VerticalAlignment.Center;
+            ImageTemp.HorizontalAlignment = HorizontalAlignment.Center;
+            ImageTemp.Margin = new Thickness(0,1,0,1);
+            // Fix the height to the size of the original png
+            ImageTemp.Height = ImageTemp.Source.Height;
+            
+            /* Previous code
             var img = new Image
             {
                 Source = ToBitmapSource(new Bitmap(editor.PngFileOutput)),
                 Height = 71,
                 Margin = new Thickness(0, 1, 0, 1)
             };
+             */
+            // Clear out existing image
             thumbnailGrid.Children.Clear();
-            img.HorizontalAlignment = HorizontalAlignment.Center;
-            img.VerticalAlignment = VerticalAlignment.Center;
-            thumbnailGrid.Children.Add(img);
+            // Add new thumbnail
+            thumbnailGrid.Children.Add(ImageTemp);
 
            
 

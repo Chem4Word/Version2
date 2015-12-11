@@ -44,7 +44,7 @@ namespace Chem4Word.AddIn.Navigator
             this.innerUI.Location = new System.Drawing.Point(0, 0);
             this.innerUI.Name = "innerUI";
             this.innerUI.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.innerUI.Size = new System.Drawing.Size(250, 100);
+            this.innerUI.Size = new System.Drawing.Size(250, 216);
             this.innerUI.TabIndex = 0;
             this.innerUI.Text = "elementHost1";
             this.innerUI.Child = null;
@@ -57,7 +57,7 @@ namespace Chem4Word.AddIn.Navigator
             this.Controls.Add(this.innerUI);
             this.MinimumSize = new System.Drawing.Size(250, 0);
             this.Name = "ChemistryNavigatorHostControl";
-            this.Size = new System.Drawing.Size(250, 100);
+            this.Size = new System.Drawing.Size(250, 216);
             this.ResumeLayout(false);
 
         }

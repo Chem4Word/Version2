@@ -132,6 +132,9 @@ namespace Chem4Word.UI.WebServices
                     Stream resStream = response.GetResponseStream())
                 {
                     ResultDocument = XDocument.Load(new StreamReader(resStream));
+                    IEnumerable<XElement> els = from el in ResultDocument.Descendants().Elements().Elements().Elements().Elements()
+                                                    select el;
+                    //ResultDocument.Descendants().Elements().Elements().Elements().Elements().Remove();
                     ShowResults(ResultDocument);
                 }
             }
