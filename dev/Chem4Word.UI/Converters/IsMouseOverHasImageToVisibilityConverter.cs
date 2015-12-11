@@ -19,9 +19,9 @@ namespace Chem4Word.UI.Converters
             {
                 bool isMouseOver = (bool) values[0];
                 bool hasImage = (bool) values[1];
-                return (isMouseOver && hasImage) ? Visibility.Visible : Visibility.Collapsed;
+                return (isMouseOver && hasImage) ? Visibility.Visible : Visibility.Visible;
             }
-            return Visibility.Collapsed;
+            return Visibility.Visible;
         }
 
         public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)

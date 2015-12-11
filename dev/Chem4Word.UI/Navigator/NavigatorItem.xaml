@@ -10,9 +10,9 @@
 		</Storyboard>
 
 		<Storyboard x:Key="OnMouseLeaveNavigatorItem">
-			<DoubleAnimation Storyboard.TargetProperty="Opacity" Storyboard.TargetName="linkMenu" Duration="00:00:00" BeginTime="00:00:00" To="0" />
-			<DoubleAnimation Storyboard.TargetProperty="Opacity" Storyboard.TargetName="copyMenu" Duration="00:00:00" BeginTime="00:00:00" To="0" />
-			<DoubleAnimation Storyboard.TargetProperty="Opacity" Storyboard.TargetName="expander" Duration="00:00:00" BeginTime="00:00:00" To="0" />
+			<DoubleAnimation Storyboard.TargetProperty="Opacity" Storyboard.TargetName="linkMenu" Duration="00:00:00" BeginTime="00:00:00" To="0.5" />
+			<DoubleAnimation Storyboard.TargetProperty="Opacity" Storyboard.TargetName="copyMenu" Duration="00:00:00" BeginTime="00:00:00" To="0.5" />
+			<DoubleAnimation Storyboard.TargetProperty="Opacity" Storyboard.TargetName="expander" Duration="00:00:00" BeginTime="00:00:00" To="0.5" />
 		</Storyboard>
 
 		<Style TargetType="{x:Type Border}">
@@ -43,8 +43,8 @@
 		<Style TargetType="{x:Type Menu}">
 			<Setter Property="Margin" Value="1" />
 			<Setter Property="HorizontalAlignment" Value="Left" />
-			<Setter Property="Visibility" Value="Collapsed" />
-			<Setter Property="Opacity" Value="0" />
+			<Setter Property="Visibility" Value="Visible" />
+			<Setter Property="Opacity" Value="0.5" />
 			<Style.Triggers>
 				<DataTrigger Value="True" Binding="{Binding ElementName=navigatorItem, Path=IsMouseOver}">
 					<Setter Property="Visibility" Value="Visible" />
@@ -55,8 +55,8 @@
 		<Style TargetType="{x:Type Expander}">
 			<Setter Property="Margin" Value="1" />
 			<Setter Property="HorizontalAlignment" Value="Right" />
-			<Setter Property="Visibility" Value="Collapsed" />
-			<Setter Property="Opacity" Value="0" />
+			<Setter Property="Visibility" Value="Visible" />
+			<Setter Property="Opacity" Value="0.5" />
 			<Setter Property="ToolTip" Value="Hide the 2D image." />
 			<Style.Triggers>
 				<DataTrigger Binding="{Binding ElementName=expander, Path=IsExpanded}" Value="False">
@@ -111,8 +111,8 @@
 				<Expander x:Name="expander" HorizontalAlignment="Right" HorizontalContentAlignment="Right" Expanded="ExpanderExpanded" Collapsed="ExpanderCollapsed">
 					<Expander.Visibility>
 						<MultiBinding Converter="{StaticResource isMouseOverAndHasImageToVisibilityConverter}">
-							<Binding ElementName="navigatorItem" Path="IsMouseOver" />
-							<Binding ElementName="navigatorItem" Path="HasImage" />
+                            <Binding ElementName="navigatorItem" Path="IsMouseOver" />
+                            <Binding ElementName="navigatorItem" Path="HasImage" />
 						</MultiBinding>
 					</Expander.Visibility>
 				</Expander>
