@@ -45,6 +45,12 @@ namespace Chem4Word.Core {
 
         #region IChemistryZone Members
 
+        public int WordVersion {
+            get
+            {
+                return document.WordVersion;
+            }
+        }
         public event EventHandler<EventArgs> ChemistryZoneUpdated;
 
         public event EventHandler<EventArgs> ChemistryZonePropertiesUpdated;

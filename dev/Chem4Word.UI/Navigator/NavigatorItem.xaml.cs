@@ -1,11 +1,10 @@
 ﻿// -----------------------------------------------------------------------
-//  Copyright (c) 2011, The Outercurve Foundation.  
-//  This software is released under the Apache License, Version 2.0. 
+//  Copyright (c) 2011, The Outercurve Foundation.
+//  This software is released under the Apache License, Version 2.0.
 //  The license and further copyright text can be found in the file LICENSE.TXT at
 //  the root directory of the distribution.
 // -----------------------------------------------------------------------
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.IO;
@@ -34,13 +33,12 @@ namespace Chem4Word.UI.Navigator
     {
         private static readonly ILog Log = LogManager.GetLogger(typeof(NavigatorItem));
 
-
         private readonly IChemistryZone chemistryZone;
         private bool hasImage;
 
         private bool isSelected;
         private bool collapseNavigatorDepiction;
-  
+
         public NavigatorItem()
         {
             InitializeComponent();
@@ -62,7 +60,7 @@ namespace Chem4Word.UI.Navigator
             UpdateDepicitonOptions();
         }
 
-        void ChemistryZonePropertiesUpdatedHandler(object sender, EventArgs e)
+        private void ChemistryZonePropertiesUpdatedHandler(object sender, EventArgs e)
         {
             Refresh();
             UpdateDepicitonOptions();
@@ -110,15 +108,18 @@ namespace Chem4Word.UI.Navigator
         public bool CollapseNavigatorDepiction
         {
             get { return collapseNavigatorDepiction; }
-            set { if (collapseNavigatorDepiction != value)
+            set
             {
-                if (chemistryZone != null)
+                if (collapseNavigatorDepiction != value)
                 {
-                    var newChemistryZoneProperties = chemistryZone.Properties.Clone();
-                    newChemistryZoneProperties.CollapseNavigatorDepiction = value;
-                    ChemistryZone.Properties = newChemistryZoneProperties;
+                    if (chemistryZone != null)
+                    {
+                        var newChemistryZoneProperties = chemistryZone.Properties.Clone();
+                        newChemistryZoneProperties.CollapseNavigatorDepiction = value;
+                        ChemistryZone.Properties = newChemistryZoneProperties;
+                    }
                 }
-            }}
+            }
         }
 
         /// <summary>
@@ -198,21 +199,25 @@ namespace Chem4Word.UI.Navigator
             var parent = new CmlMolecule((XElement)twoDDepictionOption.MachineUnderstandableOption).CloneMolecule(1.54);
 
             var editor = new CanvasContainer(ContextObjectProperty, parent);
-            
             editor.GeneratePng(true);
             // Create new bitmap image
             Image ImageTemp = new Image();
             // Get png from editor as bitmap
             Bitmap imageBitmap = (Bitmap)Bitmap.FromFile(editor.PngFileOutput);
-            imageBitmap.RotateFlip(RotateFlipType.RotateNoneFlipY);
+
+            if (chemistryZone.WordVersion > 2007)
+            {
+                imageBitmap.RotateFlip(RotateFlipType.RotateNoneFlipY);
+            }
+
             ImageTemp.Source = ToBitmapSource(imageBitmap);
             // Put it in the right position
             ImageTemp.VerticalAlignment = VerticalAlignment.Center;
             ImageTemp.HorizontalAlignment = HorizontalAlignment.Center;
-            ImageTemp.Margin = new Thickness(0,1,0,1);
+            ImageTemp.Margin = new Thickness(0, 1, 0, 1);
             // Fix the height to the size of the original png
             ImageTemp.Height = ImageTemp.Source.Height;
-            
+
             /* Previous code
             var img = new Image
             {
@@ -221,12 +226,11 @@ namespace Chem4Word.UI.Navigator
                 Margin = new Thickness(0, 1, 0, 1)
             };
              */
+
             // Clear out existing image
             thumbnailGrid.Children.Clear();
             // Add new thumbnail
             thumbnailGrid.Children.Add(ImageTemp);
-
-           
 
             // Sometimes the the open state of the file is not update quickly enough,
             // So that we need to invoke GC to refresh the environment states.
@@ -238,7 +242,7 @@ namespace Chem4Word.UI.Navigator
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         private void Refresh()
         {
@@ -251,7 +255,7 @@ namespace Chem4Word.UI.Navigator
             DisplayText = navigatorDepictionOption.GetAsLatexFormattedString();
             var associatedDepictionOption = navigatorDepictionOption.GetAssociatedTwoDDepictionOption();
             HasImage = (associatedDepictionOption != null);
-            
+
             if (!CollapseNavigatorDepiction && HasImage)
             {
                 AddImage(associatedDepictionOption);
@@ -267,7 +271,6 @@ namespace Chem4Word.UI.Navigator
         {
             linkMenuItem.Items.Clear();
             copyMenuItem.Items.Clear();
-
         }
 
         private void AddNewLinkMenuItemClick(object sender, RoutedEventArgs e)
@@ -281,7 +284,7 @@ namespace Chem4Word.UI.Navigator
                 });
             }
         }
-        
+
         private void AddNewCopyMenuItemClick(object sender, RoutedEventArgs e)
         {
             var newDepictionOption = GetNewDepictionOption();
@@ -379,7 +382,7 @@ namespace Chem4Word.UI.Navigator
             {
                 var newChemistryZoneProperties = chemistryZone.Properties.Clone();
                 newChemistryZoneProperties.SetNavigatorDepictionOption(menuItem.DepictionOption);
-                ChemistryZone.Properties= newChemistryZoneProperties;
+                ChemistryZone.Properties = newChemistryZoneProperties;
             }
         }
 

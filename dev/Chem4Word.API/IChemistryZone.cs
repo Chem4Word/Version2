@@ -29,6 +29,11 @@ namespace Chem4Word.Api
         /// <summary>
         /// 
         /// </summary>
+        int WordVersion { get; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         ContentControl ContentControl { get; }
 
         /// <summary>
