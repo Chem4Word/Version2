@@ -215,8 +215,19 @@ namespace Chem4Word.UI.Navigator
             ImageTemp.VerticalAlignment = VerticalAlignment.Center;
             ImageTemp.HorizontalAlignment = HorizontalAlignment.Center;
             ImageTemp.Margin = new Thickness(0, 1, 0, 1);
-            // Fix the height to the size of the original png
-            ImageTemp.Height = ImageTemp.Source.Height;
+
+            // Fix the height to the size of the original png unless...
+            if (ImageTemp.Source.Width > 235)
+            {
+                // Maximum width is the width of the container
+                ImageTemp.Width = 235;
+            }
+            else
+            {
+                // Otherwise scale to height
+                ImageTemp.Height = ImageTemp.Source.Height;
+            }
+            
 
             /* Previous code
             var img = new Image
