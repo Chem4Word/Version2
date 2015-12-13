@@ -34,7 +34,7 @@ namespace Chem4Word.UI.Navigator
             {
                 CanvasContainer editor = new CanvasContainer(contextObject,
                                                              new CmlMolecule(
-                                                                 (XElement) depictionOption.MachineUnderstandableOption).CloneMolecule(1.54));
+                                                                 (XElement) depictionOption.MachineUnderstandableOption).CloneMolecule(1.54, false));
                 editor.GeneratePng(true);
 
                 Image img = new Image

@@ -194,9 +194,10 @@ namespace Chem4Word.UI.Navigator
 
         private void AddImage(DepictionOption twoDDepictionOption)
         {
+            bool invertY = chemistryZone.WordVersion > 2007;
             expander.IsExpanded = true;
             thumbnailGrid.Children.Clear();
-            var parent = new CmlMolecule((XElement)twoDDepictionOption.MachineUnderstandableOption).CloneMolecule(1.54);
+            var parent = new CmlMolecule((XElement)twoDDepictionOption.MachineUnderstandableOption).CloneMolecule(1.54, invertY);
 
             var editor = new CanvasContainer(ContextObjectProperty, parent);
             editor.GeneratePng(true);
@@ -205,10 +206,10 @@ namespace Chem4Word.UI.Navigator
             // Get png from editor as bitmap
             Bitmap imageBitmap = (Bitmap)Bitmap.FromFile(editor.PngFileOutput);
 
-            if (chemistryZone.WordVersion > 2007)
-            {
-                imageBitmap.RotateFlip(RotateFlipType.RotateNoneFlipY);
-            }
+            //if (chemistryZone.WordVersion > 2007)
+            //{
+            //    imageBitmap.RotateFlip(RotateFlipType.RotateNoneFlipY);
+            //}
 
             ImageTemp.Source = ToBitmapSource(imageBitmap);
             // Put it in the right position
@@ -248,8 +249,15 @@ namespace Chem4Word.UI.Navigator
             GC.Collect();
             GC.WaitForPendingFinalizers();
 
-            // Delete the png file
-            File.Delete(editor.PngFileOutput);
+            try
+            {
+                // Delete the png file
+                File.Delete(editor.PngFileOutput);
+            }
+            catch
+            {
+                // Do Nothing
+            }
         }
 
         /// <summary>
