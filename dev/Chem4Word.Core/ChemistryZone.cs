@@ -144,7 +144,7 @@ namespace Chem4Word.Core {
 
                     var contexObject = AsContextObject();
                     var cmlMolecule = new CmlMolecule((XElement)documentDepictionOption.MachineUnderstandableOption);
-                    var editor = new CanvasContainer(contexObject, cmlMolecule.CloneMolecule(1.54));
+                    var editor = new CanvasContainer(contexObject, cmlMolecule.CloneMolecule(1.54, false));
                     editor.GeneratePng(false);
 
                     var missing = Type.Missing;

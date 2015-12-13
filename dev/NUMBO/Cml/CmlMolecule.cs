@@ -93,7 +93,7 @@ namespace Numbo.Cml
             : base(molecule)
         {}
 
-        public CmlMolecule CloneMolecule(double scale)
+        public CmlMolecule CloneMolecule(double scale, bool invertY)
         {
             CmlMolecule cloned = new CmlMolecule();
             foreach (CmlAtom atom in this.GetAtoms())
@@ -108,13 +108,13 @@ namespace Numbo.Cml
             {
                 cloned.ScaleToAverageBondLength(scale);
             }
-            //if (invertY)
-            //{
-            //    foreach (CmlAtom atom in cloned.GetAtoms())
-            //    {
-            //        atom.Y2 = -atom.Y2;
-            //    }
-            //}
+            if (invertY)
+            {
+                foreach (CmlAtom atom in cloned.GetAtoms())
+                {
+                    atom.Y2 = -atom.Y2;
+                }
+            }
             return cloned;
         }
 

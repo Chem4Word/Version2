@@ -215,7 +215,7 @@ namespace Chem4Word.Core
                     // Existing code goes here
                     CmlMolecule cmlMolecule =
                         new CmlMolecule((XElement)newDocumentDepictionOption.MachineUnderstandableOption);
-                    CanvasContainer editor = new CanvasContainer(contextObject, cmlMolecule.CloneMolecule(1.54));
+                    CanvasContainer editor = new CanvasContainer(contextObject, cmlMolecule.CloneMolecule(1.54, false));
                     editor.GeneratePng(false);
 
                     contentControl = WordDocument.ContentControls.Add(WdContentControlType.wdContentControlPicture,

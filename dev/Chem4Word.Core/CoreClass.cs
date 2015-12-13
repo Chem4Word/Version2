@@ -548,7 +548,7 @@ namespace Chem4Word.Core
                 }
                 else
                 {
-                    var editor = new CanvasContainer(contexObject, cmlMolecule.CloneMolecule(1.54));
+                    var editor = new CanvasContainer(contexObject, cmlMolecule.CloneMolecule(1.54, false));
                     editor.GeneratePng(false);
 
                     control = wordApp.ActiveDocument.ContentControls.Add(
@@ -977,7 +977,7 @@ namespace Chem4Word.Core
                     {
                         CanvasContainer container = new CanvasContainer(contextObject,
                                                                         new CmlMolecule((XElement)
-                                                                            documentDepictionOption.MachineUnderstandableOption).CloneMolecule(1.54));
+                                                                            documentDepictionOption.MachineUnderstandableOption).CloneMolecule(1.54, false));
                         container.GeneratePng(true);
                         control.Range.InlineShapes.AddPicture(container.PngFileOutput, ref missing, ref missing, ref missing);
                         // Delete the png file
