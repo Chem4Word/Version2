@@ -535,6 +535,10 @@ namespace Chem4Word.Common
             {
                 result += " 64bit";
             }
+            else
+            {
+                result += " 32bit";
+            }
 
             return result;
         }

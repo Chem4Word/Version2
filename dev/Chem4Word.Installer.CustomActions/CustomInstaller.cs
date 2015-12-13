@@ -1,20 +1,19 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Configuration.Install;
 using System.Diagnostics;
-using System.Runtime.InteropServices;
-using System.Security.Permissions;
-using Microsoft.Win32;
-using System.IO;
 using System.Globalization;
-using System.Windows.Forms;
-using System.Security;
-using System.Collections.Generic;
+using System.IO;
 using System.Net;
-using System.Text;
-using System.Security.AccessControl;
 using System.Reflection;
+using System.Runtime.InteropServices;
+using System.Security;
+using System.Security.Permissions;
+using System.Text;
+using System.Windows.Forms;
+using Microsoft.Win32;
 
 namespace CustomInstaller
 {
@@ -28,7 +27,9 @@ namespace CustomInstaller
     public partial class CustomInstaller : System.Configuration.Install.Installer
     {
         #region Error Logger
+
         private static ILogger _eventLogger;
+
         public static ILogger eventLogger
         {
             get
@@ -41,10 +42,11 @@ namespace CustomInstaller
             }
             set { _eventLogger = value; }
         }
-        #endregion
+
+        #endregion Error Logger
 
         private const string AssemblyPath = "assemblypath";
-        static string installLocation;
+        private static string installLocation;
 
         /// <summary>
         /// Chemistry Addin for Word config file name.
@@ -63,7 +65,7 @@ namespace CustomInstaller
 
         /// <summary>
         /// Registry entry for Chemistry Add-in for Word VSTO manifest.
-        /// </summary>        
+        /// </summary>
         private static string RegistryManifestPath = String.Empty;
 
         /// <summary>
@@ -74,14 +76,13 @@ namespace CustomInstaller
         public CustomInstaller()
         {
             InitializeComponent();
-          
         }
 
         #region Install Event Handlers
 
         [SecurityPermission(SecurityAction.LinkDemand, Flags = SecurityPermissionFlag.UnmanagedCode)]
         protected override void OnBeforeInstall(System.Collections.IDictionary savedState)
-        {            
+        {
             try
             {
                 string assemblyPath = this.Context.Parameters[AssemblyPath];
@@ -128,16 +129,14 @@ namespace CustomInstaller
             try
             {
                 base.Install(stateSaver);
-                
+
                 //Update Program Files path if it is 64 bit machine
                 Is64BitMachine();
-
             }
             catch (NullReferenceException nullReferenceEx)
             {
                 eventLogger.WriteToLog(LogCategory.Installer, Resource.ERRORINSTALL, nullReferenceEx.StackTrace);
             }
-
             catch (ArgumentOutOfRangeException ex)
             {
                 eventLogger.WriteToLog(LogCategory.Installer, Resource.ERRORINSTALL, ex.StackTrace);
@@ -156,7 +155,7 @@ namespace CustomInstaller
         protected override void OnCommitted(IDictionary savedState)
         {
             try
-            {  
+            {
                 base.OnCommitted(savedState);
 
                 try
@@ -195,7 +194,6 @@ namespace CustomInstaller
                         eventLogger.Dispose();
                         eventLogger = null;
                     }
-
                 }
                 catch (Exception)
                 {
@@ -228,10 +226,9 @@ namespace CustomInstaller
                     eventLogger = new Logger();
                 }
                 eventLogger.WriteToLog(LogCategory.Installer, Resource.BEFOREUNINSTALLMSG + Resource.ADDINTITLE);
-                
+
                 // Applications should be closed before continuing the un-install:
                 ApplicationIsOpen(Action.UnInstall);
-
             }
             catch (NullReferenceException ex)
             {
@@ -245,7 +242,7 @@ namespace CustomInstaller
 
         [SecurityPermission(SecurityAction.LinkDemand, Flags = SecurityPermissionFlag.UnmanagedCode)]
         public override void Uninstall(IDictionary savedState)
-        {            
+        {
             try
             {
                 base.Uninstall(savedState);
@@ -256,9 +253,8 @@ namespace CustomInstaller
                 Is64BitMachine();
 
                 //Remove User profile specific files
-                RemoveSettingsFileToUserProfile(Resource.UNINSTALLACTION);               
+                RemoveSettingsFileToUserProfile(Resource.UNINSTALLACTION);
             }
-
             catch (SecurityException ex)
             {
                 eventLogger.WriteToLog(LogCategory.Installer, Resource.ERRORUNINSTALL, ex.StackTrace);
@@ -313,14 +309,12 @@ namespace CustomInstaller
             }
         }
 
-
-
-        #endregion
+        #endregion Install Event Handlers
 
         #region Methods
 
         /// <summary>
-        /// Method looks for all the Microsoft Word process which are opened 
+        /// Method looks for all the Microsoft Word process which are opened
         /// and kills such processes before the installation or uninstalling process
         /// </summary>
         /// <param name="currentAction"></param>
@@ -347,7 +341,7 @@ namespace CustomInstaller
                             applicationOpenAlert.lblMessage.Text = Resource.CLOSE_APPLICATIONS_DURING_UNINSTALL;
                         }
 
-                        DialogResult alterDialogResult = applicationOpenAlert.ShowDialog();                        
+                        DialogResult alterDialogResult = applicationOpenAlert.ShowDialog();
                         if (alterDialogResult == DialogResult.Retry)
                         {
                             applicationOpenAlert.Dispose();
@@ -362,7 +356,7 @@ namespace CustomInstaller
                             }
                         }
                     }
-                }               
+                }
             }
             catch (NullReferenceException ex)
             {
@@ -383,7 +377,7 @@ namespace CustomInstaller
         }
 
         /// <summary>
-        /// This method writes the add-in entries to the registry under SOFTWARE\Microsoft 
+        /// This method writes the add-in entries to the registry under SOFTWARE\Microsoft
         /// for 64 bit machines.
         /// </summary>
         private void WriteTo64BitRegistry()
@@ -396,7 +390,7 @@ namespace CustomInstaller
             int loadBehavior = 3;
 
             const int KEY_WOW64_64KEY = 0x0100;
-            const int KEY_QUERY_VALUE = 0x1;            
+            const int KEY_QUERY_VALUE = 0x1;
 
             UIntPtr HKEY_PTR = HKeyForInstallType();
 
@@ -430,7 +424,7 @@ namespace CustomInstaller
                         Resource.REGKEYNAME), true);
                 }
 
-                // Write the value pairs to the registry.            
+                // Write the value pairs to the registry.
                 int addName = NativeMethods.RegSetValueEx(subKeyHandle, Resource.FRIENDLYNAME, IntPtr.Zero, RegistryValueKind.String, Resource.ADDINNAME,
                             Resource.ADDINNAME.Length * NativeMethods.NativeBytesPerCharacter);
                 if (!addName.Equals(0))
@@ -471,7 +465,7 @@ namespace CustomInstaller
         }
 
         /// <summary>
-        /// This method deletes the add-in entries from the registry under SOFTWARE\Microsoft 
+        /// This method deletes the add-in entries from the registry under SOFTWARE\Microsoft
         /// for 64 bit machines.
         /// </summary>
         private void DeleteFrom64BitRegistry()
@@ -533,7 +527,7 @@ namespace CustomInstaller
             {
                 this.HandleRegistryError(String.Format(CultureInfo.InvariantCulture, Resource.REGISTRYERROR,
                     Resource.WORD_REGISTRY_KEY), false);
-            }            
+            }
         }
 
         private const string CONST_64BIT_PROCESSOR = "(x86)";
@@ -551,18 +545,18 @@ namespace CustomInstaller
                     {
                         if (wordInstallationLocation.Contains(CONST_64BIT_PROCESSOR) && !installLocation.Contains(CONST_64BIT_PROCESSOR))
                         {
-                            installLocation = installLocation.Replace(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles), Environment.SpecialFolder.ProgramFiles.ToString()+@" (x86)");
-                            break;                            
+                            installLocation = installLocation.Replace(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles), Environment.SpecialFolder.ProgramFiles.ToString() + @" (x86)");
+                            break;
                         }
                     }
                 }
             }
             catch (ArgumentNullException ex)
-            {                
+            {
                 eventLogger.WriteToLog(LogCategory.Installer, Resource.CHECKMACHINETYPERROR, ex.StackTrace);
             }
             catch (NullReferenceException ex)
-            {             
+            {
                 eventLogger.WriteToLog(LogCategory.Installer, Resource.CHECKMACHINETYPERROR, ex.StackTrace);
                 //Failed to check machine type (64 or 32 bit)
             }
@@ -640,7 +634,7 @@ namespace CustomInstaller
                 catch (COMException ex)
                 {
                     eventLogger.WriteToLog(LogCategory.Installer, ex);
-                    //Failed to check Word Installation 
+                    //Failed to check Word Installation
                 }
                 catch (Exception ex)
                 {
@@ -663,7 +657,7 @@ namespace CustomInstaller
             string OFFICE12_REG_64 = @"SOFTWARE\Wow6432Node\Microsoft\Office";
             try
             {
-                //This is how we call the recursive function GetSubKeys     
+                //This is how we call the recursive function GetSubKeys
                 RegistryKey OurKey = Registry.Users;
                 RegistryKey classRoot = Registry.LocalMachine;
                 OurKey = classRoot.OpenSubKey(OFFICE12_REG_32, false);
@@ -705,7 +699,7 @@ namespace CustomInstaller
                 eventLogger.WriteToLog(LogCategory.Installer, ex);
             }
             catch (SecurityException ex)
-            {                
+            {
                 eventLogger.WriteToLog(LogCategory.Installer, ex);
             }
             catch (UnauthorizedAccessException ex)
@@ -741,7 +735,7 @@ namespace CustomInstaller
                         {
                             DeleteSettingFileFromAllUserProfile(userProfileLocation, osName);
                         }
-                    }                   
+                    }
                 }
             }
             catch (NullReferenceException ex)
@@ -754,7 +748,6 @@ namespace CustomInstaller
                 eventLogger.WriteToLog(LogCategory.Installer, Resource.REMOVESETTINGFILEERR, ex.StackTrace);
                 //Error occered while copying or removing settings file.
             }
-
         }
 
         /// <summary>
@@ -765,7 +758,6 @@ namespace CustomInstaller
         /// <param name="osName"></param>
         private static void DeleteSettingFileFromAllUserProfile(string userProfilePath, string osName)
         {
-
             try
             {
                 string filePath = string.Empty;
@@ -939,6 +931,7 @@ namespace CustomInstaller
         }
 
         #region Error handling
+
         /// <summary>
         /// This method handles logging the error.
         /// </summary>
@@ -946,7 +939,7 @@ namespace CustomInstaller
         /// <param name="throwError">Variable indicating if the error should be thrown.</param>
         private void HandleRegistryError(string error, bool throwError)
         {
-            // Log the error.   
+            // Log the error.
             this.LogMessage(error);
 
             if (throwError)
@@ -991,9 +984,10 @@ namespace CustomInstaller
                 return HKEY_CURRENT_USER;
             }
         }
+
         #endregion Error handling
 
-        #endregion
+        #endregion Methods
     }
 
     internal static class NativeMethods
@@ -1037,7 +1031,6 @@ namespace CustomInstaller
                 string valueName, IntPtr reserved, ref RegistryValueKind type,
                 IntPtr zero, ref int dataSize);
 
-
         [DllImport("kernel32.dll", SetLastError = true, CharSet = CharSet.Unicode, CallingConvention = CallingConvention.Winapi)]
         [return: MarshalAs(UnmanagedType.Bool)]
         private static extern bool IsWow64Process([In] IntPtr hProcess, [MarshalAs(UnmanagedType.Bool)] [Out] out bool lpSystemInfo);
@@ -1046,7 +1039,7 @@ namespace CustomInstaller
         public static bool Is64Bit()
         {
             bool retVal;
-            IsWow64Process(Process.GetCurrentProcess().Handle, out retVal);            
+            IsWow64Process(Process.GetCurrentProcess().Handle, out retVal);
             return retVal;
         }
     }
