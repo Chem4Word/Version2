@@ -30,6 +30,8 @@ namespace Chem4Word.Common
         public string IpAddress { get; set; }
 
         private int _wordVersion = -1;
+        private int _retryCount = 1;
+
         public int WordVersion {
             get
             {
@@ -252,6 +254,8 @@ namespace Chem4Word.Common
             {
                 string url = "http://chem4word.azurewebsites.net/client-ip.php";
 
+                Debug.WriteLine("Fetching external IpAddress from " + url + " attempt " + _retryCount);
+
                 HttpWebRequest request = WebRequest.Create(url) as HttpWebRequest;
                 //request.Timeout = 15000; // 15 seconds
                 HttpWebResponse response;
@@ -262,6 +266,7 @@ namespace Chem4Word.Common
                     {
                         string webPage = reader.ReadToEnd();
                         IpAddress = "IpAddress " + (new Regex(@"\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}")).Matches(webPage)[0].ToString();
+                        Debug.WriteLine(IpAddress);
                     }
                 }
                 else
@@ -279,6 +284,18 @@ namespace Chem4Word.Common
 
             TimeSpan ts = DateTime.Now - started;
             Debug.WriteLine("Obtaining External IP Address took " + ts.TotalMilliseconds.ToString("#,000.0" + "ms"));
+
+            if (IpAddress.Contains("0.0.0.0"))
+            {
+                if (_retryCount < 10)
+                {
+                    _retryCount++;
+                    Thread.Sleep(500);
+                    ParameterizedThreadStart pts = new ParameterizedThreadStart(GetExternalIpv4Address);
+                    Thread t = new Thread(pts);
+                    t.Start(null);
+                }
+            }
         }
 
         private int GetOfficeVersionNumber(string wordVersionString)
