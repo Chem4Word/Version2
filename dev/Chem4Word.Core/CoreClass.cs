@@ -58,6 +58,9 @@ namespace Chem4Word.Core
     /// </summary>
     public class CoreClass : ICoreClass
     {
+
+        private bool overwrite = true;
+
         private static readonly ILog Log = LogManager.GetLogger(typeof(CoreClass));
         private readonly string AddInManifestKeyName = @"Manifest";
 
@@ -346,7 +349,7 @@ namespace Chem4Word.Core
 
         private void InitialiseUserSettings()
         {
-            string module = "InitialiseUserSettings()";
+            string module = "CoreClass.InitialiseUserSettings()";
             try
             {
                 XDocument userSetting = XDocument.Load(localAppDataFolder + @"\User Setting.xml");
@@ -741,7 +744,8 @@ namespace Chem4Word.Core
                             if (!File.Exists(localAppDataFolder + @"\Chemistry Gallery\" + fileInfor.Name))
                             {
                                 File.Copy(assemblyDirectoryName + @"\Data\" + sourcePath + @"\" + fileInfor.Name,
-                                          localAppDataFolder + @"\Chemistry Gallery\" + fileInfor.Name);
+                                          localAppDataFolder + @"\Chemistry Gallery\" + fileInfor.Name,
+                                          overwrite);
                             }
                         }
                     }
@@ -764,7 +768,8 @@ namespace Chem4Word.Core
                             if (!File.Exists(localAppDataFolder + @"\SmartTag\" + fileInfor.Name))
                             {
                                 File.Copy(assemblyDirectoryName + @"\Data\SmartTag\" + fileInfor.Name,
-                                          localAppDataFolder + @"\SmartTag\" + fileInfor.Name);
+                                          localAppDataFolder + @"\SmartTag\" + fileInfor.Name,
+                                          overwrite);
                             }
                         }
                     }
@@ -776,7 +781,8 @@ namespace Chem4Word.Core
                     if (!File.Exists(localAppDataFolder + @"\User Setting.xml"))
                     {
                         File.Copy(assemblyDirectoryName + @"\User Setting.xml",
-                                  localAppDataFolder + @"\User Setting.xml");
+                                  localAppDataFolder + @"\User Setting.xml",
+                                  overwrite);
                     }
                     else
                     {
@@ -803,7 +809,8 @@ namespace Chem4Word.Core
                                 if (!areEqual)
                                 {
                                     File.Copy(assemblyDirectoryName + @"\User Setting.xml",
-                                              localAppDataFolder + @"\User Setting.xml", true);
+                                              localAppDataFolder + @"\User Setting.xml",
+                                              overwrite);
                                 }
                             }
                         }
@@ -2461,8 +2468,8 @@ namespace Chem4Word.Core
                     }
                     else
                     {
-                        _telemetry.Write(module, "Debug", "Paste of chemistry content control without cml detected");
-                        MessageBox.Show("Paste of chemistry content control without cml detected." +
+                        _telemetry.Write(module, "Debug", "Copy/Paste or Drag/Drop of chemistry content control without cml detected");
+                        MessageBox.Show("Copy/Paste or Drag/Drop of chemistry content control without cml detected." +
                             Environment.NewLine + "Please use Chemistry Navigator if you wish to make a copy.",
                             Resources.CHEM_4_WORD_MESSAGE_BOX_TITLE, MessageBoxButton.OK,
                                 MessageBoxImage.Stop);
