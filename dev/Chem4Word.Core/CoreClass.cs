@@ -353,33 +353,80 @@ namespace Chem4Word.Core
             try
             {
                 XDocument userSetting = XDocument.Load(localAppDataFolder + @"\User Setting.xml");
-                string importOption = userSetting.Root.Element("importOption").Attribute("value").Value;
-                Setting.Import =
-                    (ImportSetting)Enum.Parse(typeof(ImportSetting), importOption, true);
-                string documentPreferedDepiction =
-                    userSetting.Root.Element("documentPreferedDepiction").Attribute("value").Value;
-                Setting.DocumentPreferedDepiction = (DocPreferedDepiction)
-                                                    Enum.Parse(typeof(DocPreferedDepiction),
-                                                               documentPreferedDepiction, true);
-                string navigatorPreferedDepiction =
-                    userSetting.Root.Element("navigatorPreferedDepiction").Attribute("value").Value;
-                Setting.NavigatorPreferedDepiction = (NavPreferedDepiction)
-                                                     Enum.Parse(typeof(NavPreferedDepiction),
-                                                                navigatorPreferedDepiction, true);
-                bool collapseNavigatorDepiction;
-                bool.TryParse(userSetting.Root.Element("collapseNavigatorDepiction").Attribute("value").Value,
-                              out collapseNavigatorDepiction);
-                Setting.CollapseNavigatorDepiction = collapseNavigatorDepiction;
 
-                bool ooXmlRenderAtomsInColour;
-                bool.TryParse(userSetting.Root.Element("ooXmlRenderAtomsInColour").Attribute("value").Value,
-                              out ooXmlRenderAtomsInColour);
-                Setting.RenderAtomsInColour = ooXmlRenderAtomsInColour;
+                try
+                {
+                    string importOption = userSetting.Root.Element("importOption").Attribute("value").Value;
+                    Setting.Import =
+                        (ImportSetting)Enum.Parse(typeof(ImportSetting), importOption, true);
+                }
+                catch
+                {
+                    Setting.Import = ImportSetting.Auto;
+                }
 
-                bool ooXmlRenderImplicitHydrogens;
-                bool.TryParse(userSetting.Root.Element("ooXmlRenderImplicitHydrogens").Attribute("value").Value,
-                              out ooXmlRenderImplicitHydrogens);
-                Setting.RenderImplicitHydrogens = ooXmlRenderImplicitHydrogens;
+                try
+                {
+                    string documentPreferedDepiction =
+                        userSetting.Root.Element("documentPreferedDepiction").Attribute("value").Value;
+                    Setting.DocumentPreferedDepiction = (DocPreferedDepiction)
+                                                        Enum.Parse(typeof(DocPreferedDepiction),
+                                                                   documentPreferedDepiction, true);
+                }
+                catch
+                {
+                    Setting.DocumentPreferedDepiction = DocPreferedDepiction.TwoD;
+                }
+
+                try
+                {
+                    string navigatorPreferedDepiction =
+                        userSetting.Root.Element("navigatorPreferedDepiction").Attribute("value").Value;
+                    Setting.NavigatorPreferedDepiction = (NavPreferedDepiction)
+                                                         Enum.Parse(typeof(NavPreferedDepiction),
+                                                                    navigatorPreferedDepiction, true);
+                }
+                catch
+                {
+                    Setting.NavigatorPreferedDepiction = NavPreferedDepiction.ConciseFormula;
+                }
+
+                try
+                {
+                    bool collapseNavigatorDepiction;
+                    bool.TryParse(userSetting.Root.Element("collapseNavigatorDepiction").Attribute("value").Value,
+                                  out collapseNavigatorDepiction);
+                    Setting.CollapseNavigatorDepiction = collapseNavigatorDepiction;
+                }
+                catch
+                {
+                    Setting.CollapseNavigatorDepiction = true;
+                }
+
+                try
+                {
+                    bool ooXmlRenderAtomsInColour;
+                    bool.TryParse(userSetting.Root.Element("ooXmlRenderAtomsInColour").Attribute("value").Value,
+                                  out ooXmlRenderAtomsInColour);
+                    Setting.RenderAtomsInColour = ooXmlRenderAtomsInColour;
+                }
+                catch
+                {
+                    Setting.RenderAtomsInColour = true;
+                }
+
+                try
+                {
+                    bool ooXmlRenderImplicitHydrogens;
+                    bool.TryParse(userSetting.Root.Element("ooXmlRenderImplicitHydrogens").Attribute("value").Value,
+                                  out ooXmlRenderImplicitHydrogens);
+                    Setting.RenderImplicitHydrogens = ooXmlRenderImplicitHydrogens;
+                }
+                catch
+                {
+                    Setting.RenderImplicitHydrogens = true;
+                }
+
             }
             catch (Exception ex)
             {
@@ -751,7 +798,18 @@ namespace Chem4Word.Core
                     }
 
                     #endregion Templates
-
+                }
+            }
+            catch (Exception Ex)
+            {
+                Debug.WriteLine(Ex.Message);
+                Log.Error(Ex.Message);
+                _telemetry.Write(module, "Exception", "Templates - " + Ex.Message);
+            }
+            try
+            {
+                if (!string.IsNullOrEmpty(assemblyDirectoryName))
+                {
                     #region Smart Tags
 
                     if (!Directory.Exists(localAppDataFolder + @"\SmartTag"))
@@ -775,7 +833,19 @@ namespace Chem4Word.Core
                     }
 
                     #endregion Smart Tags
+                }
+            }
+            catch (Exception Ex)
+            {
+                Debug.WriteLine(Ex.Message);
+                Log.Error(Ex.Message);
+                _telemetry.Write(module, "Exception", "Smart Tags - " + Ex.Message);
+            }
 
+            try
+            {
+                if (!string.IsNullOrEmpty(assemblyDirectoryName))
+                {
                     #region User Settings
 
                     if (!File.Exists(localAppDataFolder + @"\User Setting.xml"))
@@ -823,7 +893,7 @@ namespace Chem4Word.Core
             {
                 Debug.WriteLine(Ex.Message);
                 Log.Error(Ex.Message);
-                _telemetry.Write(module, "Exception", Ex.Message);
+                _telemetry.Write(module, "Exception", "User Settings - " + Ex.Message);
             }
         }
 
