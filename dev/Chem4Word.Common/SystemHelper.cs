@@ -548,6 +548,8 @@ namespace Chem4Word.Common
                     #endregion
             }
 
+            #region 32 / 64 bit
+
             if (bitFlag.Equals("1"))
             {
                 result += " 64bit";
@@ -556,6 +558,8 @@ namespace Chem4Word.Common
             {
                 result += " 32bit";
             }
+
+            #endregion
 
             return result;
         }
