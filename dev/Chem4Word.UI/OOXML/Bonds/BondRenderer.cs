@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Windows;
 using Chem4Word.Common;
@@ -38,7 +39,7 @@ namespace Chem4Word.UI.OOXML.Bonds
         /// <param name="bond"></param>
         public void CreateBondLines(CmlBond bond)
         {
-            //Debug.WriteLine("Bond: " + bond.Id);
+            Debug.WriteLine("Bond: " + bond.Id + " Order: " + bond.Order);
             string module = "CreateBondLines()";
             //_telemetry.Write(module, "Debug", "Bond: " + bond.ToString());
 
@@ -48,9 +49,15 @@ namespace Chem4Word.UI.OOXML.Bonds
             foreach (Ring r in rings)
             {
                 ringCount++;
-                break;
+                //List<string> bondList = new List<string>();
+                //foreach (string s in r.BondIdSet)
+                //{
+                //    bondList.Add(s);
+                //}
+                //Debug.WriteLine("Ring[" + ringCount + "] Length: " + r.BondIdSet.Count
+                //    + " Bonds: " + string.Join(" ", bondList.ToArray()));
             }
-            //Debug.WriteLine("  Ring Count: " + ringCount);
+            //Debug.WriteLine("Rings: " + ringCount);
 
             CmlAtom fromAtom = bondatoms.ElementAt(0);
             Point bondStart = new Point((double)fromAtom.X2, (double)fromAtom.Y2);

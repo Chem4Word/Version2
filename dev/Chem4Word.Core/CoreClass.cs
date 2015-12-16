@@ -2399,6 +2399,11 @@ namespace Chem4Word.Core
         private void ApplicationWindowActivate(Document doc,
                                                Window wn)
         {
+            string module = "CoreClass.ApplicationWindowActivate()";
+            DateTime started = DateTime.Now;
+
+            Debug.WriteLine("Started " + module);
+
             Microsoft.Office.Tools.Word.Document wordDoc =
                 Microsoft.Office.Tools.Word.Document.GetVstoObject(wordApp.ActiveWindow.Document);
             if (wordDoc != null)
@@ -2442,10 +2447,17 @@ namespace Chem4Word.Core
                             CurrentWindow = wn
                         });
             }
+            TimeSpan ts = DateTime.Now - started;
+            Debug.WriteLine("Executing " + module + " took " + ts.TotalMilliseconds.ToString("#,##0") + "ms");
         }
 
         private void ApplicationWindowDeactivate(Document document, Window window)
         {
+            string module = "CoreClass.ApplicationWindowDeactivate()";
+            DateTime started = DateTime.Now;
+
+            Debug.WriteLine("Started " + module);
+
             if (WindowDeactivateEvent != null)
             {
                 WindowDeactivateEvent(this, new ChemistryDocumentEventArgs
@@ -2454,6 +2466,8 @@ namespace Chem4Word.Core
                                                     CurrentWindow = window
                                                 });
             }
+            TimeSpan ts = DateTime.Now - started;
+            Debug.WriteLine("Executing " + module + " took " + ts.TotalMilliseconds.ToString("#,##0") + "ms");
         }
 
         /// <summary>
