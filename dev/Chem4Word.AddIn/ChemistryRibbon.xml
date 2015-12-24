@@ -4,11 +4,11 @@
   <ribbon>
     <tabs>
       <tab id="chemistryTab" label="CHEMISTRY_TAB_LABEL">
-        <group id="importGroup" label="Import">
+        <group id="importGroup" label="Insert Chemistry">
+          <button id="newChemistry" label="Draw Structure" onAction="ImportBlankStructureClick" getImage="NewChemistryImage" size="large"/>
           <gallery idMso="CustomGallery5" label="Chemistry Gallery" size="normal" />
           <button id="saveSelection" onAction="SaveSelectionClick" getEnabled="GetSaveSelectionEnable" label="Save To Gallery" size="normal" />
-          <menu id="importDropDown" label="New ..." getImage="GetFromFileImage" getEnabled="GetImportCmlFileEnable">
-            <button id="newChemistry" label="Structure" onAction="ImportBlankStructureClick" getImage="GetFromFileImage"/>
+          <menu id="importDropDown" label="Import..." getImage="GetFromFileImage" getEnabled="GetImportCmlFileEnable">
             <button id="importCmlFile" label="From File" onAction="ImportCmlFileClick" getImage="GetFromFileImage" />
             <button id="opsinLookUp" label="From OPSIN" onAction="OpsinLookUpClick" getImage="GetOpsinImage" />
             <button id="pubChemLookUp" label="From PubChem" onAction="PubChemLookUpClick" getImage="GetOpsinImage" />

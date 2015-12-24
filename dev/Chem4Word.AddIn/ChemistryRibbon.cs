@@ -1115,6 +1115,11 @@ namespace Chem4Word.AddIn
         /// </summary>
         /// <param name = "control">ID of ribbon control to associate image with</param>
         /// <returns>pointer to the image</returns>
+
+        public IPictureDisp NewChemistryImage(IRibbonControl control)
+        {
+            return ImageConverter.Convert(Properties.Resources.New_Chemistry);
+        }
         public IPictureDisp GetChemImage(IRibbonControl control)
         {
             return ImageConverter.Convert(Properties.Resources.Chem4Word_Icon);
