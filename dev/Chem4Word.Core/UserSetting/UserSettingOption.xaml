@@ -87,7 +87,7 @@
                         </Border>
                     </StackPanel>
                 </TabItem>
-                <TabItem Header="OpenXML" Name="openXmlItem">
+                <TabItem Header="Rendering" Name="openXmlItem">
                     <StackPanel Margin="8,8,8,8">
                         <TextBlock TextWrapping="Wrap">
                             The following options are only applicable when the Chem4Word Add-In is used with Word 2010 (or greater).
