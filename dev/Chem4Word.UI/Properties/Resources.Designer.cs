@@ -161,11 +161,12 @@ namespace Chem4Word.UI.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Chem4Word Version 2.0.1.0.
+        ///   Looks up a localized string similar to Chem4Word Version 2.0.1.0 beta 6
+        ///using ChemDoodle Web 7.0.2.
         /// </summary>
-        public static string C4W_Version_2010_txt {
+        public static string C4W_MarkerFile_txt {
             get {
-                return ResourceManager.GetString("C4W_Version_2010_txt", resourceCulture);
+                return ResourceManager.GetString("C4W_MarkerFile_txt", resourceCulture);
             }
         }
         
@@ -236,6 +237,16 @@ namespace Chem4Word.UI.Properties {
         public static byte[] ChemDoodleWeb_701_zip {
             get {
                 object obj = ResourceManager.GetObject("ChemDoodleWeb_701_zip", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        public static byte[] ChemDoodleWeb_702_zip {
+            get {
+                object obj = ResourceManager.GetObject("ChemDoodleWeb_702_zip", resourceCulture);
                 return ((byte[])(obj));
             }
         }
@@ -453,52 +464,6 @@ namespace Chem4Word.UI.Properties {
             get {
                 object obj = ResourceManager.GetObject("FlipVertical", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to &lt;!DOCTYPE html&gt;
-        ///&lt;html&gt;
-        ///  &lt;head&gt;
-        ///    &lt;!-- Add Mark Of The Web --&gt;
-        ///    &lt;!-- saved from url=(0014)about:internet --&gt;
-        ///
-        ///	&lt;!-- Make .Net WebBrowser component work --&gt;
-        ///	&lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;IE=9&quot; /&gt;
-        ///	
-        ///    &lt;!-- http://hub.chemdoodle.com/cwc/latest --&gt;
-        ///    &lt;!-- http://hub.chemdoodle.com/cwc/5.2.3 --&gt;
-        ///
-        ///    &lt;!-- these four are required by the ChemDoodle Web Components library --&gt;
-        ///	&lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;chrome=1&quot; /&gt;
-        ///	&lt;link rel=&quot;stylesheet&quot; href=&quot;http://hub.chem [rest of string was truncated]&quot;;.
-        /// </summary>
-        public static string HotLink_V523_html {
-            get {
-                return ResourceManager.GetString("HotLink_V523_html", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to &lt;!DOCTYPE html&gt;
-        ///&lt;html&gt;
-        ///  &lt;head&gt;
-        ///    &lt;!-- Add Mark Of The Web --&gt;
-        ///    &lt;!-- saved from url=(0014)about:internet --&gt;
-        ///
-        ///	&lt;!-- Make .Net WebBrowser component work --&gt;
-        ///	&lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;IE=9&quot; /&gt;
-        ///	
-        ///    &lt;!-- http://hub.chemdoodle.com/cwc/latest --&gt;
-        ///    &lt;!-- http://hub.chemdoodle.com/cwc/6.0.0 --&gt;
-        ///
-        ///    &lt;!--these three are required by the ChemDoodle Web Components library--&gt;
-        ///    &lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;chrome=1&quot;&gt;
-        ///    &lt;link rel=&quot;stylesheet&quot; href=&quot;http://hub.c [rest of string was truncated]&quot;;.
-        /// </summary>
-        public static string HotLink_V600_html {
-            get {
-                return ResourceManager.GetString("HotLink_V600_html", resourceCulture);
             }
         }
         

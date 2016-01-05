@@ -112,7 +112,7 @@ namespace Chem4Word.Core {
                     document.WriteTelemetry(module, "Information", "Atoms: " + mol.GetAllAtoms().Count());
                     document.WriteTelemetry(module, "Information", "Bonds: " + mol.GetAllBonds().Count());
 
-                    C4wOptions options = new C4wOptions();
+                    OoXmlOptions options = new OoXmlOptions();
                     options.ColouredAtoms = Setting.RenderAtomsInColour;
                     options.ShowHydrogens = Setting.RenderImplicitHydrogens;
                     string guidString = Guid.NewGuid().ToString("N");

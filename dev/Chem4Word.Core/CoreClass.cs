@@ -352,81 +352,7 @@ namespace Chem4Word.Core
             string module = "CoreClass.InitialiseUserSettings()";
             try
             {
-                XDocument userSetting = XDocument.Load(localAppDataFolder + @"\User Setting.xml");
-
-                try
-                {
-                    string importOption = userSetting.Root.Element("importOption").Attribute("value").Value;
-                    Setting.Import =
-                        (ImportSetting)Enum.Parse(typeof(ImportSetting), importOption, true);
-                }
-                catch
-                {
-                    Setting.Import = ImportSetting.Auto;
-                }
-
-                try
-                {
-                    string documentPreferedDepiction =
-                        userSetting.Root.Element("documentPreferedDepiction").Attribute("value").Value;
-                    Setting.DocumentPreferedDepiction = (DocPreferedDepiction)
-                                                        Enum.Parse(typeof(DocPreferedDepiction),
-                                                                   documentPreferedDepiction, true);
-                }
-                catch
-                {
-                    Setting.DocumentPreferedDepiction = DocPreferedDepiction.TwoD;
-                }
-
-                try
-                {
-                    string navigatorPreferedDepiction =
-                        userSetting.Root.Element("navigatorPreferedDepiction").Attribute("value").Value;
-                    Setting.NavigatorPreferedDepiction = (NavPreferedDepiction)
-                                                         Enum.Parse(typeof(NavPreferedDepiction),
-                                                                    navigatorPreferedDepiction, true);
-                }
-                catch
-                {
-                    Setting.NavigatorPreferedDepiction = NavPreferedDepiction.ConciseFormula;
-                }
-
-                try
-                {
-                    bool collapseNavigatorDepiction;
-                    bool.TryParse(userSetting.Root.Element("collapseNavigatorDepiction").Attribute("value").Value,
-                                  out collapseNavigatorDepiction);
-                    Setting.CollapseNavigatorDepiction = collapseNavigatorDepiction;
-                }
-                catch
-                {
-                    Setting.CollapseNavigatorDepiction = true;
-                }
-
-                try
-                {
-                    bool ooXmlRenderAtomsInColour;
-                    bool.TryParse(userSetting.Root.Element("ooXmlRenderAtomsInColour").Attribute("value").Value,
-                                  out ooXmlRenderAtomsInColour);
-                    Setting.RenderAtomsInColour = ooXmlRenderAtomsInColour;
-                }
-                catch
-                {
-                    Setting.RenderAtomsInColour = true;
-                }
-
-                try
-                {
-                    bool ooXmlRenderImplicitHydrogens;
-                    bool.TryParse(userSetting.Root.Element("ooXmlRenderImplicitHydrogens").Attribute("value").Value,
-                                  out ooXmlRenderImplicitHydrogens);
-                    Setting.RenderImplicitHydrogens = ooXmlRenderImplicitHydrogens;
-                }
-                catch
-                {
-                    Setting.RenderImplicitHydrogens = true;
-                }
-
+                Setting.LoadSettings(localAppDataFolder + @"\User Setting.xml");
             }
             catch (Exception ex)
             {
@@ -570,7 +496,7 @@ namespace Chem4Word.Core
                     WriteTelemetry(module, "Information", "Atoms: " + cmlMolecule.GetAllAtoms().Count());
                     WriteTelemetry(module, "Information", "Bonds: " + cmlMolecule.GetAllBonds().Count());
 
-                    C4wOptions options = new C4wOptions();
+                    OoXmlOptions options = new OoXmlOptions();
                     options.ColouredAtoms = Setting.RenderAtomsInColour;
                     options.ShowHydrogens = Setting.RenderImplicitHydrogens;
                     string guidString = Guid.NewGuid().ToString("N");
@@ -1012,7 +938,7 @@ namespace Chem4Word.Core
                         WriteTelemetry(module, "Information", "Atoms: " + mol.GetAllAtoms().Count());
                         WriteTelemetry(module, "Information", "Bonds: " + mol.GetAllBonds().Count());
 
-                        C4wOptions options = new C4wOptions();
+                        OoXmlOptions options = new OoXmlOptions();
                         options.ColouredAtoms = Setting.RenderAtomsInColour;
                         options.ShowHydrogens = Setting.RenderImplicitHydrogens;
                         string guidString = Guid.NewGuid().ToString("N");
@@ -1225,8 +1151,9 @@ namespace Chem4Word.Core
 
                 ChemDoodleEditorForm tcd = new ChemDoodleEditorForm();
 
-                tcd.UserOptions = new C4wOptions();
+                tcd.UserOptions = new OoXmlOptions();
                 tcd.UserOptions.ShowHydrogens = Setting.RenderImplicitHydrogens;
+                tcd.UserOptions.ColouredAtoms = Setting.RenderAtomsInColour;
 
                 tcd.Telemetry = _telemetry;
 
@@ -1253,6 +1180,13 @@ namespace Chem4Word.Core
 
                 if (chemEditorResult == System.Windows.Forms.DialogResult.OK)
                 {
+                    if (tcd.UserOptions.Changed)
+                    {
+                        Setting.RenderAtomsInColour = tcd.UserOptions.ColouredAtoms;
+                        Setting.RenderImplicitHydrogens = tcd.UserOptions.ShowHydrogens;
+                        Setting.SaveSettings(localAppDataFolder + @"\User Setting.xml");
+                    }
+
                     #region Convert JSON to cml
 
                     Log.Debug("Converting JSON to CML");

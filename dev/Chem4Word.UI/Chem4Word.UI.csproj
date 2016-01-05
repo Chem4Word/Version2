@@ -158,7 +158,7 @@
     <Compile Include="OOXML\Atoms\OoXmlPolygon.cs" />
     <Compile Include="OOXML\Bonds\BondLine.cs" />
     <Compile Include="OOXML\Bonds\BondRenderer.cs" />
-    <Compile Include="OOXML\C4wOptions.cs" />
+    <Compile Include="OOXML\OoXmlOptions.cs" />
     <Compile Include="OOXML\CohenSutherland.cs" />
     <Compile Include="OOXML\Helper.cs" />
     <Compile Include="OOXML\OoXmlFile.cs" />
@@ -308,6 +308,7 @@
     </None>
     <None Include="Resources\ChemDoodle\ChemDoodleWeb_601.zip" />
     <None Include="Resources\ChemDoodle\ChemDoodleWeb_701.zip" />
+    <None Include="Resources\ChemDoodle\ChemDoodleWeb_702.zip" />
     <None Include="Resources\cmllite.xslt" />
     <None Include="Resources\CMLSchema.xsd" />
   </ItemGroup>
@@ -588,12 +589,11 @@
     <Resource Include="Resources\Images\Select_All.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\ChemDoodle\C4W-Version-2010.txt" />
+    <Resource Include="Resources\ChemDoodle\C4W-MarkerFile.txt" />
     <Content Include="Resources\ChemDoodle\Chem4Word.css" />
     <Content Include="Resources\ChemDoodle\Chem4Word.js" />
-    <Content Include="Resources\ChemDoodle\HotLink-V5.2.3.htm" />
-    <Content Include="Resources\ChemDoodle\HotLink-V6.0.0.htm" />
     <Resource Include="Resources\ChemDoodle\Minus.png" />
+    <Resource Include="Resources\ChemDoodle\License.txt" />
     <Content Include="Resources\ChemDoodle\Offline.htm" />
     <Resource Include="Resources\ChemDoodle\Plus.png" />
     <Resource Include="Resources\ChemDoodle\ChemDoodleBadge.png" />

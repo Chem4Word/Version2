@@ -23,7 +23,7 @@ namespace Chem4Word.UI.OOXML
         /// <param name="guid">Bookmark to create</param>
         /// <param name="options">Options to use when rendering</param>
         /// <returns></returns>
-        public string CreateFromCml(string cml, string guid, C4wOptions options)
+        public string CreateFromCml(string cml, string guid, OoXmlOptions options)
         {
             string fileName = Path.Combine(Path.GetTempPath(), guid + ".docx");
             string bookmarkName = "C4W_" + guid;
@@ -54,7 +54,7 @@ namespace Chem4Word.UI.OOXML
         /// <param name="docbody"></param>
         /// <param name="cml"></param>
         /// <param name="bookmarkName"></param>
-        private void AddPictureFromCml(Body docbody, string cml, string bookmarkName, C4wOptions options)
+        private void AddPictureFromCml(Body docbody, string cml, string bookmarkName, OoXmlOptions options)
         {
             Paragraph paragraph1 = new Paragraph();
             if (!string.IsNullOrEmpty(bookmarkName))

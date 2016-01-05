@@ -38,9 +38,9 @@ namespace Chem4Word.UI.OOXML
         private List<BondLine> m_BondLines;
         //private SortedDictionary<string, Ring> m_rings;
         private Telemetry _telemetry;
-        private C4wOptions m_options;
+        private OoXmlOptions m_options;
 
-        public OoXmlMolecule(string cml, C4wOptions options, Telemetry telemetry)
+        public OoXmlMolecule(string cml, OoXmlOptions options, Telemetry telemetry)
         {
             _telemetry = telemetry;
 

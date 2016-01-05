@@ -273,7 +273,7 @@ namespace Chem4Word.AddIn
                 new StringBuilder(@"<menu xmlns=""http://schemas.microsoft.com/office/2006/01/customui"" >");
             try
             {
-                //                XDocument cml = core.ActiveChemistryDocument.SelectedChemistryZone.Cml;
+                // XDocument cml = core.ActiveChemistryDocument.SelectedChemistryZone.Cml;
                 var chemistryZone = core.ActiveChemistryDocument.SelectedChemistryZone;
                 var currentDepictionOption =
                     DepictionOption.CreateDepictionOption(chemistryZone.Cml,
