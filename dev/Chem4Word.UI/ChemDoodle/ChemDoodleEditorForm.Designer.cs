@@ -34,9 +34,12 @@
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnOk = new System.Windows.Forms.Button();
             this.groupBoxExplicit = new System.Windows.Forms.GroupBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
             this.btnRemoveExplicitHydrogens = new System.Windows.Forms.Button();
             this.btnAddExplicitHydrogens = new System.Windows.Forms.Button();
             this.groupBoxImplicit = new System.Windows.Forms.GroupBox();
+            this.chkColouredAtoms = new System.Windows.Forms.CheckBox();
             this.chkToggleImplicitHydrogens = new System.Windows.Forms.CheckBox();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.nudBondLength = new System.Windows.Forms.NumericUpDown();
@@ -61,14 +64,14 @@
             this.browser.Location = new System.Drawing.Point(0, 0);
             this.browser.MinimumSize = new System.Drawing.Size(20, 20);
             this.browser.Name = "browser";
-            this.browser.Size = new System.Drawing.Size(609, 383);
+            this.browser.Size = new System.Drawing.Size(679, 465);
             this.browser.TabIndex = 0;
             this.browser.DocumentCompleted += new System.Windows.Forms.WebBrowserDocumentCompletedEventHandler(this.browser_DocumentCompleted);
             // 
             // btnCancel
             // 
             this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnCancel.Location = new System.Drawing.Point(526, 419);
+            this.btnCancel.Location = new System.Drawing.Point(596, 530);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
             this.btnCancel.TabIndex = 1;
@@ -79,7 +82,7 @@
             // btnOk
             // 
             this.btnOk.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnOk.Location = new System.Drawing.Point(527, 391);
+            this.btnOk.Location = new System.Drawing.Point(597, 502);
             this.btnOk.Name = "btnOk";
             this.btnOk.Size = new System.Drawing.Size(75, 23);
             this.btnOk.TabIndex = 2;
@@ -90,20 +93,40 @@
             // groupBoxExplicit
             // 
             this.groupBoxExplicit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.groupBoxExplicit.Controls.Add(this.label2);
+            this.groupBoxExplicit.Controls.Add(this.label1);
             this.groupBoxExplicit.Controls.Add(this.btnRemoveExplicitHydrogens);
             this.groupBoxExplicit.Controls.Add(this.btnAddExplicitHydrogens);
-            this.groupBoxExplicit.Location = new System.Drawing.Point(6, 393);
+            this.groupBoxExplicit.Location = new System.Drawing.Point(6, 471);
             this.groupBoxExplicit.Name = "groupBoxExplicit";
-            this.groupBoxExplicit.Size = new System.Drawing.Size(114, 50);
+            this.groupBoxExplicit.Size = new System.Drawing.Size(114, 83);
             this.groupBoxExplicit.TabIndex = 3;
             this.groupBoxExplicit.TabStop = false;
             this.groupBoxExplicit.Text = "Explicit Hydrogens";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(46, 59);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(47, 13);
+            this.label2.TabIndex = 3;
+            this.label2.Text = "Remove";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(46, 25);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(26, 13);
+            this.label1.TabIndex = 2;
+            this.label1.Text = "Add";
             // 
             // btnRemoveExplicitHydrogens
             // 
             this.btnRemoveExplicitHydrogens.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnRemoveExplicitHydrogens.Image = ((System.Drawing.Image)(resources.GetObject("btnRemoveExplicitHydrogens.Image")));
-            this.btnRemoveExplicitHydrogens.Location = new System.Drawing.Point(68, 18);
+            this.btnRemoveExplicitHydrogens.Location = new System.Drawing.Point(14, 51);
             this.btnRemoveExplicitHydrogens.Name = "btnRemoveExplicitHydrogens";
             this.btnRemoveExplicitHydrogens.Size = new System.Drawing.Size(26, 26);
             this.btnRemoveExplicitHydrogens.TabIndex = 1;
@@ -128,24 +151,39 @@
             // groupBoxImplicit
             // 
             this.groupBoxImplicit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.groupBoxImplicit.Controls.Add(this.chkColouredAtoms);
             this.groupBoxImplicit.Controls.Add(this.chkToggleImplicitHydrogens);
-            this.groupBoxImplicit.Location = new System.Drawing.Point(125, 393);
+            this.groupBoxImplicit.Location = new System.Drawing.Point(125, 471);
             this.groupBoxImplicit.Name = "groupBoxImplicit";
-            this.groupBoxImplicit.Size = new System.Drawing.Size(113, 50);
+            this.groupBoxImplicit.Size = new System.Drawing.Size(122, 83);
             this.groupBoxImplicit.TabIndex = 4;
             this.groupBoxImplicit.TabStop = false;
-            this.groupBoxImplicit.Text = "Implicit Hydrogens";
+            this.groupBoxImplicit.Text = "Rendering Options";
+            // 
+            // chkColouredAtoms
+            // 
+            this.chkColouredAtoms.AutoSize = true;
+            this.chkColouredAtoms.Checked = true;
+            this.chkColouredAtoms.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkColouredAtoms.Location = new System.Drawing.Point(14, 57);
+            this.chkColouredAtoms.Name = "chkColouredAtoms";
+            this.chkColouredAtoms.Size = new System.Drawing.Size(88, 17);
+            this.chkColouredAtoms.TabIndex = 0;
+            this.chkColouredAtoms.Text = "Colour Atoms";
+            this.toolTip1.SetToolTip(this.chkColouredAtoms, "Check to show atom labels in colour");
+            this.chkColouredAtoms.UseVisualStyleBackColor = true;
+            this.chkColouredAtoms.CheckedChanged += new System.EventHandler(this.chkColouredAtoms_CheckedChanged);
             // 
             // chkToggleImplicitHydrogens
             // 
             this.chkToggleImplicitHydrogens.AutoSize = true;
             this.chkToggleImplicitHydrogens.Checked = true;
             this.chkToggleImplicitHydrogens.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkToggleImplicitHydrogens.Location = new System.Drawing.Point(14, 22);
+            this.chkToggleImplicitHydrogens.Location = new System.Drawing.Point(14, 25);
             this.chkToggleImplicitHydrogens.Name = "chkToggleImplicitHydrogens";
-            this.chkToggleImplicitHydrogens.Size = new System.Drawing.Size(53, 17);
+            this.chkToggleImplicitHydrogens.Size = new System.Drawing.Size(99, 17);
             this.chkToggleImplicitHydrogens.TabIndex = 0;
-            this.chkToggleImplicitHydrogens.Text = "Show";
+            this.chkToggleImplicitHydrogens.Text = "Show Implicit H";
             this.toolTip1.SetToolTip(this.chkToggleImplicitHydrogens, "Check to show implicit Hydrogens");
             this.chkToggleImplicitHydrogens.UseVisualStyleBackColor = true;
             this.chkToggleImplicitHydrogens.CheckedChanged += new System.EventHandler(this.chkToggleImplicitHydrogens_CheckedChanged);
@@ -157,7 +195,7 @@
             0,
             0,
             0});
-            this.nudBondLength.Location = new System.Drawing.Point(14, 20);
+            this.nudBondLength.Location = new System.Drawing.Point(15, 23);
             this.nudBondLength.Minimum = new decimal(new int[] {
             5,
             0,
@@ -178,7 +216,7 @@
             // 
             this.btnFlip.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnFlip.Image = ((System.Drawing.Image)(resources.GetObject("btnFlip.Image")));
-            this.btnFlip.Location = new System.Drawing.Point(336, 401);
+            this.btnFlip.Location = new System.Drawing.Point(365, 513);
             this.btnFlip.Name = "btnFlip";
             this.btnFlip.Size = new System.Drawing.Size(40, 40);
             this.btnFlip.TabIndex = 16;
@@ -190,7 +228,7 @@
             // 
             this.btnMirror.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnMirror.Image = ((System.Drawing.Image)(resources.GetObject("btnMirror.Image")));
-            this.btnMirror.Location = new System.Drawing.Point(381, 401);
+            this.btnMirror.Location = new System.Drawing.Point(411, 513);
             this.btnMirror.Name = "btnMirror";
             this.btnMirror.Size = new System.Drawing.Size(40, 40);
             this.btnMirror.TabIndex = 18;
@@ -202,7 +240,7 @@
             // 
             this.btnSaveAs.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnSaveAs.Image = ((System.Drawing.Image)(resources.GetObject("btnSaveAs.Image")));
-            this.btnSaveAs.Location = new System.Drawing.Point(476, 400);
+            this.btnSaveAs.Location = new System.Drawing.Point(513, 513);
             this.btnSaveAs.Name = "btnSaveAs";
             this.btnSaveAs.Size = new System.Drawing.Size(40, 40);
             this.btnSaveAs.TabIndex = 19;
@@ -214,7 +252,7 @@
             // 
             this.btnOpen.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnOpen.Image = ((System.Drawing.Image)(resources.GetObject("btnOpen.Image")));
-            this.btnOpen.Location = new System.Drawing.Point(431, 400);
+            this.btnOpen.Location = new System.Drawing.Point(467, 513);
             this.btnOpen.Name = "btnOpen";
             this.btnOpen.Size = new System.Drawing.Size(40, 40);
             this.btnOpen.TabIndex = 20;
@@ -226,9 +264,9 @@
             // 
             this.groupBoxBondLength.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.groupBoxBondLength.Controls.Add(this.nudBondLength);
-            this.groupBoxBondLength.Location = new System.Drawing.Point(245, 393);
+            this.groupBoxBondLength.Location = new System.Drawing.Point(253, 471);
             this.groupBoxBondLength.Name = "groupBoxBondLength";
-            this.groupBoxBondLength.Size = new System.Drawing.Size(84, 50);
+            this.groupBoxBondLength.Size = new System.Drawing.Size(84, 81);
             this.groupBoxBondLength.TabIndex = 17;
             this.groupBoxBondLength.TabStop = false;
             this.groupBoxBondLength.Text = "Bond Length";
@@ -237,7 +275,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(608, 451);
+            this.ClientSize = new System.Drawing.Size(678, 562);
             this.Controls.Add(this.btnOpen);
             this.Controls.Add(this.btnSaveAs);
             this.Controls.Add(this.btnMirror);
@@ -250,10 +288,11 @@
             this.Controls.Add(this.browser);
             this.MinimumSize = new System.Drawing.Size(616, 478);
             this.Name = "ChemDoodleEditorForm";
-            this.Text = "ChemDoodle Structure Editor";
+            this.Text = "Chem4Word Structure Editor";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.TweakChemDoodle_FormClosing);
             this.Load += new System.EventHandler(this.TweakChemDoodle_Load);
             this.groupBoxExplicit.ResumeLayout(false);
+            this.groupBoxExplicit.PerformLayout();
             this.groupBoxImplicit.ResumeLayout(false);
             this.groupBoxImplicit.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudBondLength)).EndInit();
@@ -281,5 +320,8 @@
         private System.Windows.Forms.Button btnOpen;
         private System.Windows.Forms.OpenFileDialog openFile;
         private System.Windows.Forms.SaveFileDialog saveFile;
+        private System.Windows.Forms.CheckBox chkColouredAtoms;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label1;
     }
 }

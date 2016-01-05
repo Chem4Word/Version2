@@ -329,7 +329,7 @@ namespace Numbo.Coa {
                 }
             }
 
-            Debug.WriteLine("GetAsLatexFormattedString() :- " + s);
+            //Debug.WriteLine("GetAsLatexFormattedString() :- " + s);
             return s;
         }
 

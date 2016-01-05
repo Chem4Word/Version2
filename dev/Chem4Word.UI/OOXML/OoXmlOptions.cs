@@ -2,15 +2,17 @@
 
 namespace Chem4Word.UI.OOXML
 {
-    public class C4wOptions
+    public class OoXmlOptions
     {
         public Boolean ShowHydrogens { get; set; }
         public Boolean ColouredAtoms { get; set; }
+        public Boolean Changed { get; set; }
 
-        public C4wOptions()
+        public OoXmlOptions()
         {
             ShowHydrogens = true;
             ColouredAtoms = true;
+            Changed = false;
         }
     }
 }

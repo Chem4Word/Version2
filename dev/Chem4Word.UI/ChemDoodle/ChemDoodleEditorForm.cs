@@ -28,11 +28,11 @@ namespace Chem4Word.UI.ChemDoodle
 {
     public partial class ChemDoodleEditorForm : Form, IMessageFilter
     {
-        private string ms_AppTitle = "Chem4Word Editor - Powered By ChemDoodle Web V";
+        private string ms_AppTitle = "Chem4Word Structure Editor - Powered By ChemDoodle Web V";
 
         private const int WM_KEYDOWN = 0x0100;
 
-        public C4wOptions UserOptions { get; set; }
+        public OoXmlOptions UserOptions { get; set; }
         public string Before_CML { get; set; }
         public string Before_MolFile { get; set; }
         public string Before_JSON { get; set; }
@@ -101,10 +101,11 @@ namespace Chem4Word.UI.ChemDoodle
 
             string temp = Path.GetTempPath();
 
-            if (!File.Exists(Path.Combine(temp, "C4W-Version-2010.txt")))
+            string markerFileName = Path.Combine(temp, "C4W-Version-2010-Beta-6-CDW-702.txt");
+            if (!File.Exists(markerFileName))
             {
-                string markerfile = Properties.Resources.C4W_Version_2010_txt;
-                File.WriteAllText(Path.Combine(temp, "C4W-Version-2010.txt"), markerfile);
+                string markerfile = Properties.Resources.C4W_MarkerFile_txt;
+                File.WriteAllText(markerFileName, markerfile);
 
                 string cssfile = Properties.Resources.Chem4Word_css;
                 File.WriteAllText(Path.Combine(temp, "Chem4Word.css"), cssfile);
@@ -115,7 +116,7 @@ namespace Chem4Word.UI.ChemDoodle
                 string htmlfile = Properties.Resources.Offline_html;
                 File.WriteAllText(Path.Combine(temp, "Editor.html"), htmlfile);
 
-                Byte[] bytes = Properties.Resources.ChemDoodleWeb_701_zip;
+                Byte[] bytes = Properties.Resources.ChemDoodleWeb_702_zip;
                 Stream stream = new MemoryStream(bytes);
 
                 // NB: Top level of zip file must be the folder ChemDoodleWeb
@@ -132,6 +133,25 @@ namespace Chem4Word.UI.ChemDoodle
         {
             Cursor.Current = Cursors.Default;
             this.Text = ms_AppTitle + ExecuteJavaScript("GetVersion");
+
+            if (UserOptions.ColouredAtoms)
+            {
+                chkColouredAtoms.Checked = true;
+            }
+            else
+            {
+                chkColouredAtoms.Checked = false;
+            }
+            if (UserOptions.ShowHydrogens)
+            {
+                chkToggleImplicitHydrogens.Checked = true;
+            }
+            else
+            {
+                chkToggleImplicitHydrogens.Checked = false;
+            }
+
+            ExecuteJavaScript("InitialiseSketcherOptions", UserOptions.ColouredAtoms, UserOptions.ShowHydrogens);
 
             // Send JSON to ChemDoodle
             ExecuteJavaScript("SetJSON", Before_JSON);
@@ -160,17 +180,6 @@ namespace Chem4Word.UI.ChemDoodle
                     double newAverageBondLength = Math.Round(averageBondLength / 5.0) * 5;
                     nudBondLength.Value = (int)newAverageBondLength;
                 }
-            }
-
-            if (UserOptions.ShowHydrogens)
-            {
-                ExecuteJavaScript("ShowImplicitHCount");
-                chkToggleImplicitHydrogens.Checked = true;
-            }
-            else
-            {
-                ExecuteJavaScript("HideImplicitHCount");
-                chkToggleImplicitHydrogens.Checked = false;
             }
         }
 
@@ -210,8 +219,24 @@ namespace Chem4Word.UI.ChemDoodle
             }
         }
 
+        private void chkColouredAtoms_CheckedChanged(object sender, EventArgs e)
+        {
+            UserOptions.Changed = true;
+            if (chkColouredAtoms.Checked)
+            {
+                ExecuteJavaScript("AtomsInColour", true);
+                UserOptions.ColouredAtoms = true;
+            }
+            else
+            {
+                ExecuteJavaScript("AtomsInColour", false);
+                UserOptions.ColouredAtoms = false;
+            }
+        }
+
         private void chkToggleImplicitHydrogens_CheckedChanged(object sender, EventArgs e)
         {
+            UserOptions.Changed = true;
             if (chkToggleImplicitHydrogens.Checked)
             {
                 ExecuteJavaScript("ShowImplicitHCount");

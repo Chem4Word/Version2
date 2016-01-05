@@ -31,7 +31,7 @@ namespace Chem4Word.UI.OOXML.Atoms
             _telemetry = telemetry;
         }
 
-        public void CreateAtomLabelCharacters(CmlAtom atom, C4wOptions options)
+        public void CreateAtomLabelCharacters(CmlAtom atom, OoXmlOptions options)
         {
             //Debug.WriteLine("Atom: " + atom.Id + " is " + atom.ElementType);
             string module = "CreateAtomLabelCharacters()";

@@ -49,9 +49,10 @@ namespace Chem4Word.Common
             bool success = true;
             try
             {
+#if DEBUG
                 Debug.WriteLine(messageEntity.Operation);
                 Debug.WriteLine("  " + messageEntity.Level + " - " + messageEntity.Message);
-
+#else
                 messageEntity.PartitionKey = "Chem4Word";
                 messageEntity.RowKey = string.Format("{0:D19}", DateTime.MaxValue.Ticks - DateTime.UtcNow.Ticks);
 
@@ -63,6 +64,7 @@ namespace Chem4Word.Common
                 serviceContext.AddObject(tableName, messageEntity);
 
                 serviceContext.SaveChanges();
+#endif
             }
             catch (Exception ex)
             {

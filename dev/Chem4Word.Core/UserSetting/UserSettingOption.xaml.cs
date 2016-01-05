@@ -190,31 +190,7 @@ namespace Chem4Word.Core.UserSetting
             Setting.RenderImplicitHydrogens = (chkShowImplicitHydrogens.IsChecked == true);
 
             /// Write to Settings File
-            using (XmlWriter xw = XmlWriter.Create(settingfile))
-            {
-                XDocument userSetting = new XDocument(new XElement("userSetting",
-                                                                   new XElement("importOption",
-                                                                                new XAttribute("value",
-                                                                                               Setting.Import.ToString())),
-                                                                   new XElement("documentPreferedDepiction",
-                                                                                new XAttribute("value",
-                                                                                               Setting.DocumentPreferedDepiction.ToString())),
-                                                                   new XElement("navigatorPreferedDepiction",
-                                                                                new XAttribute("value",
-                                                                                               Setting.NavigatorPreferedDepiction.ToString())),
-                                                                                                   new XElement("collapseNavigatorDepiction",
-                                                                                new XAttribute("value",
-                                                                                               Setting.CollapseNavigatorDepiction.ToString())),
-                                                                   new XElement("ooXmlRenderAtomsInColour",
-                                                                                new XAttribute("value",
-                                                                                               Setting.RenderAtomsInColour.ToString())),
-                                                                   new XElement("ooXmlRenderImplicitHydrogens",
-                                                                                new XAttribute("value",
-                                                                                               Setting.RenderImplicitHydrogens.ToString()))
-
-                                                          ));
-                userSetting.WriteTo(xw);
-            }
+            Setting.SaveSettings(settingfile);
 
             this.Hide();
         }

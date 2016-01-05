@@ -139,6 +139,23 @@ function RemoveHydrogens() {
     sketcher.repaint();
 }
 
+function InitialiseSketcherOptions(showAtomsInColour, showImplicitHydrogens) {
+    var mol = sketcher.getMolecule();
+    sketcher.specs.atoms_useJMOLColors = showAtomsInColour;
+    sketcher.specs.atoms_implicitHydrogens_2D = showImplicitHydrogens;
+    sketcher.loadMolecule(mol);
+    sketcher.center();
+    sketcher.repaint();
+}
+
+function AtomsInColour(value) {
+    var mol = sketcher.getMolecule();
+    sketcher.specs.atoms_useJMOLColors = value;
+    sketcher.loadMolecule(mol);
+    sketcher.center();
+    sketcher.repaint();
+}
+
 function HideImplicitHCount() {
     var mol = sketcher.getMolecule();
     sketcher.specs.atoms_implicitHydrogens_2D = false;
