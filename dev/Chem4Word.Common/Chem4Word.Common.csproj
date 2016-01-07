@@ -46,6 +46,7 @@
     <Compile Include="RegistryWOW6432.cs" />
     <Compile Include="SystemHelper.cs" />
     <Compile Include="Telemetry.cs" />
+    <Compile Include="Utilities\SafeDate.cs" />
     <Compile Include="Utilities\SafeDouble.cs" />
   </ItemGroup>
   <ItemGroup>
