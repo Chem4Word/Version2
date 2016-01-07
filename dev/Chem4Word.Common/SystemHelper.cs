@@ -384,6 +384,7 @@ namespace Chem4Word.Common
             // Office 2007 https://support.microsoft.com/en-us/kb/928516
             // Office 2010 https://support.microsoft.com/en-us/kb/2186281
             // Office 2013 https://support.microsoft.com/en-us/kb/2786054
+            // Office 2016 https://support.microsoft.com/en-us/kb/3120274
 
             //           1         2         3
             // 01234567890123456789012345678901234567
@@ -535,10 +536,16 @@ namespace Chem4Word.Common
                     switch (productId)
                     {
                         case "000F":
-                            result = "Microsoft Office 2016 Professional Plus - en-us";
+                            result = "Microsoft Office 2016 Professional Plus";
                             break;
-                        case "":
-                            result = "";
+                        case "0011":
+                            result = "Microsoft Office Professional Plus 2016";
+                            break;
+                        case "0012":
+                            result = "Microsoft Office Standard 2016";
+                            break;
+                        case "001B":
+                            result = "Microsoft Word 2016";
                             break;
                         default:
                             result = "Microsoft Office 2016 " + officeGuid;
