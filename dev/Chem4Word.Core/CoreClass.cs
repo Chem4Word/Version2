@@ -15,6 +15,7 @@ using System.Net;
 using System.Text.RegularExpressions;
 using System.Timers;
 using System.Windows;
+using System.Windows.Forms;
 using System.Xml;
 using System.Xml.Linq;
 using System.Xml.XPath;
@@ -35,11 +36,13 @@ using Chem4Word.UI.OOXML;
 using Chem4Word.UI.Properties;
 using Chem4Word.UI.Tools;
 using Chem4Word.UI.TwoD;
+using Chem4Word.UI.UIControls;
 using Chem4Word.UI.WebServices;
 using log4net;
 using Microsoft.Office.Core;
 using Microsoft.Office.Interop.Word;
 using Microsoft.Office.Tools.Word.Extensions;
+using Microsoft.Win32;
 using Numbo;
 using Numbo.Cml;
 using Numbo.Coa;
@@ -119,6 +122,9 @@ namespace Chem4Word.Core
                 // Check if [LocalApplicationData]\Chem4Word\Chemistry Gallery\Chem4Word{version}.dotx
                 //  is missing and recover it from Program Folder if necessary
                 CheckForRecovery();
+
+                // Check to see if we are running the latest version
+                CheckForUpdates();
 
                 // Load SmartTag
                 smartTag = new ChemistrySmartTag(this);
@@ -679,6 +685,68 @@ namespace Chem4Word.Core
                 list.Add(new KeyValuePair<string, object>("Height", documentHostControl.Height));
             }
             return list.ToArray();
+        }
+
+        private void CheckForUpdates()
+        {
+            string module = "CoreClass.CheckForUpdates()";
+
+            try
+            {
+                if (!string.IsNullOrEmpty(assemblyDirectoryName))
+                {
+                    #region CheckForUpdate
+
+                    string existingVersionXmlFile = Path.Combine(assemblyDirectoryName, @"Data\Version.xml");
+                    if (File.Exists(existingVersionXmlFile))
+                    {
+                        XDocument currentVersion = XDocument.Load(existingVersionXmlFile);
+                        string currentVersionNumber = currentVersion.Root.Element("Number").Value;
+                        DateTime currentReleaseDate = SafeDate.Parse(currentVersion.Root.Element("Released").Value);
+                        Debug.WriteLine("Current Version " + currentVersionNumber + " Released " + currentReleaseDate.ToString("dd-MMM-yyyy"));
+
+                        string tempPath = Path.GetTempPath();
+                        string updatexml = "Chem4Word-Versions.xml";
+                        string latestVersionXmlFile = Path.Combine(tempPath, updatexml);
+
+                        string versionsLink = "http://www.chem4word.co.uk/files/" + updatexml;
+                        WebClient client = new WebClient();
+                        client.DownloadFile(versionsLink, latestVersionXmlFile);
+
+                        bool updateRequired = false;
+                        XDocument latestVersion = XDocument.Load(latestVersionXmlFile);
+                        var versions = latestVersion.XPathSelectElements("//Version");
+                        foreach (var version in versions)
+                        {
+                            var thisVersionNumber = version.Element("Number").Value;
+                            DateTime thisVersionDate = SafeDate.Parse(version.Element("Released").Value);
+                            Debug.WriteLine("New Version " + thisVersionNumber + " Released " + thisVersionDate.ToString("dd-MMM-yyyy"));
+                            if (thisVersionDate > currentReleaseDate)
+                            {
+                                updateRequired = true;
+                                break;
+                            }
+                        }
+
+                        if (updateRequired)
+                        {
+                            AutomaticUpdate au = new AutomaticUpdate();
+                            au.CurrentVersion = currentVersion;
+                            au.NewVersions = latestVersion;
+
+                            DialogResult dr = au.ShowDialog();
+                        }
+                    }
+                    #endregion
+                }
+            }
+            catch (Exception Ex)
+            {
+                Debug.WriteLine(Ex.Message);
+                Log.Error(Ex.Message);
+                _telemetry.Write(module, "Exception", Ex.Message);
+            }
+
         }
 
         /// <summary>

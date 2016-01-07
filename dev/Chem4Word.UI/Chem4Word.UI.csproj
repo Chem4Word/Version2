@@ -79,6 +79,7 @@
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
+    <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq">
@@ -220,6 +221,12 @@
     </Compile>
     <Compile Include="TwoD\RadialPanel.cs" />
     <Compile Include="TwoD\ViewBox.cs" />
+    <Compile Include="UIControls\AutomaticUpdate.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UIControls\AutomaticUpdate.Designer.cs">
+      <DependentUpon>AutomaticUpdate.cs</DependentUpon>
+    </Compile>
     <Compile Include="UIControls\ProgressBar.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -479,6 +486,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ChemDoodle\ChemDoodleEditorForm.resx">
       <DependentUpon>ChemDoodleEditorForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UIControls\AutomaticUpdate.resx">
+      <DependentUpon>AutomaticUpdate.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UIControls\ProgressBar.resx">
       <DependentUpon>ProgressBar.cs</DependentUpon>

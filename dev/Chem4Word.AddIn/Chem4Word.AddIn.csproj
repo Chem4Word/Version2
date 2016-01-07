@@ -312,6 +312,10 @@
     <Content Include="Data\Template-2010\f9f7d80b-f705-49b1-a86a-8da13f52d6cc.cml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Data\Version.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="EULA\Chemistry Add-in for Word EULA.rtf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -1071,6 +1075,9 @@
     <Content Include="Resources\EmptyStructure.xml">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="Resources\ms-word-16.ico" />
+    <Content Include="Resources\New Chemistry.png" />
+    <Content Include="Resources\word-icon.png" />
     <Content Include="User Setting.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
