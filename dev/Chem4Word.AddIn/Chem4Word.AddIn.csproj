@@ -327,6 +327,7 @@
     </None>
     <None Include="Data\SmartTag\10100.cml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
     </None>
     <None Include="Data\SmartTag\10178.cml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -1077,6 +1078,9 @@
     </Content>
     <Content Include="Resources\ms-word-16.ico" />
     <Content Include="Resources\New Chemistry.png" />
+    <Content Include="Data\Word-2010 AddIn.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\word-icon.png" />
     <Content Include="User Setting.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
