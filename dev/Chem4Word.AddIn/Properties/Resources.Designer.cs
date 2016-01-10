@@ -80,7 +80,7 @@ namespace Chem4Word.AddIn.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 2015.
+        ///   Looks up a localized string similar to 2016.
         /// </summary>
         internal static string COPYRIGHT_YEAR {
             get {
