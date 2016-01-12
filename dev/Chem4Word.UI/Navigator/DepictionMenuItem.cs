@@ -9,6 +9,7 @@ using System.Drawing;
 using System.IO;
 using System.Windows.Controls;
 using System.Xml.Linq;
+using Chem4Word.Common;
 using Chem4Word.UI.Tools;
 using Chem4Word.UI.TwoD;
 using Microsoft.Office.Interop.Word;
@@ -32,9 +33,12 @@ namespace Chem4Word.UI.Navigator
         {
             if (Depiction.Is2D(depictionOption))
             {
+                // Invert image only in Word 2007
+                SystemHelper systemHelper = new SystemHelper();
+                bool invertY = systemHelper.WordVersion > 2007;
                 CanvasContainer editor = new CanvasContainer(contextObject,
                                                              new CmlMolecule(
-                                                                 (XElement) depictionOption.MachineUnderstandableOption).CloneMolecule(1.54, false));
+                                                                 (XElement) depictionOption.MachineUnderstandableOption).CloneMolecule(1.54, invertY));
                 editor.GeneratePng(true);
 
                 Image img = new Image
