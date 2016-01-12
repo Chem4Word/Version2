@@ -84,7 +84,7 @@ namespace Chem4Word.Core
         private static TermDictionaryManager _termDictionary;
 
         private static Timer _purgeTimer;
-        private ContentControl controlToTimer;
+        //private ContentControl controlToTimer;
 
         private static Telemetry _telemetry;
 
@@ -700,7 +700,7 @@ namespace Chem4Word.Core
                 {
                     #region CheckForUpdate
 
-                    string existingVersionXmlFile = Path.Combine(assemblyDirectoryName, @"Data\Version.xml");
+                    string existingVersionXmlFile = Path.Combine(assemblyDirectoryName, @"Data\This-Version.xml");
                     if (File.Exists(existingVersionXmlFile))
                     {
                         XDocument currentVersion = XDocument.Load(existingVersionXmlFile);

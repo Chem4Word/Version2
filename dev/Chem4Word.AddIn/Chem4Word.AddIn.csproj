@@ -266,6 +266,7 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <None Include="Chem4WordAddIn.pfx" />
+    <Content Include="Data\Chem4Word-Versions.xml" />
     <Content Include="Data\Mapping.txt" />
     <Content Include="Data\SmartTag\smart-tag-dict.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -312,7 +313,7 @@
     <Content Include="Data\Template-2010\f9f7d80b-f705-49b1-a86a-8da13f52d6cc.cml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Data\Version.xml">
+    <Content Include="Data\This-Version.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <SubType>Designer</SubType>
     </Content>
