@@ -123,8 +123,11 @@ namespace Chem4Word.Core
                 //  is missing and recover it from Program Folder if necessary
                 CheckForRecovery();
 
+#if DEBUG
+#else
                 // Check to see if we are running the latest version
                 CheckForUpdates();
+#endif
 
                 // Load SmartTag
                 smartTag = new ChemistrySmartTag(this);
