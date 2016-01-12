@@ -100,7 +100,7 @@ namespace Chem4Word.UI.TwoD
         /// </summary>
         public void GeneratePng(bool transparentBackground)
         {
-            Log.Info("drawing (transparent = "+ transparentBackground+")");
+            //Log.Info("drawing (transparent = "+ transparentBackground+")");
 
             // redraw the molecule with new bounds and using the png border
             chemCanvas.GeneratePng();

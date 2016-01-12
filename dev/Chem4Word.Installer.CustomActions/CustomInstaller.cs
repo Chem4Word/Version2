@@ -231,7 +231,8 @@ namespace CustomInstaller
                 Is64BitMachine();
 
                 //Remove User profile specific files
-                RemoveSettingsFileToUserProfile(Resource.UNINSTALLACTION);
+                // MAW 12-Jan-2016 - Should not be removing user data such as template which contains their personal gallery
+                //RemoveSettingsFileToUserProfile(Resource.UNINSTALLACTION);
             }
             catch (SecurityException ex)
             {
