@@ -73,7 +73,10 @@ namespace Chem4Word.UI.About
         {
             Process.Start("http://web.chemdoodle.com");
         }
-
+        private void HyperlinkClick6(object sender, RoutedEventArgs e)
+        {
+            Process.Start("http://chem4word.co.uk/");
+        }
         private void OkButtonClick(object sender, RoutedEventArgs e)
         {
             Close();
