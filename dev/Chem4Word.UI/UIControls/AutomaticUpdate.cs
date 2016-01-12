@@ -82,10 +82,16 @@ namespace Chem4Word.UI.UIControls
                 // Un-Install previous version
                 if (!string.IsNullOrEmpty(_existingVersionGuid))
                 {
-                    sb.AppendLine("msiexec.exe /x " + _existingVersionGuid);
+                    sb.AppendLine("call msiexec.exe /x " + _existingVersionGuid);
                 }
-                // Install new version
+                sb.AppendLine("if %errorlevel%==0 goto success");
+                sb.AppendLine("goto end");
+
+                // Install new version if uninstall was successful
+                sb.AppendLine(":success");
                 sb.AppendLine(_latestMsiFilePath);
+
+                sb.AppendLine(":end");
 
                 string cmdFile = Path.Combine(Path.GetTempPath(), "remove-old-chem4word.bat");
                 File.WriteAllText(cmdFile, sb.ToString());

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- This file must be uploaded to http://www.chem4word.co.uk/files/ folder as Chem4Word-Versions.xml -->
+<ChangeLog>
+  <Version>
+    <Number>2.0.1.0 Beta 6</Number>
+    <IsBeta>true</IsBeta>
+    <Released>12-Jan-2016</Released>
+    <Changes>
+      <Change>Automatic check for new version</Change>
+      <Change>Synchronise options for editor and rendering</Change>
+      <Change>New draw structure button</Change>
+      <Change>Better error handling when reading file "user settings.xml"</Change>
+      <Change>Updated ChemDoodle Web to 7.0.2</Change>
+      <Change>Localised Open XML SDK</Change>
+      <Change>Fix bug in Un-Install which caused "C:\Users\{UserName}\AppData\Local\Chemistry Add-in for Word" folder to be deleted</Change>
+    </Changes>
+    <Url>http://www.chem4word.co.uk/files/Chem4Word.Setup.2.0.1.0.Beta.6.msi</Url>
+  </Version>
+  <Version>
+    <Number>2.0.1.0 Beta 5</Number>
+    <IsBeta>true</IsBeta>
+    <Released>01-Dec-2015</Released>
+    <Changes>
+      <Change>Beta 5</Change>
+    </Changes>
+    <Url>http://www.chem4word.co.uk/files/Chem4Word.Setup.2.0.1.0.Beta.5.msi</Url>
+  </Version>
+</ChangeLog>
