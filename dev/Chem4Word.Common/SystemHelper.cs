@@ -14,6 +14,7 @@ using System.Globalization;
 using System.IO;
 using System.Net;
 using System.Reflection;
+using System.Security.Principal;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
@@ -61,6 +62,13 @@ namespace Chem4Word.Common
             #endregion
 
             #region Get OS Version
+
+            // The current code returns 6.2.* for Windows 8.1 and Windows 10 on some systems
+            // https://msdn.microsoft.com/en-gb/library/windows/desktop/ms724832(v=vs.85).aspx
+            // https://msdn.microsoft.com/en-gb/library/windows/desktop/dn481241(v=vs.85).aspx
+            // However as we do not NEED the exact version number,
+            //  I am not going to implement the above as they are too risky
+
             try
             {
                 OperatingSystem operatingSystem = Environment.OSVersion;

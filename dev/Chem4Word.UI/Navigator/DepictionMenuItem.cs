@@ -21,21 +21,20 @@ namespace Chem4Word.UI.Navigator
 {
     public class DepictionMenuItem : MenuItem
     {
-        public DepictionMenuItem(ContextObject contextObject, DepictionOption depictionOption)
+        public DepictionMenuItem(ContextObject contextObject, DepictionOption depictionOption, int wordVersion)
         {
             DepictionOption = depictionOption;
-            CreateList(contextObject, depictionOption);
+            CreateList(contextObject, depictionOption, wordVersion);
         }
 
         public DepictionOption DepictionOption { get; private set; }
 
-        private void CreateList(ContextObject contextObject, DepictionOption depictionOption)
+        private void CreateList(ContextObject contextObject, DepictionOption depictionOption, int wordVersion)
         {
             if (Depiction.Is2D(depictionOption))
             {
                 // Invert image only in Word 2007
-                SystemHelper systemHelper = new SystemHelper();
-                bool invertY = systemHelper.WordVersion > 2007;
+                bool invertY = wordVersion > 2007;
                 CanvasContainer editor = new CanvasContainer(contextObject,
                                                              new CmlMolecule(
                                                                  (XElement) depictionOption.MachineUnderstandableOption).CloneMolecule(1.54, invertY));

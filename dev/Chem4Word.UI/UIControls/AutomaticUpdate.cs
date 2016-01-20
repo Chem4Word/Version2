@@ -52,6 +52,9 @@ namespace Chem4Word.UI.UIControls
         private void btnUpdateNow_Click(object sender, EventArgs e)
         {
             progressBar1.Value = 0;
+            btnUpdateNow.Enabled = false;
+            Cursor.Current = Cursors.AppStarting;
+
             _webClient = new WebClient();
             var uri = new Uri(_downloadUrl);
 
