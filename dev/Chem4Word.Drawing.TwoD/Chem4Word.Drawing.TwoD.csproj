@@ -73,9 +73,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\Euclid\Euclid.csproj">
       <Project>{D78B7D21-FA43-45B5-86FF-E03DFA55C4BC}</Project>
       <Name>Euclid</Name>

@@ -266,7 +266,10 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <None Include="Chem4WordAddIn.pfx" />
-    <Content Include="Data\Chem4Word-Versions.xml" />
+    <Content Include="Data\Chem4Word-Versions.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Data\index.html" />
     <Content Include="Data\Mapping.txt" />
     <Content Include="Data\SmartTag\smart-tag-dict.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -990,7 +993,6 @@
     <None Include="Data\SmartTag\valine.cml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

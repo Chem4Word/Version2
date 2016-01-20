@@ -2,6 +2,17 @@
 <!-- This file must be uploaded to http://www.chem4word.co.uk/files/ folder as Chem4Word-Versions.xml -->
 <ChangeLog>
   <Version>
+    <Number>2.0.1.0 Beta 7</Number>
+    <IsBeta>true</IsBeta>
+    <Released>20-Jan-2016</Released>
+    <Changes>
+      <Change>Fixed bug with thumbnails in navigator</Change>
+      <Change>Better error handling in Opsin and ChemSpider search</Change>
+      <Change>Specify OpenXml version in app.config of UI assembly</Change>
+    </Changes>
+    <Url>http://www.chem4word.co.uk/files/Chem4Word.Setup.2.0.1.0.Beta.7.msi</Url>
+  </Version>
+  <Version>
     <Number>2.0.1.0 Beta 6</Number>
     <IsBeta>true</IsBeta>
     <Released>12-Jan-2016</Released>
@@ -11,7 +22,7 @@
       <Change>New draw structure button</Change>
       <Change>Better error handling when reading file "user settings.xml"</Change>
       <Change>Updated ChemDoodle Web to 7.0.2</Change>
-      <Change>Localised Open XML SDK</Change>
+      <Change>Localised Open XML SDK (no need to install)</Change>
       <Change>Fix bug in Un-Install which caused "C:\Users\{UserName}\AppData\Local\Chemistry Add-in for Word" folder to be deleted</Change>
     </Changes>
     <Url>http://www.chem4word.co.uk/files/Chem4Word.Setup.2.0.1.0.Beta.6.msi</Url>
@@ -19,10 +30,46 @@
   <Version>
     <Number>2.0.1.0 Beta 5</Number>
     <IsBeta>true</IsBeta>
-    <Released>01-Dec-2015</Released>
+    <Released>13-Dec-2015</Released>
     <Changes>
-      <Change>Beta 5</Change>
+      <Change>Revised thumbnails in navigator</Change>
     </Changes>
     <Url>http://www.chem4word.co.uk/files/Chem4Word.Setup.2.0.1.0.Beta.5.msi</Url>
+  </Version>
+  <Version>
+    <Number>2.0.1.0 Beta 4</Number>
+    <IsBeta>true</IsBeta>
+    <Released>02-Dec-2015</Released>
+    <Changes>
+      <Change>Automatic download and install of OpenXml SDK</Change>
+    </Changes>
+    <Url>http://www.chem4word.co.uk/files/Chem4Word.Setup.2.0.1.0.Beta.4.msi</Url>
+  </Version>
+  <Version>
+    <Number>2.0.1.0 Beta 3</Number>
+    <IsBeta>true</IsBeta>
+    <Released>25-Nov-2015</Released>
+    <Changes>
+      <Change>Improved error trapping during start up</Change>
+    </Changes>
+    <Url>http://www.chem4word.co.uk/files/Chem4Word.Setup.2.0.1.0.Beta.3.msi</Url>
+  </Version>
+  <Version>
+    <Number>2.0.1.0 Beta 2</Number>
+    <IsBeta>true</IsBeta>
+    <Released>16-Nov-2015</Released>
+    <Changes>
+      <Change>Rendering of charges fixed</Change>
+    </Changes>
+    <Url>http://www.chem4word.co.uk/files/Chem4Word.Setup.2.0.1.0.Beta.2.msi</Url>
+  </Version>
+  <Version>
+    <Number>2.0.1.0 Beta</Number>
+    <IsBeta>true</IsBeta>
+    <Released>09-Nov-2015</Released>
+    <Changes>
+      <Change>Rendering structures using OOXML</Change>
+    </Changes>
+    <Url>http://www.chem4word.co.uk/files/Chem4Word.Setup.2.0.1.0.Beta.msi</Url>
   </Version>
 </ChangeLog>

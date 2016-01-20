@@ -126,7 +126,7 @@ namespace Chem4Word.Core {
 
                     contentControl.Range.InsertFile(tempfileName, bookmarkName);
                     TimeSpan ts2 = DateTime.Now - started2;
-                    document.WriteTelemetry(module, "Information", "Range.InsertFile took " + ts2.TotalMilliseconds.ToString("#,##0.0") + "ms");
+                    //document.WriteTelemetry(module, "Information", "Range.InsertFile took " + ts2.TotalMilliseconds.ToString("#,##0.0") + "ms");
                     contentControl.Title = Resources.ChemistryZoneAlias;
 
                     if (document.WordDocument.Bookmarks.Exists(bookmarkName))

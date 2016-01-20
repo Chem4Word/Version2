@@ -611,7 +611,7 @@ namespace Chem4Word.AddIn
         ///<param name = "sender">ID of ribbon control</param>
         public void PubChemLookUpClick(IRibbonControl sender)
         {
-            string module = "ChemistrRibbon.PubChemLookUpClick()";
+            string module = "ChemistryRibbon.PubChemLookUpClick()";
             try
             {
                 core.PubChemLookUpClick();

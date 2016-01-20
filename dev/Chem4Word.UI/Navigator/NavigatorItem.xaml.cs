@@ -156,10 +156,10 @@ namespace Chem4Word.UI.Navigator
                 var depictionOption in
                     Depiction.PossibleDepictionOptions(ContextObjectProperty))
             {
-                var linkDepictionMenuItem = new DepictionMenuItem(ContextObjectProperty, depictionOption);
+                var linkDepictionMenuItem = new DepictionMenuItem(ContextObjectProperty, depictionOption, chemistryZone.WordVersion);
                 linkDepictionMenuItem.Click += LinkedMenuItemClick;
                 linkMenuItem.Items.Add(linkDepictionMenuItem);
-                var copyDepictionMenuItem = new DepictionMenuItem(ContextObjectProperty, depictionOption);
+                var copyDepictionMenuItem = new DepictionMenuItem(ContextObjectProperty, depictionOption, chemistryZone.WordVersion);
                 copyDepictionMenuItem.Click += CopyMenuItemClick;
                 copyMenuItem.Items.Add(copyDepictionMenuItem);
 
@@ -387,7 +387,7 @@ namespace Chem4Word.UI.Navigator
             var possibleDepictionOptions =
                 Depiction.PossibleDepictionOptions(ContextObjectProperty).SkipWhile(Depiction.Is2D);
             foreach (var titleMenuItem in
-                possibleDepictionOptions.Select(depictionOption => new DepictionMenuItem(ContextObjectProperty, depictionOption)))
+                possibleDepictionOptions.Select(depictionOption => new DepictionMenuItem(ContextObjectProperty, depictionOption, chemistryZone.WordVersion)))
             {
                 navigatorItemTitleDepictionOptionsMenu.Items.Add(titleMenuItem);
                 titleMenuItem.Click += TitleMenuItemClick;

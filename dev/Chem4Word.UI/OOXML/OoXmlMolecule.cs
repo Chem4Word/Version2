@@ -282,7 +282,7 @@ namespace Chem4Word.UI.OOXML
                             else
                             {
                                 _telemetry.Write(module, "Warning", "Line was clipped at both ends");
-                                _telemetry.Write(module, "Info", "Character: " + alc.Ascii + " Rectangle: " + a);
+                                _telemetry.Write(module, "Information", "Character: " + alc.Ascii + " Rectangle: " + a);
                                 _telemetry.Write(module, "Warning", "Original; From " + bl.StartX.ToString("#0.0000")
                                                                             + "," + bl.StartY.ToString("#0.0000")
                                                                             + " To " + bl.EndX.ToString("#0.0000")

@@ -120,7 +120,6 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
     <None Include="Resources\aminoacids.xml" />
   </ItemGroup>
   <ItemGroup>

@@ -520,7 +520,7 @@ namespace Chem4Word.Core
                     DateTime started2 = DateTime.Now;
                     control.Range.InsertFile(tempfileName, bookmarkName);
                     TimeSpan ts2 = DateTime.Now - started2;
-                    WriteTelemetry(module, "Information", "Range.InsertFile took " + ts2.TotalMilliseconds.ToString("#,##0.0") + "ms");
+                    //WriteTelemetry(module, "Information", "Range.InsertFile took " + ts2.TotalMilliseconds.ToString("#,##0.0") + "ms");
 
                     if (wordApp.ActiveDocument.Bookmarks.Exists(bookmarkName))
                     {
@@ -749,7 +749,6 @@ namespace Chem4Word.Core
                 Log.Error(Ex.Message);
                 _telemetry.Write(module, "Exception", Ex.Message);
             }
-
         }
 
         /// <summary>
@@ -1020,7 +1019,7 @@ namespace Chem4Word.Core
                         DateTime started2 = DateTime.Now;
                         control.Range.InsertFile(tempfileName, bookmarkName);
                         TimeSpan ts2 = DateTime.Now - started2;
-                        WriteTelemetry(module, "Information", "Range.InsertFile took " + ts2.TotalMilliseconds.ToString("#,##0.0") + "ms");
+                        //WriteTelemetry(module, "Information", "Range.InsertFile took " + ts2.TotalMilliseconds.ToString("#,##0.0") + "ms");
 
                         if (wordApp.ActiveDocument.Bookmarks.Exists(bookmarkName))
                         {
@@ -2635,7 +2634,7 @@ namespace Chem4Word.Core
         public IChemistryZone OpsinLookUpClick()
         {
             string module = "CoreClass.OpsinLookUpClick()";
-            _telemetry.Write(module, "Information", "");
+            //_telemetry.Write(module, "Information", "");
             string searchTerm = string.Empty;
             if (wordApp.Selection.ContentControls.Count == 0 &&
                 wordApp.Selection.Range.Start != wordApp.Selection.Range.End)
@@ -2648,45 +2647,61 @@ namespace Chem4Word.Core
         public IChemistryZone OpsinLookUpSearch(string searchTerm)
         {
             string module = "CoreClass.OpsinLookUpSearch()";
-            _telemetry.Write(module, "Information", searchTerm);
+
+            string searchResult = string.Empty;
             IChemistryZone chemistryZone = null;
-            var opsinLookUp = new OpsinLookUp { SearchTerm = searchTerm };
-            if (opsinLookUp.ShowDialog() == true)
+
+            try
             {
-                ImportMediator importMediator = new ImportMediator();
-                importMediator.Start(opsinLookUp.ResultDocument);
-                if (importMediator.Worked())
+                var opsinLookUp = new OpsinLookUp { SearchTerm = searchTerm };
+                if (opsinLookUp.ShowDialog() == true)
                 {
-                    ContextObject contextObject = Cid.RemoveMoleculeBoldNumberLabels(importMediator.GetContextObject(),
-                                                                                     importMediator.GetContextObject().
-                                                                                         Cml.
-                                                                                         Root);
+                    _telemetry.Write(module, "Information", "Search Term: '" + opsinLookUp.SearchTerm + "'");
+                    searchResult = opsinLookUp.ResultDocument.ToString();
 
-                    DepictionOption documentDepictionOption = GetPreferedDocumentDepiction(contextObject,
-                                                                                           Setting.
-                                                                                               DocumentPreferedDepiction);
-                    DepictionOption navigatorDepictionOption = GetPreferedNavigatorDepiction(contextObject,
-                                                                                             Setting.
-                                                                                                 NavigatorPreferedDepiction);
-                    var chemistryZoneProperties = new ChemistryZoneProperties(documentDepictionOption,
-                                                                              navigatorDepictionOption,
-                                                                              Setting.CollapseNavigatorDepiction);
-
-                    Range range = wordApp.ActiveDocument.ActiveWindow.Selection.Range;
-
-                    CmlMolecule mol = new CmlMolecule((XElement)documentDepictionOption.MachineUnderstandableOption);
-                    double? averageBondLength = mol.GetAverageBondLength();
-                    if (WordVersion > 2007 && averageBondLength < 5)
+                    ImportMediator importMediator = new ImportMediator();
+                    importMediator.Start(opsinLookUp.ResultDocument);
+                    if (importMediator.Worked())
                     {
-                        mol.ScaleToAverageBondLength(20);
-                        _telemetry.Write(module, "Information",
-                            "Changed average bond length from "
-                            + SafeDouble.AsString(averageBondLength, "#0.000") + " to 20");
-                    }
+                        ContextObject contextObject = Cid.RemoveMoleculeBoldNumberLabels(importMediator.GetContextObject(),
+                                                                                         importMediator.GetContextObject().
+                                                                                             Cml.
+                                                                                             Root);
 
-                    chemistryZone = AddNewContextObjectToDocument(range, contextObject,
-                                                                  chemistryZoneProperties);
+                        DepictionOption documentDepictionOption = GetPreferedDocumentDepiction(contextObject,
+                                                                                               Setting.
+                                                                                                   DocumentPreferedDepiction);
+                        DepictionOption navigatorDepictionOption = GetPreferedNavigatorDepiction(contextObject,
+                                                                                                 Setting.
+                                                                                                     NavigatorPreferedDepiction);
+                        var chemistryZoneProperties = new ChemistryZoneProperties(documentDepictionOption,
+                                                                                  navigatorDepictionOption,
+                                                                                  Setting.CollapseNavigatorDepiction);
+
+                        Range range = wordApp.ActiveDocument.ActiveWindow.Selection.Range;
+
+                        CmlMolecule mol = new CmlMolecule((XElement)documentDepictionOption.MachineUnderstandableOption);
+                        double? averageBondLength = mol.GetAverageBondLength();
+                        if (WordVersion > 2007 && averageBondLength < 5)
+                        {
+                            mol.ScaleToAverageBondLength(20);
+                            _telemetry.Write(module, "Information",
+                                "Changed average bond length from "
+                                + SafeDouble.AsString(averageBondLength, "#0.000") + " to 20");
+                        }
+
+                        chemistryZone = AddNewContextObjectToDocument(range, contextObject,
+                                                                      chemistryZoneProperties);
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex);
+                _telemetry.Write(module, "Exception", ex.Message);
+                _telemetry.Write(module, "Exception(Data)", searchResult);
+                MessageBox.Show(ex.Message, Resources.CHEM_4_WORD_MESSAGE_BOX_TITLE, MessageBoxButton.OK,
+                                MessageBoxImage.Stop);
             }
             return chemistryZone;
         }
@@ -2694,47 +2709,63 @@ namespace Chem4Word.Core
         public IChemistryZone PubChemLookUpSearch(string searchTerm)
         {
             string module = "CoreClass.PubChemLookUpSearch()";
-            _telemetry.Write(module, "Information", searchTerm);
 
+            string searchResult = string.Empty;
             IChemistryZone chemistryZone = null;
-            var pubChemLookUp = new PubChemSearch { SearchTerm = searchTerm };
-            if (pubChemLookUp.ShowDialog() == true)
+
+            try
             {
-                ImportMediator importMediator = new ImportMediator();
-                importMediator.Start(pubChemLookUp.ResultDocument);
-                if (importMediator.Worked())
+                var pubChemLookUp = new PubChemSearch { SearchTerm = searchTerm };
+                if (pubChemLookUp.ShowDialog() == true)
                 {
-                    ContextObject contextObject = Cid.RemoveMoleculeBoldNumberLabels(importMediator.GetContextObject(),
-                                                                                     importMediator.GetContextObject().
-                                                                                         Cml.
-                                                                                         Root);
+                    _telemetry.Write(module, "Information", "Search Term: '" + pubChemLookUp.SearchTerm + "'");
+                    searchResult = pubChemLookUp.ResultDocument.ToString();
 
-                    DepictionOption documentDepictionOption = GetPreferedDocumentDepiction(contextObject,
-                                                                                           Setting.
-                                                                                               DocumentPreferedDepiction);
-                    DepictionOption navigatorDepictionOption = GetPreferedNavigatorDepiction(contextObject,
-                                                                                             Setting.
-                                                                                                 NavigatorPreferedDepiction);
-                    var chemistryZoneProperties = new ChemistryZoneProperties(documentDepictionOption,
-                                                                              navigatorDepictionOption,
-                                                                              Setting.CollapseNavigatorDepiction);
-
-                    Range range = wordApp.ActiveDocument.ActiveWindow.Selection.Range;
-
-                    CmlMolecule mol = new CmlMolecule((XElement)documentDepictionOption.MachineUnderstandableOption);
-                    double? averageBondLength = mol.GetAverageBondLength();
-                    if (WordVersion > 2007 && averageBondLength < 5)
+                    ImportMediator importMediator = new ImportMediator();
+                    importMediator.Start(pubChemLookUp.ResultDocument);
+                    if (importMediator.Worked())
                     {
-                        mol.ScaleToAverageBondLength(20);
-                        _telemetry.Write(module, "Information",
-                            "Changed average bond length from "
-                            + SafeDouble.AsString(averageBondLength, "#0.000") + " to 20");
-                    }
+                        ContextObject contextObject = Cid.RemoveMoleculeBoldNumberLabels(importMediator.GetContextObject(),
+                                                                                         importMediator.GetContextObject().
+                                                                                             Cml.
+                                                                                             Root);
 
-                    chemistryZone = AddNewContextObjectToDocument(range, contextObject,
-                                                                  chemistryZoneProperties);
+                        DepictionOption documentDepictionOption = GetPreferedDocumentDepiction(contextObject,
+                                                                                               Setting.
+                                                                                                   DocumentPreferedDepiction);
+                        DepictionOption navigatorDepictionOption = GetPreferedNavigatorDepiction(contextObject,
+                                                                                                 Setting.
+                                                                                                     NavigatorPreferedDepiction);
+                        var chemistryZoneProperties = new ChemistryZoneProperties(documentDepictionOption,
+                                                                                  navigatorDepictionOption,
+                                                                                  Setting.CollapseNavigatorDepiction);
+
+                        Range range = wordApp.ActiveDocument.ActiveWindow.Selection.Range;
+
+                        CmlMolecule mol = new CmlMolecule((XElement)documentDepictionOption.MachineUnderstandableOption);
+                        double? averageBondLength = mol.GetAverageBondLength();
+                        if (WordVersion > 2007 && averageBondLength < 5)
+                        {
+                            mol.ScaleToAverageBondLength(20);
+                            _telemetry.Write(module, "Information",
+                                "Changed average bond length from "
+                                + SafeDouble.AsString(averageBondLength, "#0.000") + " to 20");
+                        }
+
+                        chemistryZone = AddNewContextObjectToDocument(range, contextObject,
+                                                                      chemistryZoneProperties);
+                    }
                 }
             }
+            catch (Exception ex)
+            {
+                Log.Error(ex);
+                _telemetry.Write(module, "Exception", ex.Message);
+                _telemetry.Write(module, "Exception(Data)", searchResult);
+                MessageBox.Show(ex.Message, Resources.CHEM_4_WORD_MESSAGE_BOX_TITLE, MessageBoxButton.OK,
+                                MessageBoxImage.Stop);
+            }
+
             return chemistryZone;
         }
 
@@ -2743,7 +2774,7 @@ namespace Chem4Word.Core
         public IChemistryZone PubChemLookUpClick()
         {
             string module = "CoreClass.PubChemLookUpClick()";
-            _telemetry.Write(module, "Information", "");
+            //_telemetry.Write(module, "Information", "");
             string searchTerm = string.Empty;
             if (wordApp.Selection.ContentControls.Count == 0 &&
                 wordApp.Selection.Range.Start != wordApp.Selection.Range.End)
