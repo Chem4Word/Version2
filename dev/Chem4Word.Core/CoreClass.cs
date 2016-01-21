@@ -88,7 +88,7 @@ namespace Chem4Word.Core
 
         private static Telemetry _telemetry;
 
-        public Telemetry GetTelemety()
+        public Telemetry GetTelemetry()
         {
             return _telemetry;
         }
@@ -714,6 +714,7 @@ namespace Chem4Word.Core
 
                         string versionsLink = "http://www.chem4word.co.uk/files/" + updatexml;
                         WebClient client = new WebClient();
+                        client.Headers.Add("user-agent", "Chem4Word Add-In");
                         client.DownloadFile(versionsLink, latestVersionXmlFile);
 
                         bool updateRequired = false;
@@ -1033,9 +1034,10 @@ namespace Chem4Word.Core
                     catch (Exception e)
                     {
                         _telemetry.Write(module, "Exception", e.Message);
-                        MessageBox.Show(e.Message + "\n\n" + e.Source + "\n\n" + e.StackTrace,
-                                        Resources.CHEM_4_WORD_MESSAGE_BOX_TITLE, MessageBoxButton.OK,
-                                        MessageBoxImage.Stop);
+                        //MessageBox.Show(e.Message + "\n\n" + e.Source + "\n\n" + e.StackTrace,
+                        //                Resources.CHEM_4_WORD_MESSAGE_BOX_TITLE, MessageBoxButton.OK,
+                        //                MessageBoxImage.Stop);
+                        new ErrorReport(_telemetry, module, e.Message).ShowDialog();
                     }
                 }
                 else
@@ -1060,9 +1062,10 @@ namespace Chem4Word.Core
                     catch (Exception e)
                     {
                         _telemetry.Write(module, "Exception", e.Message);
-                        MessageBox.Show(e.Message + "\n\n" + e.Source + "\n\n" + e.StackTrace,
-                                        Resources.CHEM_4_WORD_MESSAGE_BOX_TITLE, MessageBoxButton.OK,
-                                        MessageBoxImage.Stop);
+                        //MessageBox.Show(e.Message + "\n\n" + e.Source + "\n\n" + e.StackTrace,
+                        //                Resources.CHEM_4_WORD_MESSAGE_BOX_TITLE, MessageBoxButton.OK,
+                        //                MessageBoxImage.Stop);
+                        new ErrorReport(_telemetry, module, e.Message).ShowDialog();
                     }
                 }
             }
@@ -2057,9 +2060,10 @@ namespace Chem4Word.Core
                 catch (Exception ex)
                 {
                     _telemetry.Write(module, "Exception", ex.Message);
-                    MessageBox.Show(ex.Message,
-                                    UI.Properties.Resources.CHEM_4_WORD_MESSAGE_BOX_TITLE, MessageBoxButton.OK,
-                                    MessageBoxImage.Error);
+                    //MessageBox.Show(ex.Message,
+                    //                UI.Properties.Resources.CHEM_4_WORD_MESSAGE_BOX_TITLE, MessageBoxButton.OK,
+                    //                MessageBoxImage.Error);
+                    new ErrorReport(_telemetry, module, ex.Message).ShowDialog();
                 }
             }
         }
@@ -2572,8 +2576,9 @@ namespace Chem4Word.Core
             catch (Exception ex)
             {
                 _telemetry.Write(module, "Exception", ex.Message);
-                MessageBox.Show(ex.Message, Resources.CHEM_4_WORD_MESSAGE_BOX_TITLE, MessageBoxButton.OK,
-                                MessageBoxImage.Stop);
+                //MessageBox.Show(ex.Message, Resources.CHEM_4_WORD_MESSAGE_BOX_TITLE, MessageBoxButton.OK,
+                //                MessageBoxImage.Stop);
+                new ErrorReport(_telemetry, module, ex.Message).ShowDialog();
             }
         }
 
@@ -2700,8 +2705,9 @@ namespace Chem4Word.Core
                 Log.Error(ex);
                 _telemetry.Write(module, "Exception", ex.Message);
                 _telemetry.Write(module, "Exception(Data)", searchResult);
-                MessageBox.Show(ex.Message, Resources.CHEM_4_WORD_MESSAGE_BOX_TITLE, MessageBoxButton.OK,
-                                MessageBoxImage.Stop);
+                //MessageBox.Show(ex.Message, Resources.CHEM_4_WORD_MESSAGE_BOX_TITLE, MessageBoxButton.OK,
+                //                MessageBoxImage.Stop);
+                new ErrorReport(_telemetry, module, ex.Message).ShowDialog();
             }
             return chemistryZone;
         }
@@ -2762,8 +2768,9 @@ namespace Chem4Word.Core
                 Log.Error(ex);
                 _telemetry.Write(module, "Exception", ex.Message);
                 _telemetry.Write(module, "Exception(Data)", searchResult);
-                MessageBox.Show(ex.Message, Resources.CHEM_4_WORD_MESSAGE_BOX_TITLE, MessageBoxButton.OK,
-                                MessageBoxImage.Stop);
+                //MessageBox.Show(ex.Message, Resources.CHEM_4_WORD_MESSAGE_BOX_TITLE, MessageBoxButton.OK,
+                //                MessageBoxImage.Stop);
+                new ErrorReport(_telemetry, module, ex.Message).ShowDialog();
             }
 
             return chemistryZone;

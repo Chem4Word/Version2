@@ -24,6 +24,7 @@ using Chem4Word.Core.Events;
 using Chem4Word.UI.About;
 using Chem4Word.UI.Navigator;
 using Chem4Word.UI.Properties;
+using Chem4Word.UI.UIControls;
 using log4net;
 using Microsoft.Office.Core;
 using Microsoft.Office.Interop.Word;
@@ -306,8 +307,9 @@ namespace Chem4Word.AddIn
             catch (Exception ex)
             {
                 core.WriteTelemetry(module, "Exception", ex.Message);
-                MessageBox.Show(ex.Message, Resources.CHEM_4_WORD_MESSAGE_BOX_TITLE,
-                                MessageBoxButton.OK, MessageBoxImage.Stop);
+                //MessageBox.Show(ex.Message, Resources.CHEM_4_WORD_MESSAGE_BOX_TITLE,
+                //                MessageBoxButton.OK, MessageBoxImage.Stop);
+                new ErrorReport(core.GetTelemetry(), module, ex.Message).ShowDialog();
             }
             myStringBuilder.Append(
                 string.Format(CultureInfo.InvariantCulture,
@@ -343,8 +345,9 @@ namespace Chem4Word.AddIn
             catch (Exception ex)
             {
                 core.WriteTelemetry(module, "Exception", ex.Message);
-                MessageBox.Show(ex.Message, Resources.CHEM_4_WORD_MESSAGE_BOX_TITLE,
-                                MessageBoxButton.OK, MessageBoxImage.Stop);
+                //MessageBox.Show(ex.Message, Resources.CHEM_4_WORD_MESSAGE_BOX_TITLE,
+                //                MessageBoxButton.OK, MessageBoxImage.Stop);
+                new ErrorReport(core.GetTelemetry(), module, ex.Message).ShowDialog();
             }
         }
 
@@ -386,8 +389,9 @@ namespace Chem4Word.AddIn
             catch (Exception ex)
             {
                 core.WriteTelemetry(module, "Exception", ex.Message);
-                MessageBox.Show(ex.Message, Resources.CHEM_4_WORD_MESSAGE_BOX_TITLE,
-                                MessageBoxButton.OK, MessageBoxImage.Error);
+                //MessageBox.Show(ex.Message, Resources.CHEM_4_WORD_MESSAGE_BOX_TITLE,
+                //                MessageBoxButton.OK, MessageBoxImage.Error);
+                new ErrorReport(core.GetTelemetry(), module, ex.Message).ShowDialog();
             }
         }
 
@@ -490,8 +494,9 @@ namespace Chem4Word.AddIn
             catch (Exception ex)
             {
                 core.WriteTelemetry(module, "Exception", ex.Message);
-                MessageBox.Show(ex.Message, Resources.CHEM_4_WORD_MESSAGE_BOX_TITLE,
-                                MessageBoxButton.OK, MessageBoxImage.Stop);
+                //MessageBox.Show(ex.Message, Resources.CHEM_4_WORD_MESSAGE_BOX_TITLE,
+                //                MessageBoxButton.OK, MessageBoxImage.Stop);
+                new ErrorReport(core.GetTelemetry(), module, ex.Message).ShowDialog();
             }
         }
 
@@ -554,8 +559,9 @@ namespace Chem4Word.AddIn
                 {
                     Log.Error(ex);
                     core.WriteTelemetry(module, "Exception", ex.Message);
-                    MessageBox.Show(ex.Message, Resources.CHEM_4_WORD_MESSAGE_BOX_TITLE, MessageBoxButton.OK,
-                                    MessageBoxImage.Stop);
+                    //MessageBox.Show(ex.Message, Resources.CHEM_4_WORD_MESSAGE_BOX_TITLE, MessageBoxButton.OK,
+                    //                MessageBoxImage.Stop);
+                    new ErrorReport(core.GetTelemetry(), module, ex.Message).ShowDialog();
                 }
                 finally
                 {
@@ -600,8 +606,9 @@ namespace Chem4Word.AddIn
             {
                 Log.Error(ex);
                 core.WriteTelemetry(module, "Exception", ex.Message);
-                MessageBox.Show(ex.Message, Resources.CHEM_4_WORD_MESSAGE_BOX_TITLE, MessageBoxButton.OK,
-                                MessageBoxImage.Stop);
+                //MessageBox.Show(ex.Message, Resources.CHEM_4_WORD_MESSAGE_BOX_TITLE, MessageBoxButton.OK,
+                //                MessageBoxImage.Stop);
+                new ErrorReport(core.GetTelemetry(), module, ex.Message).ShowDialog();
             }
         }
 
@@ -620,8 +627,9 @@ namespace Chem4Word.AddIn
             {
                 Log.Error(ex);
                 core.WriteTelemetry(module, "Exception", ex.Message);
-                MessageBox.Show(ex.Message, Resources.CHEM_4_WORD_MESSAGE_BOX_TITLE, MessageBoxButton.OK,
-                                MessageBoxImage.Stop);
+                //MessageBox.Show(ex.Message, Resources.CHEM_4_WORD_MESSAGE_BOX_TITLE, MessageBoxButton.OK,
+                //                MessageBoxImage.Stop);
+                new ErrorReport(core.GetTelemetry(), module, ex.Message).ShowDialog();
             }
         }
 
@@ -646,8 +654,9 @@ namespace Chem4Word.AddIn
             {
                 Log.Error(ex);
                 core.WriteTelemetry(module, "Exception", ex.Message);
-                MessageBox.Show(ex.Message, Resources.CHEM_4_WORD_MESSAGE_BOX_TITLE, MessageBoxButton.OK,
-                                MessageBoxImage.Stop);
+                //MessageBox.Show(ex.Message, Resources.CHEM_4_WORD_MESSAGE_BOX_TITLE, MessageBoxButton.OK,
+                //                MessageBoxImage.Stop);
+                new ErrorReport(core.GetTelemetry(), module, ex.Message).ShowDialog();
             }
         }
 
@@ -684,8 +693,9 @@ namespace Chem4Word.AddIn
             {
                 Log.Error(ex);
                 core.WriteTelemetry(module, "Exception", ex.Message);
-                MessageBox.Show(ex.Message, Resources.CHEM_4_WORD_MESSAGE_BOX_TITLE, MessageBoxButton.OK,
-                                MessageBoxImage.Stop);
+                //MessageBox.Show(ex.Message, Resources.CHEM_4_WORD_MESSAGE_BOX_TITLE, MessageBoxButton.OK,
+                //                MessageBoxImage.Stop);
+                new ErrorReport(core.GetTelemetry(), module, ex.Message).ShowDialog();
             }
         }
 
@@ -719,8 +729,9 @@ namespace Chem4Word.AddIn
             catch (Exception ex)
             {
                 core.WriteTelemetry(module, "Exception", ex.Message);
-                MessageBox.Show(ex.Message, Resources.CHEM_4_WORD_MESSAGE_BOX_TITLE, MessageBoxButton.OK,
-                                MessageBoxImage.Stop);
+                //MessageBox.Show(ex.Message, Resources.CHEM_4_WORD_MESSAGE_BOX_TITLE, MessageBoxButton.OK,
+                //                MessageBoxImage.Stop);
+                new ErrorReport(core.GetTelemetry(), module, ex.Message).ShowDialog();
             }
         }
 
@@ -746,8 +757,9 @@ namespace Chem4Word.AddIn
             catch (Exception ex)
             {
                 core.WriteTelemetry(module, "Exception", ex.Message);
-                MessageBox.Show(ex.Message, Resources.CHEM_4_WORD_MESSAGE_BOX_TITLE, MessageBoxButton.OK,
-                                MessageBoxImage.Stop);
+                //MessageBox.Show(ex.Message, Resources.CHEM_4_WORD_MESSAGE_BOX_TITLE, MessageBoxButton.OK,
+                //                MessageBoxImage.Stop);
+                new ErrorReport(core.GetTelemetry(), module, ex.Message).ShowDialog();
             }
         }
 
@@ -855,8 +867,9 @@ namespace Chem4Word.AddIn
             catch (Exception ex)
             {
                 core.WriteTelemetry(module, "Exception", ex.Message);
-                MessageBox.Show(ex.Message, Resources.CHEM_4_WORD_MESSAGE_BOX_TITLE, MessageBoxButton.OK,
-                                MessageBoxImage.Stop);
+                //MessageBox.Show(ex.Message, Resources.CHEM_4_WORD_MESSAGE_BOX_TITLE, MessageBoxButton.OK,
+                //                MessageBoxImage.Stop);
+                new ErrorReport(core.GetTelemetry(), module, ex.Message).ShowDialog();
             }
         }
 
@@ -874,8 +887,9 @@ namespace Chem4Word.AddIn
             catch (Exception ex)
             {
                 core.WriteTelemetry(module, "Exception", ex.Message);
-                MessageBox.Show(ex.Message, Resources.CHEM_4_WORD_MESSAGE_BOX_TITLE, MessageBoxButton.OK,
-                                MessageBoxImage.Stop);
+                //MessageBox.Show(ex.Message, Resources.CHEM_4_WORD_MESSAGE_BOX_TITLE, MessageBoxButton.OK,
+                //                MessageBoxImage.Stop);
+                new ErrorReport(core.GetTelemetry(), module, ex.Message).ShowDialog();
             }
         }
 
@@ -894,8 +908,9 @@ namespace Chem4Word.AddIn
             catch (Exception ex)
             {
                 core.WriteTelemetry(module, "Exception", ex.Message);
-                MessageBox.Show(ex.Message, Resources.CHEM_4_WORD_MESSAGE_BOX_TITLE, MessageBoxButton.OK,
-                                MessageBoxImage.Stop);
+                //MessageBox.Show(ex.Message, Resources.CHEM_4_WORD_MESSAGE_BOX_TITLE, MessageBoxButton.OK,
+                //                MessageBoxImage.Stop);
+                new ErrorReport(core.GetTelemetry(), module, ex.Message).ShowDialog();
             }
         }
 
@@ -909,8 +924,9 @@ namespace Chem4Word.AddIn
             catch (Exception ex)
             {
                 core.WriteTelemetry(module, "Exception", ex.Message);
-                MessageBox.Show(ex.Message, Resources.CHEM_4_WORD_MESSAGE_BOX_TITLE, MessageBoxButton.OK,
-                                MessageBoxImage.Stop);
+                //MessageBox.Show(ex.Message, Resources.CHEM_4_WORD_MESSAGE_BOX_TITLE, MessageBoxButton.OK,
+                //                MessageBoxImage.Stop);
+                new ErrorReport(core.GetTelemetry(), module, ex.Message).ShowDialog();
             }
         }
 
@@ -950,8 +966,9 @@ namespace Chem4Word.AddIn
             catch (Exception ex)
             {
                 core.WriteTelemetry(module, "Exception", ex.Message);
-                MessageBox.Show(ex.Message, Resources.CHEM_4_WORD_MESSAGE_BOX_TITLE, MessageBoxButton.OK,
-                                MessageBoxImage.Stop);
+                //MessageBox.Show(ex.Message, Resources.CHEM_4_WORD_MESSAGE_BOX_TITLE, MessageBoxButton.OK,
+                //                MessageBoxImage.Stop);
+                new ErrorReport(core.GetTelemetry(), module, ex.Message).ShowDialog();
             }
         }
 
@@ -969,8 +986,9 @@ namespace Chem4Word.AddIn
             catch (Exception ex)
             {
                 core.WriteTelemetry(module, "Exception", ex.Message);
-                MessageBox.Show(ex.Message, Resources.CHEM_4_WORD_MESSAGE_BOX_TITLE, MessageBoxButton.OK,
-                                MessageBoxImage.Stop);
+                //MessageBox.Show(ex.Message, Resources.CHEM_4_WORD_MESSAGE_BOX_TITLE, MessageBoxButton.OK,
+                //                MessageBoxImage.Stop);
+                new ErrorReport(core.GetTelemetry(), module, ex.Message).ShowDialog();
             }
         }
 
@@ -988,8 +1006,9 @@ namespace Chem4Word.AddIn
             catch (Exception ex)
             {
                 core.WriteTelemetry(module, "Exception", ex.Message);
-                MessageBox.Show(ex.Message, Resources.CHEM_4_WORD_MESSAGE_BOX_TITLE, MessageBoxButton.OK,
-                                MessageBoxImage.Stop);
+                //MessageBox.Show(ex.Message, Resources.CHEM_4_WORD_MESSAGE_BOX_TITLE, MessageBoxButton.OK,
+                //                MessageBoxImage.Stop);
+                new ErrorReport(core.GetTelemetry(), module, ex.Message).ShowDialog();
             }
         }
 

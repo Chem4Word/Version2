@@ -14,6 +14,7 @@ using Chem4Word.Core.com.chemspider.www;
 using Chem4Word.Core.UserSetting;
 using Chem4Word.UI.Import;
 using Chem4Word.UI.Properties;
+using Chem4Word.UI.UIControls;
 using Microsoft.Office.Interop.SmartTag;
 using Microsoft.Office.Tools;
 using Microsoft.Office.Tools.Word;
@@ -42,10 +43,10 @@ namespace Chem4Word.Core.SmartTag
         public ChemistrySmartTag(CoreClass chem4WordCore)
             : base("Chem4WordSmartTag#tag", "Chem4Word SmartTag")
         {
+            string module = "ChemistrySmartTag() Constructor";
+            this.core = chem4WordCore;
             try
             {
-                this.core = chem4WordCore;
-
                 // Load Dictionary
                 termDictionary = new TermDictionaryManager(core.assemblyDirectoryName + @"\SmartTag");
                 termDictionary.LoadLocalDictionary(core.localAppDataFolder + @"\SmartTag");
@@ -56,7 +57,9 @@ namespace Chem4Word.Core.SmartTag
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, Resources.CHEM_4_WORD_MESSAGE_BOX_TITLE);
+                //MessageBox.Show(ex.Message, Resources.CHEM_4_WORD_MESSAGE_BOX_TITLE);
+                core.WriteTelemetry(module, "Exception", ex.Message);
+                new ErrorReport(core.GetTelemetry(), module, ex.Message).ShowDialog();
             }
         }
 
@@ -144,7 +147,9 @@ namespace Chem4Word.Core.SmartTag
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, Resources.CHEM_4_WORD_MESSAGE_BOX_TITLE);
+                //MessageBox.Show(ex.Message, Resources.CHEM_4_WORD_MESSAGE_BOX_TITLE);
+                core.WriteTelemetry(module, "Exception", ex.Message);
+                new ErrorReport(core.GetTelemetry(), module, ex.Message).ShowDialog();
             }
         }
 
@@ -182,7 +187,9 @@ namespace Chem4Word.Core.SmartTag
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, Resources.CHEM_4_WORD_MESSAGE_BOX_TITLE);
+                //MessageBox.Show(ex.Message, Resources.CHEM_4_WORD_MESSAGE_BOX_TITLE);
+                core.WriteTelemetry(module, "Exception", ex.Message);
+                new ErrorReport(core.GetTelemetry(), module, ex.Message).ShowDialog();
             }
         }
 

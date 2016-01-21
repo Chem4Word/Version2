@@ -227,6 +227,12 @@
     <Compile Include="UIControls\AutomaticUpdate.Designer.cs">
       <DependentUpon>AutomaticUpdate.cs</DependentUpon>
     </Compile>
+    <Compile Include="UIControls\ErrorReport.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UIControls\ErrorReport.Designer.cs">
+      <DependentUpon>ErrorReport.cs</DependentUpon>
+    </Compile>
     <Compile Include="UIControls\ProgressBar.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -490,6 +496,9 @@
     <EmbeddedResource Include="UIControls\AutomaticUpdate.resx">
       <DependentUpon>AutomaticUpdate.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="UIControls\ErrorReport.resx">
+      <DependentUpon>ErrorReport.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UIControls\ProgressBar.resx">
       <DependentUpon>ProgressBar.cs</DependentUpon>
     </EmbeddedResource>
@@ -600,6 +609,7 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\ChemDoodle\C4W-MarkerFile.txt" />
+    <Resource Include="Resources\Images\Chem4Word Stop Icon.png" />
     <Content Include="Resources\ChemDoodle\Chem4Word.css" />
     <Content Include="Resources\ChemDoodle\Chem4Word.js" />
     <Resource Include="Resources\ChemDoodle\Minus.png" />

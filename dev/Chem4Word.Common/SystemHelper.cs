@@ -235,7 +235,7 @@ namespace Chem4Word.Common
             Version procuctVersion = Assembly.GetExecutingAssembly().GetName().Version;
             AddInVersion = "Chem4Word V" + procuctVersion;
 
-            ParameterizedThreadStart pts = new ParameterizedThreadStart(GetExternalIpv4Address);
+            ParameterizedThreadStart pts = GetExternalIpv4Address;
             Thread t = new Thread(pts);
             t.Start(null);
         }
@@ -260,11 +260,12 @@ namespace Chem4Word.Common
 
             try
             {
-                string url = "http://chem4word.azurewebsites.net/client-ip.php";
+                string url = "http://www.chem4word.co.uk/files/client-ip.php";
 
                 Debug.WriteLine("Fetching external IpAddress from " + url + " attempt " + _retryCount);
 
                 HttpWebRequest request = WebRequest.Create(url) as HttpWebRequest;
+                request.UserAgent = "Chem4Word Add-In";
                 //request.Timeout = 15000; // 15 seconds
                 HttpWebResponse response;
                 response = (HttpWebResponse)request.GetResponse();
@@ -299,7 +300,7 @@ namespace Chem4Word.Common
                 {
                     _retryCount++;
                     Thread.Sleep(500);
-                    ParameterizedThreadStart pts = new ParameterizedThreadStart(GetExternalIpv4Address);
+                    ParameterizedThreadStart pts = GetExternalIpv4Address;
                     Thread t = new Thread(pts);
                     t.Start(null);
                 }
