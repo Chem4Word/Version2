@@ -41,7 +41,7 @@ namespace Chem4Word.Core
 
         public Telemetry GetTelemetry()
         {
-            return core.GetTelemety();
+            return core.GetTelemetry();
         }
 
         /// <summary>  
@@ -190,7 +190,7 @@ namespace Chem4Word.Core
                     options.ShowHydrogens = Setting.RenderImplicitHydrogens;
                     string guidString = Guid.NewGuid().ToString("N");
                     string bookmarkName = "C4W_" + guidString;
-                    OoXmlFile ooXmlFile = new OoXmlFile(core.GetTelemety());
+                    OoXmlFile ooXmlFile = new OoXmlFile(core.GetTelemetry());
                     string tempfileName = ooXmlFile.CreateFromCml(contextObject.Cml.ToString(), guidString, options);
 
                     contentControl =

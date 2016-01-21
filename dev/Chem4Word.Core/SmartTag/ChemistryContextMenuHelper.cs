@@ -15,6 +15,7 @@ using Chem4Word.Core.Events;
 using Chem4Word.Core.Properties;
 using Chem4Word.Core.UserSetting;
 using Chem4Word.UI.Import;
+using Chem4Word.UI.UIControls;
 using Microsoft.Office.Core;
 using Microsoft.Office.Interop.Word;
 using Numbo.Coa;
@@ -499,9 +500,10 @@ namespace Chem4Word.Core.SmartTag
                 catch (Exception ex)
                 {
                     _core.WriteTelemetry(module, "Exception", ex.Message);
-                    MessageBox.Show(ex.Message,
-                                    UI.Properties.Resources.CHEM_4_WORD_MESSAGE_BOX_TITLE, MessageBoxButton.OK,
-                                    MessageBoxImage.Error);
+                    //MessageBox.Show(ex.Message,
+                    //                UI.Properties.Resources.CHEM_4_WORD_MESSAGE_BOX_TITLE, MessageBoxButton.OK,
+                    //                MessageBoxImage.Error);
+                    new ErrorReport(_core.GetTelemetry(), module, ex.Message).ShowDialog();
                 }
             }
         }

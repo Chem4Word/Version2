@@ -56,6 +56,7 @@ namespace Chem4Word.UI.UIControls
             Cursor.Current = Cursors.AppStarting;
 
             _webClient = new WebClient();
+            _webClient.Headers.Add("user-agent", "Chem4Word Add-In");
             var uri = new Uri(_downloadUrl);
 
             _latestMsiFilePath = Path.Combine(Path.GetTempPath(), GetFileName(_downloadUrl));
@@ -222,6 +223,7 @@ namespace Chem4Word.UI.UIControls
                 var httpWebRequest = (HttpWebRequest)WebRequest.Create(uri);
                 httpWebRequest.CachePolicy = new HttpRequestCachePolicy(HttpRequestCacheLevel.NoCacheNoStore);
                 httpWebRequest.Method = "HEAD";
+                httpWebRequest.UserAgent = "Chem4Word Add-In";
                 httpWebRequest.AllowAutoRedirect = false;
                 var httpWebResponse = (HttpWebResponse)httpWebRequest.GetResponse();
                 if (httpWebResponse.StatusCode.Equals(HttpStatusCode.Redirect) ||

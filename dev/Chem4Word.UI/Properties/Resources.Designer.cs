@@ -222,6 +222,16 @@ namespace Chem4Word.UI.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap Chem4Word_Stop_Icon {
+            get {
+                object obj = ResourceManager.GetObject("Chem4Word_Stop_Icon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
         public static byte[] ChemDoodleWeb_601_zip {
