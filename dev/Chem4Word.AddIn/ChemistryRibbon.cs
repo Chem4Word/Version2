@@ -103,6 +103,17 @@ namespace Chem4Word.AddIn
             core.DocumentBeforeClose += CoreDocumentBeforeClose;
         }
 
+        private bool _documentAvailable = false;
+        private bool DocumentAvailable
+        {
+            get { return _documentAvailable; }
+            set
+            {
+                _documentAvailable = value;
+                ribbon.Invalidate();
+            }
+        }
+
         private bool ViewOptionEnable
         {
             get { return viewOptionEnable; }
@@ -411,6 +422,10 @@ namespace Chem4Word.AddIn
 
         private void CoreWindowActivate(object sender, ChemistryDocumentEventArgs e)
         {
+            string module = "ChemistryRibbon.CoreWindowActivate()";
+
+            Debug.WriteLine(module);
+
             wordApp.ActiveDocument.ContentControlBeforeDelete += ActiveDocumentContentControlBeforeDelete;
             // Refresh Navigator visible state
             navVisible = false;
@@ -459,6 +474,8 @@ namespace Chem4Word.AddIn
             {
                 SearchBoxEnable = true;
             }
+
+            DocumentAvailable = true;
 
             ribbon.InvalidateControl("chemistryTab");
         }
@@ -777,6 +794,11 @@ namespace Chem4Word.AddIn
         /// </summary>
         /// <param name = "control">ID of ribbon control</param>
         /// <returns>true if enabled, false otherwise</returns>
+        /// 
+        public bool GetDocumentAvailable(IRibbonControl control)
+        {
+            return DocumentAvailable;
+        }
         public bool GetSaveSelectionEnable(IRibbonControl control)
         {
             return SaveSelectionButtonEnable;
@@ -1065,6 +1087,10 @@ namespace Chem4Word.AddIn
 
         private void CoreDocumentBeforeClose(object sender, ChemistryDocumentEventArgs e)
         {
+            string module = "ChemistryRibbon.CoreDocumentBeforeClose()";
+
+            Debug.WriteLine(module);
+
             foreach (var taskPane in from taskPane in customTaskPanes
                                      where taskPane.Control is ChemistryNavigatorHostControl
                                      let navHost = taskPane.Control as ChemistryNavigatorHostControl
@@ -1076,6 +1102,7 @@ namespace Chem4Word.AddIn
                 customTaskPanes.Remove(taskPane);
                 break;
             }
+            DocumentAvailable = false;
         }
 
         /// <summary>

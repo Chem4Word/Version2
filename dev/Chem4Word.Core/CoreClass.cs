@@ -2468,6 +2468,15 @@ namespace Chem4Word.Core
 
             if (WindowDeactivateEvent != null)
             {
+                //if (wordApp.Documents.Count == 0)
+                //{
+                //    Debug.WriteLine("No Documents loaded");
+                //}
+                //else
+                //{
+                //    Debug.WriteLine("Document Count: " + wordApp.Documents.Count);
+                //}
+
                 WindowDeactivateEvent(this, new ChemistryDocumentEventArgs
                                                 {
                                                     CurrentDocument = document,

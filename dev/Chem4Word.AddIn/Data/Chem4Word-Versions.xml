@@ -2,11 +2,21 @@
 <!-- This file must be uploaded to http://www.chem4word.co.uk/files/ folder as Chem4Word-Versions.xml -->
 <ChangeLog>
   <Version>
+    <Number>2.0.1.0 Beta 8</Number>
+    <IsBeta>true</IsBeta>
+    <Released>31-Jan-2016</Released>
+    <Changes>
+      <Change>Add form for user feedback, when errors are shown</Change>
+	  <Change>Disable Buttons when there is no document loaded</Change>
+    </Changes>
+    <Url>http://www.chem4word.co.uk/files/Chem4Word.Setup.2.0.1.0.Beta.8.msi</Url>
+  </Version>
+  <Version>
     <Number>2.0.1.0 Beta 7</Number>
     <IsBeta>true</IsBeta>
     <Released>20-Jan-2016</Released>
     <Changes>
-      <Change>Fixed bug with thumbnails in navigator</Change>
+      <Change>Fixed inverted and missing thumbnail images in navigator drop downs</Change>
       <Change>Better error handling in Opsin and ChemSpider search</Change>
       <Change>Specify OpenXml version in app.config of UI assembly</Change>
     </Changes>
