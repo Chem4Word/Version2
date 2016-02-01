@@ -795,13 +795,14 @@ namespace Chem4Word.AddIn
         /// <param name = "control">ID of ribbon control</param>
         /// <returns>true if enabled, false otherwise</returns>
         /// 
-        public bool GetDocumentAvailable(IRibbonControl control)
-        {
-            return DocumentAvailable;
-        }
         public bool GetSaveSelectionEnable(IRibbonControl control)
         {
             return SaveSelectionButtonEnable;
+        }
+
+        public bool GetDocumentAvailable(IRibbonControl control)
+        {
+            return DocumentAvailable;
         }
 
         public bool OpsinLookUpEnable(IRibbonControl control)
@@ -971,7 +972,7 @@ namespace Chem4Word.AddIn
                 Assembly.GetExecutingAssembly().GetCustomAttributes(typeof(AssemblyCopyrightAttribute), false);
             aboutBox.Getcopyright =
                 (((AssemblyCopyrightAttribute)attributes[0]).Copyright.Split(new[] { '©' }, StringSplitOptions.None))[1];
-            aboutBox.Show();
+            aboutBox.ShowDialog();
         }
 
         /// <summary>
