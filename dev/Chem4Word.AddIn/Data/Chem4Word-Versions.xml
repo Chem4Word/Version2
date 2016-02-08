@@ -4,10 +4,9 @@
   <Version>
     <Number>2.0.1.0 Beta 8</Number>
     <IsBeta>true</IsBeta>
-    <Released>31-Jan-2016</Released>
+    <Released>08-Feb-2016</Released>
     <Changes>
       <Change>Add form for user feedback, when errors are shown</Change>
-	  <Change>Disable Buttons when there is no document loaded</Change>
     </Changes>
     <Url>http://www.chem4word.co.uk/files/Chem4Word.Setup.2.0.1.0.Beta.8.msi</Url>
   </Version>

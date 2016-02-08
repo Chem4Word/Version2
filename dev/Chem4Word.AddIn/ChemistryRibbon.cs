@@ -103,17 +103,6 @@ namespace Chem4Word.AddIn
             core.DocumentBeforeClose += CoreDocumentBeforeClose;
         }
 
-        private bool _documentAvailable = false;
-        private bool DocumentAvailable
-        {
-            get { return _documentAvailable; }
-            set
-            {
-                _documentAvailable = value;
-                ribbon.Invalidate();
-            }
-        }
-
         private bool ViewOptionEnable
         {
             get { return viewOptionEnable; }
@@ -475,8 +464,6 @@ namespace Chem4Word.AddIn
                 SearchBoxEnable = true;
             }
 
-            DocumentAvailable = true;
-
             ribbon.InvalidateControl("chemistryTab");
         }
 
@@ -800,11 +787,6 @@ namespace Chem4Word.AddIn
             return SaveSelectionButtonEnable;
         }
 
-        public bool GetDocumentAvailable(IRibbonControl control)
-        {
-            return DocumentAvailable;
-        }
-
         public bool OpsinLookUpEnable(IRibbonControl control)
         {
             return OPSINLookUpServerAvailable;
@@ -1064,7 +1046,6 @@ namespace Chem4Word.AddIn
                     custTaskPane.Visible = true;
                     foreach (CustomTaskPane taskPane in customTaskPanes)
                     {
-                        //if (Properties.Resources.CHEMISTRY_NAVIGATOR_TITLE.Equals(custTaskPane.Title))
                         if (Properties.Resources.CHEMISTRY_NAVIGATOR_TITLE.Equals(taskPane.Title))
                         {
                             custTaskPane.Width = 270;
@@ -1103,7 +1084,6 @@ namespace Chem4Word.AddIn
                 customTaskPanes.Remove(taskPane);
                 break;
             }
-            DocumentAvailable = false;
         }
 
         /// <summary>

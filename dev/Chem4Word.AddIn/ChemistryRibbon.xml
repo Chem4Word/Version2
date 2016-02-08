@@ -5,10 +5,10 @@
     <tabs>
       <tab id="chemistryTab" label="CHEMISTRY_TAB_LABEL">
         <group id="importGroup" label="Insert Chemistry">
-          <button id="newChemistry" label="Draw Structure" onAction="ImportBlankStructureClick" getImage="NewChemistryImage" getEnabled="GetDocumentAvailable" size="large"/>
+          <button id="newChemistry" label="Draw Structure" onAction="ImportBlankStructureClick" getImage="NewChemistryImage" size="large"/>
           <gallery idMso="CustomGallery5" label="Chemistry Gallery" size="normal" />
           <button id="saveSelection" onAction="SaveSelectionClick" getEnabled="GetSaveSelectionEnable" label="Save To Gallery" size="normal" />
-          <menu id="importDropDown" label="Import..." getImage="GetFromFileImage" getEnabled="GetDocumentAvailable">
+          <menu id="importDropDown" label="Import..." getImage="GetFromFileImage">
             <button id="importCmlFile" label="From File" onAction="ImportCmlFileClick" getImage="GetFromFileImage" />
             <button id="opsinLookUp" label="From OPSIN" onAction="OpsinLookUpClick" getImage="GetOpsinImage" />
             <button id="pubChemLookUp" label="From PubChem" onAction="PubChemLookUpClick" getImage="GetOpsinImage" />
@@ -27,7 +27,7 @@
             </menu>
           </splitButton>
           <button id="viewCMLButton" onAction="ViewCmlClick" getEnabled="GetEditEnable" label="View CML" size="large" imageMso="XmlSource" />
-          <toggleButton getImage="GetNavigatorImage" id="navigator" onAction="NavigatorClick" getPressed="GetNavigatorPressed" getEnabled="GetDocumentAvailable"
+          <toggleButton getImage="GetNavigatorImage" id="navigator" onAction="NavigatorClick" getPressed="GetNavigatorPressed"
                         label="Chemistry Navigator" size="large" screentip="Chemistry Navigator" supertip="View all the chemistry items in your document. Create linked and unlinked copies." />
         </group>
         <!--
@@ -45,7 +45,7 @@
           <button id="documentStyle" label="Document Styles" getImage="GetDocumentStylesImage" size="large" />
         </group>-->
         <group id="SettingsGroup" label="Settings">
-          <button id="option" label="Options" getImage="GetOptionsImage" onAction="OptionClick" size="large" screentip="options" supertip="Microsoft Chemistry Add-in for Word Options." getEnabled="GetDocumentAvailable" />
+          <button id="option" label="Options" getImage="GetOptionsImage" onAction="OptionClick" size="large" screentip="options" supertip="Microsoft Chemistry Add-in for Word Options." />
           <menu id="HelpMenu" label="Help" getImage="GetHelpImage" size="large" supertip="Get help using Microsoft Chemistry Add-in for Word." screentip="Microsoft Chemistry Add-in for Word Help">
             <button id="Help" label="Documentation" onAction="HelpClick" />
             <button imageMso="BlogHomePage" id="checkForUpdate" label="Check for updates" onAction="CheckForUpdateClick" />
