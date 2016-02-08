@@ -463,8 +463,6 @@ namespace Chem4Word.AddIn
             {
                 SearchBoxEnable = true;
             }
-
-            ribbon.InvalidateControl("chemistryTab");
         }
 
         private void ActiveDocumentContentControlBeforeDelete(ContentControl oldContentControl, bool inUndoRedo)
