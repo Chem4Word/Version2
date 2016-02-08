@@ -329,6 +329,8 @@ namespace Chem4Word.Core
         ///<param name = "oneDDepictionOption"></param>
         public void CreateOneDZoneContent(ref ContentControl richTextContentControl, DepictionOption oneDDepictionOption)
         {
+            string module = "CoreClass.CreateOneDZoneContent()";
+
             if (oneDDepictionOption == null)
             {
                 throw new ArgumentNullException("oneDDepictionOption");
@@ -337,6 +339,9 @@ namespace Chem4Word.Core
             {
                 throw new ArgumentOutOfRangeException("oneDDepictionOption");
             }
+
+            _telemetry.Write(module, "Information", oneDDepictionOption.DepictionOptionDescription);
+
             bool oldValue = wordApp.AutoCorrect.CorrectSentenceCaps;
             wordApp.AutoCorrect.CorrectSentenceCaps = false;
             richTextContentControl.Range.Text = oneDDepictionOption.GetAsOMath();
