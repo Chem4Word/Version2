@@ -122,7 +122,6 @@ namespace Chem4Word.Core
                 // Check if [LocalApplicationData]\Chem4Word\Chemistry Gallery\Chem4Word{version}.dotx
                 //  is missing and recover it from Program Folder if necessary
                 CheckForRecovery();
-
 #if DEBUG
 #else
                 // Check to see if we are running the latest version
@@ -717,33 +716,42 @@ namespace Chem4Word.Core
                         string updatexml = "Chem4Word-Versions.xml";
                         string latestVersionXmlFile = Path.Combine(tempPath, updatexml);
 
+                        if (File.Exists(latestVersionXmlFile))
+                        {
+                            File.Delete(latestVersionXmlFile);
+                        }
+
                         string versionsLink = "http://www.chem4word.co.uk/files/" + updatexml;
                         WebClient client = new WebClient();
                         client.Headers.Add("user-agent", "Chem4Word Add-In");
                         client.DownloadFile(versionsLink, latestVersionXmlFile);
 
                         bool updateRequired = false;
-                        XDocument latestVersion = XDocument.Load(latestVersionXmlFile);
-                        var versions = latestVersion.XPathSelectElements("//Version");
-                        foreach (var version in versions)
+
+                        if (File.Exists(latestVersionXmlFile))
                         {
-                            var thisVersionNumber = version.Element("Number").Value;
-                            DateTime thisVersionDate = SafeDate.Parse(version.Element("Released").Value);
-                            Debug.WriteLine("New Version " + thisVersionNumber + " Released " + thisVersionDate.ToString("dd-MMM-yyyy"));
-                            if (thisVersionDate > currentReleaseDate)
+                            XDocument latestVersion = XDocument.Load(latestVersionXmlFile);
+                            var versions = latestVersion.XPathSelectElements("//Version");
+                            foreach (var version in versions)
                             {
-                                updateRequired = true;
-                                break;
+                                var thisVersionNumber = version.Element("Number").Value;
+                                DateTime thisVersionDate = SafeDate.Parse(version.Element("Released").Value);
+                                Debug.WriteLine("New Version " + thisVersionNumber + " Released " + thisVersionDate.ToString("dd-MMM-yyyy"));
+                                if (thisVersionDate > currentReleaseDate)
+                                {
+                                    updateRequired = true;
+                                    break;
+                                }
                             }
-                        }
 
-                        if (updateRequired)
-                        {
-                            AutomaticUpdate au = new AutomaticUpdate();
-                            au.CurrentVersion = currentVersion;
-                            au.NewVersions = latestVersion;
+                            if (updateRequired)
+                            {
+                                AutomaticUpdate au = new AutomaticUpdate();
+                                au.CurrentVersion = currentVersion;
+                                au.NewVersions = latestVersion;
 
-                            DialogResult dr = au.ShowDialog();
+                                DialogResult dr = au.ShowDialog();
+                            }
                         }
                     }
                     #endregion
@@ -754,6 +762,12 @@ namespace Chem4Word.Core
                 Debug.WriteLine(Ex.Message);
                 Log.Error(Ex.Message);
                 _telemetry.Write(module, "Exception", Ex.Message);
+                _telemetry.Write(module, "Exception(Data)", Ex.StackTrace);
+                if (Ex.InnerException != null)
+                {
+                    _telemetry.Write(module, "Exception", Ex.InnerException.Message);
+                    _telemetry.Write(module, "Exception(Data)", Ex.InnerException.StackTrace);
+                }
             }
         }
 
@@ -1623,13 +1637,16 @@ namespace Chem4Word.Core
                 i.UserAgent = "Chem4Word";
                 i.Timeout = 5000;
                 result = i.MolToInChIKey(molfile);
-                System.Diagnostics.Debug.WriteLine("ChemSpider Result: " + result);
+                Debug.WriteLine("ChemSpider Result: " + result);
                 Log.Debug("ChemSpider Result: " + result);
             }
             catch (Exception ex)
             {
                 _telemetry.Write(module, "Exception", ex.Message);
-                _telemetry.Write(module, "Exception(Data)", molfile);
+                if (!ex.Message.ToLower().Contains("timed out"))
+                {
+                    _telemetry.Write(module, "Exception(Data)", molfile);
+                }
                 Log.Error("GetInchiKey() - Exception - " + ex.Message);
             }
 

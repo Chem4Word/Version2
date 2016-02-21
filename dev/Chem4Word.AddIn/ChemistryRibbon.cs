@@ -651,6 +651,14 @@ namespace Chem4Word.AddIn
                 File.WriteAllText(tempCmlFileName, cmlFileContents);
                 IChemistryZone newZone = core.ImportCmlFile(tempCmlFileName);
                 core.TweakDoodle2D(newZone, true);
+                try
+                {
+                    File.Delete(tempCmlFileName);
+                }
+                catch (Exception)
+                {
+                    //
+                }
             }
             catch (Exception ex)
             {
