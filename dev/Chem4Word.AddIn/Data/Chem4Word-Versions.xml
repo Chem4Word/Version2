@@ -2,6 +2,15 @@
 <!-- This file must be uploaded to http://www.chem4word.co.uk/files/ folder as Chem4Word-Versions.xml -->
 <ChangeLog>
   <Version>
+    <Number>2.0.1.0 Beta 9</Number>
+    <IsBeta>true</IsBeta>
+    <Released>21-Feb-2016</Released>
+    <Changes>
+      <Change>Improved detection of previous version to fix issue in automatic updates. You may need to manually perform this update by downloading from https://chem4word.codeplex.com/releases/view/618360</Change>
+    </Changes>
+    <Url>http://www.chem4word.co.uk/files/Chem4Word.Setup.2.0.1.0.Beta.8.msi</Url>
+  </Version>
+  <Version>
     <Number>2.0.1.0 Beta 8</Number>
     <IsBeta>true</IsBeta>
     <Released>08-Feb-2016</Released>

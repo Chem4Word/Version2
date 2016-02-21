@@ -87,7 +87,7 @@ namespace Chem4Word.Common
 #if DEBUG
                 me3.Message = _helper.AddInVersion + " (debug)";
 #else
-                me3.Message = _helper.AddInVersion + " (beta 8)";
+                me3.Message = _helper.AddInVersion + " (beta 9)";
 #endif
                 result3 = storage.WriteMessage(me3);
             }

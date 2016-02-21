@@ -1,19 +1,16 @@
 ﻿// Created by Mike Williams - 06/01/2016
-// 
+//
 // -----------------------------------------------------------------------
-//   Copyright (c) 2016, The Outercurve Foundation.  
-//   This software is released under the Apache License, Version 2.0. 
+//   Copyright (c) 2016, The Outercurve Foundation.
+//   This software is released under the Apache License, Version 2.0.
 //   The license and further copyright text can be found in the file LICENSE.TXT at
 //   the root directory of the distribution.
 // -----------------------------------------------------------------------
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
-using System.Linq;
 using System.Net;
 using System.Net.Cache;
 using System.Text;
@@ -39,6 +36,17 @@ namespace Chem4Word.UI.UIControls
         public AutomaticUpdate()
         {
             InitializeComponent();
+        }
+
+        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            Process.Start("https://chem4word.codeplex.com/releases/view/618360");
+            DialogResult = DialogResult.Cancel;
+        }
+
+        private void richTextBox1_LinkClicked(object sender, LinkClickedEventArgs e)
+        {
+            Process.Start(e.LinkText);
         }
 
         private void AutomaticUpdate_FormClosing(object sender, FormClosingEventArgs e)
@@ -119,35 +127,7 @@ namespace Chem4Word.UI.UIControls
 
         private void AutomaticUpdate_Load(object sender, EventArgs e)
         {
-            try
-            {
-                string registry_key = @"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall";
-
-                using (RegistryKey key = Registry.LocalMachine.OpenSubKey(registry_key))
-                {
-                    foreach (string subkeyName in key.GetSubKeyNames())
-                    {
-                        using (RegistryKey subkey = key.OpenSubKey(subkeyName))
-                        {
-                            string displayName = subkey.GetValue("DisplayName") as string;
-                            if (!string.IsNullOrEmpty(displayName))
-                            {
-                                Debug.WriteLine(displayName);
-                                if (displayName.Equals("Chemistry Add-in for Word"))
-                                {
-                                    _existingVersionGuid = subkeyName;
-                                    break;
-                                }
-
-                            }
-                        }
-                    }
-                }
-            }
-            catch (Exception)
-            {
-                //
-            }
+            _existingVersionGuid = GetGuid();
 
             try
             {
@@ -257,5 +237,156 @@ namespace Chem4Word.UI.UIControls
             return fileName;
         }
 
+        private string LookForUninstall(string root, string branch, string name)
+        {
+            string result = string.Empty;
+
+            try
+            {
+                RegistryKey key = null;
+                switch (root)
+                {
+                    case "HKLM":
+                        key = Registry.LocalMachine.OpenSubKey(branch);
+                        break;
+
+                    case "HKCU":
+                        key = Registry.CurrentUser.OpenSubKey(branch);
+                        break;
+                }
+
+                if (key != null)
+                {
+                    foreach (string subkeyName in key.GetSubKeyNames())
+                    {
+                        using (RegistryKey subkey = key.OpenSubKey(subkeyName))
+                        {
+                            if (subkey != null)
+                            {
+                                string displayName = subkey.GetValue("DisplayName") as string;
+                                if (!string.IsNullOrEmpty(displayName))
+                                {
+                                    if (displayName.ToLower().Equals(name.ToLower()))
+                                    {
+                                        result = subkeyName;
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    key = null;
+                }
+            }
+            catch
+            {
+                //
+            }
+
+            return result;
+        }
+
+        private string LookForProduct(string root, string branch, string name)
+        {
+            string result = string.Empty;
+
+            try
+            {
+                RegistryKey key = null;
+                switch (root)
+                {
+                    case "HKLM":
+                        key = Registry.LocalMachine.OpenSubKey(branch);
+                        break;
+
+                    case "HKCR":
+                        key = Registry.ClassesRoot.OpenSubKey(branch);
+                        break;
+                }
+
+                if (key != null)
+                {
+                    foreach (string subkeyName in key.GetSubKeyNames())
+                    {
+                        using (RegistryKey subkey = key.OpenSubKey(subkeyName))
+                        {
+                            if (subkey != null)
+                            {
+                                string productName = subkey.GetValue("ProductName") as string;
+                                if (!string.IsNullOrEmpty(productName))
+                                {
+                                    if (productName.ToLower().Equals(name.ToLower()))
+                                    {
+                                        string productIcon = subkey.GetValue("ProductIcon") as string;
+                                        if (!string.IsNullOrEmpty(productIcon))
+                                        {
+                                            char[] delimiters = new[] { '{', '}' };
+                                            string[] parts = productIcon.Split(delimiters);
+                                            if (parts.Length == 3)
+                                            {
+                                                result = "{" + parts[1] + "}";
+                                                break;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    key = null;
+                }
+            }
+            catch
+            {
+                //
+            }
+
+            return result;
+        }
+
+        private string GetGuid()
+        {
+            string title = "Chemisty Add-in for Word";
+
+            string root = "HKLM";
+            string branch = @"SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall";
+            string result = LookForUninstall(root, branch, title);
+
+            if (string.IsNullOrEmpty(result))
+            {
+                root = "HKLM";
+                branch = @"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall";
+                result = LookForUninstall(root, branch, title);
+            }
+
+            if (string.IsNullOrEmpty(result))
+            {
+                root = "HKCU";
+                branch = @"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall";
+                result = LookForUninstall(root, branch, title);
+            }
+
+            if (string.IsNullOrEmpty(result))
+            {
+                root = "HKCR";
+                branch = @"Installer\Products";
+                result = LookForProduct(root, branch, title);
+            }
+
+            if (string.IsNullOrEmpty(result))
+            {
+                root = "HKLM";
+                branch = @"Software\Classes\Installer\Products";
+                result = LookForProduct(root, branch, title);
+            }
+
+            if (string.IsNullOrEmpty(result))
+            {
+                // Default to product code of Beta 6
+                result = "{3CCB73D3-0CC8-4AD2-AE08-E207A57CA8FD}";
+            }
+
+            return result;
+        }
     }
 }
