@@ -119,6 +119,7 @@ namespace Chem4Word.UI.OOXML
             Run run1 = new Run();
 
             ProgressBar pb = new ProgressBar();
+            pb.TopLeft = m_options.TopLeft;
 
             Debug.WriteLine("OoXmlMolecule.GenerateRun() Starting Step 1");
             //_telemetry.Write(module, "Debug", "Starting Step 1");

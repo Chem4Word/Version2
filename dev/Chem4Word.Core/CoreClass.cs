@@ -42,12 +42,12 @@ using log4net;
 using Microsoft.Office.Core;
 using Microsoft.Office.Interop.Word;
 using Microsoft.Office.Tools.Word.Extensions;
-using Microsoft.Win32;
 using Numbo;
 using Numbo.Cml;
 using Numbo.Coa;
 using Application = Microsoft.Office.Interop.Word.Application;
 using MessageBox = System.Windows.MessageBox;
+using Point = System.Windows.Point;
 using ProgressBar = Chem4Word.UI.UIControls.ProgressBar;
 using Shape = Microsoft.Office.Interop.Word.Shape;
 using Timer = System.Timers.Timer;
@@ -88,6 +88,24 @@ namespace Chem4Word.Core
 
         private static Telemetry _telemetry;
 
+        /// <summary>
+        /// Get The Screen position of Word
+        /// </summary>
+        public Point WordTopLeft
+        {
+            get
+            {
+                Point p = new Point();
+
+                // Get position of Standard CommandBar (<ALT>+F)
+                CommandBar menubar = wordApp.CommandBars["Standard"];
+                p.X = menubar.Left + 6;
+                p.Y = menubar.Top + 12;
+
+                return p;
+            }
+        } 
+
         public Telemetry GetTelemetry()
         {
             return _telemetry;
@@ -116,6 +134,7 @@ namespace Chem4Word.Core
                                                   Properties.Resources.CHEM4WORD_LOCATION);
                 assemblyDirectoryName = GetAssemblyDirectoryName();
                 wordApp = wordApplication;
+
                 galleryDictionaryManager = new GalleryDictionaryManager();
                 documentDictionary = new Dictionary<Document, IChemistryDocument>();
 
@@ -512,6 +531,8 @@ namespace Chem4Word.Core
                     OoXmlOptions options = new OoXmlOptions();
                     options.ColouredAtoms = Setting.RenderAtomsInColour;
                     options.ShowHydrogens = Setting.RenderImplicitHydrogens;
+                    options.TopLeft = WordTopLeft;
+
                     string guidString = Guid.NewGuid().ToString("N");
                     string bookmarkName = "C4W_" + guidString;
                     OoXmlFile ooXmlFile = new OoXmlFile(_telemetry);
@@ -1031,6 +1052,8 @@ namespace Chem4Word.Core
                         OoXmlOptions options = new OoXmlOptions();
                         options.ColouredAtoms = Setting.RenderAtomsInColour;
                         options.ShowHydrogens = Setting.RenderImplicitHydrogens;
+                        options.TopLeft = WordTopLeft;
+
                         string guidString = Guid.NewGuid().ToString("N");
                         string bookmarkName = "C4W_" + guidString;
                         OoXmlFile ooXmlFile = new OoXmlFile(_telemetry);
@@ -1246,6 +1269,7 @@ namespace Chem4Word.Core
                 tcd.UserOptions = new OoXmlOptions();
                 tcd.UserOptions.ShowHydrogens = Setting.RenderImplicitHydrogens;
                 tcd.UserOptions.ColouredAtoms = Setting.RenderAtomsInColour;
+                tcd.TopLeft = WordTopLeft;
 
                 tcd.Telemetry = _telemetry;
 
@@ -1378,6 +1402,7 @@ namespace Chem4Word.Core
                     ProgressBar pb = new ProgressBar();
                     pb.Value = 0;
                     pb.Maximum = 3;
+                    pb.TopLeft = WordTopLeft;
 
                     #region Get Inchi-Keys from Chem Spider
 

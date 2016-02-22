@@ -113,6 +113,11 @@ namespace Chem4Word.Core
             get { return core.WordVersion; }
         }
 
+        public System.Windows.Point WordTopLeft
+        {
+            get { return core.WordTopLeft; }
+        }
+
         /// <summary>
         /// Gets number of Chemistry Zone in side this document.
         /// </summary>
@@ -188,6 +193,8 @@ namespace Chem4Word.Core
                     OoXmlOptions options = new OoXmlOptions();
                     options.ColouredAtoms = Setting.RenderAtomsInColour;
                     options.ShowHydrogens = Setting.RenderImplicitHydrogens;
+                    options.TopLeft = core.WordTopLeft;
+
                     string guidString = Guid.NewGuid().ToString("N");
                     string bookmarkName = "C4W_" + guidString;
                     OoXmlFile ooXmlFile = new OoXmlFile(core.GetTelemetry());
