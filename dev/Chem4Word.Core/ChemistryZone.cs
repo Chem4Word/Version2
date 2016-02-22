@@ -115,6 +115,8 @@ namespace Chem4Word.Core {
                     OoXmlOptions options = new OoXmlOptions();
                     options.ColouredAtoms = Setting.RenderAtomsInColour;
                     options.ShowHydrogens = Setting.RenderImplicitHydrogens;
+                    options.TopLeft = document.WordTopLeft;
+
                     string guidString = Guid.NewGuid().ToString("N");
                     string bookmarkName = "C4W_" + guidString;
                     OoXmlFile ooXmlFile = new OoXmlFile(document.GetTelemetry());

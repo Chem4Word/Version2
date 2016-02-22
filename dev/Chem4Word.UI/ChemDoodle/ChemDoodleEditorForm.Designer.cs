@@ -337,6 +337,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimumSize = new System.Drawing.Size(616, 478);
             this.Name = "ChemDoodleEditorForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "Chem4Word Structure Editor";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.TweakChemDoodle_FormClosing);
             this.Load += new System.EventHandler(this.TweakChemDoodle_Load);

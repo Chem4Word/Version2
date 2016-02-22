@@ -32,6 +32,8 @@ namespace Chem4Word.UI.ChemDoodle
 
         private const int WM_KEYDOWN = 0x0100;
 
+        public System.Windows.Point TopLeft { get; set; }
+
         public OoXmlOptions UserOptions { get; set; }
         public string Before_CML { get; set; }
         public string Before_MolFile { get; set; }
@@ -95,7 +97,13 @@ namespace Chem4Word.UI.ChemDoodle
         private void TweakChemDoodle_Load(object sender, EventArgs e)
         {
             Cursor.Current = Cursors.WaitCursor;
-            
+
+            if (TopLeft.X != 0 && TopLeft.Y != 0)
+            {
+                Left = (int)TopLeft.X;
+                Top = (int)TopLeft.Y;
+            }
+
             this.Show();
             Application.DoEvents();
 
