@@ -140,19 +140,19 @@ namespace Numbo.Cml.Helpers
             BondOrder bondOrder = Unknown;
             if (value == null)
             {}
-            else if (value.Equals(CmlBond.Single) || value.Equals(1))
+            else if (value.Equals(CmlBond.Single) || value.Equals("1"))
             {
                 bondOrder = Single;
             }
-            else if (value.Equals(CmlBond.Double) || value.Equals(2))
+            else if (value.Equals(CmlBond.Double) || value.Equals("2"))
             {
                 bondOrder = Double;
             }
-            else if (value.Equals(CmlBond.Triple) || value.Equals(3))
+            else if (value.Equals(CmlBond.Triple) || value.Equals("3"))
             {
                 bondOrder = Triple;
             }
-            else if (value.Equals(CmlBond.Aromatic))
+            else if (value.Equals(CmlBond.Aromatic) || value.Equals("1.5"))
             {
                 bondOrder = Aromatic;
             }

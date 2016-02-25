@@ -94,6 +94,7 @@ namespace Chem4Word.UI.OOXML.Bonds
                     m_BondLines.Add(new BondLine(bondStart, bondEnd, "dashed"));
                     break;
 
+                case "1":
                 case "S":
                     switch (stereoType)
                     {
@@ -112,6 +113,7 @@ namespace Chem4Word.UI.OOXML.Bonds
                     }
                     break;
 
+                case "1.5":
                 case "A":
                         BondLine a = new BondLine(bondStart, bondEnd, "solid");
                         m_BondLines.Add(a);
@@ -123,6 +125,7 @@ namespace Chem4Word.UI.OOXML.Bonds
                         m_BondLines.Add(a1);
                     break;
 
+                case "2":
                 case "D":
                     if (stereoType.Equals("S"))
                     {
@@ -188,6 +191,7 @@ namespace Chem4Word.UI.OOXML.Bonds
                     }
                     break;
 
+                case "3":
                 case "T":
                     // Draw main bond line
                     BondLine t = new BondLine(bondStart, bondEnd, "solid");
