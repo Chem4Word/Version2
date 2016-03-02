@@ -13,10 +13,12 @@ using System.Drawing;
 using System.IO;
 using System.Net;
 using System.Net.Cache;
+using System.Security.AccessControl;
 using System.Text;
 using System.Windows.Forms;
 using System.Xml.Linq;
 using System.Xml.XPath;
+using Chem4Word.Common;
 using Chem4Word.Common.Utilities;
 using Microsoft.Win32;
 
@@ -31,26 +33,41 @@ namespace Chem4Word.UI.UIControls
         private string _downloadUrl = string.Empty;
         private string _latestMsiFilePath = string.Empty;
 
+        private Telemetry _telemetry;
+
         private WebClient _webClient;
 
-        public AutomaticUpdate()
+        public AutomaticUpdate(Telemetry telemetry)
         {
+            string module = "AutomaticUpdate()";
+            _telemetry = telemetry;
             InitializeComponent();
+            _telemetry.Write(module, "AutomaticUpdate", "Shown");
         }
 
-        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        private void linkCodeplexPage_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
+            string module = "linkCodeplexPage_LinkClicked()";
+            _telemetry.Write(module, "AutomaticUpdate", "Open CodePlex Page");
             Process.Start("https://chem4word.codeplex.com/releases/view/618360");
             DialogResult = DialogResult.Cancel;
         }
 
         private void richTextBox1_LinkClicked(object sender, LinkClickedEventArgs e)
         {
+            string module = "richTextBox1_LinkClicked()";
+            _telemetry.Write(module, "AutomaticUpdate", "Open page " + e.LinkText);
+
             Process.Start(e.LinkText);
         }
 
         private void AutomaticUpdate_FormClosing(object sender, FormClosingEventArgs e)
         {
+            string module = "AutomaticUpdate_FormClosing()";
+            if (e.CloseReason == CloseReason.UserClosing)
+            {
+                _telemetry.Write(module, "AutomaticUpdate", "User Dismissed Form");
+            }
             if (_webClient != null)
             {
                 _webClient.CancelAsync();
@@ -59,6 +76,9 @@ namespace Chem4Word.UI.UIControls
 
         private void btnUpdateNow_Click(object sender, EventArgs e)
         {
+            string module = "btnUpdateNow_Click()";
+            _telemetry.Write(module, "AutomaticUpdate", "Starting download of " + _downloadUrl);
+
             progressBar1.Value = 0;
             btnUpdateNow.Enabled = false;
             Cursor.Current = Cursors.AppStarting;
@@ -74,6 +94,13 @@ namespace Chem4Word.UI.UIControls
             _webClient.DownloadFileAsync(uri, _latestMsiFilePath);
         }
 
+        private void btnUpdateLater_Click(object sender, EventArgs e)
+        {
+            string module = "btnUpdateLater_Click()";
+            _telemetry.Write(module, "AutomaticUpdate", "User Defered Update");
+            DialogResult = DialogResult.Cancel;
+        }
+
         private void OnDownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)
         {
             progressBar1.Value = e.ProgressPercentage;
@@ -81,6 +108,9 @@ namespace Chem4Word.UI.UIControls
 
         private void OnDownloadComplete(object sender, AsyncCompletedEventArgs e)
         {
+            string module = "OnDownloadComplete()";
+            _telemetry.Write(module, "AutomaticUpdate", "Download Complete");
+
             _webClient.DownloadProgressChanged -= OnDownloadProgressChanged;
             _webClient.DownloadFileCompleted -= OnDownloadComplete;
 
@@ -108,6 +138,7 @@ namespace Chem4Word.UI.UIControls
                 string cmdFile = Path.Combine(Path.GetTempPath(), "remove-old-chem4word.bat");
                 File.WriteAllText(cmdFile, sb.ToString());
 
+                _telemetry.Write(module, "AutomaticUpdate", "Running update batch file");
                 // Execcute batch file
                 var processStartInfo = new ProcessStartInfo
                 {
@@ -120,14 +151,9 @@ namespace Chem4Word.UI.UIControls
             }
         }
 
-        private void btnUpdateLater_Click(object sender, EventArgs e)
-        {
-            DialogResult = DialogResult.Cancel;
-        }
-
         private void AutomaticUpdate_Load(object sender, EventArgs e)
         {
-            _existingVersionGuid = GetGuid();
+            string module = "AutomaticUpdate_Load()";
 
             try
             {
@@ -135,6 +161,9 @@ namespace Chem4Word.UI.UIControls
                 DateTime currentReleaseDate = SafeDate.Parse(CurrentVersion.Root.Element("Released").Value);
 
                 lblInfo.Text = "Your current version of Chem4Word is " + currentVersionNumber + "; Released " + currentReleaseDate.ToString("dd-MMM-yyyy");
+                _telemetry.Write(module, "AutomaticUpdate", lblInfo.Text);
+
+                _existingVersionGuid = GetGuid();
 
                 var versions = NewVersions.XPathSelectElements("//Version");
                 foreach (var version in versions)
@@ -257,13 +286,17 @@ namespace Chem4Word.UI.UIControls
 
                 if (key != null)
                 {
+                    //string[] xx = RegistryUtility.GetSubKeys();
+
                     foreach (string subkeyName in key.GetSubKeyNames())
                     {
                         using (RegistryKey subkey = key.OpenSubKey(subkeyName))
                         {
+                            //Debug.WriteLine("Found key " + subkeyName);
                             if (subkey != null)
                             {
                                 string displayName = subkey.GetValue("DisplayName") as string;
+                                //Debug.WriteLine(" Display Name is " + displayName);
                                 if (!string.IsNullOrEmpty(displayName))
                                 {
                                     if (displayName.ToLower().Equals(name.ToLower()))
@@ -278,8 +311,9 @@ namespace Chem4Word.UI.UIControls
                     key = null;
                 }
             }
-            catch
+            catch (Exception ex)
             {
+                Debug.WriteLine(ex.Message);
                 //
             }
 
@@ -346,7 +380,9 @@ namespace Chem4Word.UI.UIControls
 
         private string GetGuid()
         {
-            string title = "Chemisty Add-in for Word";
+            string module = "GetGuid()";
+
+            string title = "Chemistry Add-in for Word";
 
             string root = "HKLM";
             string branch = @"SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall";
@@ -384,6 +420,11 @@ namespace Chem4Word.UI.UIControls
             {
                 // Default to product code of Beta 6
                 result = "{3CCB73D3-0CC8-4AD2-AE08-E207A57CA8FD}";
+                _telemetry.Write(module, "AutomaticUpdate", "Using default Guid of " + result);
+            }
+            else
+            {
+                _telemetry.Write(module, "AutomaticUpdate", "Found Guid " + result + " in " + root + "\\" + branch);
             }
 
             return result;

@@ -734,15 +734,18 @@ namespace Chem4Word.Core
                         Debug.WriteLine("Current Version " + currentVersionNumber + " Released " + currentReleaseDate.ToString("dd-MMM-yyyy"));
 
                         string tempPath = Path.GetTempPath();
-                        string updatexml = "Chem4Word-Versions.xml";
-                        string latestVersionXmlFile = Path.Combine(tempPath, updatexml);
+                        string chem4wordVersionsXml = "Chem4Word-Versions.xml";
 
-                        if (File.Exists(latestVersionXmlFile))
+                        string oldVersionXmlFile = Path.Combine(tempPath, chem4wordVersionsXml);
+                        if (File.Exists(oldVersionXmlFile))
                         {
-                            File.Delete(latestVersionXmlFile);
+                            File.Delete(oldVersionXmlFile);
                         }
 
-                        string versionsLink = "http://www.chem4word.co.uk/files/" + updatexml;
+                        string guid = Guid.NewGuid().ToString();
+                        string latestVersionXmlFile = Path.Combine(tempPath, guid + "-" + chem4wordVersionsXml);
+
+                        string versionsLink = "http://www.chem4word.co.uk/files/" + chem4wordVersionsXml;
                         WebClient client = new WebClient();
                         client.Headers.Add("user-agent", "Chem4Word Add-In");
                         client.DownloadFile(versionsLink, latestVersionXmlFile);
@@ -765,9 +768,11 @@ namespace Chem4Word.Core
                                 }
                             }
 
+                            File.Delete(latestVersionXmlFile);
+
                             if (updateRequired)
                             {
-                                AutomaticUpdate au = new AutomaticUpdate();
+                                AutomaticUpdate au = new AutomaticUpdate(_telemetry);
                                 au.CurrentVersion = currentVersion;
                                 au.NewVersions = latestVersion;
 
