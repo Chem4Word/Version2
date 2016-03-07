@@ -228,23 +228,30 @@ namespace Chem4Word.UI.OOXML
                 foreach (AtomLabelCharacter alc in m_AtomLabelCharacters)
                 {
                     pb.Increment(1);
-                    Rect a = new Rect(alc.Position.X - Helper.CHARACTER_CLIPPING_MARGIN, alc.Position.Y - Helper.CHARACTER_CLIPPING_MARGIN,
-                                    Helper.ScaleTtfToCml(alc.Character.BlackBoxX) + (Helper.CHARACTER_CLIPPING_MARGIN * 2),
-                                    Helper.ScaleTtfToCml(alc.Character.BlackBoxY) + (Helper.CHARACTER_CLIPPING_MARGIN * 2));
 
-                    //Debug.WriteLine("Character: " + alc.Ascii + " Rectangle: " + a);
-                    //_telemetry.Write(module, "Debug", "Character: " + alc.Ascii + " Rectangle: " + a);
+                    double width = Helper.ScaleTtfToCml(alc.Character.BlackBoxX);
+                    double height = Helper.ScaleTtfToCml(alc.Character.BlackBoxY);
 
                     if (alc.IsSubScript)
                     {
-                        a.Width = Helper.ScaleTtfToCml(alc.Character.BlackBoxX) * Helper.SUBSCRIPT_SCALE_FACTOR;
-                        a.Height = Helper.ScaleTtfToCml(alc.Character.BlackBoxY) * Helper.SUBSCRIPT_SCALE_FACTOR;
+                        // Shrink bounding box
+                        width = width * Helper.SUBSCRIPT_SCALE_FACTOR;
+                        height = height * Helper.SUBSCRIPT_SCALE_FACTOR;
                     }
+
+                    // Create rectangle of the bounding box with a suitable clipping margin
+                    Rect a = new Rect(alc.Position.X - Helper.CHARACTER_CLIPPING_MARGIN, alc.Position.Y - Helper.CHARACTER_CLIPPING_MARGIN,
+                                    width + (Helper.CHARACTER_CLIPPING_MARGIN * 2),
+                                    height + (Helper.CHARACTER_CLIPPING_MARGIN * 2));
+
+                    //Debug.WriteLine("Character: " + alc.Ascii + " Rectangle: " + a);
+                    //_telemetry.Write(module, "Debug", "Character: " + alc.Ascii + " Rectangle: " + a);
 
                     //_telemetry.Write(module, "Debug", "m_BondLines.Count " + m_BondLines.Count);
                     foreach (BondLine bl in m_BondLines)
                     {
                         pb.Increment(1);
+
                         Point start = new Point(bl.StartX, bl.StartY);
                         Point end = new Point(bl.EndX, bl.EndY);
 

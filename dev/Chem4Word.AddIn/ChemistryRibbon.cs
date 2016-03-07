@@ -251,11 +251,17 @@ namespace Chem4Word.AddIn
                 case 2013:
                     // Word 2013 uses upper case tab labels
                     sTabLabel = "CHEMISTRY";
+                    #if DEBUG
+                        sTabLabel = "CHEMISTRY (DEBUG)";
+                    #endif
                     break;
 
                 default:
                     // Everything else will be mixed case
                     sTabLabel = "Chemistry";
+                    #if DEBUG
+                        sTabLabel = "Chemistry (Debug)";
+                    #endif
                     break;
             }
             string sResourceText = GetResourceText("Chem4Word.AddIn.ChemistryRibbon.xml");
