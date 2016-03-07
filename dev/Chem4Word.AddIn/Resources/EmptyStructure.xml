@@ -5,8 +5,7 @@
     </cml:atomArray>
     <cml:bondArray></cml:bondArray>
     <cml:formula concise="C 1 H 4"></cml:formula>
-    <cidCommand instruction="NormalizeOnImport" xmlns="http://www.xml-cml.org/dictionary/cmlx/"></cidCommand>
-    <name dictRef="nameDict:inchikey" xmlns="http://www.xml-cml.org/schema">VNWKTOKETHGBQD-UHFFFAOYSA-N</name>
-    <name dictRef="nameDict:chemspider" xmlns="http://www.xml-cml.org/schema">Methane</name>
+    <cml:name dictRef="nameDict:inchikey" xmlns="http://www.xml-cml.org/schema">VNWKTOKETHGBQD-UHFFFAOYSA-N</cml:name>
+    <cml:name dictRef="nameDict:chemspider" xmlns="http://www.xml-cml.org/schema">Methane</cml:name>
   </cml:molecule>
 </cml:cml>
