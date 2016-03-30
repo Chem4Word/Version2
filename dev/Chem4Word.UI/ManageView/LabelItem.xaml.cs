@@ -6,6 +6,7 @@
 // -----------------------------------------------------------------------
 using System;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
@@ -131,6 +132,7 @@ namespace Chem4Word.UI.ManageView
                             Equals(name.DictRef))
                     {
                         comboBox.SelectedItem = NameChemspider;
+                        this.IsEnabled = false;
                     }
                     else
                     {
@@ -149,11 +151,22 @@ namespace Chem4Word.UI.ManageView
                 mouseDown = false;
                 editing = false;
             }
-
             else
             {
                 LabelText = string.Empty;
                 comboBox.SelectedItem = Prompt;
+
+                // Prevent end user from adding multiple labels of special types
+                //  by removing them from the drop down list.
+                for (int i = comboBox.Items.Count-1; i > 0; i--)
+                {
+                    ComboBoxItem ctl = comboBox.Items[i] as ComboBoxItem;
+                    ListBoxItem li = ctl;
+                    if (li.Name.Equals("NameInchiKey") || li.Name.Equals("NameChemspider"))
+                    {
+                        comboBox.Items.RemoveAt(i);
+                    }
+                }
                 IsValid = false;
             }
             SetDisplayText();
