@@ -1457,25 +1457,26 @@ namespace Chem4Word.Core
                         afterMolecule.AppendChild(inchiKeyElement);
                     }
 
-                    if (afterSynonym != null)
-                    {
-                        if (chemSpiderSynonymElement == null)
-                        {
-                            chemSpiderSynonymElement = docAfter.CreateElement(CmlName.Tag, "http://www.xml-cml.org/schema");
-                            chemSpiderSynonymElement.SetAttribute(CmlAttribute.DictRef, "nameDict:chemspider");
-                        }
-                        if (!string.IsNullOrEmpty(afterSynonym))
-                        {
-                            chemSpiderSynonymElement.InnerText = afterSynonym;
-                        }
-                        else
-                        {
-                            chemSpiderSynonymElement.InnerText = beforeSynonym;
-                        }
-                        afterMolecule.AppendChild(chemSpiderSynonymElement);
-                    }
-
                     #endregion Save New Inchi-Key (if found)
+
+                    #region Save New ChemSpider Synonym (if found)
+
+                    if (chemSpiderSynonymElement == null)
+                    {
+                        chemSpiderSynonymElement = docAfter.CreateElement(CmlName.Tag, "http://www.xml-cml.org/schema");
+                        chemSpiderSynonymElement.SetAttribute(CmlAttribute.DictRef, "nameDict:chemspider");
+                    }
+                    if (!string.IsNullOrEmpty(afterSynonym))
+                    {
+                        chemSpiderSynonymElement.InnerText = afterSynonym;
+                    }
+                    else
+                    {
+                        chemSpiderSynonymElement.InnerText = "Not known to ChemSpider";
+                    }
+                    afterMolecule.AppendChild(chemSpiderSynonymElement);
+
+                    #endregion Save New ChemSpider Synonym (if found)
 
                     // Detect if molecule has changed and we need to show Label editor
                     bool showLabelEditor = newStructure;
