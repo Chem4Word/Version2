@@ -1519,22 +1519,28 @@ namespace Chem4Word.Core
 
                         #endregion Show Label Editor
 
+                        #region Save the data with new labels
+
+                        contextObject = resultHolder.GetContextObject();
+                        var chemZoneProperties = selectedZone.Properties;
+                        chemZoneProperties.ViewBox = contextObject.ViewBoxDimensions;
+                        selectedZone.Properties = chemZoneProperties;
+
                         if (labelEditResult)
                         {
-                            #region Save the data with new labels
-
-                            contextObject = resultHolder.GetContextObject();
-                            var chemZoneProperties = selectedZone.Properties;
-                            chemZoneProperties.ViewBox = contextObject.ViewBoxDimensions;
-                            selectedZone.Properties = chemZoneProperties;
                             selectedZone.Cml = contextObject.Cml;
-
-                            #endregion Save the data with new labels
                         }
+                        else
+                        {
+                            // No Label changes, simply overwrite Cml which causes refresh of chemistry zones
+                            selectedZone.Cml = XDocument.Parse(docAfter.InnerXml);
+                        }
+
+                        #endregion Save the data with new labels
                     }
                     else
                     {
-                        // No Label changes, simply overwrite Cml which causes refresh of png
+                        // No Label changes, simply overwrite Cml which causes refresh of chemistry zones
                         selectedZone.Cml = XDocument.Parse(docAfter.InnerXml);
                     }
 
