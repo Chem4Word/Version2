@@ -1564,9 +1564,9 @@ namespace Chem4Word.Core
             }
             catch (Exception ex)
             {
-                _telemetry.Write(module, "Exception", ex.Message);
                 Log.Error("Error in TweakDoodle2D", ex);
-                throw new NumboException("Error in TweakDoodle2D:\n" + ex.Message, ex);
+                _telemetry.Write(module, "Exception", ex.Message);
+                new ErrorReport(_telemetry, module, ex.Message).ShowDialog();
             }
             finally
             {

@@ -2,6 +2,15 @@
 <!-- This file must be uploaded to http://www.chem4word.co.uk/files/ folder as Chem4Word-Versions.xml -->
 <ChangeLog>
   <Version>
+    <Number>2.0.1.0 Beta 11</Number>
+    <IsBeta>true</IsBeta>
+    <Released>31-Mar-2016</Released>
+    <Changes>
+      <Change>Fixed null pointer exception when ChemSpider synonym in use and we tried to delete it</Change>
+    </Changes>
+    <Url>http://www.chem4word.co.uk/files/Chem4Word.Setup.2.0.1.0.Beta.10.msi</Url>
+  </Version>
+  <Version>
     <Number>2.0.1.0 Beta 10</Number>
     <IsBeta>true</IsBeta>
     <Released>02-Mar-2016</Released>
