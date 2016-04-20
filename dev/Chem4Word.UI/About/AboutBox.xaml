@@ -21,7 +21,7 @@
 				<Image Source="../Resources/Images/AboutBodydown.png" Stretch="None" HorizontalAlignment="Left" />
 			</StackPanel>
 			<StackPanel>
-				<TextBlock Name="txtBetalabel" Text="Version 2.0.1.0 Beta 10" FontFamily="Segoe UI" FontSize="18" Margin="25,2,0,0"></TextBlock>
+				<TextBlock Name="txtBetalabel" Text="Version 2.0.1.0 Beta 11" FontFamily="Segoe UI" FontSize="18" Margin="25,2,0,0"></TextBlock>
 				<TextBlock Name="txt1" Margin="25,10,0,0" Text="The Chemistry Add-In for Word was developed jointly by Microsoft Research and the University of Cambridge in order to enable authorship of chemical information within Microsoft Office Word documents.  The addin in now being further developed by a small, independent project team spread across the world.  The Chem4Word Project aims to demonstrate how semantic information can be captured and retained as a part of document authoring in order to more accurately represent the chemical content, contribute to simpler pre-publication processes and richer information discovery scenarios, as well as to preserve chemical information for archival purposes using Chemical Markup Language - an open standard." TextWrapping="Wrap" FontSize="11" FontFamily="Microsoft Sans Serif" />
                 <TextBlock Name="txt3" Margin="25,10,0,0" TextWrapping="Wrap" FontSize="11" FontFamily="Microsoft Sans Serif">
                     Chem4Word incorporates an on-line Open Source HTML5 Chemistry Editor - ChemDoodle Web Components
