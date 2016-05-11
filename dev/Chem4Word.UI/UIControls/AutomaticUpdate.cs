@@ -37,6 +37,8 @@ namespace Chem4Word.UI.UIControls
 
         private WebClient _webClient;
 
+        public System.Windows.Point TopLeft { get; set; }
+
         public AutomaticUpdate(Telemetry telemetry)
         {
             string module = "AutomaticUpdate()";
@@ -154,6 +156,12 @@ namespace Chem4Word.UI.UIControls
         private void AutomaticUpdate_Load(object sender, EventArgs e)
         {
             string module = "AutomaticUpdate_Load()";
+
+            if (TopLeft.X != 0 && TopLeft.Y != 0)
+            {
+                Left = (int)TopLeft.X;
+                Top = (int)TopLeft.Y;
+            }
 
             try
             {

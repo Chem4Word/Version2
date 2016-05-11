@@ -603,7 +603,9 @@
     <Resource Include="Resources\Images\AboutTop.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\pubchem2cml.xslt" />
+    <Resource Include="Resources\pubchem2cml.xslt">
+      <SubType>Designer</SubType>
+    </Resource>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Images\Select_All.png" />

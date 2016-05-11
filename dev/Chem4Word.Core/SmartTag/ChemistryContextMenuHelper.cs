@@ -503,7 +503,7 @@ namespace Chem4Word.Core.SmartTag
                     //MessageBox.Show(ex.Message,
                     //                UI.Properties.Resources.CHEM_4_WORD_MESSAGE_BOX_TITLE, MessageBoxButton.OK,
                     //                MessageBoxImage.Error);
-                    new ErrorReport(_core.GetTelemetry(), module, ex.Message).ShowDialog();
+                    new ErrorReport(_core.GetTelemetry(), _core.WordTopLeft, module, ex.Message).ShowDialog();
                 }
             }
         }

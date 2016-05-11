@@ -773,6 +773,7 @@ namespace Chem4Word.Core
                             if (updateRequired)
                             {
                                 AutomaticUpdate au = new AutomaticUpdate(_telemetry);
+                                au.TopLeft = WordTopLeft;
                                 au.CurrentVersion = currentVersion;
                                 au.NewVersions = latestVersion;
 
@@ -1084,7 +1085,7 @@ namespace Chem4Word.Core
                         //MessageBox.Show(e.Message + "\n\n" + e.Source + "\n\n" + e.StackTrace,
                         //                Resources.CHEM_4_WORD_MESSAGE_BOX_TITLE, MessageBoxButton.OK,
                         //                MessageBoxImage.Stop);
-                        new ErrorReport(_telemetry, module, e.Message).ShowDialog();
+                        new ErrorReport(_telemetry, WordTopLeft, module, e.Message).ShowDialog();
                     }
                 }
                 else
@@ -1112,7 +1113,7 @@ namespace Chem4Word.Core
                         //MessageBox.Show(e.Message + "\n\n" + e.Source + "\n\n" + e.StackTrace,
                         //                Resources.CHEM_4_WORD_MESSAGE_BOX_TITLE, MessageBoxButton.OK,
                         //                MessageBoxImage.Stop);
-                        new ErrorReport(_telemetry, module, e.Message).ShowDialog();
+                        new ErrorReport(_telemetry, WordTopLeft, module, e.Message).ShowDialog();
                     }
                 }
             }
@@ -1572,7 +1573,7 @@ namespace Chem4Word.Core
             {
                 Log.Error("Error in TweakDoodle2D", ex);
                 _telemetry.Write(module, "Exception", ex.Message);
-                new ErrorReport(_telemetry, module, ex.Message).ShowDialog();
+                new ErrorReport(_telemetry, WordTopLeft, module, ex.Message).ShowDialog();
             }
             finally
             {
@@ -2086,7 +2087,7 @@ namespace Chem4Word.Core
             }
         }
 
-        private static void Recognize(string paragraphText, int selectionRangeStart, int cursorPosition,
+        private void Recognize(string paragraphText, int selectionRangeStart, int cursorPosition,
                                     bool isSelection)
         {
             string module = "CoreClass.Recognize()";
@@ -2122,7 +2123,7 @@ namespace Chem4Word.Core
                     //MessageBox.Show(ex.Message,
                     //                UI.Properties.Resources.CHEM_4_WORD_MESSAGE_BOX_TITLE, MessageBoxButton.OK,
                     //                MessageBoxImage.Error);
-                    new ErrorReport(_telemetry, module, ex.Message).ShowDialog();
+                    new ErrorReport(_telemetry, WordTopLeft, module, ex.Message).ShowDialog();
                 }
             }
         }
@@ -2646,7 +2647,7 @@ namespace Chem4Word.Core
                 _telemetry.Write(module, "Exception", ex.Message);
                 //MessageBox.Show(ex.Message, Resources.CHEM_4_WORD_MESSAGE_BOX_TITLE, MessageBoxButton.OK,
                 //                MessageBoxImage.Stop);
-                new ErrorReport(_telemetry, module, ex.Message).ShowDialog();
+                new ErrorReport(_telemetry, WordTopLeft, module, ex.Message).ShowDialog();
             }
         }
 
@@ -2775,7 +2776,7 @@ namespace Chem4Word.Core
                 _telemetry.Write(module, "Exception(Data)", searchResult);
                 //MessageBox.Show(ex.Message, Resources.CHEM_4_WORD_MESSAGE_BOX_TITLE, MessageBoxButton.OK,
                 //                MessageBoxImage.Stop);
-                new ErrorReport(_telemetry, module, ex.Message).ShowDialog();
+                new ErrorReport(_telemetry, WordTopLeft, module, ex.Message).ShowDialog();
             }
             return chemistryZone;
         }
@@ -2838,7 +2839,7 @@ namespace Chem4Word.Core
                 _telemetry.Write(module, "Exception(Data)", searchResult);
                 //MessageBox.Show(ex.Message, Resources.CHEM_4_WORD_MESSAGE_BOX_TITLE, MessageBoxButton.OK,
                 //                MessageBoxImage.Stop);
-                new ErrorReport(_telemetry, module, ex.Message).ShowDialog();
+                new ErrorReport(_telemetry, WordTopLeft, module, ex.Message).ShowDialog();
             }
 
             return chemistryZone;
