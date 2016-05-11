@@ -17,7 +17,9 @@ namespace Chem4Word.UI.UIControls
         private string _exceptionMessage = string.Empty;
         private string _operation = string.Empty;
 
-        public ErrorReport(Telemetry telemetry, string operation, string exceptionMessage)
+        public System.Windows.Point TopLeft { get; set; }
+
+        public ErrorReport(Telemetry telemetry, System.Windows.Point TopLeft, string operation, string exceptionMessage)
         {
             InitializeComponent();
 
@@ -35,9 +37,16 @@ namespace Chem4Word.UI.UIControls
 
         private void ErrorReport_Load(object sender, EventArgs e)
         {
+            if (TopLeft.X != 0 && TopLeft.Y != 0)
+            {
+                Left = (int)TopLeft.X;
+                Top = (int)TopLeft.Y;
+            }
+            
             try
             {
                 textBox1.Text = _exceptionMessage;
+
             }
             catch (Exception)
             {

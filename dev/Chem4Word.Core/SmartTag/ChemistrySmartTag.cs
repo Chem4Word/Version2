@@ -59,7 +59,7 @@ namespace Chem4Word.Core.SmartTag
             {
                 //MessageBox.Show(ex.Message, Resources.CHEM_4_WORD_MESSAGE_BOX_TITLE);
                 core.WriteTelemetry(module, "Exception", ex.Message);
-                new ErrorReport(core.GetTelemetry(), module, ex.Message).ShowDialog();
+                new ErrorReport(core.GetTelemetry(), core.WordTopLeft, module, ex.Message).ShowDialog();
             }
         }
 
@@ -149,7 +149,7 @@ namespace Chem4Word.Core.SmartTag
             {
                 //MessageBox.Show(ex.Message, Resources.CHEM_4_WORD_MESSAGE_BOX_TITLE);
                 core.WriteTelemetry(module, "Exception", ex.Message);
-                new ErrorReport(core.GetTelemetry(), module, ex.Message).ShowDialog();
+                new ErrorReport(core.GetTelemetry(), core.WordTopLeft, module, ex.Message).ShowDialog();
             }
         }
 
@@ -189,7 +189,7 @@ namespace Chem4Word.Core.SmartTag
             {
                 //MessageBox.Show(ex.Message, Resources.CHEM_4_WORD_MESSAGE_BOX_TITLE);
                 core.WriteTelemetry(module, "Exception", ex.Message);
-                new ErrorReport(core.GetTelemetry(), module, ex.Message).ShowDialog();
+                new ErrorReport(core.GetTelemetry(), core.WordTopLeft, module, ex.Message).ShowDialog();
             }
         }
 
