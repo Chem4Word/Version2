@@ -754,30 +754,39 @@ namespace Chem4Word.Core
 
                         if (File.Exists(latestVersionXmlFile))
                         {
-                            XDocument latestVersion = XDocument.Load(latestVersionXmlFile);
-                            var versions = latestVersion.XPathSelectElements("//Version");
-                            foreach (var version in versions)
+                            string fileContents = File.ReadAllText(latestVersionXmlFile);
+                            if (fileContents.Contains("<ChangeLog>"))
                             {
-                                var thisVersionNumber = version.Element("Number").Value;
-                                DateTime thisVersionDate = SafeDate.Parse(version.Element("Released").Value);
-                                Debug.WriteLine("New Version " + thisVersionNumber + " Released " + thisVersionDate.ToString("dd-MMM-yyyy"));
-                                if (thisVersionDate > currentReleaseDate)
+                                XDocument latestVersion = XDocument.Load(latestVersionXmlFile);
+                                var versions = latestVersion.XPathSelectElements("//Version");
+                                foreach (var version in versions)
                                 {
-                                    updateRequired = true;
-                                    break;
+                                    var thisVersionNumber = version.Element("Number").Value;
+                                    DateTime thisVersionDate = SafeDate.Parse(version.Element("Released").Value);
+                                    Debug.WriteLine("New Version " + thisVersionNumber + " Released " + thisVersionDate.ToString("dd-MMM-yyyy"));
+                                    if (thisVersionDate > currentReleaseDate)
+                                    {
+                                        updateRequired = true;
+                                        break;
+                                    }
+                                }
+
+                                File.Delete(latestVersionXmlFile);
+
+                                if (updateRequired)
+                                {
+                                    AutomaticUpdate au = new AutomaticUpdate(_telemetry);
+                                    au.TopLeft = WordTopLeft;
+                                    au.CurrentVersion = currentVersion;
+                                    au.NewVersions = latestVersion;
+
+                                    DialogResult dr = au.ShowDialog();
                                 }
                             }
-
-                            File.Delete(latestVersionXmlFile);
-
-                            if (updateRequired)
+                            else
                             {
-                                AutomaticUpdate au = new AutomaticUpdate(_telemetry);
-                                au.TopLeft = WordTopLeft;
-                                au.CurrentVersion = currentVersion;
-                                au.NewVersions = latestVersion;
-
-                                DialogResult dr = au.ShowDialog();
+                                _telemetry.Write(module, "Exception", "File Chem4Word-Versions.xml is corrupt");
+                                _telemetry.Write(module, "Exception(Data)", fileContents);
                             }
                         }
                     }
