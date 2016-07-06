@@ -2,6 +2,15 @@
 <!-- This file must be uploaded to http://www.chem4word.co.uk/files/ folder as Chem4Word-Versions.xml -->
 <ChangeLog>
   <Version>
+    <Number>2.0.1.0 RTM</Number>
+    <IsBeta>false</IsBeta>
+    <Released>06-Jul-2016</Released>
+    <Changes>
+      <Change>RTM with updated manual</Change>
+    </Changes>
+    <Url>http://www.chem4word.co.uk/files/Chem4Word.Setup.2.0.1.0.2016.07.06.msi</Url>
+  </Version>
+  <Version>
     <Number>2.0.1.0 Beta 11</Number>
     <IsBeta>true</IsBeta>
     <Released>20-Apr-2016</Released>

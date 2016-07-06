@@ -109,7 +109,7 @@ namespace Chem4Word.UI.ChemDoodle
 
             string temp = Path.GetTempPath();
 
-            string markerFileName = Path.Combine(temp, "C4W-Version-2010-Beta-6-CDW-702.txt");
+            string markerFileName = Path.Combine(temp, "C4W-Version-2010-CDW-702.txt");
             if (!File.Exists(markerFileName))
             {
                 string markerfile = Properties.Resources.C4W_MarkerFile_txt;

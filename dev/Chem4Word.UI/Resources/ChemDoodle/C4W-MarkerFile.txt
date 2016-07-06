@@ -1,2 +1,2 @@
-﻿Chem4Word Version 2.0.1.0 beta 6
+﻿Chem4Word Version 2.0.1.0
 using ChemDoodle Web 7.0.2
