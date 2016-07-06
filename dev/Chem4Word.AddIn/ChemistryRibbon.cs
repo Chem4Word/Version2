@@ -403,7 +403,8 @@ namespace Chem4Word.AddIn
 
         public void HelpClick(IRibbonControl sender)
         {
-            var helpFileName = Path.Combine(core.GetAssemblyDirectory, "Chemistry_Add-in_for_Word_User_Guide.docx");
+            var helpFileName = Path.Combine(Path.Combine(core.GetAssemblyDirectory, "Resources"),
+                "Chemistry_Add-in_for_Word_User_Guide.docx");
             if (File.Exists(helpFileName))
             {
                 Process.Start(helpFileName);

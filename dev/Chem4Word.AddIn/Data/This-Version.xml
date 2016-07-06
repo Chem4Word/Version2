@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Version>
-  <Number>2.0.1.0 Beta 11</Number>
-  <IsBeta>true</IsBeta>
-  <Released>20-Apr-2016</Released>
+  <Number>2.0.1.0 RTM</Number>
+  <IsBeta>false</IsBeta>
+  <Released>06-Jul-2016</Released>
 </Version>
