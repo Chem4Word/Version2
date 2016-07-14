@@ -38,6 +38,9 @@ using Chem4Word.UI.Tools;
 using Chem4Word.UI.TwoD;
 using Chem4Word.UI.UIControls;
 using Chem4Word.UI.WebServices;
+using DocumentFormat.OpenXml;
+using DocumentFormat.OpenXml.Packaging;
+using DocumentFormat.OpenXml.Wordprocessing;
 using log4net;
 using Microsoft.Office.Core;
 using Microsoft.Office.Interop.Word;
@@ -46,7 +49,9 @@ using Numbo;
 using Numbo.Cml;
 using Numbo.Coa;
 using Application = Microsoft.Office.Interop.Word.Application;
+using Document = Microsoft.Office.Interop.Word.Document;
 using MessageBox = System.Windows.MessageBox;
+using Paragraph = Microsoft.Office.Interop.Word.Paragraph;
 using Point = System.Windows.Point;
 using ProgressBar = Chem4Word.UI.UIControls.ProgressBar;
 using Shape = Microsoft.Office.Interop.Word.Shape;
@@ -138,6 +143,9 @@ namespace Chem4Word.Core
                 galleryDictionaryManager = new GalleryDictionaryManager();
                 documentDictionary = new Dictionary<Document, IChemistryDocument>();
 
+                // Ensure Open Xml SDK 2.0 is installed
+                EnsureOpenXmlSdkIsInstalled();
+
                 // Check if [LocalApplicationData]\Chem4Word\Chemistry Gallery\Chem4Word{version}.dotx
                 //  is missing and recover it from Program Folder if necessary
                 CheckForRecovery();
@@ -170,6 +178,79 @@ namespace Chem4Word.Core
             {
                 _telemetry.Write(module, "Exception", ex.Message);
                 throw;
+            }
+        }
+
+        private void EnsureOpenXmlSdkIsInstalled()
+        {
+            bool openXmlSdkIsInstalled = false;
+
+            try
+            {
+                string tempFile = Path.Combine(Path.GetTempPath(), Guid.NewGuid() + ".docx");
+                // Create a Wordprocessing document. 
+                using (WordprocessingDocument package = WordprocessingDocument.Create(tempFile, WordprocessingDocumentType.Document))
+                {
+                    // Add a new main document part.
+                    package.AddMainDocumentPart();
+
+                    // Create the Document DOM. 
+                    package.MainDocumentPart.Document =
+                        new DocumentFormat.OpenXml.Wordprocessing.Document(
+                            new Body(
+                                new DocumentFormat.OpenXml.Wordprocessing.Paragraph(
+                                    new Run(
+                                        new Text("Hello World!")))));
+
+                    // Save changes to the main document part. 
+                    package.MainDocumentPart.Document.Save();
+                }
+                File.Delete(tempFile);
+                openXmlSdkIsInstalled = true;
+            }
+            catch (Exception)
+            {
+                // Do Nothing
+            }
+
+            try
+            {
+                if (!openXmlSdkIsInstalled)
+                {
+                    string openXmkSdkDirectLink = "https://download.microsoft.com/download/2/7/F/27FF6744-D970-4FFB-90B8-5226B2B82E0A/OpenXMLSDKv2.msi";
+
+                    string tempPath = Path.GetTempPath();
+                    string msiFile = Path.Combine(tempPath, Guid.NewGuid() + "-OpenXMLSDKv2.msi");
+
+                    WebClient client = new WebClient();
+                    client.DownloadFile(openXmkSdkDirectLink, msiFile);
+
+                    if (File.Exists(msiFile))
+                    {
+                        Process p = new Process();
+                        p.StartInfo.FileName = msiFile;
+                        p.StartInfo.Arguments = "/passive";
+                        p.Start();
+                    }
+                    else
+                    {
+                        // Try again from our backup location
+                        openXmkSdkDirectLink = "https://www.doublewide.co.uk/files/OpenXMLSDKv2.msi";
+                        client.DownloadFile(openXmkSdkDirectLink, msiFile);
+
+                        if (File.Exists(msiFile))
+                        {
+                            Process p = new Process();
+                            p.StartInfo.FileName = msiFile;
+                            p.StartInfo.Arguments = "/passive";
+                            p.Start();
+                        }
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                // Do Nothing !
             }
         }
 

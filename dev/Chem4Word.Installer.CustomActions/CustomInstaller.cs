@@ -13,6 +13,9 @@ using System.Security;
 using System.Security.Permissions;
 using System.Text;
 using System.Windows.Forms;
+using DocumentFormat.OpenXml;
+using DocumentFormat.OpenXml.Packaging;
+using DocumentFormat.OpenXml.Wordprocessing;
 using Microsoft.Win32;
 
 namespace CustomInstaller
@@ -157,44 +160,6 @@ namespace CustomInstaller
             try
             {
                 base.OnCommitted(savedState);
-
-                try
-                {
-                    string openXmkSdkDirectLink = "https://download.microsoft.com/download/2/7/F/27FF6744-D970-4FFB-90B8-5226B2B82E0A/OpenXMLSDKv2.msi";
-
-                    string tempPath = Path.GetTempPath();
-                    string msiFile = Path.Combine(tempPath, "OpenXMLSDKv2.msi");
-
-                    WebClient client = new WebClient();
-                    client.DownloadFile(openXmkSdkDirectLink, msiFile);
-
-                    if (File.Exists(msiFile))
-                    {
-                        Process p = new Process();
-                        p.StartInfo.FileName = msiFile;
-                        p.StartInfo.Arguments = "/passive";
-                        p.Start();
-                    }
-                    else
-                    {
-                        // Try again from our backup location
-                        openXmkSdkDirectLink = "https://www.doublewide.co.uk/files/OpenXMLSDKv2.msi";
-                        client.DownloadFile(openXmkSdkDirectLink, msiFile);
-
-                        if (File.Exists(msiFile))
-                        {
-                            Process p = new Process();
-                            p.StartInfo.FileName = msiFile;
-                            p.StartInfo.Arguments = "/passive";
-                            p.Start();
-                        }
-                        
-                    }
-                }
-                catch (Exception)
-                {
-                    // Do Nothing !
-                }
 
                 try
                 {
