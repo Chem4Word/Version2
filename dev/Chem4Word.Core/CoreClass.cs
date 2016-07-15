@@ -181,8 +181,12 @@ namespace Chem4Word.Core
             }
         }
 
+        /// <summary>
+        /// Ensure that Open XML SDK is installed and recover it if necessary
+        /// </summary>
         private void EnsureOpenXmlSdkIsInstalled()
         {
+            string module = "CoreClass.EnsureOpenXmlSdkIsInstalled()";
             bool openXmlSdkIsInstalled = false;
 
             try
@@ -205,8 +209,11 @@ namespace Chem4Word.Core
                     // Save changes to the main document part. 
                     package.MainDocumentPart.Document.Save();
                 }
-                File.Delete(tempFile);
-                openXmlSdkIsInstalled = true;
+                if (File.Exists(tempFile))
+                {
+                    openXmlSdkIsInstalled = true;
+                    File.Delete(tempFile);
+                }
             }
             catch (Exception)
             {
@@ -217,6 +224,8 @@ namespace Chem4Word.Core
             {
                 if (!openXmlSdkIsInstalled)
                 {
+                    _telemetry.Write(module, "Information", "Installing Open XML SDK 2.0");
+
                     string openXmkSdkDirectLink = "https://download.microsoft.com/download/2/7/F/27FF6744-D970-4FFB-90B8-5226B2B82E0A/OpenXMLSDKv2.msi";
 
                     string tempPath = Path.GetTempPath();
