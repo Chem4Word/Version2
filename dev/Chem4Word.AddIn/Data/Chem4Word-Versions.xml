@@ -8,7 +8,7 @@
     <Changes>
       <Change>Add passive install of Microsoft Office OpenXml SDK 2.0 to installer</Change>
     </Changes>
-    <Url>http://www.chem4word.co.uk/files/Chem4Word.Setup.2.0.1.0.2016.07.14.msi</Url>
+    <Url>http://www.chem4word.co.uk/files/Chem4Word.Setup.2.0.1.0.2016.07.15.msi</Url>
   </Version>
   <Version>
     <Number>2.0.1.0 RTM</Number>

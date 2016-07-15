@@ -13,9 +13,6 @@ using System.Security;
 using System.Security.Permissions;
 using System.Text;
 using System.Windows.Forms;
-using DocumentFormat.OpenXml;
-using DocumentFormat.OpenXml.Packaging;
-using DocumentFormat.OpenXml.Wordprocessing;
 using Microsoft.Win32;
 
 namespace CustomInstaller
