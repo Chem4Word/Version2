@@ -143,12 +143,10 @@ namespace Chem4Word.Core
                 galleryDictionaryManager = new GalleryDictionaryManager();
                 documentDictionary = new Dictionary<Document, IChemistryDocument>();
 
-                // Ensure Open Xml SDK 2.0 is installed
-                //EnsureOpenXmlSdkIsInstalled();
-
                 // Check if [LocalApplicationData]\Chem4Word\Chemistry Gallery\Chem4Word{version}.dotx
                 //  is missing and recover it from Program Folder if necessary
                 CheckForRecovery();
+
 #if DEBUG
 #else
                 // Check to see if we are running the latest version
@@ -173,6 +171,9 @@ namespace Chem4Word.Core
                 wordApp.WindowDeactivate += ApplicationWindowDeactivate;
                 wordApp.WindowBeforeRightClick += ChemistryContextMenuHelper.Instance(this, wordApp).WindowBeforeRightClick;
                 wordApp.WindowBeforeDoubleClick += WordAppWindowBeforeDoubleClick;
+
+                // Ensure Open Xml SDK 2.0 is installed
+                EnsureOpenXmlSdkIsInstalled();
             }
             catch (Exception ex)
             {
