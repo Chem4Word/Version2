@@ -144,7 +144,7 @@ namespace Chem4Word.Core
                 documentDictionary = new Dictionary<Document, IChemistryDocument>();
 
                 // Ensure Open Xml SDK 2.0 is installed
-                EnsureOpenXmlSdkIsInstalled();
+                //EnsureOpenXmlSdkIsInstalled();
 
                 // Check if [LocalApplicationData]\Chem4Word\Chemistry Gallery\Chem4Word{version}.dotx
                 //  is missing and recover it from Program Folder if necessary
