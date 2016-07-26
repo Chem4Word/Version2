@@ -211,6 +211,9 @@ namespace Chem4Word.AddIn
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public string SearchLocation
         {
             get { return searchLocation; }
@@ -272,6 +275,11 @@ namespace Chem4Word.AddIn
 
         #endregion IRibbonExtensibility Members
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="control"></param>
+        /// <returns></returns>
         public string GetContent(IRibbonControl control)
         {
             string module = "ChemistryRibbon.GetContent()";
@@ -324,6 +332,10 @@ namespace Chem4Word.AddIn
             return myStringBuilder.ToString();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="control"></param>
         public void AddNewDepictionOption(IRibbonControl control)
         {
             DepictionOption newDepictionOption = core.AddNewLabel();
@@ -335,6 +347,10 @@ namespace Chem4Word.AddIn
             ribbon.InvalidateControl("dynamicViewMenu");
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="control"></param>
         public void OnAction(IRibbonControl control)
         {
             string module = "ChemistryRibbon.OnAction()";
@@ -401,6 +417,10 @@ namespace Chem4Word.AddIn
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
         public void HelpClick(IRibbonControl sender)
         {
             var helpFileName = Path.Combine(Path.Combine(core.GetAssemblyDirectory, "Resources"),
@@ -442,6 +462,7 @@ namespace Chem4Word.AddIn
                     nullException.HelpLink = "No Help File";
                 }
             }
+
             //ribbon.InvalidateControl("navigator");
             PubChemSearchAvailable = true;
             // Refresh Save Selection button visible state
@@ -517,19 +538,34 @@ namespace Chem4Word.AddIn
         public bool GetDepictionOptionEnable(IRibbonControl control)
         {
             return ViewOptionEnable;
-            ribbon.InvalidateControl(control.Id);
+            //ribbon.InvalidateControl(control.Id);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="control"></param>
+        /// <returns></returns>
         public bool GetSearchBoxEnabled(IRibbonControl control)
         {
             return SearchBoxEnable;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="control"></param>
+        /// <returns></returns>
         public bool GetImportCmlFileEnable(IRibbonControl control)
         {
             return ImportCmlFileEnable;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="control"></param>
+        /// <param name="text"></param>
         public void SearchBoxChange(IRibbonControl control, string text)
         {
             if (text.Trim().Length > 0)
@@ -539,6 +575,11 @@ namespace Chem4Word.AddIn
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="control"></param>
+        /// <returns></returns>
         public string SearchBoxText(IRibbonControl control)
         {
             return (searchBoxText.Trim().Length > 0) ? searchBoxText : defaultSearchBoxText;
@@ -580,21 +621,38 @@ namespace Chem4Word.AddIn
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="control"></param>
+        /// <returns></returns>
         public string SearchLocationMenuLabel(IRibbonControl control)
         {
             return SearchLocation;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="control"></param>
         public void SearchDocumentButton(IRibbonControl control)
         {
             SearchLocation = searchAreaDocument;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="control"></param>
         public void SearchPubChemButton(IRibbonControl control)
         {
             SearchLocation = searchAreaPubChem;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="control"></param>
         public void SearchOpsinButton(IRibbonControl control)
         {
             SearchLocation = searchAreaOpsin;
@@ -800,6 +858,11 @@ namespace Chem4Word.AddIn
             return SaveSelectionButtonEnable;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="control"></param>
+        /// <returns></returns>
         public bool OpsinLookUpEnable(IRibbonControl control)
         {
             return OPSINLookUpServerAvailable;
@@ -911,11 +974,20 @@ namespace Chem4Word.AddIn
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="control"></param>
+        /// <returns></returns>
         public bool GetEditEnable(IRibbonControl control)
         {
             return EditEnable;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
         public void OptionClick(IRibbonControl sender)
         {
             string module = "ChemistryRibbon.OptionClick()";
@@ -932,6 +1004,10 @@ namespace Chem4Word.AddIn
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
         public void CheckForUpdateClick(IRibbonControl sender)
         {
             string module = "ChemistryRibbon.CheckForUpdateClick()";
@@ -958,6 +1034,10 @@ namespace Chem4Word.AddIn
             return Tweak2DButtonEnable;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
         public void AboutClick(IRibbonControl sender)
         {
             aboutBox = new AboutBox();
@@ -1155,56 +1235,106 @@ namespace Chem4Word.AddIn
         /// </summary>
         /// <param name = "control">ID of ribbon control to associate image with</param>
         /// <returns>pointer to the image</returns>
-
         public IPictureDisp NewChemistryImage(IRibbonControl control)
         {
             return ImageConverter.Convert(Properties.Resources.New_Chemistry);
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="control"></param>
+        /// <returns></returns>
         public IPictureDisp GetChemImage(IRibbonControl control)
         {
             return ImageConverter.Convert(Properties.Resources.Chem4Word_Icon);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="control"></param>
+        /// <returns></returns>
         public IPictureDisp GetFromFileImage(IRibbonControl control)
         {
             return ImageConverter.Convert(Properties.Resources.From_File);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="control"></param>
+        /// <returns></returns>
         public IPictureDisp GetEditLabelsImage(IRibbonControl control)
         {
             return ImageConverter.Convert(Properties.Resources.Edit_Labels);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="control"></param>
+        /// <returns></returns>
         public IPictureDisp GetViewAsXmlImage(IRibbonControl control)
         {
             return ImageConverter.Convert(Properties.Resources.xml);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="control"></param>
+        /// <returns></returns>
         public IPictureDisp GetViewOptionsImage(IRibbonControl control)
         {
             return ImageConverter.Convert(Properties.Resources.view);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="control"></param>
+        /// <returns></returns>
         public IPictureDisp GetDocumentStylesImage(IRibbonControl control)
         {
             return ImageConverter.Convert(Properties.Resources.DocumentStyles);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="control"></param>
+        /// <returns></returns>
         public IPictureDisp GetOptionsImage(IRibbonControl control)
         {
             return ImageConverter.Convert(Properties.Resources.Options);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="control"></param>
+        /// <returns></returns>
         public IPictureDisp GetNavigatorImage(IRibbonControl control)
         {
             return ImageConverter.Convert(Properties.Resources.molecule_navigation);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="control"></param>
+        /// <returns></returns>
         public IPictureDisp GetHelpImage(IRibbonControl control)
         {
             return ImageConverter.Convert(Properties.Resources.help);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="control"></param>
+        /// <returns></returns>
         public IPictureDisp GetEditImage(IRibbonControl control)
         {
             return ImageConverter.Convert(Properties.Resources.edit);

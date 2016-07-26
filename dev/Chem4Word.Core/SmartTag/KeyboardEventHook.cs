@@ -165,6 +165,9 @@ namespace Chem4Word.Core.SmartTag
 
         #region IDisposable Members
 
+        /// <summary>
+        /// 
+        /// </summary>
         public void Dispose()
         {
             this.Dispose(true);
@@ -190,9 +193,11 @@ namespace Chem4Word.Core.SmartTag
             }
         }
 
-        // Disposable types with unmanaged resources implement a finalizer.
-        // the following code to satisfy rule:
-        // DisposableTypesShouldDeclareFinalizer
+        /// <summary>
+        /// Disposable types with unmanaged resources implement a finalizer.
+        /// the following code to satisfy rule:
+        /// DisposableTypesShouldDeclareFinalizer
+        /// </summary>
         ~KeyboardEventHook()
         {
             Dispose(false);

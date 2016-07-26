@@ -33,8 +33,9 @@ namespace Chem4Word.UI.OOXML.Atoms
 
         public void CreateAtomLabelCharacters(CmlAtom atom, OoXmlOptions options)
         {
+            //string module = "CreateAtomLabelCharacters()";
+
             //Debug.WriteLine("Atom: " + atom.Id + " is " + atom.ElementType);
-            string module = "CreateAtomLabelCharacters()";
             //_telemetry.Write(module, "Debug", "Atom: " + atom.Id + " is " + atom.ElementType);
 
             Point p1;

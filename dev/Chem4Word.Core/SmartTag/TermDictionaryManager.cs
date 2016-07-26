@@ -100,14 +100,14 @@ namespace Chem4Word.Core.SmartTag
         {
             string moleculeID = Guid.NewGuid().ToString();
 
-            /// Create Cml file into local Smart Tag dictionary
+            // Create Cml file into local Smart Tag dictionary
             StreamWriter writer =
                 new StreamWriter(localSmartTagDirectory +
                                  String.Format(CultureInfo.InvariantCulture, @"\{0}.cml", moleculeID));
             writer.Write(cml);
             writer.Close();
 
-            /// Update Local Smart Tag dictionary file
+            // Update Local Smart Tag dictionary file
             XDocument dictionary = XDocument.Load(this.localSmartTagDirectory + @"\smart-tag-dict.xml");
             XElement term = new XElement("Term");
             term.Add(new XAttribute("Value", value), new XAttribute("MoleculeID", moleculeID));
@@ -116,7 +116,7 @@ namespace Chem4Word.Core.SmartTag
             writer.Write(dictionary.ToString());
             writer.Close();
 
-            /// Reload Local Smart Tag dictionary
+            // Reload Local Smart Tag dictionary
             this.LoadLocalDictionary(this.localSmartTagDirectory);
         }
 

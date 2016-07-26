@@ -39,7 +39,7 @@ namespace Chem4Word.UI.OOXML.Bonds
         /// <param name="bond"></param>
         public void CreateBondLines(CmlBond bond)
         {
-            string module = "CreateBondLines()";
+            //string module = "CreateBondLines()";
 
             //Debug.WriteLine("Bond: " + bond.Id + " Order: " + bond.Order);
             //_telemetry.Write(module, "Debug", "Bond: " + bond.ToString());
