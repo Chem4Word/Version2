@@ -39,6 +39,10 @@ namespace Chem4Word.Core
         private readonly XmlMappingManager xmlMappingManager;
         private int num;
 
+        /// <summary>
+        /// Gets an instance of the telemetry object
+        /// </summary>
+        /// <returns></returns>
         public Telemetry GetTelemetry()
         {
             return core.GetTelemetry();
@@ -103,16 +107,28 @@ namespace Chem4Word.Core
             get { return core; }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="operation"></param>
+        /// <param name="level"></param>
+        /// <param name="message"></param>
         public void WriteTelemetry(string operation, string level, string message)
         {
             core.WriteTelemetry(operation, level, message);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public int WordVersion
         {
             get { return core.WordVersion; }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public System.Windows.Point WordTopLeft
         {
             get { return core.WordTopLeft; }
@@ -155,11 +171,22 @@ namespace Chem4Word.Core
             return result.Values.GetEnumerator();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="chemistryZone"></param>
+        /// <returns></returns>
         public ICollection<IChemistryZone> GetOtherCommonBindingZones(IChemistryZone chemistryZone)
         {
             return XmlMappingManager.GetOtherCommonBindingZones(chemistryZone);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="chemistryZone"></param>
+        /// <param name="newChemistryZoneProperties"></param>
+        /// <returns></returns>
         public IChemistryZone RebindDocumentContentControl(IChemistryZone chemistryZone,
                                                            ChemistryZoneProperties newChemistryZoneProperties)
         {

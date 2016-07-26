@@ -177,8 +177,7 @@ namespace Chem4Word.Core {
         }
 
         /// <summary>
-        ///   Gets or sets back-end Cml. 
-        ///   <see cref = "XDocument.Xml.Linq, Version=3.5.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+        ///   Gets or sets back-end Cml.
         /// </summary>
         public XDocument Cml {
             get {

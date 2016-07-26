@@ -51,7 +51,7 @@ using Numbo.Coa;
 using Application = Microsoft.Office.Interop.Word.Application;
 using Document = Microsoft.Office.Interop.Word.Document;
 using MessageBox = System.Windows.MessageBox;
-using Paragraph = Microsoft.Office.Interop.Word.Paragraph;
+using Paragraph = DocumentFormat.OpenXml.Wordprocessing.Paragraph;
 using Point = System.Windows.Point;
 using ProgressBar = Chem4Word.UI.UIControls.ProgressBar;
 using Shape = Microsoft.Office.Interop.Word.Shape;
@@ -109,8 +109,12 @@ namespace Chem4Word.Core
 
                 return p;
             }
-        } 
+        }
 
+        /// <summary>
+        /// Gets an instance of telemetry object
+        /// </summary>
+        /// <returns></returns>
         public Telemetry GetTelemetry()
         {
             return _telemetry;
@@ -147,12 +151,6 @@ namespace Chem4Word.Core
                 //  is missing and recover it from Program Folder if necessary
                 CheckForRecovery();
 
-#if DEBUG
-#else
-                // Check to see if we are running the latest version
-                CheckForUpdates();
-#endif
-
                 // Load SmartTag
                 smartTag = new ChemistrySmartTag(this);
 
@@ -174,6 +172,11 @@ namespace Chem4Word.Core
 
                 // Ensure Open Xml SDK 2.0 is installed
                 EnsureOpenXmlSdkIsInstalled();
+#if DEBUG
+#else
+                // Check to see if we are running the latest version
+                CheckForUpdates();
+#endif
             }
             catch (Exception ex)
             {
@@ -193,23 +196,24 @@ namespace Chem4Word.Core
             try
             {
                 string tempFile = Path.Combine(Path.GetTempPath(), Guid.NewGuid() + ".docx");
-                // Create a Wordprocessing document. 
+                // Create a Wordprocessing document.
                 using (WordprocessingDocument package = WordprocessingDocument.Create(tempFile, WordprocessingDocumentType.Document))
                 {
                     // Add a new main document part.
                     package.AddMainDocumentPart();
 
-                    // Create the Document DOM. 
+                    // Create the Document DOM.
                     package.MainDocumentPart.Document =
                         new DocumentFormat.OpenXml.Wordprocessing.Document(
                             new Body(
-                                new DocumentFormat.OpenXml.Wordprocessing.Paragraph(
+                                new Paragraph(
                                     new Run(
                                         new Text("Hello World!")))));
 
-                    // Save changes to the main document part. 
+                    // Save changes to the main document part.
                     package.MainDocumentPart.Document.Save();
                 }
+
                 if (File.Exists(tempFile))
                 {
                     openXmlSdkIsInstalled = true;
@@ -264,6 +268,9 @@ namespace Chem4Word.Core
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public int WordVersion
         {
             get
@@ -310,6 +317,12 @@ namespace Chem4Word.Core
         /// <returns>Return an active document <see cref = "ChemistryDocument" /></returns>
         public IChemistryDocument ActiveChemistryDocument { get; private set; }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="chemistryZone"></param>
+        /// <param name="chemistryZonePropertiesForCopiedZone"></param>
+        /// <returns></returns>
         public IChemistryZone CreateCopy(IChemistryZone chemistryZone,
                                          ChemistryZoneProperties chemistryZonePropertiesForCopiedZone)
         {
@@ -322,6 +335,12 @@ namespace Chem4Word.Core
             return chemZone;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="chemistryZone"></param>
+        /// <param name="chemistryZonePropertiesForLinkedZone"></param>
+        /// <returns></returns>
         public IChemistryZone CreateLink(IChemistryZone chemistryZone,
                                          ChemistryZoneProperties chemistryZonePropertiesForLinkedZone)
         {
@@ -341,6 +360,11 @@ namespace Chem4Word.Core
             return chemZone;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="chemistryZone"></param>
+        /// <returns></returns>
         public IChemistryZone BreakLinks(IChemistryZone chemistryZone)
         {
             MessageBox.Show(
@@ -561,7 +585,7 @@ namespace Chem4Word.Core
                     Log.Error("Error in WordAppDocumentChange", exception);
                 }
             }
-            catch (System.Runtime.InteropServices.ExternalException e)
+            catch (System.Runtime.InteropServices.ExternalException)
             {
                 // this means that the final document is closed so
                 // we don't need to do anything
@@ -1684,6 +1708,12 @@ namespace Chem4Word.Core
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="operation"></param>
+        /// <param name="level"></param>
+        /// <param name="message"></param>
         public void WriteTelemetry(string operation, string level, string message)
         {
             _telemetry.Write(operation, level, message);
@@ -2807,7 +2837,8 @@ namespace Chem4Word.Core
         /// <returns></returns>
         public IChemistryZone OpsinLookUpClick()
         {
-            string module = "CoreClass.OpsinLookUpClick()";
+            //string module = "CoreClass.OpsinLookUpClick()";
+
             //_telemetry.Write(module, "Information", "");
             string searchTerm = string.Empty;
             if (wordApp.Selection.ContentControls.Count == 0 &&
@@ -2818,6 +2849,11 @@ namespace Chem4Word.Core
             return OpsinLookUpSearch(searchTerm);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="searchTerm"></param>
+        /// <returns></returns>
         public IChemistryZone OpsinLookUpSearch(string searchTerm)
         {
             string module = "CoreClass.OpsinLookUpSearch()";
@@ -2881,6 +2917,11 @@ namespace Chem4Word.Core
             return chemistryZone;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="searchTerm"></param>
+        /// <returns></returns>
         public IChemistryZone PubChemLookUpSearch(string searchTerm)
         {
             string module = "CoreClass.PubChemLookUpSearch()";
@@ -2949,7 +2990,7 @@ namespace Chem4Word.Core
         /// </summary>
         public IChemistryZone PubChemLookUpClick()
         {
-            string module = "CoreClass.PubChemLookUpClick()";
+            //string module = "CoreClass.PubChemLookUpClick()";
             //_telemetry.Write(module, "Information", "");
             string searchTerm = string.Empty;
             if (wordApp.Selection.ContentControls.Count == 0 &&

@@ -58,7 +58,7 @@ namespace Chem4Word.Core.UserSetting
         /// <param name="settingsFile"></param>
         public static void LoadSettings(string settingsFile)
         {
-            string module = "Setting.LoadSettings()";
+            //string module = "Setting.LoadSettings()";
 
             XDocument userSetting = XDocument.Load(settingsFile);
 
@@ -141,7 +141,7 @@ namespace Chem4Word.Core.UserSetting
         /// <param name="settingsFile"></param>
         public static void SaveSettings(string settingsFile)
         {
-            string module = "Setting.SaveSettings()";
+            //string module = "Setting.SaveSettings()";
 
             using (XmlWriter xw = XmlWriter.Create(settingsFile))
             {
@@ -166,27 +166,72 @@ namespace Chem4Word.Core.UserSetting
         }
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
     public enum ImportSetting
     {
+        /// <summary>
+        /// 
+        /// </summary>
         Auto,
+        /// <summary>
+        /// 
+        /// </summary>
         Prompt,
+        /// <summary>
+        /// 
+        /// </summary>
         StrictFail
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
     public enum DocPreferedDepiction
     {
+        /// <summary>
+        /// 
+        /// </summary>
         TwoD,
+        /// <summary>
+        /// 
+        /// </summary>
         ConciseFormula,
+        /// <summary>
+        /// 
+        /// </summary>
         InlineFormula,
+        /// <summary>
+        /// 
+        /// </summary>
         ChemicalName,
+        /// <summary>
+        /// 
+        /// </summary>
         BoldNumber
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
     public enum NavPreferedDepiction
     {
+        /// <summary>
+        /// 
+        /// </summary>
         ConciseFormula,
+        /// <summary>
+        /// 
+        /// </summary>
         InlineFormula,
+        /// <summary>
+        /// 
+        /// </summary>
         ChemicalName,
+        /// <summary>
+        /// 
+        /// </summary>
         BoldNumber
     }
 }

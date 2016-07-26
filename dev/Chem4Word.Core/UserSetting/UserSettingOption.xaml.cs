@@ -128,7 +128,7 @@ namespace Chem4Word.Core.UserSetting
         {
             this.DialogResult = true;
 
-            /// set Import Option
+            // set Import Option
             if (this.ImportOption.SelectedItem == this.importComboBoxItemAuto)
             {
                 Setting.Import = ImportSetting.Auto;
@@ -142,7 +142,7 @@ namespace Chem4Word.Core.UserSetting
                 Setting.Import = ImportSetting.StrictFail;
             }
 
-            /// set Document Prefered Depiction
+            // set Document Prefered Depiction
             if (this.documentPreferedDepiction.SelectedItem == this.documentPreferedDepiction2D)
             {
                 Setting.DocumentPreferedDepiction = DocPreferedDepiction.TwoD;
@@ -164,7 +164,7 @@ namespace Chem4Word.Core.UserSetting
                 Setting.DocumentPreferedDepiction = DocPreferedDepiction.BoldNumber;
             }
 
-            /// set Navigator Prefered Depiction
+            // set Navigator Prefered Depiction
             if (this.NavigatorPreferedDepiction.SelectedItem == this.navigatorPreferedDepictionBold)
             {
                 Setting.NavigatorPreferedDepiction = NavPreferedDepiction.BoldNumber;
@@ -189,7 +189,7 @@ namespace Chem4Word.Core.UserSetting
             Setting.RenderAtomsInColour = (chkRenderAtomsInColour.IsChecked == true);
             Setting.RenderImplicitHydrogens = (chkShowImplicitHydrogens.IsChecked == true);
 
-            /// Write to Settings File
+            // Write to Settings File
             Setting.SaveSettings(settingfile);
 
             this.Hide();
