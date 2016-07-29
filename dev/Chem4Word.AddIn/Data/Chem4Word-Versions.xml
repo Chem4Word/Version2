@@ -6,7 +6,7 @@
     <IsBeta>false</IsBeta>
     <Released>29-Jul-2016</Released>
     <Changes>
-      <Change>Fix detection of IP Addresse to work with IPv6 Addresses (for Telemetry)</Change>
+      <Change>Fix detection of IP Address to work with IPv6 Addresses (for Telemetry)</Change>
     </Changes>
     <Changes>
       <Change>NB: If you are no longer using Chem4Word; Please uninstall it using the "Add/Remove Programs" or "Programms and Features" icon in Control Panel</Change>
