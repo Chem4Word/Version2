@@ -8,13 +8,11 @@
 // -----------------------------------------------------------------------
 
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Net;
 using System.Reflection;
-using System.Security.Principal;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
@@ -235,7 +233,7 @@ namespace Chem4Word.Common
             Version procuctVersion = Assembly.GetExecutingAssembly().GetName().Version;
             AddInVersion = "Chem4Word V" + procuctVersion;
 
-            ParameterizedThreadStart pts = GetExternalIpv4Address;
+            ParameterizedThreadStart pts = GetExternalIpAddress;
             Thread t = new Thread(pts);
             t.Start(null);
         }
@@ -254,7 +252,7 @@ namespace Chem4Word.Common
             }
         }
 
-        private void GetExternalIpv4Address(object o)
+        private void GetExternalIpAddress(object o)
         {
             DateTime started = DateTime.Now;
 
@@ -273,8 +271,17 @@ namespace Chem4Word.Common
                 {
                     using (var reader = new StreamReader(response.GetResponseStream()))
                     {
+                        // Construct regex for IPV4 or IPV6
+                        StringBuilder sb = new StringBuilder();
+
+                        // Detect IPV4 from "Your IP address : 1.2.3.4"
+                        sb.Append(@"\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}");
+                        sb.Append("|");
+                        // Detect IPV6 from "Your IP address : 1234:5678:90ab:cdef:1234:5678:90AB:CDEF"
+                        sb.Append("[0-9a-fA-F]{1,4}:[0-9a-fA-F]{1,4}:[0-9a-fA-F]{1,4}:[0-9a-fA-F]{1,4}:[0-9a-fA-F]{1,4}:[0-9a-fA-F]{1,4}:[0-9a-fA-F]{1,4}:[0-9a-fA-F]{1,4}");
+
                         string webPage = reader.ReadToEnd();
-                        IpAddress = "IpAddress " + (new Regex(@"\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}")).Matches(webPage)[0].ToString();
+                        IpAddress = "IpAddress " + new Regex(sb.ToString()).Matches(webPage)[0];
                         Debug.WriteLine(IpAddress);
                     }
                 }
@@ -300,7 +307,7 @@ namespace Chem4Word.Common
                 {
                     _retryCount++;
                     Thread.Sleep(500);
-                    ParameterizedThreadStart pts = GetExternalIpv4Address;
+                    ParameterizedThreadStart pts = GetExternalIpAddress;
                     Thread t = new Thread(pts);
                     t.Start(null);
                 }
