@@ -29,7 +29,7 @@ namespace Chem4Word.Common
         public string IpAddress { get; set; }
 
         private int _wordVersion = -1;
-        private int _retryCount = 1;
+        private int _retryCount;
 
         public int WordVersion {
             get
@@ -258,7 +258,11 @@ namespace Chem4Word.Common
 
             try
             {
-                string url = "http://www.chem4word.co.uk/files/client-ip.php";
+                string url1 = "http://www.chem4word.co.uk/files/client-ip.php";
+                string url2 = "http://chem4word.azurewebsites.net/client-ip.php";
+
+                // if (even) {url1} else {url2}
+                string url = _retryCount % 2 == 0 ? url1 : url2;
 
                 Debug.WriteLine("Fetching external IpAddress from " + url + " attempt " + _retryCount);
 
@@ -301,7 +305,7 @@ namespace Chem4Word.Common
             TimeSpan ts = DateTime.Now - started;
             Debug.WriteLine("Obtaining External IP Address took " + ts.TotalMilliseconds.ToString("#,000.0" + "ms"));
 
-            if (IpAddress.Contains("0.0.0.0"))
+            if (string.IsNullOrEmpty(IpAddress) || IpAddress.Contains("0.0.0.0"))
             {
                 if (_retryCount < 10)
                 {
