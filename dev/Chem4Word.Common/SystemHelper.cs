@@ -289,20 +289,22 @@ namespace Chem4Word.Common
                         if (webPage.StartsWith("Your IP address : "))
                         {
                             webPage = webPage.Replace("Your IP address : ", "");
-                            // IPv4
-                            if (webPage.Contains("."))
-                            {
-                                string[] ipV4Parts = webPage.Split('.');
-                                if (ipV4Parts.Length == 4)
-                                {
-                                    IpAddress = "IpAddress " + webPage;
-                                }
-                            }
                             // IPv6
                             if (webPage.Contains(":"))
                             {
                                 string[] ipV6Parts = webPage.Split(':');
-                                if (ipV6Parts.Length == 7)
+                                // Must have between 4 and 8 parts
+                                if (ipV6Parts.Length >= 4 && ipV6Parts.Length <= 8)
+                                {
+                                    IpAddress = "IpAddress " + webPage;
+                                }
+                            }
+                            // IPv4
+                            if (webPage.Contains("."))
+                            {
+                                // Must have 4 parts
+                                string[] ipV4Parts = webPage.Split('.');
+                                if (ipV4Parts.Length == 4)
                                 {
                                     IpAddress = "IpAddress " + webPage;
                                 }
