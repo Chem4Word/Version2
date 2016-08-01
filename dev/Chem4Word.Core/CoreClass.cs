@@ -170,10 +170,10 @@ namespace Chem4Word.Core
                 wordApp.WindowBeforeRightClick += ChemistryContextMenuHelper.Instance(this, wordApp).WindowBeforeRightClick;
                 wordApp.WindowBeforeDoubleClick += WordAppWindowBeforeDoubleClick;
 
-                // Ensure Open Xml SDK 2.0 is installed
-                EnsureOpenXmlSdkIsInstalled();
 #if DEBUG
 #else
+                // Ensure Open Xml SDK 2.0 is installed
+                EnsureOpenXmlSdkIsInstalled();
                 // Check to see if we are running the latest version
                 CheckForUpdates();
 #endif
@@ -864,6 +864,7 @@ namespace Chem4Word.Core
                         WebClient client = new WebClient();
                         client.Headers.Add("user-agent", "Chem4Word Add-In");
                         client.DownloadFile(versionsLink, latestVersionXmlFile);
+                        client.Dispose();
 
                         bool updateRequired = false;
 
@@ -886,7 +887,14 @@ namespace Chem4Word.Core
                                     }
                                 }
 
-                                File.Delete(latestVersionXmlFile);
+                                try
+                                {
+                                    File.Delete(latestVersionXmlFile);
+                                }
+                                catch (Exception)
+                                {
+                                    // Do Nothing
+                                }
 
                                 if (updateRequired)
                                 {

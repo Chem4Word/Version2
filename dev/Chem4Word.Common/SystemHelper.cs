@@ -1,8 +1,8 @@
 ﻿// Created by Mike Williams - 22/09/2015
-// 
+//
 // -----------------------------------------------------------------------
-//   Copyright (c) 2015, The Outercurve Foundation.  
-//   This software is released under the Apache License, Version 2.0. 
+//   Copyright (c) 2015, The Outercurve Foundation.
+//   This software is released under the Apache License, Version 2.0.
 //   The license and further copyright text can be found in the file LICENSE.TXT at
 //   the root directory of the distribution.
 // -----------------------------------------------------------------------
@@ -14,7 +14,6 @@ using System.IO;
 using System.Net;
 using System.Reflection;
 using System.Text;
-using System.Text.RegularExpressions;
 using System.Threading;
 using Microsoft.Win32;
 
@@ -23,15 +22,20 @@ namespace Chem4Word.Common
     public class SystemHelper
     {
         public string MachineId { get; set; }
+
         public string SystemOs { get; set; }
+
         public string WordProduct { get; set; }
+
         public string AddInVersion { get; set; }
+
         public string IpAddress { get; set; }
 
         private int _wordVersion = -1;
         private int _retryCount;
 
-        public int WordVersion {
+        public int WordVersion
+        {
             get
             {
                 return _wordVersion;
@@ -47,6 +51,7 @@ namespace Chem4Word.Common
         public SystemHelper()
         {
             #region Get Machine Guid
+
             try
             {
                 // Need special routine here as MachineGuid does not exist in the wow6432 path
@@ -57,7 +62,8 @@ namespace Chem4Word.Common
                 Debug.WriteLine(ex.Message);
                 MachineId = "Exception " + ex.Message;
             }
-            #endregion
+
+            #endregion Get Machine Guid
 
             #region Get OS Version
 
@@ -110,7 +116,7 @@ namespace Chem4Word.Common
                 SystemOs = "Exception " + ex.Message;
             }
 
-            #endregion
+            #endregion Get OS Version
 
             #region Get Office/Word Version
 
@@ -160,9 +166,9 @@ namespace Chem4Word.Common
                     }
                 }
 
-                #endregion
+                #endregion Get Guid
 
-                #endregion
+                #endregion Get Office Product String
 
                 #region Get Word Version
 
@@ -220,7 +226,8 @@ namespace Chem4Word.Common
                 {
                     WordProduct = "Microsoft Word not found !";
                 }
-                #endregion
+
+                #endregion Get Word Version
             }
             catch (Exception ex)
             {
@@ -228,7 +235,7 @@ namespace Chem4Word.Common
                 WordProduct = "Exception " + ex.Message;
             }
 
-            #endregion
+            #endregion Get Office/Word Version
 
             Version procuctVersion = Assembly.GetExecutingAssembly().GetName().Version;
             AddInVersion = "Chem4Word V" + procuctVersion;
@@ -256,10 +263,12 @@ namespace Chem4Word.Common
         {
             DateTime started = DateTime.Now;
 
+            // http://www.ipv6proxy.net/ --> "Your IP address : 2600:3c00::f03c:91ff:fe93:dcd4"
+
             try
             {
-                string url1 = "http://www.chem4word.co.uk/files/client-ip.php";
-                string url2 = "http://chem4word.azurewebsites.net/client-ip.php";
+                string url1 = "http://www.chem4word.co.uk/files/client-ip.php"; // IPv4 & IPv6
+                string url2 = "http://chem4word.azurewebsites.net/client-ip.php"; // IPv4 only
 
                 // if (even) {url1} else {url2}
                 string url = _retryCount % 2 == 0 ? url1 : url2;
@@ -275,17 +284,31 @@ namespace Chem4Word.Common
                 {
                     using (var reader = new StreamReader(response.GetResponseStream()))
                     {
-                        // Construct regex for IPV4 or IPV6
-                        StringBuilder sb = new StringBuilder();
-
-                        // Detect IPV4 from "Your IP address : 1.2.3.4"
-                        sb.Append(@"\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}");
-                        sb.Append("|");
-                        // Detect IPV6 from "Your IP address : 1234:5678:90ab:cdef:1234:5678:90AB:CDEF"
-                        sb.Append("[0-9a-fA-F]{1,4}:[0-9a-fA-F]{1,4}:[0-9a-fA-F]{1,4}:[0-9a-fA-F]{1,4}:[0-9a-fA-F]{1,4}:[0-9a-fA-F]{1,4}:[0-9a-fA-F]{1,4}:[0-9a-fA-F]{1,4}");
-
                         string webPage = reader.ReadToEnd();
-                        IpAddress = "IpAddress " + new Regex(sb.ToString()).Matches(webPage)[0];
+
+                        if (webPage.StartsWith("Your IP address : "))
+                        {
+                            webPage = webPage.Replace("Your IP address : ", "");
+                            // IPv4
+                            if (webPage.Contains("."))
+                            {
+                                string[] ipV4Parts = webPage.Split('.');
+                                if (ipV4Parts.Length == 4)
+                                {
+                                    IpAddress = "IpAddress " + webPage;
+                                }
+                            }
+                            // IPv6
+                            if (webPage.Contains(":"))
+                            {
+                                string[] ipV6Parts = webPage.Split(':');
+                                if (ipV6Parts.Length == 7)
+                                {
+                                    IpAddress = "IpAddress " + webPage;
+                                }
+                            }
+                        }
+
                         Debug.WriteLine(IpAddress);
                     }
                 }
@@ -331,12 +354,15 @@ namespace Chem4Word.Common
                     case 12:
                         version = 2007;
                         break;
+
                     case 14:
                         version = 2010;
                         break;
+
                     case 15:
                         version = 2013;
                         break;
+
                     case 16:
                         version = 2016;
                         break;
@@ -370,6 +396,7 @@ namespace Chem4Word.Common
                             servicePack = "SP3";
                         }
                         break;
+
                     case 2010:
                         if (build >= 6029)
                         {
@@ -380,12 +407,14 @@ namespace Chem4Word.Common
                             servicePack = "SP2";
                         }
                         break;
+
                     case 2013:
                         if (build >= 4569)
                         {
                             servicePack = "SP1";
                         }
                         break;
+
                     case 2016:
                         break;
                 }
@@ -410,16 +439,16 @@ namespace Chem4Word.Common
             // 01234567890123456789012345678901234567
             // {BRMMmmmm-PPPP-LLLL-p000-D000000FF1CE}
 
-            // The following table describes the characters of the GUID. 
-            // B    Release version 0-9, A-F 
-            // R    Release type 0-9, A-F 
-            // MM   Major version 0-9 
-            // mmmm Minor version 0-9 
-            // PPPP Product ID 0-9, A-F 
-            // LLLL Language identifier 0-9, A-F 
-            // p    0 for x86, 1 for x64 0-1 
-            // 000  Reserved for future use, currently 0 0 
-            // D    1 for debug, 0 for ship 0-1 
+            // The following table describes the characters of the GUID.
+            // B    Release version 0-9, A-F
+            // R    Release type 0-9, A-F
+            // MM   Major version 0-9
+            // mmmm Minor version 0-9
+            // PPPP Product ID 0-9, A-F
+            // LLLL Language identifier 0-9, A-F
+            // p    0 for x86, 1 for x64 0-1
+            // 000  Reserved for future use, currently 0 0
+            // D    1 for debug, 0 for ship 0-1
             // 000000FF1CE Office Family ID
 
             string result = "";
@@ -438,141 +467,188 @@ namespace Chem4Word.Common
             switch (major)
             {
                 case 12:
+
                     #region Office 2007
+
                     switch (productId)
                     {
                         case "0011":
                             result = "Microsoft Office Professional Plus 2007";
                             break;
+
                         case "0012":
                             result = "Microsoft Office Standard 2007";
                             break;
+
                         case "0013":
                             result = "Microsoft Office Basic 2007";
                             break;
+
                         case "0014":
                             result = "Microsoft Office Professional 2007";
                             break;
+
                         case "001B":
                             result = "Microsoft Office Word 2007";
                             break;
+
                         case "002E":
                             result = "Microsoft Office Ultimate 2007";
                             break;
+
                         case "002F":
                             result = "Microsoft Office Home and Student 2007";
                             break;
+
                         case "0030":
                             result = "Microsoft Office Enterprise 2007";
                             break;
+
                         case "0031":
                             result = "Microsoft Office Professional Hybrid 2007";
                             break;
+
                         case "0033":
                             result = "Microsoft Office Personal 2007";
                             break;
+
                         case "0035":
                             result = "Microsoft Office Professional Hybrid 2007";
                             break;
+
                         case "00BA":
                             result = "Microsoft Office Groove 2007";
                             break;
+
                         case "00CA":
                             result = "Microsoft Office Small Business 2007";
                             break;
+
                         default:
                             result = "Microsoft Office 2007 " + officeGuid;
                             break;
                     }
                     break;
-                    #endregion
+
+                    #endregion Office 2007
+
                 case 14:
+
                     #region Office 2010
+
                     switch (productId)
                     {
                         case "0011":
                             result = "Microsoft Office Professional Plus 2010";
                             break;
+
                         case "0012":
                             result = "Microsoft Office Standard 2010";
                             break;
+
                         case "0013":
                             result = "Microsoft Office Home and Business 2010";
                             break;
+
                         case "0014":
                             result = "Microsoft Office Professional 2010";
                             break;
+
                         case "001B":
                             result = "Microsoft Word 2010";
                             break;
+
                         case "002F":
                             result = "Microsoft Office Home and Student 2010";
                             break;
+
                         case "008B":
                             result = "Microsoft Office Small Business Basics 2010";
                             break;
+
                         case "011D":
                             result = "Microsoft Office Professional Plus Subscription 2010";
                             break;
+
                         default:
                             result = "Microsoft Office 2010 " + officeGuid;
                             break;
                     }
                     break;
-                    #endregion
+
+                    #endregion Office 2010
+
                 case 15:
+
                     #region Office 2013
+
                     switch (productId)
                     {
                         case "000F":
                             result = "Microsoft Office 365 (2013) Pro Plus";
                             break;
+
                         case "0011":
                             result = "Microsoft Office Professional Plus 2013";
                             break;
+
                         case "0012":
                             result = "Microsoft Office Standard 2013";
                             break;
+
                         case "0013":
                             result = "Microsoft Office Home and Business 2013";
                             break;
+
                         case "0014":
                             result = "Microsoft Office Professional 2013";
                             break;
+
                         case "001B":
                             result = "Microsoft Word 2013";
                             break;
+
                         case "002F":
                             result = "Microsoft Office Home and Student 2013";
                             break;
+
                         default:
                             result = "Microsoft Office 2013 " + officeGuid;
                             break;
                     }
                     break;
-                    #endregion
+
+                    #endregion Office 2013
+
                 case 16:
+
                     #region Office 2016
+
                     switch (productId)
                     {
                         case "000F":
                             result = "Microsoft Office 2016 Professional Plus";
                             break;
+
                         case "0011":
                             result = "Microsoft Office Professional Plus 2016";
                             break;
+
                         case "0012":
                             result = "Microsoft Office Standard 2016";
                             break;
+
                         case "001B":
                             result = "Microsoft Word 2016";
                             break;
+
                         default:
                             result = "Microsoft Office 2016 " + officeGuid;
                             break;
                     }
                     break;
-                    #endregion
+
+                    #endregion Office 2016
             }
 
             #region 32 / 64 bit
@@ -586,10 +662,9 @@ namespace Chem4Word.Common
                 result += " 32bit";
             }
 
-            #endregion
+            #endregion 32 / 64 bit
 
             return result;
         }
     }
-
 }
