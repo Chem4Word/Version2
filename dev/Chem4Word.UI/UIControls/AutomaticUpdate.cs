@@ -39,6 +39,18 @@ namespace Chem4Word.UI.UIControls
 
         public System.Windows.Point TopLeft { get; set; }
 
+        private const int CP_NOCLOSE_BUTTON = 0x200;
+
+        protected override CreateParams CreateParams
+        {
+            get
+            {
+                CreateParams myCp = base.CreateParams;
+                myCp.ClassStyle = myCp.ClassStyle | CP_NOCLOSE_BUTTON;
+                return myCp;
+            }
+        }
+
         public AutomaticUpdate(Telemetry telemetry)
         {
             string module = "AutomaticUpdate()";
@@ -83,6 +95,7 @@ namespace Chem4Word.UI.UIControls
 
             progressBar1.Value = 0;
             btnUpdateNow.Enabled = false;
+            btnUpdateLater.Enabled = false;
             Cursor.Current = Cursors.AppStarting;
 
             _webClient = new WebClient();
