@@ -2225,7 +2225,7 @@
                 {
                 "Name" = "8:.NET Framework"
                 "Message" = "8:[VSDNETMSG]"
-                "FrameworkVersion" = "8:3.5.30729                                                         "
+                "FrameworkVersion" = "8:3.5.30729                                                          "
                 "AllowLaterVersions" = "11:FALSE"
                 "InstallUrl" = "8:http://go.microsoft.com/fwlink/?LinkId=76617"
                 }
@@ -8100,7 +8100,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Chemistry Add-in for Word"
         "ProductCode" = "8:{3CCB73D3-0CC8-4AD2-AE08-E207A57CA8FD}"
-        "PackageCode" = "8:{A31C747F-BC85-4D03-A6E4-56C0EDCC77B9}"
+        "PackageCode" = "8:{32325448-9E8C-4D59-9DB2-10615444CEFF}"
         "UpgradeCode" = "8:{5DD696D5-5339-41F7-B081-3A556855D260}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
