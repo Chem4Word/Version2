@@ -6,6 +6,7 @@
 // -----------------------------------------------------------------------
 
 using System;
+using System.Diagnostics;
 using System.Xml;
 using System.Xml.Linq;
 
@@ -53,6 +54,11 @@ namespace Chem4Word.Core.UserSetting
         public static bool RenderImplicitHydrogens { get; set; }
 
         /// <summary>
+        /// Enable the gallery
+        /// </summary>
+        public static bool UseGallery { get; set; }
+
+        /// <summary>
         /// Load Settings from file
         /// </summary>
         /// <param name="settingsFile"></param>
@@ -70,6 +76,18 @@ namespace Chem4Word.Core.UserSetting
             catch
             {
                 Import = ImportSetting.Auto;
+            }
+
+            try
+            {
+                bool useGallery;
+                bool.TryParse(userSetting.Root.Element("useGallery").Attribute("value").Value,
+                              out useGallery);
+                UseGallery = useGallery;
+            }
+            catch
+            {
+                UseGallery = true;
             }
 
             try
@@ -133,6 +151,8 @@ namespace Chem4Word.Core.UserSetting
             {
                 RenderImplicitHydrogens = true;
             }
+
+            Debug.WriteLine("Settings Loaded - UseGallery: " + UseGallery);
         }
 
         /// <summary>
@@ -151,6 +171,8 @@ namespace Chem4Word.Core.UserSetting
                                     new XAttribute("value", Import.ToString())),
                         new XElement("documentPreferedDepiction",
                                     new XAttribute("value", DocumentPreferedDepiction.ToString())),
+                        new XElement("useGallery",
+                                    new XAttribute("value", UseGallery.ToString())),
                         new XElement("navigatorPreferedDepiction",
                                     new XAttribute("value", NavigatorPreferedDepiction.ToString())),
                         new XElement("collapseNavigatorDepiction",

@@ -29,6 +29,35 @@
                         </Border>
                     </StackPanel>
 				</TabItem>
+                <TabItem Header="Gallery" Name="gallery">
+                    <StackPanel Margin="8,8,8,8">
+                        <TextBlock>
+                            <Bold>Use Gallery of Substances</Bold>
+                        </TextBlock>
+                        <TextBlock TextWrapping="Wrap" Margin="0,6,0,0">
+                            Chem4Word uses the template "Chem4Word2010.dotx" to store it's gallery of substances.
+                            As switching document templates replaces styles etc. defined in Normal.dotx,
+                            we provide a means to disable the gallery.
+                            Use the checkbox below to disable the gallery.
+                        </TextBlock>
+                        <Border Margin="6,6,6,0" BorderBrush="Black" BorderThickness="1">
+                            <StackPanel Orientation="Horizontal" Margin="6,6,6,6">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="1*" />
+                                        <ColumnDefinition Width="1*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Label Width="200">Enable Gallery</Label>
+                                    <CheckBox Grid.Column="1" VerticalAlignment="Center"
+                                              Name="chkUseGallery" IsChecked="True"></CheckBox>
+                                </Grid>
+                            </StackPanel>
+                        </Border>
+                        <TextBlock TextWrapping="Wrap" Margin="0,6,0,0">
+                            <Bold>Note: To fully enable or disable this option Word must be closed, then re-opened.</Bold>
+                        </TextBlock>
+                    </StackPanel>
+                </TabItem>
 				<TabItem Header="Depiction" Name="depictionItem">
                     <StackPanel Margin="8,8,8,8">
                         <TextBlock TextWrapping="Wrap">

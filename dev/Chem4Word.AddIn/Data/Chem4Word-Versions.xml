@@ -2,14 +2,23 @@
 <!-- This file must be uploaded to http://www.chem4word.co.uk/files/ folder as Chem4Word-Versions.xml -->
 <ChangeLog>
   <Version>
+    <Number>2.0.1.0 R5</Number>
+    <IsBeta>false</IsBeta>
+    <Released>03-Aug-2016</Released>
+    <Changes>
+      <Change>Added option to disable gallery; The gallery uses a custom template (Chem4Word2010.dotx) to store the gallery, using this causes cutomisations stored in Normal.dotx to be overwritten, hence we now give you the choice.</Change>
+    </Changes>
+    <Changes>
+      <Change>Note: If you are no longer using Chem4Word; Please uninstall it using the "Add/Remove Programs" or "Programms and Features" icon in Control Panel.</Change>
+    </Changes>
+    <Url>http://www.chem4word.co.uk/files/Chem4Word.Setup.2.0.1.0.2016.08.03.msi</Url>
+  </Version>
+  <Version>
     <Number>2.0.1.0 R4</Number>
     <IsBeta>false</IsBeta>
     <Released>29-Jul-2016</Released>
     <Changes>
       <Change>Fix detection of IP Address to work with IPv6 Addresses (for Telemetry)</Change>
-    </Changes>
-    <Changes>
-      <Change>NB: If you are no longer using Chem4Word; Please uninstall it using the "Add/Remove Programs" or "Programms and Features" icon in Control Panel</Change>
     </Changes>
     <Url>http://www.chem4word.co.uk/files/Chem4Word.Setup.2.0.1.0.2016.07.29.msi</Url>
   </Version>
