@@ -54,7 +54,15 @@ namespace Chem4Word.UI.UIControls
         public AutomaticUpdate(Telemetry telemetry)
         {
             string module = "AutomaticUpdate()";
-            _telemetry = telemetry;
+            if (telemetry == null)
+            {
+                _telemetry = new Telemetry();
+            }
+            else
+            {
+                _telemetry = telemetry;
+            }
+
             InitializeComponent();
             _telemetry.Write(module, "AutomaticUpdate", "Shown");
         }
