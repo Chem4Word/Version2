@@ -18,12 +18,13 @@ using System.Windows;
 using System.Windows.Forms;
 using Chem4Word.AddIn.Gallery;
 using Chem4Word.AddIn.Navigator;
+using Chem4Word.AddIn.Properties;
 using Chem4Word.Api;
 using Chem4Word.Api.Events;
 using Chem4Word.Core.Events;
+using Chem4Word.Core.UserSetting;
 using Chem4Word.UI.About;
 using Chem4Word.UI.Navigator;
-using Chem4Word.UI.Properties;
 using Chem4Word.UI.UIControls;
 using log4net;
 using Microsoft.Office.Core;
@@ -36,6 +37,7 @@ using Clipboard = System.Windows.Clipboard;
 using CustomTaskPane = Microsoft.Office.Tools.CustomTaskPane;
 using IDataObject = System.Windows.IDataObject;
 using MessageBox = System.Windows.MessageBox;
+using Resources = Chem4Word.UI.Properties.Resources;
 using Version = System.Version;
 
 [assembly: CLSCompliant(true)]
@@ -97,6 +99,7 @@ namespace Chem4Word.AddIn
             this.wordApp = wordApp;
 
             pubChemSearchAvailable = true;
+
             // Register Events
             core.ContentControlSelectionChanged += ActiveDocumentContentControlSelectionChanged;
             core.WindowActivate += CoreWindowActivate;
@@ -855,7 +858,14 @@ namespace Chem4Word.AddIn
         /// 
         public bool GetSaveSelectionEnable(IRibbonControl control)
         {
-            return SaveSelectionButtonEnable;
+            if (Setting.UseGallery)
+            {
+                return SaveSelectionButtonEnable;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         /// <summary>
@@ -994,6 +1004,7 @@ namespace Chem4Word.AddIn
             try
             {
                 core.InvokeUserSetting();
+                ribbon.Invalidate();
             }
             catch (Exception ex)
             {
@@ -1032,6 +1043,16 @@ namespace Chem4Word.AddIn
         public bool GetTweak2DEnable(IRibbonControl control)
         {
             return Tweak2DButtonEnable;
+        }
+
+        /// <summary>
+        /// Control Gallery Buttons
+        /// </summary>
+        /// <param name = "control">ID of ribbon control</param>
+        /// <returns>true if enabled, false otherwise</returns>
+        public bool GetGalleryEnabled(IRibbonControl control)
+        {
+            return Setting.UseGallery;
         }
 
         /// <summary>

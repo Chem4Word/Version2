@@ -147,15 +147,15 @@ namespace Chem4Word.Core
                 galleryDictionaryManager = new GalleryDictionaryManager();
                 documentDictionary = new Dictionary<Document, IChemistryDocument>();
 
-                // Check if [LocalApplicationData]\Chem4Word\Chemistry Gallery\Chem4Word{version}.dotx
-                //  is missing and recover it from Program Folder if necessary
-                CheckForRecovery();
-
                 // Load SmartTag
                 smartTag = new ChemistrySmartTag(this);
 
                 // Load user setting
                 InitialiseUserSettings();
+
+                // Check if [LocalApplicationData]\Chem4Word\Chemistry Gallery\Chem4Word{version}.dotx
+                //  is missing and recover it from Program Folder if necessary
+                CheckForRecovery();
 
                 //Register Events
                 wordApp.WindowActivate += ApplicationWindowActivate;
@@ -2614,18 +2614,21 @@ namespace Chem4Word.Core
                 Microsoft.Office.Tools.Word.Document.GetVstoObject(wordApp.ActiveWindow.Document);
             if (wordDoc != null)
             {
-                // Save state of Saved flag
-                bool docWasSaved = wordDoc.Saved;
-                string templateFileName = "Chem4Word2010.dotx";
-                if (WordVersion == 2007)
+                if (Setting.UseGallery)
                 {
-                    templateFileName = "Chem4Word2007.dotx";
-                }
-                wordDoc.AttachedTemplate = localAppDataFolder + @"\Chemistry Gallery\" + templateFileName;
-                if (docWasSaved)
-                {
-                    // Re-instate state of Saved flag
-                    wordDoc.Saved = true;
+                    // Save state of Saved flag
+                    bool docWasSaved = wordDoc.Saved;
+                    string templateFileName = "Chem4Word2010.dotx";
+                    if (WordVersion == 2007)
+                    {
+                        templateFileName = "Chem4Word2007.dotx";
+                    }
+                    wordDoc.AttachedTemplate = localAppDataFolder + @"\Chemistry Gallery\" + templateFileName;
+                    if (docWasSaved)
+                    {
+                        // Re-instate state of Saved flag
+                        wordDoc.Saved = true;
+                    }
                 }
             }
 

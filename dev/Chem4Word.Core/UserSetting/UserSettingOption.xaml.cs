@@ -77,6 +77,7 @@ namespace Chem4Word.Core.UserSetting
             this.chkCollapseNavigator.IsChecked = Setting.CollapseNavigatorDepiction;
             this.chkRenderAtomsInColour.IsChecked = Setting.RenderAtomsInColour;
             this.chkShowImplicitHydrogens.IsChecked = Setting.RenderImplicitHydrogens;
+            this.chkUseGallery.IsChecked = Setting.UseGallery;
         }
 
         private void documentPreferedDepictionMouseMove(object sender, MouseEventArgs e)
@@ -188,6 +189,7 @@ namespace Chem4Word.Core.UserSetting
             // Set OoXml Options
             Setting.RenderAtomsInColour = (chkRenderAtomsInColour.IsChecked == true);
             Setting.RenderImplicitHydrogens = (chkShowImplicitHydrogens.IsChecked == true);
+            Setting.UseGallery = (chkUseGallery.IsChecked == true);
 
             // Write to Settings File
             Setting.SaveSettings(settingfile);
