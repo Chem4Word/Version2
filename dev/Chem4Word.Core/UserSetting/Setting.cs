@@ -7,6 +7,7 @@
 
 using System;
 using System.Diagnostics;
+using System.IO;
 using System.Xml;
 using System.Xml.Linq;
 
@@ -66,93 +67,125 @@ namespace Chem4Word.Core.UserSetting
         {
             //string module = "Setting.LoadSettings()";
 
-            XDocument userSetting = XDocument.Load(settingsFile);
+            if (File.Exists(settingsFile))
+            {
+                XDocument userSetting = XDocument.Load(settingsFile);
+                bool saveRequired = false;
+                try
+                {
+                    string importOption = userSetting.Root.Element("importOption").Attribute("value").Value;
+                    Import = (ImportSetting)Enum.Parse(typeof(ImportSetting), importOption, true);
+                }
+                catch
+                {
+                    Import = ImportSetting.Auto;
+                    saveRequired = true;
+                }
 
-            try
-            {
-                string importOption = userSetting.Root.Element("importOption").Attribute("value").Value;
-                Import = (ImportSetting)Enum.Parse(typeof(ImportSetting), importOption, true);
-            }
-            catch
-            {
-                Import = ImportSetting.Auto;
-            }
+                try
+                {
+                    bool useGallery;
+                    bool.TryParse(userSetting.Root.Element("useGallery").Attribute("value").Value,
+                                  out useGallery);
+                    UseGallery = useGallery;
+                }
+                catch
+                {
+                    UseGallery = true;
+                    saveRequired = true;
+                }
 
-            try
-            {
-                bool useGallery;
-                bool.TryParse(userSetting.Root.Element("useGallery").Attribute("value").Value,
-                              out useGallery);
-                UseGallery = useGallery;
-            }
-            catch
-            {
-                UseGallery = true;
-            }
+                try
+                {
+                    string documentPreferedDepiction =
+                        userSetting.Root.Element("documentPreferedDepiction").Attribute("value").Value;
+                    DocumentPreferedDepiction = (DocPreferedDepiction)
+                                                        Enum.Parse(typeof(DocPreferedDepiction),
+                                                                   documentPreferedDepiction, true);
+                }
+                catch
+                {
+                    DocumentPreferedDepiction = DocPreferedDepiction.TwoD;
+                    saveRequired = true;
+                }
 
-            try
-            {
-                string documentPreferedDepiction =
-                    userSetting.Root.Element("documentPreferedDepiction").Attribute("value").Value;
-                DocumentPreferedDepiction = (DocPreferedDepiction)
-                                                    Enum.Parse(typeof(DocPreferedDepiction),
-                                                               documentPreferedDepiction, true);
-            }
-            catch
-            {
-                DocumentPreferedDepiction = DocPreferedDepiction.TwoD;
-            }
+                try
+                {
+                    string navigatorPreferedDepiction =
+                        userSetting.Root.Element("navigatorPreferedDepiction").Attribute("value").Value;
+                    NavigatorPreferedDepiction = (NavPreferedDepiction)
+                                                         Enum.Parse(typeof(NavPreferedDepiction),
+                                                                    navigatorPreferedDepiction, true);
+                }
+                catch
+                {
+                    NavigatorPreferedDepiction = NavPreferedDepiction.ConciseFormula;
+                    saveRequired = true;
+                }
 
-            try
-            {
-                string navigatorPreferedDepiction =
-                    userSetting.Root.Element("navigatorPreferedDepiction").Attribute("value").Value;
-                NavigatorPreferedDepiction = (NavPreferedDepiction)
-                                                     Enum.Parse(typeof(NavPreferedDepiction),
-                                                                navigatorPreferedDepiction, true);
-            }
-            catch
-            {
-                NavigatorPreferedDepiction = NavPreferedDepiction.ConciseFormula;
-            }
+                try
+                {
+                    bool collapseNavigatorDepiction;
+                    bool.TryParse(userSetting.Root.Element("collapseNavigatorDepiction").Attribute("value").Value,
+                                  out collapseNavigatorDepiction);
+                    CollapseNavigatorDepiction = collapseNavigatorDepiction;
+                }
+                catch
+                {
+                    CollapseNavigatorDepiction = true;
+                    saveRequired = true;
+                }
 
-            try
-            {
-                bool collapseNavigatorDepiction;
-                bool.TryParse(userSetting.Root.Element("collapseNavigatorDepiction").Attribute("value").Value,
-                              out collapseNavigatorDepiction);
-                CollapseNavigatorDepiction = collapseNavigatorDepiction;
-            }
-            catch
-            {
-                CollapseNavigatorDepiction = true;
-            }
+                try
+                {
+                    bool ooXmlRenderAtomsInColour;
+                    bool.TryParse(userSetting.Root.Element("ooXmlRenderAtomsInColour").Attribute("value").Value,
+                                  out ooXmlRenderAtomsInColour);
+                    RenderAtomsInColour = ooXmlRenderAtomsInColour;
+                }
+                catch
+                {
+                    RenderAtomsInColour = true;
+                    saveRequired = true;
+                }
 
-            try
-            {
-                bool ooXmlRenderAtomsInColour;
-                bool.TryParse(userSetting.Root.Element("ooXmlRenderAtomsInColour").Attribute("value").Value,
-                              out ooXmlRenderAtomsInColour);
-                RenderAtomsInColour = ooXmlRenderAtomsInColour;
-            }
-            catch
-            {
-                RenderAtomsInColour = true;
-            }
+                try
+                {
+                    bool ooXmlRenderImplicitHydrogens;
+                    bool.TryParse(userSetting.Root.Element("ooXmlRenderImplicitHydrogens").Attribute("value").Value,
+                                  out ooXmlRenderImplicitHydrogens);
+                    RenderImplicitHydrogens = ooXmlRenderImplicitHydrogens;
+                }
+                catch
+                {
+                    RenderImplicitHydrogens = true;
+                    saveRequired = true;
+                }
 
-            try
-            {
-                bool ooXmlRenderImplicitHydrogens;
-                bool.TryParse(userSetting.Root.Element("ooXmlRenderImplicitHydrogens").Attribute("value").Value,
-                              out ooXmlRenderImplicitHydrogens);
-                RenderImplicitHydrogens = ooXmlRenderImplicitHydrogens;
+                if (saveRequired)
+                {
+                    SaveSettings(settingsFile);
+                }
             }
-            catch
+            else
             {
-                RenderImplicitHydrogens = true;
+                SetDefaultsAndSave(settingsFile);
             }
+        }
 
-            Debug.WriteLine("Settings Loaded - UseGallery: " + UseGallery);
+        private static void SetDefaultsAndSave(string settingsFile)
+        {
+            // File does not exist; Set defaults
+            Import = ImportSetting.Auto;
+            DocumentPreferedDepiction = DocPreferedDepiction.TwoD;
+            NavigatorPreferedDepiction = NavPreferedDepiction.ConciseFormula;
+            UseGallery = true;
+            CollapseNavigatorDepiction = true;
+            RenderAtomsInColour = true;
+            RenderImplicitHydrogens = true;
+
+            // Save file
+            SaveSettings(settingsFile);
         }
 
         /// <summary>
