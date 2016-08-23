@@ -856,7 +856,7 @@ namespace Chem4Word.Core
                     }
                     catch
                     {
-                        //
+                        // Should only happen if the value does not exist
                     }
 
                     if (!string.IsNullOrEmpty(lastChecked))
@@ -907,6 +907,8 @@ namespace Chem4Word.Core
                                 string fileContents = File.ReadAllText(latestVersionXmlFile);
                                 if (fileContents.Contains("<ChangeLog>"))
                                 {
+                                    #region Got Our File
+
                                     XDocument latestVersion = XDocument.Load(latestVersionXmlFile);
                                     var versions = latestVersion.XPathSelectElements("//Version");
                                     foreach (var version in versions)
@@ -939,11 +941,18 @@ namespace Chem4Word.Core
 
                                         DialogResult dr = au.ShowDialog();
                                     }
+
+                                    #endregion
                                 }
                                 else
                                 {
                                     _telemetry.Write(module, "Exception", "File Chem4Word-Versions.xml is corrupt");
                                     _telemetry.Write(module, "Exception(Data)", fileContents);
+
+                                    UpdateFailure f = new UpdateFailure();
+                                    f.TopLeft = WordTopLeft;
+                                    f.WebPage = fileContents;
+                                    f.ShowDialog();
                                 }
                             }
                         }
