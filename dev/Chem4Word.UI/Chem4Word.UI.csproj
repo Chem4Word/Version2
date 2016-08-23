@@ -241,6 +241,12 @@
       <DependentUpon>ProgressBar.cs</DependentUpon>
     </Compile>
     <Compile Include="UIControls\SearchTextBox.cs" />
+    <Compile Include="UIControls\UpdateFailure.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UIControls\UpdateFailure.Designer.cs">
+      <DependentUpon>UpdateFailure.cs</DependentUpon>
+    </Compile>
     <Compile Include="WebServices\OpsinLookUp.xaml.cs">
       <DependentUpon>OpsinLookUp.xaml</DependentUpon>
     </Compile>
@@ -501,6 +507,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UIControls\ProgressBar.resx">
       <DependentUpon>ProgressBar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UIControls\UpdateFailure.resx">
+      <DependentUpon>UpdateFailure.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
