@@ -1,0 +1,8 @@
+CoreClass.CheckForRecovery()
+----------------------------
+
+.\Data\Template-2007 --> C:\Users\{UserName}\AppData\Local\Chemistry Add-in for Word\Chemistry Gallery
+
+.\Data\Template-2010 --> C:\Users\{UserName}\AppData\Local\Chemistry Add-in for Word\Chemistry Gallery
+
+.\Data\SmartTag --> C:\Users\{UserName}\AppData\Local\Chemistry Add-in for Word\SmartTag

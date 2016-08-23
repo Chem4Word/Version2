@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<cml convention="conventions:molecular" xmlns="http://www.xml-cml.org/schema" xmlns:conventions="http://www.xml-cml.org/convention/" xmlns:nameDict="http://www.xml-cml.org/dictionary/cml/name/">
+  <molecule id="m73971" formalCharge="0" spinMultiplicity="1" xmlns:pubchem="http://www.ncbi.nlm.nih.gov">
+    <name dictRef="pubchem:cid">73971</name>
+    <atomArray>
+      <atom id="a1" elementType="Na" formalCharge="1" x2="3.7320508956909" y2="0.25" />
+      <atom id="a2" elementType="Na" formalCharge="1" x2="2.0" y2="0.25" />
+      <atom id="a3" elementType="O" formalCharge="-2" x2="2.8660254478455" y2="-0.25" />
+    </atomArray>
+    <name dictRef="pubchem:Allowed">disodium oxygen(2-)</name>
+    <name dictRef="nameDict:cas">disodium oxygen(2-)</name>
+    <name dictRef="pubchem:Preferred">disodium oxygen(2-)</name>
+    <name dictRef="nameDict:systematic">disodium oxygen(2-)</name>
+    <name dictRef="pubchem:Traditional">disodium oxygen(2-)</name>
+    <formula convention="pubchem:formula" inline="Na2O" concise="Na 2 O 1" />
+    <formula convention="pubchem:CanonicalSmiles" inline="[O-2].[Na+].[Na+]" concise="Na 2 O 1" />
+    <formula convention="pubchem:IsomericSmiles" inline="[O-2].[Na+].[Na+]" concise="Na 2 O 1" />
+  </molecule>
+</cml>

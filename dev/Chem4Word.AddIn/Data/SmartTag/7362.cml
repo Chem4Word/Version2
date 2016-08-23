@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<cml convention="conventions:molecular" xmlns="http://www.xml-cml.org/schema" xmlns:conventions="http://www.xml-cml.org/convention/" xmlns:nameDict="http://www.xml-cml.org/dictionary/cml/name/">
+  <molecule id="m7362" formalCharge="0" spinMultiplicity="1" xmlns:pubchem="http://www.ncbi.nlm.nih.gov">
+    <name dictRef="pubchem:cid">7362</name>
+    <atomArray>
+      <atom id="a1" elementType="O" x2="2.809" y2="-0.4197" />
+      <atom id="a2" elementType="O" x2="4.777" y2="-1.1191" />
+      <atom id="a3" elementType="C" x2="3.618" y2="0.1681" />
+      <atom id="a4" elementType="C" x2="3.309" y2="1.1191" />
+      <atom id="a5" elementType="C" x2="2.309" y2="1.1191" />
+      <atom id="a6" elementType="C" x2="2.0" y2="0.1681" />
+      <atom id="a7" elementType="C" x2="4.5691" y2="-0.141" />
+      <atom id="a8" elementType="H" x2="3.6734" y2="1.6207" />
+      <atom id="a9" elementType="H" x2="1.9446" y2="1.6207" />
+      <atom id="a10" elementType="H" x2="1.4103" y2="-0.0235" />
+      <atom id="a11" elementType="H" x2="5.0298" y2="0.2739" />
+    </atomArray>
+    <bondArray>
+      <bond atomRefs2="a1 a3" order="S" id="a1_a3"  />
+      <bond atomRefs2="a1 a6" order="S" id="a1_a6"  />
+      <bond atomRefs2="a2 a7" order="D" id="a2_a7"  />
+      <bond atomRefs2="a3 a4" order="D" id="a3_a4"  />
+      <bond atomRefs2="a3 a7" order="S" id="a3_a7"  />
+      <bond atomRefs2="a4 a5" order="S" id="a4_a5"  />
+      <bond atomRefs2="a4 a8" order="S" id="a4_a8"  />
+      <bond atomRefs2="a5 a6" order="D" id="a5_a6"  />
+      <bond atomRefs2="a5 a9" order="S" id="a5_a9"  />
+      <bond atomRefs2="a6 a10" order="S" id="a6_a10"  />
+      <bond atomRefs2="a7 a11" order="S" id="a7_a11"  />
+    </bondArray>
+    <name dictRef="pubchem:Allowed">furan-2-carbaldehyde</name>
+    <name dictRef="nameDict:cas">2-furancarboxaldehyde</name>
+    <name dictRef="pubchem:Preferred">furan-2-carbaldehyde</name>
+    <name dictRef="nameDict:systematic">furan-2-carbaldehyde</name>
+    <name dictRef="pubchem:Traditional">furfural</name>
+    <formula convention="pubchem:formula" inline="C5H4O2" concise="C 5 H 4 O 2" />
+    <formula convention="pubchem:CanonicalSmiles" inline="C1=COC(=C1)C=O" concise="C 5 H 4 O 2" />
+    <formula convention="pubchem:IsomericSmiles" inline="C1=COC(=C1)C=O" concise="C 5 H 4 O 2" />
+  </molecule>
+</cml>

@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<cml convention="conventions:molecular" xmlns="http://www.xml-cml.org/schema" xmlns:conventions="http://www.xml-cml.org/convention/" xmlns:cmlDict="http://www.xml-cml.org/dictionary/cml/" xmlns:nameDict="http://www.xml-cml.org/dictionary/cml/name/">
+  <molecule id="m1">
+    <formula concise="C 3 H 6 O 1" inline="CH_{3}COCH_{3}" />
+    <atomArray>
+      <atom id="a1" elementType="C" x2="-3.4649999141693115" y2="-8.194999694824219" />
+      <atom id="a2" elementType="C" x2="-2.131320792341276" y2="-7.424999694824219" />
+      <atom id="a3" elementType="C" x2="-0.7976416705132405" y2="-8.194999694824219" />
+      <atom id="a4" elementType="O" x2="-2.131320792341275" y2="-5.884999694824219" />
+      <atom id="a5" elementType="H" x2="-4.234999914169311" y2="-6.861320572996183" />
+      <atom id="a6" elementType="H" x2="-4.798679035997347" y2="-8.964999694824218" />
+      <atom id="a7" elementType="H" x2="-2.694999914169312" y2="-9.528678816652254" />
+      <atom id="a8" elementType="H" x2="-1.5676416705132405" y2="-9.528678816652254" />
+      <atom id="a9" elementType="H" x2="0.5360374513147952" y2="-8.964999694824218" />
+      <atom id="a10" elementType="H" x2="-0.027641670513240513" y2="-6.861320572996183" />
+    </atomArray>
+    <bondArray>
+      <bond id="b1" atomRefs2="a1 a2" order="1" />
+      <bond id="b2" atomRefs2="a2 a3" order="1" />
+      <bond id="b3" atomRefs2="a2 a4" order="2" />
+      <bond id="b4" atomRefs2="a1 a5" order="1" />
+      <bond id="b5" atomRefs2="a1 a6" order="1" />
+      <bond id="b6" atomRefs2="a1 a7" order="1" />
+      <bond id="b7" atomRefs2="a3 a8" order="1" />
+      <bond id="b8" atomRefs2="a3 a9" order="1" />
+      <bond id="b9" atomRefs2="a3 a10" order="1" />
+    </bondArray>
+  </molecule>
+</cml>

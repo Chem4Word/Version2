@@ -1,0 +1,666 @@
+<SmartTagDictionary>
+  <Term MoleculeID="6b4f73ffe7fdc99a7446bd601352305d" Value="H2O" />
+  <Term MoleculeID="24586ff70d4391c87098039c40476bf8" Value="acetic acid" />
+  <Term MoleculeID="83e1b0a25ef458654f4ad5b07cdfa516" Value="acetone" />
+  <Term MoleculeID="3c5f6fb740040a2aee9861c7ae9e1b56" Value="benzene" />
+  <Term MoleculeID="08f14113b9a27279bd9f199229ae48fc" Value="DMSO" />
+  <Term MoleculeID="e91bb07a38d0bcaa60aa271c4da0fd14" Value="methyl acetate" />
+  <Term MoleculeID="c14fefb8a49b8e7deafd8fe57f47e24b" Value="paracetamol" />
+  <Term MoleculeID="4ccad702973ebb01eb902eb3d51da0a5" Value="salt" />
+  <Term MoleculeID="2355287d8a8656612dcd7a958e42ef2e" Value="testosterone" />
+  <Term MoleculeID="6b4f73ffe7fdc99a7446bd601352305d" Value="water" />
+  <Term MoleculeID="diethyl-ether" Value="ethoxyethane" />  
+  <Term MoleculeID="dimethyl-ether" Value="methoxymethane" />
+  <!-- amino acids -->
+  <Term MoleculeID="alanine" Value="alanine" />
+  <Term MoleculeID="alanine" Value="Ala" />
+  <Term MoleculeID="aspartic-acid" Value="aspartic acid" />
+  <Term MoleculeID="aspartic-acid" Value="Asp" />
+  <Term MoleculeID="cysteine" Value="cysteine" />
+  <Term MoleculeID="cysteine" Value="Cys" />
+  <Term MoleculeID="glycine" Value="glycine" />
+  <Term MoleculeID="glycine" Value="Gly" />
+  <Term MoleculeID="histidine" Value="histidine" />
+  <Term MoleculeID="histidine" Value="His" />
+  <Term MoleculeID="serine" Value="serine" />
+  <Term MoleculeID="serine" Value="Ser" />
+  <Term MoleculeID="threonine" Value="threonine" />
+  <Term MoleculeID="threonine" Value="Thr" />
+  <Term MoleculeID="isoleucine" Value="isoleucine" />
+  <Term MoleculeID="isoleucine" Value="Ile" />
+  <Term MoleculeID="leucine" Value="leucine" />
+  <Term MoleculeID="leucine" Value="Leu" />
+  <Term MoleculeID="lysine" Value="lysine" />
+  <Term MoleculeID="lysine" Value="Lys" />
+  <Term MoleculeID="methionine" Value="methionine" />
+  <Term MoleculeID="methionine" Value="Met" />
+  <Term MoleculeID="phenylalanine" Value="phenylalanine" />
+  <Term MoleculeID="phenylalanine" Value="Phe" />
+  <Term MoleculeID="proline" Value="proline" />
+  <Term MoleculeID="proline" Value="Pro" />
+  <Term MoleculeID="tryptophan" Value="tryptophan" />
+  <Term MoleculeID="tryptophan" Value="Trp" />
+  <Term MoleculeID="tyrosine" Value="tyrosine" />
+  <Term MoleculeID="tyrosine" Value="Tyr" />
+  <Term MoleculeID="valine" Value="valine" />
+  <Term MoleculeID="valine" Value="Val" />
+  <Term MoleculeID="arginine" Value="arginine" />
+  <Term MoleculeID="arginine" Value="Arg" />
+  <Term MoleculeID="asparagine" Value="asparagine" />
+  <Term MoleculeID="asparagine" Value="Asp" />
+  <Term MoleculeID="glutamic-acid" Value="glutamic acid" />
+  <Term MoleculeID="glutamic-acid" Value="Glu" />
+  <Term MoleculeID="glutamine" Value="glutamine" />
+  <Term MoleculeID="glutamine" Value="Gln" />
+  <!-- end amino acids -->
+  
+  <!-- automatic from wiki/pubchem -->
+  <Term MoleculeID="1001" Value="1001" />
+  <Term MoleculeID="1001" Value="2-phenylethanamine" />
+  <Term MoleculeID="1001" Value="phenethylamine" />
+  <Term MoleculeID="10100" Value="10100" />
+  <Term MoleculeID="10100" Value="[(1S,2R)-1-benzyl-3-(dimethylamino)-2-methyl-1-phenyl-propyl] propanoate" />
+  <Term MoleculeID="10100" Value="propanoic acid [(1S,2R)-1-benzyl-3-(dimethylamino)-2-methyl-1-phenylpropyl] ester" />
+  <Term MoleculeID="10100" Value="[(2S,3R)-4-(dimethylamino)-3-methyl-1,2-diphenylbutan-2-yl] propanoate" />
+  <Term MoleculeID="10100" Value="[(2S,3R)-4-(dimethylamino)-3-methyl-1,2-diphenyl-butan-2-yl] propanoate" />
+  <Term MoleculeID="10100" Value="propionic acid [(1S,2R)-1-benzyl-3-(dimethylamino)-2-methyl-1-phenyl-propyl] ester" />
+  <Term MoleculeID="10178" Value="10178" />
+  <Term MoleculeID="10178" Value="N-methyl-N-(2,4,6-trinitrophenyl)nitramide" />
+  <Term MoleculeID="10178" Value="N-methyl-N-picryl-nitramide" />
+  <Term MoleculeID="10340" Value="10340" />
+  <Term MoleculeID="10340" Value="disodium carbonate" />
+  <Term MoleculeID="1044" Value="1044" />
+  <Term MoleculeID="1044" Value="7H-purine" />
+  <Term MoleculeID="10476" Value="10476" />
+  <Term MoleculeID="10476" Value="carbononitridic bromide" />
+  <Term MoleculeID="10476" Value="cyanogen bromide" />
+  <Term MoleculeID="1049" Value="1049" />
+  <Term MoleculeID="1049" Value="pyridine" />
+  <Term MoleculeID="1054" Value="1054" />
+  <Term MoleculeID="1054" Value="4,5-bis(hydroxymethyl)-2-methyl-pyridin-3-ol" />
+  <Term MoleculeID="1054" Value="4,5-bis(hydroxymethyl)-2-methyl-3-pyridinol" />
+  <Term MoleculeID="1054" Value="4,5-bis(hydroxymethyl)-2-methylpyridin-3-ol" />
+  <Term MoleculeID="1054" Value="2-methyl-4,5-dimethylol-pyridin-3-ol" />
+  <Term MoleculeID="10917" Value="10917" />
+  <Term MoleculeID="10917" Value="(3R)-3-hydroxy-4-(trimethylammonio)butanoate" />
+  <Term MoleculeID="10917" Value="(3R)-3-hydroxy-4-(trimethylazaniumyl)butanoate" />
+  <Term MoleculeID="10917" Value="(3R)-3-hydroxy-4-(trimethylammonio)butyrate" />
+  <Term MoleculeID="11029" Value="11029" />
+  <Term MoleculeID="11029" Value="magnesium carbonate" />
+  <Term MoleculeID="11125" Value="11125" />
+  <Term MoleculeID="11125" Value="dilithium carbonate" />
+  <Term MoleculeID="1123" Value="1123" />
+  <Term MoleculeID="1123" Value="2-aminoethanesulfonic acid" />
+  <Term MoleculeID="1123" Value="2-azanylethanesulfonic acid" />
+  <Term MoleculeID="1130" Value="1130" />
+  <Term MoleculeID="1130" Value="2-[3-[(4-amino-2-methyl-pyrimidin-5-yl)methyl]-4-methyl-thiazol-3-ium-5-yl]ethanol" />
+  <Term MoleculeID="1130" Value="2-[3-[(4-amino-2-methyl-5-pyrimidinyl)methyl]-4-methyl-5-thiazol-3-iumyl]ethanol" />
+  <Term MoleculeID="1130" Value="2-[3-[(4-amino-2-methylpyrimidin-5-yl)methyl]-4-methyl-1,3-thiazol-3-ium-5-yl]ethanol" />
+  <Term MoleculeID="1130" Value="2-[3-[(4-azanyl-2-methyl-pyrimidin-5-yl)methyl]-4-methyl-1,3-thiazol-3-ium-5-yl]ethanol" />
+  <Term MoleculeID="1130" Value="thiamin" />
+  <Term MoleculeID="1146" Value="1146" />
+  <Term MoleculeID="1146" Value="N,N-dimethylmethanamine" />
+  <Term MoleculeID="1146" Value="trimethylamine" />
+  <Term MoleculeID="1175" Value="1175" />
+  <Term MoleculeID="1175" Value="7,9-dihydro-3H-purine-2,6,8-trione" />
+  <Term MoleculeID="1175" Value="uric acid" />
+  <Term MoleculeID="1188" Value="1188" />
+  <Term MoleculeID="1188" Value="3,7-dihydropurine-2,6-dione" />
+  <Term MoleculeID="1188" Value="xanthine" />
+  <Term MoleculeID="119" Value="119" />
+  <Term MoleculeID="119" Value="4-aminobutanoic acid" />
+  <Term MoleculeID="119" Value="4-azanylbutanoic acid" />
+  <Term MoleculeID="119" Value="4-aminobutyric acid" />
+  <Term MoleculeID="12035" Value="12035" />
+  <Term MoleculeID="12035" Value="(2R)-2-acetamido-3-sulfanyl-propanoic acid" />
+  <Term MoleculeID="12035" Value="(2R)-2-acetamido-3-mercaptopropanoic acid" />
+  <Term MoleculeID="12035" Value="(2R)-2-acetamido-3-sulfanylpropanoic acid" />
+  <Term MoleculeID="12035" Value="(2R)-2-acetamido-3-mercapto-propionic acid" />
+  <Term MoleculeID="124886" Value="124886" />
+  <Term MoleculeID="124886" Value="(2S)-2-amino-5-[[(1R)-2-(carboxymethylamino)-2-oxo-1-(sulfanylmethyl)ethyl]amino]-5-oxo-pentanoic acid" />
+  <Term MoleculeID="124886" Value="(2S)-2-amino-5-[[(1R)-2-(carboxymethylamino)-1-(mercaptomethyl)-2-oxoethyl]amino]-5-oxopentanoic acid" />
+  <Term MoleculeID="124886" Value="(2S)-2-amino-5-[[(2R)-1-(carboxymethylamino)-1-oxo-3-sulfanylpropan-2-yl]amino]-5-oxopentanoic acid" />
+  <Term MoleculeID="124886" Value="(2S)-2-azanyl-5-[[(2R)-1-(carboxymethylamino)-1-oxo-3-sulfanyl-propan-2-yl]amino]-5-oxo-pentanoic acid" />
+  <Term MoleculeID="124886" Value="(2S)-2-amino-5-[[(1R)-2-(carboxymethylamino)-2-keto-1-(mercaptomethyl)ethyl]amino]-5-keto-valeric acid" />
+  <Term MoleculeID="128563" Value="128563" />
+  <Term MoleculeID="128563" Value="methyl (2S,4aR,6aR,7R,9S,10aS,10bR)-9-acetoxy-2-(3-furyl)-6a,10b-dimethyl-4,10-dioxo-2,4a,5,6,7,8,9,10a-octahydro-1H-benzo[f]isochromene-7-carboxylate" />
+  <Term MoleculeID="128563" Value="(2S,4aR,6aR,7R,9S,10aS,10bR)-9-acetoxy-2-(3-furyl)-6a,10b-dimethyl-4,10-dioxo-2,4a,5,6,7,8,9,10a-octahydro-1H-benzo[f][2]benzopyran-7-carboxylic acid methyl ester" />
+  <Term MoleculeID="128563" Value="methyl (2S,4aR,6aR,7R,9S,10aS,10bR)-9-acetyloxy-2-furan-3-yl-6a,10b-dimethyl-4,10-dioxo-2,4a,5,6,7,8,9,10a-octahydro-1H-benzo[f]isochromene-7-carboxylate" />
+  <Term MoleculeID="128563" Value="(2S,4aR,6aR,7R,9S,10aS,10bR)-9-acetoxy-2-(3-furyl)-4,10-diketo-6a,10b-dimethyl-2,4a,5,6,7,8,9,10a-octahydro-1H-benzo[f]isochromene-7-carboxylic acid methyl ester" />
+  <Term MoleculeID="146570" Value="146570" />
+  <Term MoleculeID="146570" Value="(1S)-1-[3-(dimethylamino)propyl]-1-(4-fluorophenyl)-3H-isobenzofuran-5-carbonitrile" />
+  <Term MoleculeID="146570" Value="(1S)-1-[3-(dimethylamino)propyl]-1-(4-fluorophenyl)-3H-2-benzofuran-5-carbonitrile" />
+  <Term MoleculeID="146570" Value="(1S)-1-[3-(dimethylamino)propyl]-1-(4-fluorophenyl)phthalan-5-carbonitrile" />
+  <Term MoleculeID="14710" Value="14710" />
+  <Term MoleculeID="14710" Value="5-ethyl-6-phenyl-phenanthridin-5-ium-3,8-diamine bromide" />
+  <Term MoleculeID="14710" Value="5-ethyl-6-phenylphenanthridin-5-ium-3,8-diamine bromide" />
+  <Term MoleculeID="14710" Value="(3-amino-5-ethyl-6-phenyl-phenanthridin-5-ium-8-yl)amine bromide" />
+  <Term MoleculeID="14801" Value="14801" />
+  <Term MoleculeID="14801" Value="dioxomanganese" />
+  <Term MoleculeID="14801" Value="diketomanganese" />
+  <Term MoleculeID="148124" Value="148124" />
+  <Term MoleculeID="14814" Value="14814" />
+  <Term MoleculeID="14915" Value="14915" />
+  <Term MoleculeID="14915" Value="trioxochromium" />
+  <Term MoleculeID="14915" Value="triketochromium" />
+  <Term MoleculeID="14969" Value="14969" />
+  <Term MoleculeID="151261" Value="151261" />
+  <Term MoleculeID="151261" Value="(3R,4R)-1,3,4,5-tetrahydroxypentan-2-one" />
+  <Term MoleculeID="151261" Value="(3R,4R)-1,3,4,5-tetrahydroxy-2-pentanone" />
+  <Term MoleculeID="16211014" Value="16211014" />
+  <Term MoleculeID="16211014" Value="hydron fluoride" />
+  <Term MoleculeID="162482" Value="162482" />
+  <Term MoleculeID="162482" Value="sodium 4-chloro-2-(2-furylmethylamino)-5-sulfamoyl-benzoate" />
+  <Term MoleculeID="162482" Value="sodium 4-chloro-2-(2-furylmethylamino)-5-sulfamoylbenzoate" />
+  <Term MoleculeID="162482" Value="sodium 4-chloro-2-(furan-2-ylmethylamino)-5-sulfamoylbenzoate" />
+  <Term MoleculeID="162482" Value="sodium 4-chloro-2-(furan-2-ylmethylamino)-5-sulfamoyl-benzoate" />
+  <Term MoleculeID="162482" Value="sodium 4-chloro-2-(2-furfurylamino)-5-sulfamoyl-benzoate" />
+  <Term MoleculeID="16850" Value="16850" />
+  <Term MoleculeID="16850" Value="3',6'-dihydroxyspiro[isobenzofuran-3,9'-xanthene]-1-one" />
+  <Term MoleculeID="16850" Value="3',6'-dihydroxy-1-spiro[isobenzofuran-3,9'-xanthene]one" />
+  <Term MoleculeID="16850" Value="3',6'-dihydroxyspiro[2-benzofuran-3,9'-xanthene]-1-one" />
+  <Term MoleculeID="16850" Value="fluorescein" />
+  <Term MoleculeID="171548" Value="171548" />
+  <Term MoleculeID="171548" Value="5-[(3aR,6S,6aS)-2-oxo-1,3,3a,4,6,6a-hexahydrothieno[3,4-d]imidazol-6-yl]pentanoic acid" />
+  <Term MoleculeID="171548" Value="5-[(3aR,6S,6aS)-2-keto-1,3,3a,4,6,6a-hexahydrothieno[3,4-d]imidazol-6-yl]valeric acid" />
+  <Term MoleculeID="176" Value="176" />
+  <Term MoleculeID="176" Value="acetic acid" />
+  <Term MoleculeID="176" Value="ethanoic acid" />
+  <Term MoleculeID="190" Value="190" />
+  <Term MoleculeID="190" Value="7H-purin-6-amine" />
+  <Term MoleculeID="190" Value="7H-adenine" />
+  <Term MoleculeID="1983" Value="1983" />
+  <Term MoleculeID="1983" Value="N-(4-hydroxyphenyl)acetamide" />
+  <Term MoleculeID="1983" Value="N-(4-hydroxyphenyl)ethanamide" />
+  <Term MoleculeID="2022" Value="2022" />
+  <Term MoleculeID="2022" Value="2-amino-9-(2-hydroxyethoxymethyl)-3H-purin-6-one" />
+  <Term MoleculeID="2022" Value="2-azanyl-9-(2-hydroxyethoxymethyl)-3H-purin-6-one" />
+  <Term MoleculeID="2118" Value="2118" />
+  <Term MoleculeID="2118" Value="8-chloro-1-methyl-6-phenyl-4H-[1,2,4]triazolo[4,3-a][1,4]benzodiazepine" />
+  <Term MoleculeID="2130" Value="2130" />
+  <Term MoleculeID="2130" Value="adamantan-1-amine" />
+  <Term MoleculeID="2130" Value="1-adamantanamine" />
+  <Term MoleculeID="2130" Value="1-adamantylamine" />
+  <Term MoleculeID="2157" Value="2157" />
+  <Term MoleculeID="2157" Value="(2-butylbenzofuran-3-yl)-[4-(2-diethylaminoethyloxy)-3,5-diiodo-phenyl]methanone" />
+  <Term MoleculeID="2157" Value="(2-butyl-3-benzofuranyl)-[4-(2-diethylaminoethyloxy)-3,5-diiodophenyl]methanone" />
+  <Term MoleculeID="2157" Value="(2-butyl-1-benzofuran-3-yl)-[4-(2-diethylaminoethyloxy)-3,5-diiodophenyl]methanone" />
+  <Term MoleculeID="2157" Value="(2-butyl-1-benzofuran-3-yl)-[4-(2-diethylaminoethyloxy)-3,5-diiodo-phenyl]methanone" />
+  <Term MoleculeID="2160" Value="2160" />
+  <Term MoleculeID="222" Value="222" />
+  <Term MoleculeID="222" Value="ammonia" />
+  <Term MoleculeID="222" Value="azane" />
+  <Term MoleculeID="2244" Value="2244" />
+  <Term MoleculeID="2244" Value="2-acetoxybenzoic acid" />
+  <Term MoleculeID="2244" Value="2-acetyloxybenzoic acid" />
+  <Term MoleculeID="2265" Value="2265" />
+  <Term MoleculeID="2265" Value="6-(3-methyl-5-nitro-imidazol-4-yl)sulfanyl-7H-purine" />
+  <Term MoleculeID="2265" Value="6-[(3-methyl-5-nitro-4-imidazolyl)thio]-7H-purine" />
+  <Term MoleculeID="2265" Value="6-(3-methyl-5-nitroimidazol-4-yl)sulfanyl-7H-purine" />
+  <Term MoleculeID="2265" Value="6-[(3-methyl-5-nitro-imidazol-4-yl)thio]-7H-purine" />
+  <Term MoleculeID="2294" Value="2294" />
+  <Term MoleculeID="2294" Value="5,5-diethylhexahydropyrimidine-2,4,6-trione" />
+  <Term MoleculeID="2294" Value="5,5-diethyl-1,3-diazinane-2,4,6-trione" />
+  <Term MoleculeID="2294" Value="barbital" />
+  <Term MoleculeID="23266" Value="23266" />
+  <Term MoleculeID="23266" Value="disodium dioxido(oxo)silane" />
+  <Term MoleculeID="23266" Value="disodium bis(oxidanidyl)-oxo-silane" />
+  <Term MoleculeID="23266" Value="disodium keto(dioxido)silane" />
+  <Term MoleculeID="2337" Value="2337" />
+  <Term MoleculeID="2337" Value="ethyl 4-aminobenzoate" />
+  <Term MoleculeID="2337" Value="4-aminobenzoic acid ethyl ester" />
+  <Term MoleculeID="2337" Value="ethyl 4-azanylbenzoate" />
+  <Term MoleculeID="24012" Value="24012" />
+  <Term MoleculeID="24012" Value="trichloroalumane" />
+  <Term MoleculeID="24083" Value="24083" />
+  <Term MoleculeID="24083" Value="magnesium sulfate" />
+  <Term MoleculeID="241" Value="241" />
+  <Term MoleculeID="241" Value="benzene" />
+  <Term MoleculeID="243" Value="243" />
+  <Term MoleculeID="243" Value="benzoic acid" />
+  <Term MoleculeID="24387" Value="24387" />
+  <Term MoleculeID="24387" Value="trichlorophosphane" />
+  <Term MoleculeID="24400" Value="24400" />
+  <Term MoleculeID="24400" Value="potassium permanganate" />
+  <Term MoleculeID="24409" Value="24409" />
+  <Term MoleculeID="24409" Value="tribromoalumane" />
+  <Term MoleculeID="24434" Value="24434" />
+  <Term MoleculeID="24434" Value="potassium nitrate" />
+  <Term MoleculeID="24436" Value="24436" />
+  <Term MoleculeID="24436" Value="disodium sulfate" />
+  <Term MoleculeID="24477" Value="24477" />
+  <Term MoleculeID="24530" Value="24530" />
+  <Term MoleculeID="24530" Value="diazonioazanide" />
+  <Term MoleculeID="24614" Value="24614" />
+  <Term MoleculeID="24614" Value="tribromophosphane" />
+  <Term MoleculeID="24819" Value="24819" />
+  <Term MoleculeID="24819" Value="pentachlorophosphorane" />
+  <Term MoleculeID="24819" Value="pentachloro-$l^{5}-phosphane" />
+  <Term MoleculeID="24823" Value="24823" />
+  <Term MoleculeID="24823" Value="ozone" />
+  <Term MoleculeID="24841" Value="24841" />
+  <Term MoleculeID="24841" Value="hydrogen iodide" />
+  <Term MoleculeID="24841" Value="iodane" />
+  <Term MoleculeID="24850" Value="24850" />
+  <Term MoleculeID="24850" Value="dialuminum trisulfate" />
+  <Term MoleculeID="25352" Value="25352" />
+  <Term MoleculeID="264" Value="264" />
+  <Term MoleculeID="264" Value="butyric acid" />
+  <Term MoleculeID="264" Value="butanoic acid" />
+  <Term MoleculeID="2662" Value="2662" />
+  <Term MoleculeID="2662" Value="4-[5-(p-tolyl)-3-(trifluoromethyl)pyrazol-1-yl]benzenesulfonamide" />
+  <Term MoleculeID="2662" Value="4-[5-(p-tolyl)-3-(trifluoromethyl)-1-pyrazolyl]benzenesulfonamide" />
+  <Term MoleculeID="2662" Value="4-[5-(4-methylphenyl)-3-(trifluoromethyl)pyrazol-1-yl]benzenesulfonamide" />
+  <Term MoleculeID="2707" Value="2707" />
+  <Term MoleculeID="2707" Value="2,2,2-trichloroethane-1,1-diol" />
+  <Term MoleculeID="2756" Value="2756" />
+  <Term MoleculeID="2756" Value="1-cyano-2-methyl-3-[2-[(5-methyl-1H-imidazol-4-yl)methylsulfanyl]ethyl]guanidine" />
+  <Term MoleculeID="2756" Value="1-cyano-2-methyl-3-[2-[(5-methyl-1H-imidazol-4-yl)methylthio]ethyl]guanidine" />
+  <Term MoleculeID="280" Value="280" />
+  <Term MoleculeID="280" Value="carbon dioxide" />
+  <Term MoleculeID="281" Value="281" />
+  <Term MoleculeID="281" Value="carbon monoxide" />
+  <Term MoleculeID="297" Value="297" />
+  <Term MoleculeID="297" Value="methane" />
+  <Term MoleculeID="3016" Value="3016" />
+  <Term MoleculeID="3016" Value="7-chloro-1-methyl-5-phenyl-3H-1,4-benzodiazepin-2-one" />
+  <Term MoleculeID="3033" Value="3033" />
+  <Term MoleculeID="3033" Value="2-[2-(2,6-dichloroanilino)phenyl]acetic acid" />
+  <Term MoleculeID="3033" Value="2-[2-[(2,6-dichlorophenyl)amino]phenyl]ethanoic acid" />
+  <Term MoleculeID="3037032" Value="3037032" />
+  <Term MoleculeID="3037032" Value="4-hydroxybutanoate" />
+  <Term MoleculeID="3037032" Value="4-hydroxybutyrate" />
+  <Term MoleculeID="311" Value="311" />
+  <Term MoleculeID="311" Value="citric acid" />
+  <Term MoleculeID="311" Value="2-hydroxypropane-1,2,3-tricarboxylic acid" />
+  <Term MoleculeID="3117" Value="3117" />
+  <Term MoleculeID="3117" Value="diethylcarbamothioylsulfanyl N,N-diethylcarbamodithioate" />
+  <Term MoleculeID="3117" Value="N,N-diethylcarbamodithioic acid [[diethylamino(thioxo)methyl]thio] ester" />
+  <Term MoleculeID="3117" Value="N,N-diethylcarbamodithioic acid (diethylthiocarbamoylthio) ester" />
+  <Term MoleculeID="31703" Value="31703" />
+  <Term MoleculeID="31703" Value="(7S,9S)-7-[(2R,4S,5S,6S)-4-amino-5-hydroxy-6-methyl-tetrahydropyran-2-yl]oxy-6,9,11-trihydroxy-9-(2-hydroxyacetyl)-4-methoxy-8,10-dihydro-7H-tetracene-5,12-dione" />
+  <Term MoleculeID="31703" Value="(7S,9S)-7-[[(2R,4S,5S,6S)-4-amino-5-hydroxy-6-methyl-2-tetrahydropyranyl]oxy]-6,9,11-trihydroxy-9-(2-hydroxy-1-oxoethyl)-4-methoxy-8,10-dihydro-7H-tetracene-5,12-dione" />
+  <Term MoleculeID="31703" Value="(7S,9S)-7-[(2R,4S,5S,6S)-4-amino-5-hydroxy-6-methyloxan-2-yl]oxy-6,9,11-trihydroxy-9-(2-hydroxyacetyl)-4-methoxy-8,10-dihydro-7H-tetracene-5,12-dione" />
+  <Term MoleculeID="31703" Value="(7S,9S)-7-[(2R,4S,5S,6S)-4-azanyl-5-hydroxy-6-methyl-oxan-2-yl]oxy-6,9,11-trihydroxy-9-(2-hydroxyethanoyl)-4-methoxy-8,10-dihydro-7H-tetracene-5,12-dione" />
+  <Term MoleculeID="31703" Value="(7S,9S)-7-[(2R,4S,5S,6S)-4-amino-5-hydroxy-6-methyl-tetrahydropyran-2-yl]oxy-9-glycoloyl-6,9,11-trihydroxy-4-methoxy-8,10-dihydro-7H-tetracene-5,12-quinone" />
+  <Term MoleculeID="323" Value="323" />
+  <Term MoleculeID="323" Value="chromen-2-one" />
+  <Term MoleculeID="323" Value="1-benzopyran-2-one" />
+  <Term MoleculeID="323" Value="coumarin" />
+  <Term MoleculeID="3345" Value="3345" />
+  <Term MoleculeID="3345" Value="N-(1-phenethyl-4-piperidyl)-N-phenyl-propanamide" />
+  <Term MoleculeID="3345" Value="N-(1-phenethyl-4-piperidinyl)-N-phenylpropanamide" />
+  <Term MoleculeID="3345" Value="N-(1-phenethylpiperidin-4-yl)-N-phenylpropanamide" />
+  <Term MoleculeID="3345" Value="N-(1-phenethylpiperidin-4-yl)-N-phenyl-propanamide" />
+  <Term MoleculeID="3345" Value="N-(1-phenethyl-4-piperidyl)-N-phenyl-propionamide" />
+  <Term MoleculeID="33613" Value="33613" />
+  <Term MoleculeID="33613" Value="(2S,5R,6R)-6-[[(2R)-2-amino-2-(4-hydroxyphenyl)acetyl]amino]-3,3-dimethyl-7-oxo-4-thia-1-azabicyclo[3.2.0]heptane-2-carboxylic acid" />
+  <Term MoleculeID="33613" Value="(2S,5R,6R)-6-[[(2R)-2-amino-2-(4-hydroxyphenyl)-1-oxoethyl]amino]-3,3-dimethyl-7-oxo-4-thia-1-azabicyclo[3.2.0]heptane-2-carboxylic acid" />
+  <Term MoleculeID="33613" Value="(2S,5R,6R)-6-[[(2R)-2-azanyl-2-(4-hydroxyphenyl)ethanoyl]amino]-3,3-dimethyl-7-oxo-4-thia-1-azabicyclo[3.2.0]heptane-2-carboxylic acid" />
+  <Term MoleculeID="33613" Value="(2S,5R,6R)-6-[[(2R)-2-amino-2-(4-hydroxyphenyl)acetyl]amino]-7-keto-3,3-dimethyl-4-thia-1-azabicyclo[3.2.0]heptane-2-carboxylic acid" />
+  <Term MoleculeID="34755" Value="34755" />
+  <Term MoleculeID="34755" Value="(2S)-2-amino-4-[[(2S,3S,4R,5R)-5-(6-aminopurin-9-yl)-3,4-dihydroxy-tetrahydrofuran-2-yl]methyl-methyl-sulfonio]butanoate" />
+  <Term MoleculeID="34755" Value="(2S)-2-amino-4-[[(2S,3S,4R,5R)-5-(6-aminopurin-9-yl)-3,4-dihydroxy-2-tetrahydrofuranyl]methyl-methylsulfonio]butanoate" />
+  <Term MoleculeID="34755" Value="(2S)-2-amino-4-[[(2S,3S,4R,5R)-5-(6-aminopurin-9-yl)-3,4-dihydroxyoxolan-2-yl]methyl-methylsulfonio]butanoate" />
+  <Term MoleculeID="34755" Value="(2S)-4-[[(2S,3S,4R,5R)-5-(6-aminopurin-9-yl)-3,4-dihydroxy-oxolan-2-yl]methyl-methyl-sulfonio]-2-azanyl-butanoate" />
+  <Term MoleculeID="34755" Value="(2S)-4-[[(2S,3S,4R,5R)-5-adenin-9-yl-3,4-dihydroxy-tetrahydrofuran-2-yl]methyl-methyl-sulfonio]-2-amino-butyrate" />
+  <Term MoleculeID="3496" Value="3496" />
+  <Term MoleculeID="3496" Value="2-(phosphonomethylamino)acetic acid" />
+  <Term MoleculeID="3496" Value="2-(phosphonomethylamino)ethanoic acid" />
+  <Term MoleculeID="3559" Value="3559" />
+  <Term MoleculeID="3559" Value="4-[4-(4-chlorophenyl)-4-hydroxy-1-piperidyl]-1-(4-fluorophenyl)butan-1-one" />
+  <Term MoleculeID="3559" Value="4-[4-(4-chlorophenyl)-4-hydroxy-1-piperidinyl]-1-(4-fluorophenyl)-1-butanone" />
+  <Term MoleculeID="3559" Value="4-[4-(4-chlorophenyl)-4-hydroxypiperidin-1-yl]-1-(4-fluorophenyl)butan-1-one" />
+  <Term MoleculeID="3559" Value="4-[4-(4-chlorophenyl)-4-hydroxy-piperidin-1-yl]-1-(4-fluorophenyl)butan-1-one" />
+  <Term MoleculeID="3559" Value="4-[4-(4-chlorophenyl)-4-hydroxy-piperidino]-1-(4-fluorophenyl)butan-1-one" />
+  <Term MoleculeID="356" Value="356" />
+  <Term MoleculeID="356" Value="octane" />
+  <Term MoleculeID="356" Value="n-octane" />
+  <Term MoleculeID="379" Value="379" />
+  <Term MoleculeID="379" Value="octanoic acid" />
+  <Term MoleculeID="379" Value="caprylic acid" />
+  <Term MoleculeID="402" Value="402" />
+  <Term MoleculeID="402" Value="hydrogen sulfide" />
+  <Term MoleculeID="402" Value="sulfane" />
+  <Term MoleculeID="4076" Value="4076" />
+  <Term MoleculeID="4076" Value="2-(3,4,5-trimethoxyphenyl)ethanamine" />
+  <Term MoleculeID="4076" Value="2-(3,4,5-trimethoxyphenyl)ethylamine" />
+  <Term MoleculeID="439242" Value="439242" />
+  <Term MoleculeID="439242" Value="(2R,3R,4S,5S,6R)-2-[(2S,3S,4S,5R)-3,4-dihydroxy-2,5-bis(hydroxymethyl)tetrahydrofuran-2-yl]oxy-6-[[(2S,3R,4S,5R,6R)-3,4,5-trihydroxy-6-(hydroxymethyl)tetrahydropyran-2-yl]oxymethyl]tetrahydropyran-3,4,5-triol" />
+  <Term MoleculeID="439242" Value="(2R,3R,4S,5S,6R)-2-[[(2S,3S,4S,5R)-3,4-dihydroxy-2,5-bis(hydroxymethyl)-2-tetrahydrofuranyl]oxy]-6-[[(2S,3R,4S,5R,6R)-3,4,5-trihydroxy-6-(hydroxymethyl)-2-tetrahydropyranyl]oxymethyl]tetrahydropyran-3,4,5-triol" />
+  <Term MoleculeID="439242" Value="(2R,3R,4S,5S,6R)-2-[(2S,3S,4S,5R)-3,4-dihydroxy-2,5-bis(hydroxymethyl)oxolan-2-yl]oxy-6-[[(2S,3R,4S,5R,6R)-3,4,5-trihydroxy-6-(hydroxymethyl)oxan-2-yl]oxymethyl]oxane-3,4,5-triol" />
+  <Term MoleculeID="439242" Value="(2R,3R,4S,5S,6R)-2-[(2S,3S,4S,5R)-3,4-dihydroxy-2,5-dimethylol-tetrahydrofuran-2-yl]oxy-6-[[(2S,3R,4S,5R,6R)-3,4,5-trihydroxy-6-methylol-tetrahydropyran-2-yl]oxymethyl]tetrahydropyran-3,4,5-triol" />
+  <Term MoleculeID="441071" Value="441071" />
+  <Term MoleculeID="441184" Value="441184" />
+  <Term MoleculeID="441184" Value="(2R,3R,4R,5S,6R)-5-[(2R,3R,4R,5S,6R)-5-[(2R,3R,4S,5S,6R)-3,4-dihydroxy-6-methyl-5-[[(1S,4S,5S,6S)-4,5,6-trihydroxy-3-(hydroxymethyl)cyclohex-2-en-1-yl]amino]tetrahydropyran-2-yl]oxy-3,4-dihydroxy-6-(hydroxymethyl)tetrahydropyran-2-yl]oxy-6-(hydroxymethyl)tetrahydropyran-2,3,4-triol" />
+  <Term MoleculeID="441184" Value="(2R,3R,4R,5S,6R)-5-[[(2R,3R,4R,5S,6R)-5-[[(2R,3R,4S,5S,6R)-3,4-dihydroxy-6-methyl-5-[[(1S,4S,5S,6S)-4,5,6-trihydroxy-3-(hydroxymethyl)-1-cyclohex-2-enyl]amino]-2-tetrahydropyranyl]oxy]-3,4-dihydroxy-6-(hydroxymethyl)-2-tetrahydropyranyl]oxy]-6-(hydroxymethyl)tetrahydropyran-2,3,4-triol" />
+  <Term MoleculeID="441184" Value="(2R,3R,4R,5S,6R)-5-[(2R,3R,4R,5S,6R)-5-[(2R,3R,4S,5S,6R)-3,4-dihydroxy-6-methyl-5-[[(1S,4S,5S,6S)-4,5,6-trihydroxy-3-(hydroxymethyl)cyclohex-2-en-1-yl]amino]oxan-2-yl]oxy-3,4-dihydroxy-6-(hydroxymethyl)oxan-2-yl]oxy-6-(hydroxymethyl)oxane-2,3,4-triol" />
+  <Term MoleculeID="441184" Value="(2R,3R,4R,5S,6R)-5-[(2R,3R,4R,5S,6R)-5-[(2R,3R,4S,5S,6R)-3,4-dihydroxy-6-methyl-5-[[(1S,4S,5S,6S)-4,5,6-trihydroxy-3-methylol-cyclohex-2-en-1-yl]amino]tetrahydropyran-2-yl]oxy-3,4-dihydroxy-6-methylol-tetrahydropyran-2-yl]oxy-6-methylol-tetrahydropyran-2,3,4-triol" />
+  <Term MoleculeID="442072" Value="442072" />
+  <Term MoleculeID="4933294" Value="4933294" />
+  <Term MoleculeID="4933294" Value="N-[[(4-benzyloxybenzoyl)amino]carbamothioyl]-4-methoxy-benzamide" />
+  <Term MoleculeID="4933294" Value="N-[[N'-[(4-benzyloxyphenyl)-oxomethyl]hydrazino]-thioxomethyl]-4-methoxybenzamide" />
+  <Term MoleculeID="4933294" Value="4-methoxy-N-[[(4-phenylmethoxybenzoyl)amino]carbamothioyl]benzamide" />
+  <Term MoleculeID="4933294" Value="4-methoxy-N-[[(4-phenylmethoxyphenyl)carbonylamino]carbamothioyl]benzamide" />
+  <Term MoleculeID="4933294" Value="N-[[(4-benzoxybenzoyl)amino]thiocarbamoyl]-4-methoxy-benzamide" />
+  <Term MoleculeID="5143" Value="5143" />
+  <Term MoleculeID="5143" Value="1,1-dioxo-1,2-benzothiazol-3-one" />
+  <Term MoleculeID="5143" Value="1,1-diketo-1,2-benzothiazol-3-one" />
+  <Term MoleculeID="518740" Value="518740" />
+  <Term MoleculeID="518740" Value="2,4,5-trioxa-1,3-diarsabicyclo[1.1.1]pentane" />
+  <Term MoleculeID="5202" Value="5202" />
+  <Term MoleculeID="5202" Value="3-(2-aminoethyl)-1H-indol-5-ol" />
+  <Term MoleculeID="5202" Value="3-(2-azanylethyl)-1H-indol-5-ol" />
+  <Term MoleculeID="5280343" Value="5280343" />
+  <Term MoleculeID="5280343" Value="2-(3,4-dihydroxyphenyl)-3,5,7-trihydroxy-chromen-4-one" />
+  <Term MoleculeID="5280343" Value="2-(3,4-dihydroxyphenyl)-3,5,7-trihydroxy-1-benzopyran-4-one" />
+  <Term MoleculeID="5280343" Value="2-(3,4-dihydroxyphenyl)-3,5,7-trihydroxychromen-4-one" />
+  <Term MoleculeID="5280343" Value="2-(3,4-dihydroxyphenyl)-3,5,7-trihydroxy-chromone" />
+  <Term MoleculeID="5281" Value="5281" />
+  <Term MoleculeID="5281" Value="stearic acid" />
+  <Term MoleculeID="5281" Value="octadecanoic acid" />
+  <Term MoleculeID="5281855" Value="5281855" />
+  <Term MoleculeID="5284371" Value="5284371" />
+  <Term MoleculeID="5288826" Value="5288826" />
+  <Term MoleculeID="53232" Value="53232" />
+  <Term MoleculeID="53232" Value="[(1S,3R,7S,8S,8aR)-8-[2-[(2R,4R)-4-hydroxy-6-oxo-tetrahydropyran-2-yl]ethyl]-3,7-dimethyl-1,2,3,7,8,8a-hexahydronaphthalen-1-yl] (2S)-2-methylbutanoate" />
+  <Term MoleculeID="53232" Value="(2S)-2-methylbutanoic acid [(1S,3R,7S,8S,8aR)-8-[2-[(2R,4R)-4-hydroxy-6-oxo-2-tetrahydropyranyl]ethyl]-3,7-dimethyl-1,2,3,7,8,8a-hexahydronaphthalen-1-yl] ester" />
+  <Term MoleculeID="53232" Value="[(1S,3R,7S,8S,8aR)-8-[2-[(2R,4R)-4-hydroxy-6-oxooxan-2-yl]ethyl]-3,7-dimethyl-1,2,3,7,8,8a-hexahydronaphthalen-1-yl] (2S)-2-methylbutanoate" />
+  <Term MoleculeID="53232" Value="[(1S,3R,7S,8S,8aR)-8-[2-[(2R,4R)-4-hydroxy-6-oxo-oxan-2-yl]ethyl]-3,7-dimethyl-1,2,3,7,8,8a-hexahydronaphthalen-1-yl] (2S)-2-methylbutanoate" />
+  <Term MoleculeID="53232" Value="(2S)-2-methylbutyric acid [(1S,3R,7S,8S,8aR)-8-[2-[(2R,4R)-4-hydroxy-6-keto-tetrahydropyran-2-yl]ethyl]-3,7-dimethyl-1,2,3,7,8,8a-hexahydronaphthalen-1-yl] ester" />
+  <Term MoleculeID="5360696" Value="5360696" />
+  <Term MoleculeID="536100" Value="536100" />
+  <Term MoleculeID="536100" Value="3,3,6,6-tetramethyl-1,2,4,5-tetraoxane" />
+  <Term MoleculeID="5462328" Value="5462328" />
+  <Term MoleculeID="5558" Value="5558" />
+  <Term MoleculeID="5558" Value="bromoform" />
+  <Term MoleculeID="5558" Value="tribromomethane" />
+  <Term MoleculeID="5564" Value="5564" />
+  <Term MoleculeID="5564" Value="5-chloro-2-(2,4-dichlorophenoxy)phenol" />
+  <Term MoleculeID="5743" Value="5743" />
+  <Term MoleculeID="5743" Value="(8S,9R,10S,11S,13S,14S,16R,17R)-9-fluoro-11,17-dihydroxy-17-(2-hydroxyacetyl)-10,13,16-trimethyl-6,7,8,11,12,14,15,16-octahydrocyclopenta[a]phenanthren-3-one" />
+  <Term MoleculeID="5743" Value="(8S,9R,10S,11S,13S,14S,16R,17R)-9-fluoro-11,17-dihydroxy-17-(2-hydroxy-1-oxoethyl)-10,13,16-trimethyl-6,7,8,11,12,14,15,16-octahydrocyclopenta[a]phenanthren-3-one" />
+  <Term MoleculeID="5743" Value="(8S,9R,10S,11S,13S,14S,16R,17R)-9-fluoro-11,17-dihydroxy-17-(2-hydroxyethanoyl)-10,13,16-trimethyl-6,7,8,11,12,14,15,16-octahydrocyclopenta[a]phenanthren-3-one" />
+  <Term MoleculeID="5743" Value="(8S,9R,10S,11S,13S,14S,16R,17R)-9-fluoro-17-glycoloyl-11,17-dihydroxy-10,13,16-trimethyl-6,7,8,11,12,14,15,16-octahydrocyclopenta[a]phenanthren-3-one" />
+  <Term MoleculeID="5746" Value="5746" />
+  <Term MoleculeID="5754" Value="5754" />
+  <Term MoleculeID="5754" Value="(8S,9S,10R,11S,13S,14S,17R)-11,17-dihydroxy-17-(2-hydroxyacetyl)-10,13-dimethyl-2,6,7,8,9,11,12,14,15,16-decahydro-1H-cyclopenta[a]phenanthren-3-one" />
+  <Term MoleculeID="5754" Value="(8S,9S,10R,11S,13S,14S,17R)-11,17-dihydroxy-17-(2-hydroxy-1-oxoethyl)-10,13-dimethyl-2,6,7,8,9,11,12,14,15,16-decahydro-1H-cyclopenta[a]phenanthren-3-one" />
+  <Term MoleculeID="5754" Value="(8S,9S,10R,11S,13S,14S,17R)-11,17-dihydroxy-17-(2-hydroxyethanoyl)-10,13-dimethyl-2,6,7,8,9,11,12,14,15,16-decahydro-1H-cyclopenta[a]phenanthren-3-one" />
+  <Term MoleculeID="5754" Value="(8S,9S,10R,11S,13S,14S,17R)-17-glycoloyl-11,17-dihydroxy-10,13-dimethyl-2,6,7,8,9,11,12,14,15,16-decahydro-1H-cyclopenta[a]phenanthren-3-one" />
+  <Term MoleculeID="5757" Value="5757" />
+  <Term MoleculeID="5757" Value="(8R,9S,13S,14S,17S)-13-methyl-6,7,8,9,11,12,14,15,16,17-decahydrocyclopenta[a]phenanthrene-3,17-diol" />
+  <Term MoleculeID="5785" Value="5785" />
+  <Term MoleculeID="5785" Value="(2R)-2-[(1S)-1,2-dihydroxyethyl]-4,5-dihydroxy-furan-3-one" />
+  <Term MoleculeID="5785" Value="(2R)-2-[(1S)-1,2-dihydroxyethyl]-4,5-dihydroxy-3-furanone" />
+  <Term MoleculeID="5785" Value="(2R)-2-[(1S)-1,2-dihydroxyethyl]-4,5-dihydroxyfuran-3-one" />
+  <Term MoleculeID="5839" Value="5839" />
+  <Term MoleculeID="5839" Value="(8S,9S,10R,11S,13R,14S,17S)-11-hydroxy-17-(2-hydroxyacetyl)-10-methyl-3-oxo-1,2,6,7,8,9,11,12,14,15,16,17-dodecahydrocyclopenta[a]phenanthrene-13-carbaldehyde" />
+  <Term MoleculeID="5839" Value="(8S,9S,10R,11S,13R,14S,17S)-11-hydroxy-17-(2-hydroxy-1-oxoethyl)-10-methyl-3-oxo-1,2,6,7,8,9,11,12,14,15,16,17-dodecahydrocyclopenta[a]phenanthrene-13-carboxaldehyde" />
+  <Term MoleculeID="5839" Value="(8S,9S,10R,11S,13R,14S,17S)-11-hydroxy-17-(2-hydroxyethanoyl)-10-methyl-3-oxo-1,2,6,7,8,9,11,12,14,15,16,17-dodecahydrocyclopenta[a]phenanthrene-13-carbaldehyde" />
+  <Term MoleculeID="5839" Value="(8S,9S,10R,11S,13R,14S,17S)-17-glycoloyl-11-hydroxy-3-keto-10-methyl-1,2,6,7,8,9,11,12,14,15,16,17-dodecahydrocyclopenta[a]phenanthrene-13-carbaldehyde" />
+  <Term MoleculeID="5862" Value="5862" />
+  <Term MoleculeID="5862" Value="(2R)-2-amino-3-sulfanyl-propanoic acid" />
+  <Term MoleculeID="5862" Value="(2R)-2-amino-3-mercaptopropanoic acid" />
+  <Term MoleculeID="5862" Value="(2R)-2-amino-3-sulfanylpropanoic acid" />
+  <Term MoleculeID="5862" Value="(2R)-2-azanyl-3-sulfanyl-propanoic acid" />
+  <Term MoleculeID="5862" Value="(2R)-2-amino-3-mercapto-propionic acid" />
+  <Term MoleculeID="5870" Value="5870" />
+  <Term MoleculeID="5870" Value="(8R,9S,13S,14S)-3-hydroxy-13-methyl-7,8,9,11,12,14,15,16-octahydro-6H-cyclopenta[a]phenanthren-17-one" />
+  <Term MoleculeID="588" Value="588" />
+  <Term MoleculeID="588" Value="2-amino-3-methyl-4H-imidazol-5-one" />
+  <Term MoleculeID="588" Value="2-azanyl-3-methyl-4H-imidazol-5-one" />
+  <Term MoleculeID="588" Value="2-amino-1-methyl-2-imidazolin-4-one" />
+  <Term MoleculeID="5943" Value="5943" />
+  <Term MoleculeID="5943" Value="carbon tetrachloride" />
+  <Term MoleculeID="5943" Value="tetrachloromethane" />
+  <Term MoleculeID="5950" Value="5950" />
+  <Term MoleculeID="5950" Value="(2S)-2-aminopropanoic acid" />
+  <Term MoleculeID="5950" Value="(2S)-2-azanylpropanoic acid" />
+  <Term MoleculeID="5950" Value="(2S)-2-aminopropionic acid" />
+  <Term MoleculeID="5960" Value="5960" />
+  <Term MoleculeID="5960" Value="(2S)-2-aminobutanedioic acid" />
+  <Term MoleculeID="5960" Value="(2S)-2-azanylbutanedioic acid" />
+  <Term MoleculeID="5960" Value="(2S)-2-aminosuccinic acid" />
+  <Term MoleculeID="597" Value="597" />
+  <Term MoleculeID="597" Value="6-amino-1H-pyrimidin-2-one" />
+  <Term MoleculeID="597" Value="6-azanyl-1H-pyrimidin-2-one" />
+  <Term MoleculeID="5991" Value="5991" />
+  <Term MoleculeID="5991" Value="(8R,9S,13S,14S,17R)-17-ethynyl-13-methyl-7,8,9,11,12,14,15,16-octahydro-6H-cyclopenta[a]phenanthrene-3,17-diol" />
+  <Term MoleculeID="5994" Value="5994" />
+  <Term MoleculeID="5994" Value="(8S,9S,10R,13S,14S,17S)-17-acetyl-10,13-dimethyl-1,2,6,7,8,9,11,12,14,15,16,17-dodecahydrocyclopenta[a]phenanthren-3-one" />
+  <Term MoleculeID="5994" Value="(8S,9S,10R,13S,14S,17S)-17-ethanoyl-10,13-dimethyl-1,2,6,7,8,9,11,12,14,15,16,17-dodecahydrocyclopenta[a]phenanthren-3-one" />
+  <Term MoleculeID="5997" Value="5997" />
+  <Term MoleculeID="5997" Value="(3S,8S,9S,10R,13R,14S,17R)-17-[(1R)-1,5-dimethylhexyl]-10,13-dimethyl-2,3,4,7,8,9,11,12,14,15,16,17-dodecahydro-1H-cyclopenta[a]phenanthren-3-ol" />
+  <Term MoleculeID="5997" Value="(3S,8S,9S,10R,13R,14S,17R)-10,13-dimethyl-17-[(2R)-6-methylheptan-2-yl]-2,3,4,7,8,9,11,12,14,15,16,17-dodecahydro-1H-cyclopenta[a]phenanthren-3-ol" />
+  <Term MoleculeID="6005" Value="6005" />
+  <Term MoleculeID="6013" Value="6013" />
+  <Term MoleculeID="6013" Value="(8R,9S,10R,13S,14S,17S)-17-hydroxy-10,13-dimethyl-1,2,6,7,8,9,11,12,14,15,16,17-dodecahydrocyclopenta[a]phenanthren-3-one" />
+  <Term MoleculeID="6037" Value="6037" />
+  <Term MoleculeID="6037" Value="(2S)-2-[[4-[(2-amino-4-oxo-1H-pteridin-6-yl)methylamino]benzoyl]amino]pentanedioic acid" />
+  <Term MoleculeID="6037" Value="(2S)-2-[[[4-[(2-amino-4-oxo-1H-pteridin-6-yl)methylamino]phenyl]-oxomethyl]amino]pentanedioic acid" />
+  <Term MoleculeID="6037" Value="(2S)-2-[[4-[(2-azanyl-4-oxo-1H-pteridin-6-yl)methylamino]phenyl]carbonylamino]pentanedioic acid" />
+  <Term MoleculeID="6037" Value="(2S)-2-[[4-[(2-amino-4-keto-1H-pteridin-6-yl)methylamino]benzoyl]amino]glutaric acid" />
+  <Term MoleculeID="6049" Value="6049" />
+  <Term MoleculeID="6049" Value="2-[2-[bis(carboxymethyl)amino]ethyl-(carboxymethyl)amino]acetic acid" />
+  <Term MoleculeID="6049" Value="2-[2-[bis(carboxymethyl)amino]ethyl-(carboxymethyl)amino]ethanoic acid" />
+  <Term MoleculeID="60823" Value="60823" />
+  <Term MoleculeID="60823" Value="(3R,5R)-7-[2-(4-fluorophenyl)-5-isopropyl-3-phenyl-4-(phenylcarbamoyl)pyrrol-1-yl]-3,5-dihydroxy-heptanoic acid" />
+  <Term MoleculeID="60823" Value="(3R,5R)-7-[4-[anilino(oxo)methyl]-2-(4-fluorophenyl)-5-isopropyl-3-phenyl-1-pyrrolyl]-3,5-dihydroxyheptanoic acid" />
+  <Term MoleculeID="60823" Value="(3R,5R)-7-[2-(4-fluorophenyl)-3-phenyl-4-(phenylcarbamoyl)-5-propan-2-ylpyrrol-1-yl]-3,5-dihydroxyheptanoic acid" />
+  <Term MoleculeID="60823" Value="(3R,5R)-7-[2-(4-fluorophenyl)-3-phenyl-4-(phenylcarbamoyl)-5-propan-2-yl-pyrrol-1-yl]-3,5-dihydroxy-heptanoic acid" />
+  <Term MoleculeID="60823" Value="(3R,5R)-7-[2-(4-fluorophenyl)-5-isopropyl-3-phenyl-4-(phenylcarbamoyl)pyrrol-1-yl]-3,5-dihydroxy-enanthic acid" />
+  <Term MoleculeID="60835" Value="60835" />
+  <Term MoleculeID="60835" Value="(3S)-N-methyl-3-(1-naphthyloxy)-3-(2-thienyl)propan-1-amine" />
+  <Term MoleculeID="60835" Value="(3S)-N-methyl-3-(1-naphthalenyloxy)-3-(2-thienyl)-1-propanamine" />
+  <Term MoleculeID="60835" Value="(3S)-N-methyl-3-naphthalen-1-yloxy-3-thiophen-2-ylpropan-1-amine" />
+  <Term MoleculeID="60835" Value="(3S)-N-methyl-3-naphthalen-1-yloxy-3-thiophen-2-yl-propan-1-amine" />
+  <Term MoleculeID="60835" Value="methyl-[(3S)-3-(1-naphthoxy)-3-(2-thienyl)propyl]amine" />
+  <Term MoleculeID="6089" Value="6089" />
+  <Term MoleculeID="6089" Value="2-(1H-indol-3-yl)-N,N-dimethyl-ethanamine" />
+  <Term MoleculeID="6089" Value="2-(1H-indol-3-yl)-N,N-dimethylethanamine" />
+  <Term MoleculeID="6089" Value="2-(1H-indol-3-yl)ethyl-dimethyl-amine" />
+  <Term MoleculeID="6093213" Value="6093213" />
+  <Term MoleculeID="6093213" Value="potassium hydroxide" />
+  <Term MoleculeID="60961" Value="60961" />
+  <Term MoleculeID="60961" Value="(2R,3R,4S,5R)-2-(6-aminopurin-9-yl)-5-(hydroxymethyl)tetrahydrofuran-3,4-diol" />
+  <Term MoleculeID="60961" Value="(2R,3R,4S,5R)-2-(6-aminopurin-9-yl)-5-(hydroxymethyl)oxolane-3,4-diol" />
+  <Term MoleculeID="60961" Value="(2R,3R,4S,5R)-2-adenin-9-yl-5-methylol-tetrahydrofuran-3,4-diol" />
+  <Term MoleculeID="6106" Value="6106" />
+  <Term MoleculeID="6106" Value="(2S)-2-amino-4-methyl-pentanoic acid" />
+  <Term MoleculeID="6106" Value="(2S)-2-amino-4-methylpentanoic acid" />
+  <Term MoleculeID="6106" Value="(2S)-2-azanyl-4-methyl-pentanoic acid" />
+  <Term MoleculeID="6106" Value="(2S)-2-amino-4-methyl-valeric acid" />
+  <Term MoleculeID="6134" Value="6134" />
+  <Term MoleculeID="6134" Value="(2R,3R,4S,5R,6S)-2-(hydroxymethyl)-6-[(2R,3S,4R,5R,6R)-4,5,6-trihydroxy-2-(hydroxymethyl)tetrahydropyran-3-yl]oxy-tetrahydropyran-3,4,5-triol" />
+  <Term MoleculeID="6134" Value="(2R,3R,4S,5R,6S)-2-(hydroxymethyl)-6-[[(2R,3S,4R,5R,6R)-4,5,6-trihydroxy-2-(hydroxymethyl)-3-tetrahydropyranyl]oxy]tetrahydropyran-3,4,5-triol" />
+  <Term MoleculeID="6134" Value="(2R,3R,4S,5R,6S)-2-(hydroxymethyl)-6-[(2R,3S,4R,5R,6R)-4,5,6-trihydroxy-2-(hydroxymethyl)oxan-3-yl]oxyoxane-3,4,5-triol" />
+  <Term MoleculeID="6134" Value="(2R,3R,4S,5R,6S)-2-(hydroxymethyl)-6-[(2R,3S,4R,5R,6R)-4,5,6-trihydroxy-2-(hydroxymethyl)oxan-3-yl]oxy-oxane-3,4,5-triol" />
+  <Term MoleculeID="6134" Value="(2R,3R,4S,5R,6S)-2-methylol-6-[(2R,3S,4R,5R,6R)-4,5,6-trihydroxy-2-methylol-tetrahydropyran-3-yl]oxy-tetrahydropyran-3,4,5-triol" />
+  <Term MoleculeID="6167" Value="6167" />
+  <Term MoleculeID="6167" Value="N-[(7S)-1,2,3,10-tetramethoxy-9-oxo-6,7-dihydro-5H-benzo[a]heptalen-7-yl]acetamide" />
+  <Term MoleculeID="6167" Value="N-[(7S)-1,2,3,10-tetramethoxy-9-oxo-6,7-dihydro-5H-benzo[a]heptalen-7-yl]ethanamide" />
+  <Term MoleculeID="6167" Value="N-[(7S)-9-keto-1,2,3,10-tetramethoxy-6,7-dihydro-5H-benzo[a]heptalen-7-yl]acetamide" />
+  <Term MoleculeID="6212" Value="6212" />
+  <Term MoleculeID="6212" Value="chloroform" />
+  <Term MoleculeID="6212" Value="trichloromethane" />
+  <Term MoleculeID="6255" Value="6255" />
+  <Term MoleculeID="6255" Value="(2R,3S,4S,5R,6R)-2-(hydroxymethyl)-6-[(2R,3S,4R,5R,6R)-4,5,6-trihydroxy-2-(hydroxymethyl)tetrahydropyran-3-yl]oxy-tetrahydropyran-3,4,5-triol" />
+  <Term MoleculeID="6255" Value="(2R,3S,4S,5R,6R)-2-(hydroxymethyl)-6-[[(2R,3S,4R,5R,6R)-4,5,6-trihydroxy-2-(hydroxymethyl)-3-tetrahydropyranyl]oxy]tetrahydropyran-3,4,5-triol" />
+  <Term MoleculeID="6255" Value="(2R,3S,4S,5R,6R)-2-(hydroxymethyl)-6-[(2R,3S,4R,5R,6R)-4,5,6-trihydroxy-2-(hydroxymethyl)oxan-3-yl]oxyoxane-3,4,5-triol" />
+  <Term MoleculeID="6255" Value="(2R,3S,4S,5R,6R)-2-(hydroxymethyl)-6-[(2R,3S,4R,5R,6R)-4,5,6-trihydroxy-2-(hydroxymethyl)oxan-3-yl]oxy-oxane-3,4,5-triol" />
+  <Term MoleculeID="6255" Value="(2R,3S,4S,5R,6R)-2-methylol-6-[(2R,3S,4R,5R,6R)-4,5,6-trihydroxy-2-methylol-tetrahydropyran-3-yl]oxy-tetrahydropyran-3,4,5-triol" />
+  <Term MoleculeID="6288" Value="6288" />
+  <Term MoleculeID="6288" Value="(2S,3R)-2-amino-3-hydroxy-butanoic acid" />
+  <Term MoleculeID="6288" Value="(2S,3R)-2-amino-3-hydroxybutanoic acid" />
+  <Term MoleculeID="6288" Value="(2S,3R)-2-azanyl-3-hydroxy-butanoic acid" />
+  <Term MoleculeID="6288" Value="(2S,3R)-2-amino-3-hydroxy-butyric acid" />
+  <Term MoleculeID="6305" Value="6305" />
+  <Term MoleculeID="6305" Value="(2S)-2-amino-3-(1H-indol-3-yl)propanoic acid" />
+  <Term MoleculeID="6305" Value="(2S)-2-azanyl-3-(1H-indol-3-yl)propanoic acid" />
+  <Term MoleculeID="6305" Value="(2S)-2-amino-3-(1H-indol-3-yl)propionic acid" />
+  <Term MoleculeID="6322" Value="6322" />
+  <Term MoleculeID="6322" Value="(2S)-2-amino-5-guanidino-pentanoic acid" />
+  <Term MoleculeID="6322" Value="(2S)-2-amino-5-guanidinopentanoic acid" />
+  <Term MoleculeID="6322" Value="(2S)-2-amino-5-(diaminomethylideneamino)pentanoic acid" />
+  <Term MoleculeID="6322" Value="(2S)-2-azanyl-5-[bis(azanyl)methylideneamino]pentanoic acid" />
+  <Term MoleculeID="6322" Value="(2S)-2-amino-5-guanidino-valeric acid" />
+  <Term MoleculeID="6323" Value="6323" />
+  <Term MoleculeID="6323" Value="bromomethane" />
+  <Term MoleculeID="6324" Value="6324" />
+  <Term MoleculeID="6324" Value="ethane" />
+  <Term MoleculeID="6328" Value="6328" />
+  <Term MoleculeID="6328" Value="iodomethane" />
+  <Term MoleculeID="6328200" Value="6328200" />
+  <Term MoleculeID="6328200" Value="boranylidyneborane" />
+  <Term MoleculeID="6328200" Value="borylidyneborane" />
+  <Term MoleculeID="6338" Value="6338" />
+  <Term MoleculeID="6338" Value="chloroethylene" />
+  <Term MoleculeID="6338" Value="chloroethene" />
+  <Term MoleculeID="6341" Value="6341" />
+  <Term MoleculeID="6341" Value="ethanamine" />
+  <Term MoleculeID="6341" Value="ethylamine" />
+  <Term MoleculeID="6342" Value="6342" />
+  <Term MoleculeID="6342" Value="acetonitrile" />
+  <Term MoleculeID="6342" Value="ethanenitrile" />
+  <Term MoleculeID="6344" Value="6344" />
+  <Term MoleculeID="6344" Value="dichloromethane" />
+  <Term MoleculeID="6348" Value="6348" />
+  <Term MoleculeID="6348" Value="methanedithione" />
+  <Term MoleculeID="6354" Value="6354" />
+  <Term MoleculeID="6354" Value="oxirane" />
+  <Term MoleculeID="6354" Value="ethylene oxide" />
+  <Term MoleculeID="6356" Value="6356" />
+  <Term MoleculeID="6356" Value="trifluoroborane" />
+  <Term MoleculeID="6371" Value="6371" />
+  <Term MoleculeID="6371" Value="carbonyl dichloride" />
+  <Term MoleculeID="6371" Value="carbonic dichloride" />
+  <Term MoleculeID="6371" Value="phosgene" />
+  <Term MoleculeID="6391" Value="6391" />
+  <Term MoleculeID="6391" Value="dichloro(difluoro)methane" />
+  <Term MoleculeID="656672" Value="656672" />
+  <Term MoleculeID="656672" Value="sodium hydrogen sulfite" />
+  <Term MoleculeID="656672" Value="sodium bisulfite" />
+  <Term MoleculeID="6575" Value="6575" />
+  <Term MoleculeID="6575" Value="1,1,2-trichloroethylene" />
+  <Term MoleculeID="6575" Value="1,1,2-trichloroethene" />
+  <Term MoleculeID="6634" Value="6634" />
+  <Term MoleculeID="6634" Value="4-amino-N-(6-chloropyridazin-3-yl)benzenesulfonamide" />
+  <Term MoleculeID="6634" Value="4-amino-N-(6-chloro-3-pyridazinyl)benzenesulfonamide" />
+  <Term MoleculeID="6634" Value="4-azanyl-N-(6-chloropyridazin-3-yl)benzenesulfonamide" />
+  <Term MoleculeID="667484" Value="667484" />
+  <Term MoleculeID="667484" Value="ethyl 3-[(1R)-1-phenylethyl]imidazole-4-carboxylate" />
+  <Term MoleculeID="667484" Value="3-[(1R)-1-phenylethyl]-4-imidazolecarboxylic acid ethyl ester" />
+  <Term MoleculeID="667484" Value="3-[(1R)-1-phenylethyl]imidazole-4-carboxylic acid ethyl ester" />
+  <Term MoleculeID="681" Value="681" />
+  <Term MoleculeID="681" Value="4-(2-aminoethyl)benzene-1,2-diol" />
+  <Term MoleculeID="681" Value="4-(2-azanylethyl)benzene-1,2-diol" />
+  <Term MoleculeID="681" Value="4-(2-aminoethyl)pyrocatechol" />
+  <Term MoleculeID="68827" Value="68827" />
+  <Term MoleculeID="702" Value="702" />
+  <Term MoleculeID="702" Value="ethanol" />
+  <Term MoleculeID="70309" Value="70309" />
+  <Term MoleculeID="70309" Value="indane-1,2,3-trione" />
+  <Term MoleculeID="70309" Value="indene-1,2,3-trione" />
+  <Term MoleculeID="7362" Value="7362" />
+  <Term MoleculeID="7362" Value="furan-2-carbaldehyde" />
+  <Term MoleculeID="7362" Value="2-furancarboxaldehyde" />
+  <Term MoleculeID="7362" Value="furfural" />
+  <Term MoleculeID="73971" Value="73971" />
+  <Term MoleculeID="73971" Value="disodium oxygen(2-)" />
+  <Term MoleculeID="750" Value="750" />
+  <Term MoleculeID="750" Value="2-aminoacetic acid" />
+  <Term MoleculeID="750" Value="2-azanylethanoic acid" />
+  <Term MoleculeID="753" Value="753" />
+  <Term MoleculeID="753" Value="glycerol" />
+  <Term MoleculeID="753" Value="propane-1,2,3-triol" />
+  <Term MoleculeID="768" Value="768" />
+  <Term MoleculeID="768" Value="formonitrile" />
+  <Term MoleculeID="768" Value="methanenitrile" />
+  <Term MoleculeID="768" Value="hydrogen cyanide" />
+  <Term MoleculeID="774" Value="774" />
+  <Term MoleculeID="774" Value="2-(1H-imidazol-5-yl)ethanamine" />
+  <Term MoleculeID="774" Value="2-(1H-imidazol-5-yl)ethylamine" />
+  <Term MoleculeID="7768" Value="7768" />
+  <Term MoleculeID="7768" Value="azepan-2-one" />
+  <Term MoleculeID="7768" Value="2-azepanone" />
+  <Term MoleculeID="784" Value="784" />
+  <Term MoleculeID="784" Value="hydrogen peroxide" />
+  <Term MoleculeID="7843" Value="7843" />
+  <Term MoleculeID="7843" Value="butane" />
+  <Term MoleculeID="7843" Value="n-butane" />
+  <Term MoleculeID="787" Value="787" />
+  <Term MoleculeID="787" Value="hydroxylamine" />
+  <Term MoleculeID="787" Value="azinous acid" />
+  <Term MoleculeID="7904" Value="7904" />
+  <Term MoleculeID="7904" Value="vinyl acetate" />
+  <Term MoleculeID="7904" Value="acetic acid vinyl ester" />
+  <Term MoleculeID="7904" Value="ethenyl acetate" />
+  <Term MoleculeID="7904" Value="ethenyl ethanoate" />
+  <Term MoleculeID="7955" Value="7955" />
+  <Term MoleculeID="7955" Value="1,3,5-triazine-2,4,6-triamine" />
+  <Term MoleculeID="7955" Value="melamine" />
+  <Term MoleculeID="8003" Value="8003" />
+  <Term MoleculeID="8003" Value="pentane" />
+  <Term MoleculeID="8003" Value="n-pentane" />
+  <Term MoleculeID="8030" Value="8030" />
+  <Term MoleculeID="8030" Value="thiophene" />
+  <Term MoleculeID="8058" Value="8058" />
+  <Term MoleculeID="8058" Value="hexane" />
+  <Term MoleculeID="8058" Value="n-hexane" />
+  <Term MoleculeID="8117" Value="8117" />
+  <Term MoleculeID="8117" Value="2-(2-hydroxyethoxy)ethanol" />
+  <Term MoleculeID="8182" Value="8182" />
+  <Term MoleculeID="8182" Value="dodecane" />
+  <Term MoleculeID="82170" Value="82170" />
+  <Term MoleculeID="82170" Value="(2R,3S,4S,5S)-hexane-1,2,3,4,5,6-hexol" />
+  <Term MoleculeID="8376" Value="8376" />
+  <Term MoleculeID="8376" Value="2-methyl-1,3,5-trinitro-benzene" />
+  <Term MoleculeID="8376" Value="2-methyl-1,3,5-trinitrobenzene" />
+  <Term MoleculeID="84691" Value="84691" />
+  <Term MoleculeID="84691" Value="ammonia; platinum(2+); dichloride" />
+  <Term MoleculeID="84691" Value="azane; platinum(2+); dichloride" />
+  <Term MoleculeID="85314" Value="85314" />
+  <Term MoleculeID="85314" Value="sodium (2S)-2-amino-5-hydroxy-5-oxo-pentanoate" />
+  <Term MoleculeID="85314" Value="sodium (2S)-2-amino-5-hydroxy-5-oxopentanoate" />
+  <Term MoleculeID="85314" Value="sodium (2S)-2-azanyl-5-hydroxy-5-oxo-pentanoate" />
+  <Term MoleculeID="85314" Value="sodium (2S)-2-amino-5-hydroxy-5-keto-valerate" />
+  <Term MoleculeID="8900" Value="8900" />
+  <Term MoleculeID="8900" Value="heptane" />
+  <Term MoleculeID="8900" Value="n-heptane" />
+  <Term MoleculeID="896" Value="896" />
+  <Term MoleculeID="896" Value="N-[2-(5-methoxy-1H-indol-3-yl)ethyl]acetamide" />
+  <Term MoleculeID="896" Value="N-[2-(5-methoxy-1H-indol-3-yl)ethyl]ethanamide" />
+  <Term MoleculeID="90455" Value="90455" />
+  <Term MoleculeID="90455" Value="nitridoalumane" />
+  <Term MoleculeID="90455" Value="nitriloalumane" />
+  <Term MoleculeID="90455" Value="azanylidynealumane" />
+  <Term MoleculeID="92283" Value="92283" />
+  <Term MoleculeID="92283" Value="(2R)-2-[(2S,3R,4S)-3,4-dihydroxy-5-oxo-tetrahydrofuran-2-yl]-2-hydroxy-acetaldehyde" />
+  <Term MoleculeID="92283" Value="(2R)-2-[(2S,3R,4S)-3,4-dihydroxy-5-oxo-2-tetrahydrofuranyl]-2-hydroxyacetaldehyde" />
+  <Term MoleculeID="92283" Value="(2R)-2-[(2S,3R,4S)-3,4-dihydroxy-5-oxooxolan-2-yl]-2-hydroxyacetaldehyde" />
+  <Term MoleculeID="92283" Value="(2R)-2-[(2S,3R,4S)-3,4-dihydroxy-5-oxo-oxolan-2-yl]-2-hydroxy-ethanal" />
+  <Term MoleculeID="92283" Value="(2R)-2-[(2S,3R,4S)-3,4-dihydroxy-5-keto-tetrahydrofuran-2-yl]-2-hydroxy-acetaldehyde" />
+  <Term MoleculeID="9260" Value="9260" />
+  <Term MoleculeID="9260" Value="pyrimidine" />
+  <Term MoleculeID="938" Value="938" />
+  <Term MoleculeID="938" Value="nicotinic acid" />
+  <Term MoleculeID="938" Value="pyridine-3-carboxylic acid" />
+  <Term MoleculeID="9433" Value="9433" />
+  <Term MoleculeID="9433" Value="1,3-dimethyl-7H-purine-2,6-dione; ethane-1,2-diamine" />
+  <Term MoleculeID="9433" Value="2-aminoethylamine; theophylline" />
+  <Term MoleculeID="948" Value="948" />
+  <Term MoleculeID="948" Value="nitrous oxide" />
+  <Term MoleculeID="978" Value="978" />
+  <Term MoleculeID="978" Value="4-aminobenzoic acid" />
+  <Term MoleculeID="978" Value="4-azanylbenzoic acid" />
+  <Term MoleculeID="985" Value="985" />
+  <Term MoleculeID="985" Value="palmitic acid" />
+  <Term MoleculeID="985" Value="hexadecanoic acid" />
+  <Term MoleculeID="98527" Value="98527" />
+  <Term MoleculeID="98527" Value="2-(4-bromo-2,5-dimethoxy-phenyl)ethanamine" />
+  <Term MoleculeID="98527" Value="2-(4-bromo-2,5-dimethoxyphenyl)ethanamine" />
+  <Term MoleculeID="98527" Value="2-(4-bromo-2,5-dimethoxy-phenyl)ethylamine" />
+  <Term MoleculeID="9863" Value="9863" />
+  <Term MoleculeID="9863" Value="methanidylidynesilanylium" />  
+</SmartTagDictionary>

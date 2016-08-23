@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<cml convention="conventions:molecular" xmlns="http://www.xml-cml.org/schema" xmlns:conventions="http://www.xml-cml.org/convention/" xmlns:nameDict="http://www.xml-cml.org/dictionary/cml/name/">
+  <molecule id="m176" formalCharge="0" spinMultiplicity="1" xmlns:pubchem="http://www.ncbi.nlm.nih.gov">
+    <name dictRef="pubchem:cid">176</name>
+    <atomArray>
+      <atom id="a1" elementType="O" x2="3.7321" y2="0.75" />
+      <atom id="a2" elementType="O" x2="2.866" y2="-0.75" />
+      <atom id="a3" elementType="C" x2="2.0" y2="0.75" />
+      <atom id="a4" elementType="C" x2="2.866" y2="0.25" />
+      <atom id="a5" elementType="H" x2="2.31" y2="1.2869" />
+      <atom id="a6" elementType="H" x2="1.4631" y2="1.06" />
+      <atom id="a7" elementType="H" x2="1.69" y2="0.2131" />
+      <atom id="a8" elementType="H" x2="4.269" y2="0.44" />
+    </atomArray>
+    <bondArray>
+      <bond atomRefs2="a1 a4" order="S" id="a1_a4"  />
+      <bond atomRefs2="a1 a8" order="S" id="a1_a8"  />
+      <bond atomRefs2="a2 a4" order="D" id="a2_a4"  />
+      <bond atomRefs2="a3 a4" order="S" id="a3_a4"  />
+      <bond atomRefs2="a3 a5" order="S" id="a3_a5"  />
+      <bond atomRefs2="a3 a6" order="S" id="a3_a6"  />
+      <bond atomRefs2="a3 a7" order="S" id="a3_a7"  />
+    </bondArray>
+    <name dictRef="pubchem:Allowed">acetic acid</name>
+    <name dictRef="nameDict:cas">acetic acid</name>
+    <name dictRef="pubchem:Preferred">acetic acid</name>
+    <name dictRef="nameDict:systematic">ethanoic acid</name>
+    <name dictRef="pubchem:Traditional">acetic acid</name>
+    <formula convention="pubchem:formula" inline="C2H4O2" concise="C 2 H 4 O 2" />
+    <formula convention="pubchem:CanonicalSmiles" inline="CC(=O)O" concise="C 2 H 4 O 2" />
+    <formula convention="pubchem:IsomericSmiles" inline="CC(=O)O" concise="C 2 H 4 O 2" />
+  </molecule>
+</cml>

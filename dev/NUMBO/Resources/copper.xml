@@ -1,0 +1,61 @@
+<!-- note that the ID is used in dictionaries so DO NOT EDIT-->
+<cml:cml id='Cu' xmlns:cml='http://www.xml-cml.org/schema' xmlns:cmlDict='http://www.xml-cml.org/dictionary/cml/' xmlns:nameDict='http://www.xml-cml.org/dictionary/cml/name/'>
+  <cml:cml convention='cmlDict:cmllite' xmlns:cml='http://www.xml-cml.org/schema' xmlns:cmlDict='http://www.xml-cml.org/dictionary/cml/' xmlns:nameDict='http://www.xml-cml.org/dictionary/cml/name/'>
+    <cml:molecule id='m1' formalCharge='2'>
+      <cml:name dictRef='nameDict:systematic'>tetra aquocopper</cml:name>
+      <cml:name dictRef='nameDict:abbreviation'>Cuaq4</cml:name>
+      <cml:formula concise='H 8 Cu 1 O 4' inline='Cu(H2O)4' />
+      <cml:atomArray>
+        <cml:atom id='a1' elementType='Cu' x2='0.0' y2='0.0' />
+        <cml:atom id='a2' elementType='O' x2='1.5' y2='0.0' />
+        <cml:atom id='a2_h1' elementType='H' x2='2.0' y2='0.5' />
+        <cml:atom id='a2_h2' elementType='H' x2='2.0' y2='-0.5' />
+        <cml:atom id='a3' elementType='O' x2='-1.5' y2='0.0' />
+        <cml:atom id='a3_h1' elementType='H' x2='-2.0' y2='0.5' />
+        <cml:atom id='a3_h2' elementType='H' x2='-2.0' y2='-0.5' />
+        <cml:atom id='a4' elementType='O' x2='0.0' y2='1.5' />
+        <cml:atom id='a4_h1' elementType='H' x2='0.5' y2='2.0' />
+        <cml:atom id='a4_h2' elementType='H' x2='-0.5' y2='2.0' />
+        <cml:atom id='a5' elementType='O' x2='0.0' y2='-1.5' />
+        <cml:atom id='a5_h1' elementType='H' x2='0.5' y2='-2.0' />
+        <cml:atom id='a5_h2' elementType='H' x2='-0.5' y2='-2.0' />
+      </cml:atomArray>
+      <cml:bondArray>
+        <cml:bond atomRefs2='a1 a2' order='S' id='b1' />
+        <cml:bond atomRefs2='a2 a2_h1' order='S' id='b1a' />
+        <cml:bond atomRefs2='a2 a2_h2' order='S' id='b1b' />
+        <cml:bond atomRefs2='a1 a3' order='S' id='b2' />
+        <cml:bond atomRefs2='a3 a3_h1' order='S' id='b2a' />
+        <cml:bond atomRefs2='a3 a3_h2' order='S' id='b2b' />
+        <cml:bond atomRefs2='a1 a4' order='S' id='b3' />
+        <cml:bond atomRefs2='a4 a4_h1' order='S' id='b3a' />
+        <cml:bond atomRefs2='a4 a4_h2' order='S' id='b3b' />
+        <cml:bond atomRefs2='a1 a5' order='S' id='b4' />
+        <cml:bond atomRefs2='a5 a5_h1' order='S' id='b4a' />
+        <cml:bond atomRefs2='a5 a5_h2' order='S' id='b4b' />
+      </cml:bondArray>
+    </cml:molecule>
+  </cml:cml>
+  <cml:cml convention='cmlDict:cmllite' xmlns:cml='http://www.xml-cml.org/schema' xmlns:cmlDict='http://www.xml-cml.org/dictionary/cml/' xmlns:nameDict='http://www.xml-cml.org/dictionary/cml/name/'>
+    <cml:molecule id='m11' formalCharge='-2'>
+      <cml:name dictRef='nameDict:systematic'>
+        teracholorocopper(II)
+      </cml:name>
+      <cml:name dictRef='nameDict:abbreviation'>CuCl4</cml:name>
+      <cml:formula concise='Cl 4 Cu 1 -2' inline='CuCl4--' />
+      <cml:atomArray>
+        <cml:atom id='a1' elementType='Cu' x2='0.0' y2='0.0' />
+        <cml:atom id='a2' elementType='Cl' x2='1.5' y2='0.0' />
+        <cml:atom id='a3' elementType='Cl' x2='-1.5' y2='0.0' />
+        <cml:atom id='a4' elementType='Cl' x2='0.0' y2='1.5' />
+        <cml:atom id='a5' elementType='Cl' x2='0.0' y2='-1.5' />
+      </cml:atomArray>
+      <cml:bondArray>
+        <cml:bond atomRefs2='a1 a2' order='S' id='b1' />
+        <cml:bond atomRefs2='a1 a3' order='S' id='b2' />
+        <cml:bond atomRefs2='a1 a4' order='S' id='b3' />
+        <cml:bond atomRefs2='a1 a5' order='S' id='b4' />
+      </cml:bondArray>
+    </cml:molecule>
+  </cml:cml>
+</cml:cml>

@@ -1,0 +1,120 @@
+﻿<UserControl xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:TwoD="clr-namespace:Chem4Word.UI.TwoD" xmlns:UI="clr-namespace:Chem4Word.UI" xmlns:Chem4Word_UI_Converters="clr-namespace:Chem4Word.UI.Converters"
+             xmlns:Commands="clr-namespace:Chem4Word.UI.Commands" x:Class="Chem4Word.UI.TwoD.RadialChemContextMenu" Height="200" Width="200">
+	<UserControl.Resources>
+		<Chem4Word_UI_Converters:BooleanToOpacityConverter x:Key="BooleanToOpacityConverter" />
+		<Style x:Key="ButtonFocusVisual">
+			<Setter Property="Control.Template">
+				<Setter.Value>
+					<ControlTemplate>
+						<Rectangle Stroke="Black" StrokeDashArray="1 2" StrokeThickness="1" Margin="2" SnapsToDevicePixels="true" />
+					</ControlTemplate>
+				</Setter.Value>
+			</Setter>
+		</Style>
+		<LinearGradientBrush x:Key="ButtonNormalBackground" EndPoint="0,1" StartPoint="0,0">
+			<GradientStop Color="#F3F3F3" Offset="0" />
+			<GradientStop Color="#EBEBEB" Offset="0.5" />
+			<GradientStop Color="#DDDDDD" Offset="0.5" />
+			<GradientStop Color="#CDCDCD" Offset="1" />
+		</LinearGradientBrush>
+		<SolidColorBrush x:Key="ButtonNormalBorder" Color="#FF707070" />
+		<ControlTemplate x:Key="CircularButtonTemplate" TargetType="{x:Type Button}">
+			<ControlTemplate.Resources>
+				<Storyboard x:Key="OnMouseEnter1">
+					<DoubleAnimationUsingKeyFrames BeginTime="00:00:00" Storyboard.TargetName="grid" Storyboard.TargetProperty="(FrameworkElement.LayoutTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleX)">
+						<SplineDoubleKeyFrame KeyTime="00:00:00.3000000" Value="1.5" />
+					</DoubleAnimationUsingKeyFrames>
+					<DoubleAnimationUsingKeyFrames BeginTime="00:00:00" Storyboard.TargetName="grid" Storyboard.TargetProperty="(FrameworkElement.LayoutTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleY)">
+						<SplineDoubleKeyFrame KeyTime="00:00:00.3000000" Value="1.5" />
+					</DoubleAnimationUsingKeyFrames>
+				</Storyboard>
+				<Storyboard x:Key="OnMouseLeave1">
+					<DoubleAnimationUsingKeyFrames BeginTime="00:00:00" Storyboard.TargetName="grid" Storyboard.TargetProperty="(FrameworkElement.LayoutTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleX)">
+						<SplineDoubleKeyFrame KeyTime="00:00:00.3000000" Value="1.00" KeySpline="0,0,1,1" />
+					</DoubleAnimationUsingKeyFrames>
+					<DoubleAnimationUsingKeyFrames BeginTime="00:00:00" Storyboard.TargetName="grid" Storyboard.TargetProperty="(FrameworkElement.LayoutTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleY)">
+						<SplineDoubleKeyFrame KeyTime="00:00:00.3000000" Value="1.00" KeySpline="0,0,1,1" />
+					</DoubleAnimationUsingKeyFrames>
+				</Storyboard>
+			</ControlTemplate.Resources>
+			<Grid x:Name="grid" RenderTransformOrigin="0.5,0.5">
+				<Grid.LayoutTransform>
+					<TransformGroup>
+						<ScaleTransform />
+						<SkewTransform />
+						<RotateTransform />
+						<TranslateTransform />
+					</TransformGroup>
+				</Grid.LayoutTransform>
+				<Grid.RenderTransform>
+					<TransformGroup>
+						<ScaleTransform />
+						<SkewTransform />
+						<RotateTransform />
+						<TranslateTransform />
+					</TransformGroup>
+				</Grid.RenderTransform>
+				<Ellipse x:Name="ellipse" Stroke="#FFB3CDED" HorizontalAlignment="{TemplateBinding HorizontalAlignment}" VerticalAlignment="{TemplateBinding VerticalAlignment}" Width="{TemplateBinding Width}" Height="{TemplateBinding Height}" StrokeThickness="2" Fill="#00000000" />
+				<ContentPresenter Width="{TemplateBinding Width}" Height="{TemplateBinding Width}" HorizontalAlignment="{TemplateBinding HorizontalAlignment}" VerticalAlignment="{TemplateBinding VerticalAlignment}" Content="{TemplateBinding Content}" Margin="6" />
+			</Grid>
+			<ControlTemplate.Triggers>
+				<EventTrigger RoutedEvent="Mouse.MouseLeave">
+					<BeginStoryboard x:Name="OnMouseLeave1_BeginStoryboard" Storyboard="{StaticResource OnMouseLeave1}" />
+				</EventTrigger>
+				<EventTrigger RoutedEvent="Mouse.MouseEnter">
+					<BeginStoryboard x:Name="OnMouseEnter1_BeginStoryboard" Storyboard="{StaticResource OnMouseEnter1}" />
+				</EventTrigger>
+			</ControlTemplate.Triggers>
+		</ControlTemplate>
+	</UserControl.Resources>
+	<TwoD:RadialPanel>
+		<Button x:Name="btnDelete" Command="{x:Static Commands:ChemCommands.DeleteSelection}" ToolTip="{DynamicResource DeleteSelectionTooltip}" Template="{DynamicResource CircularButtonTemplate}">
+			<Image Opacity="{Binding IsEnabled, Converter={StaticResource BooleanToOpacityConverter}, Mode=Default, RelativeSource={RelativeSource AncestorType={x:Type Button}}}" Source="../Resources/Images/Delete.png" Height="20" />
+		</Button>
+		<Button Command="{x:Static Commands:ChemCommands.AddElectron}" ToolTip="{DynamicResource AddElectronTooltip}" Template="{DynamicResource CircularButtonTemplate}">
+			<Image Opacity="{Binding IsEnabled, Converter={StaticResource BooleanToOpacityConverter}, Mode=Default, RelativeSource={RelativeSource AncestorType={x:Type Button}}}" Source="../Resources/Images/AddElectron.png" Height="20" />
+		</Button>
+		<Button Command="{x:Static Commands:ChemCommands.RemoveElectron}" ToolTip="{DynamicResource RemoveElectronTooltip}" Template="{DynamicResource CircularButtonTemplate}">
+			<Image Opacity="{Binding IsEnabled, Converter={StaticResource BooleanToOpacityConverter}, Mode=Default, RelativeSource={RelativeSource AncestorType={x:Type Button}}}" Source="../Resources/Images/RemoveElectron.png" Height="20" />
+		</Button>
+		<Button Command="{x:Static Commands:ChemCommands.AddProton}" ToolTip="{DynamicResource AddProtonTooltip}" Template="{DynamicResource CircularButtonTemplate}">
+			<Image Opacity="{Binding IsEnabled, Converter={StaticResource BooleanToOpacityConverter}, Mode=Default, RelativeSource={RelativeSource AncestorType={x:Type Button}}}" Source="../Resources/Images/AddProton.png" Height="20" />
+		</Button>
+		<Button Command="{x:Static Commands:ChemCommands.RemoveProton}" ToolTip="{DynamicResource RemoveProtonTooltip}" Template="{DynamicResource CircularButtonTemplate}">
+			<Image Opacity="{Binding IsEnabled, Converter={StaticResource BooleanToOpacityConverter}, Mode=Default, RelativeSource={RelativeSource AncestorType={x:Type Button}}}" Source="../Resources/Images/RemoveProton.png" Height="20" />
+		</Button>
+		<Button Command="{x:Static Commands:ChemCommands.AddHydrogenDot}" ToolTip="{DynamicResource AddHydrogenDotTooltip}" Template="{DynamicResource CircularButtonTemplate}">
+			<Image Opacity="{Binding IsEnabled, Converter={StaticResource BooleanToOpacityConverter}, Mode=Default, RelativeSource={RelativeSource AncestorType={x:Type Button}}}" Source="../Resources/Images/AddHydrogenDot.png" Height="20" />
+		</Button>
+		<Button Command="{x:Static Commands:ChemCommands.RemoveHydrogenDot}" ToolTip="{DynamicResource RemoveHydrogenDotTooltip}" Template="{DynamicResource CircularButtonTemplate}">
+			<Image Opacity="{Binding IsEnabled, Converter={StaticResource BooleanToOpacityConverter}, Mode=Default, RelativeSource={RelativeSource AncestorType={x:Type Button}}}" Source="../Resources/Images/RemoveHydrogenDot.png" Height="20" />
+		</Button>
+		<Button x:Name="bntRotate" Command="{x:Static Commands:ChemCommands.RotateSelection}" ToolTip="{DynamicResource RotateTooltip}" Template="{DynamicResource CircularButtonTemplate}">
+			<Image Opacity="{Binding IsEnabled, Converter={StaticResource BooleanToOpacityConverter}, Mode=Default, RelativeSource={RelativeSource AncestorType={x:Type Button}}}" Source="../Resources/Images/Rotate.png" Height="20" />
+		</Button>
+		<Button Command="{x:Static Commands:ChemCommands.FlipSelection}" ToolTip="{DynamicResource FlipSelectionTooltip}" Template="{DynamicResource CircularButtonTemplate}">
+			<Image Opacity="{Binding IsEnabled, Converter={StaticResource BooleanToOpacityConverter}, Mode=Default, RelativeSource={RelativeSource AncestorType={x:Type Button}}}" Source="../Resources/Images/FlipAboutBond.png" Height="20" />
+		</Button>
+		<Button Command="{x:Static Commands:ChemCommands.FlipHorizontal}" ToolTip="{DynamicResource FlipHorizontalTooltip}" Template="{DynamicResource CircularButtonTemplate}">
+			<Image Opacity="{Binding IsEnabled, Converter={StaticResource BooleanToOpacityConverter}, Mode=Default, RelativeSource={RelativeSource AncestorType={x:Type Button}}}" Source="../Resources/Images/FlipHorizontal.png" Height="20" />
+		</Button>
+		<Button Command="{x:Static Commands:ChemCommands.FlipVertical}" ToolTip="{DynamicResource FlipVerticalTooltip}" Template="{DynamicResource CircularButtonTemplate}">
+			<Image Opacity="{Binding IsEnabled, Converter={StaticResource BooleanToOpacityConverter}, Mode=Default, RelativeSource={RelativeSource AncestorType={x:Type Button}}}" Source="../Resources/Images/FlipVertical.png" Height="20" />
+		</Button>
+		<Button Command="{x:Static Commands:ChemCommands.RemoveIsotopeNumber}" ToolTip="{DynamicResource RemoveIsotopeTooltip}" Template="{DynamicResource CircularButtonTemplate}">
+			<Image Opacity="{Binding IsEnabled, Converter={StaticResource BooleanToOpacityConverter}, Mode=Default, RelativeSource={RelativeSource AncestorType={x:Type Button}}}" Source="../Resources/Images/RemoveIsotope.png" Height="20" />
+		</Button>
+		<Button x:Name="ButtonSetCharge" Command="{x:Static Commands:ChemCommands.SetCharge}" ToolTip="{DynamicResource SetChargeTooltip}" Template="{DynamicResource CircularButtonTemplate}">
+			<Image Opacity="{Binding IsEnabled, Converter={StaticResource BooleanToOpacityConverter}, Mode=Default, RelativeSource={RelativeSource AncestorType={x:Type Button}}}" Source="../Resources/Images/SetCharge.png" Height="20" />
+		</Button>
+		<Button x:Name="ButtonUnsetCharge" Command="{x:Static Commands:ChemCommands.RemoveCharge}" ToolTip="{DynamicResource UnsetChargeTooltip}" Template="{DynamicResource CircularButtonTemplate}">
+			<Image Opacity="{Binding IsEnabled, Converter={StaticResource BooleanToOpacityConverter}, Mode=Default, RelativeSource={RelativeSource AncestorType={x:Type Button}}}" Source="../Resources/Images/UnsetCharge.png" Height="20" />
+		</Button>
+		<Button Command="{x:Static Commands:ChemCommands.AddLabel}" ToolTip="{DynamicResource AddLabelTooltip}" Template="{DynamicResource CircularButtonTemplate}">
+			<Image Opacity="{Binding IsEnabled, Converter={StaticResource BooleanToOpacityConverter}, Mode=Default, RelativeSource={RelativeSource AncestorType={x:Type Button}}}" Source="../Resources/Images/AddLabel.png" Height="20" />
+		</Button>
+		<Button Command="{x:Static Commands:ChemCommands.RemoveLabel}" ToolTip="{DynamicResource RemoveLabelTooltip}" Template="{DynamicResource CircularButtonTemplate}">
+			<Image Opacity="{Binding IsEnabled, Converter={StaticResource BooleanToOpacityConverter}, Mode=Default, RelativeSource={RelativeSource AncestorType={x:Type Button}}}" Source="../Resources/Images/RemoveLabel.png" Height="20" />
+		</Button>
+	</TwoD:RadialPanel>
+</UserControl>

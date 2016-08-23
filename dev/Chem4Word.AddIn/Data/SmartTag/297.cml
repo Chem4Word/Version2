@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<cml convention="conventions:molecular" xmlns="http://www.xml-cml.org/schema" xmlns:conventions="http://www.xml-cml.org/convention/" xmlns:nameDict="http://www.xml-cml.org/dictionary/cml/name/">
+  <molecule id="m297" formalCharge="0" spinMultiplicity="1" xmlns:pubchem="http://www.ncbi.nlm.nih.gov">
+    <name dictRef="pubchem:cid">297</name>
+    <atomArray>
+      <atom id="a1" elementType="C" x2="2.5369" y2="0.0" />
+      <atom id="a2" elementType="H" x2="3.0739" y2="0.31" />
+      <atom id="a3" elementType="H" x2="2.0" y2="-0.31" />
+      <atom id="a4" elementType="H" x2="2.2269" y2="0.5369" />
+      <atom id="a5" elementType="H" x2="2.8469" y2="-0.5369" />
+    </atomArray>
+    <bondArray>
+      <bond atomRefs2="a1 a2" order="S" id="a1_a2"  />
+      <bond atomRefs2="a1 a3" order="S" id="a1_a3"  />
+      <bond atomRefs2="a1 a4" order="S" id="a1_a4"  />
+      <bond atomRefs2="a1 a5" order="S" id="a1_a5"  />
+    </bondArray>
+    <name dictRef="pubchem:Allowed">methane</name>
+    <name dictRef="nameDict:cas">methane</name>
+    <name dictRef="pubchem:Preferred">methane</name>
+    <name dictRef="nameDict:systematic">methane</name>
+    <name dictRef="pubchem:Traditional">methane</name>
+    <formula convention="pubchem:formula" inline="CH4" concise="C 1 H 4" />
+    <formula convention="pubchem:CanonicalSmiles" inline="C" concise="C 1 H 4" />
+    <formula convention="pubchem:IsomericSmiles" inline="C" concise="C 1 H 4" />
+  </molecule>
+</cml>

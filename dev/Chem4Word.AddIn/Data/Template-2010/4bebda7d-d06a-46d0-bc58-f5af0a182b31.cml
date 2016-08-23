@@ -1,0 +1,80 @@
+<cml:cml convention="conventions:molecular" xmlns:conventions="http://www.xml-cml.org/convention/" xmlns:cml="http://www.xml-cml.org/schema" xmlns:cmlDict="http://www.xml-cml.org/dictionary/cml/" xmlns:nameDict="http://www.xml-cml.org/dictionary/cml/name/">
+  <cml:molecule id="m1">
+    <cml:atomArray>
+      <cml:atom id="a0" elementType="C" x2="258.547094455265" y2="144.023700834913" />
+      <cml:atom id="a1" elementType="C" x2="241.74027962888" y2="153.727404545299" />
+      <cml:atom id="a2" elementType="C" x2="241.74027962888" y2="173.134811966068" />
+      <cml:atom id="a3" elementType="C" x2="258.547094455265" y2="182.838515676453" />
+      <cml:atom id="a4" elementType="C" x2="275.353909281653" y2="173.134811966068" />
+      <cml:atom id="a5" elementType="C" x2="275.353909281653" y2="153.727404545299" />
+      <cml:atom id="a6" elementType="C" x2="292.160724108039" y2="144.023700834913" />
+      <cml:atom id="a7" elementType="C" x2="292.160724108039" y2="182.838515676453" />
+      <cml:atom id="a8" elementType="C" x2="308.967538934425" y2="173.134811966068" />
+      <cml:atom id="a9" elementType="C" x2="308.967538934425" y2="153.727404545299" />
+      <cml:atom id="a10" elementType="C" x2="308.967538116464" y2="114.912589703759" />
+      <cml:atom id="a11" elementType="C" x2="292.160723494568" y2="124.616293768321" />
+      <cml:atom id="a12" elementType="C" x2="325.774353147341" y2="124.616293059967" />
+      <cml:atom id="a13" elementType="C" x2="344.231364588605" y2="118.618825347308" />
+      <cml:atom id="a14" elementType="C" x2="325.774353556321" y2="144.023700480736" />
+      <cml:atom id="a15" elementType="C" x2="344.231574859143" y2="150.019367926431" />
+      <cml:atom id="a16" elementType="C" x2="355.638137215358" y2="134.319666998282" />
+      <cml:atom id="a17" elementType="O" x2="350.228474999637" y2="100.161697807377" />
+      <cml:atom id="a18" elementType="C" x2="326.416649627392" y2="105.315618004472" />
+      <cml:atom id="a19" elementType="H" x2="325.774353556321" y2="163.430680933846" />
+      <cml:atom id="a20" elementType="H" x2="308.967538934425" y2="134.320424092189" />
+      <cml:atom id="a21" elementType="H" x2="292.160724108039" y2="163.430681288023" />
+      <cml:atom id="a22" elementType="C" x2="275.353909281653" y2="134.320424092189" />
+      <cml:atom id="a23" elementType="O" x2="224.933341545739" y2="182.838302192623" />
+      <cml:atom id="a24" elementType="H" x2="364.066658454261" y2="114.690388667676" />
+    </cml:atomArray>
+    <cml:bondArray>
+      <cml:bond id="b0" atomRefs2="a0 a1" order="S" />
+      <cml:bond id="b1" atomRefs2="a1 a2" order="S" />
+      <cml:bond id="b2" atomRefs2="a2 a3" order="S" />
+      <cml:bond id="b3" atomRefs2="a3 a4" order="D" />
+      <cml:bond id="b4" atomRefs2="a0 a5" order="S" />
+      <cml:bond id="b5" atomRefs2="a6 a5" order="S" />
+      <cml:bond id="b6" atomRefs2="a5 a4" order="S" />
+      <cml:bond id="b7" atomRefs2="a4 a7" order="S" />
+      <cml:bond id="b8" atomRefs2="a7 a8" order="S" />
+      <cml:bond id="b9" atomRefs2="a8 a9" order="S" />
+      <cml:bond id="b10" atomRefs2="a9 a14" order="S" />
+      <cml:bond id="b11" atomRefs2="a6 a9" order="S" />
+      <cml:bond id="b12" atomRefs2="a11 a6" order="S" />
+      <cml:bond id="b13" atomRefs2="a10 a11" order="S" />
+      <cml:bond id="b14" atomRefs2="a10 a12" order="S" />
+      <cml:bond id="b15" atomRefs2="a13 a12" order="S" />
+      <cml:bond id="b16" atomRefs2="a14 a15" order="S" />
+      <cml:bond id="b17" atomRefs2="a15 a16" order="S" />
+      <cml:bond id="b18" atomRefs2="a13 a16" order="S" />
+      <cml:bond id="b19" atomRefs2="a12 a14" order="S" />
+      <cml:bond id="b20" atomRefs2="a13 a17" order="S">
+        <cml:bondStereo>W</cml:bondStereo>
+      </cml:bond>
+      <cml:bond id="b21" atomRefs2="a12 a18" order="S">
+        <cml:bondStereo>W</cml:bondStereo>
+      </cml:bond>
+      <cml:bond id="b22" atomRefs2="a14 a19" order="S">
+        <cml:bondStereo>H</cml:bondStereo>
+      </cml:bond>
+      <cml:bond id="b23" atomRefs2="a9 a20" order="S">
+        <cml:bondStereo>W</cml:bondStereo>
+      </cml:bond>
+      <cml:bond id="b24" atomRefs2="a6 a21" order="S">
+        <cml:bondStereo>H</cml:bondStereo>
+      </cml:bond>
+      <cml:bond id="b25" atomRefs2="a5 a22" order="S">
+        <cml:bondStereo>W</cml:bondStereo>
+      </cml:bond>
+      <cml:bond id="b26" atomRefs2="a2 a23" order="D" />
+      <cml:bond id="b27" atomRefs2="a13 a24" order="S">
+        <cml:bondStereo>H</cml:bondStereo>
+      </cml:bond>
+    </cml:bondArray>
+    <cml:name dictRef="nameDict:iupac">(8R,9S,10R,13S,14S,17S)- 17-hydroxy-10,13-dimethyl- 1,2,6,7,8,9,11,12,14,15,16,17- dodecahydrocyclopenta[a] phenanthren-3-one</cml:name>
+    <cml:name dictRef="nameDict:trivial">testosterone</cml:name>
+    <cml:formula concise="C 19 H 28 O 2"></cml:formula>
+    <name dictRef="nameDict:inchikey" xmlns="http://www.xml-cml.org/schema">MUMGGOZAMZWBJJ-DYKIIFRCSA-N</name>
+    <name dictRef="nameDict:chemspider" xmlns="http://www.xml-cml.org/schema">(17beta)-17-Hydroxyandrost-4-en-3-one</name>
+  </cml:molecule>
+</cml:cml>

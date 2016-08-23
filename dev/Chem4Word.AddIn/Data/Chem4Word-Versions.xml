@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- This file must be uploaded to http://www.chem4word.co.uk/files/ folder as Chem4Word-Versions.xml -->
+<ChangeLog>
+  <Version>
+    <Number>2.0.1.0 R5</Number>
+    <IsBeta>false</IsBeta>
+    <Released>03-Aug-2016</Released>
+    <Changes>
+      <Change>Added option to disable gallery; The gallery uses a custom template (Chem4Word2010.dotx) to store the gallery, using this causes cutomisations stored in Normal.dotx to be overwritten, hence we now give you the choice.</Change>
+    </Changes>
+    <Changes>
+      <Change>Improved detection of IPv6 Addresses (for Telemetry).</Change>
+    </Changes>
+    <Changes>
+      <Change>Note: If you are no longer using Chem4Word; Please uninstall it using the "Add/Remove Programs" or "Programms and Features" icon in Control Panel.</Change>
+    </Changes>
+    <Url>http://www.chem4word.co.uk/files/Chem4Word.Setup.2.0.1.0.2016.08.03.msi</Url>
+  </Version>
+  <Version>
+    <Number>2.0.1.0 R4</Number>
+    <IsBeta>false</IsBeta>
+    <Released>29-Jul-2016</Released>
+    <Changes>
+      <Change>Fix detection of IP Address to work with IPv6 Addresses (for Telemetry)</Change>
+    </Changes>
+    <Url>http://www.chem4word.co.uk/files/Chem4Word.Setup.2.0.1.0.2016.07.29.msi</Url>
+  </Version>
+  <Version>
+    <Number>2.0.1.0 R3</Number>
+    <IsBeta>false</IsBeta>
+    <Released>16-Jul-2016</Released>
+    <Changes>
+      <Change>Fix issue with incorrect javascript file; disabling editor</Change>
+    </Changes>
+    <Url>http://www.chem4word.co.uk/files/Chem4Word.Setup.2.0.1.0.2016.07.16.msi</Url>
+  </Version>
+  <Version>
+    <Number>2.0.1.0 R2</Number>
+    <IsBeta>false</IsBeta>
+    <Released>15-Jul-2016</Released>
+    <Changes>
+      <Change>Add passive install of Microsoft Office OpenXml SDK 2.0 (if required)</Change>
+    </Changes>
+    <Url>http://www.chem4word.co.uk/files/Chem4Word.Setup.2.0.1.0.2016.07.15.msi</Url>
+  </Version>
+  <Version>
+    <Number>2.0.1.0 R1</Number>
+    <IsBeta>false</IsBeta>
+    <Released>06-Jul-2016</Released>
+    <Changes>
+      <Change>RTM with updated manual</Change>
+    </Changes>
+    <Url>http://www.chem4word.co.uk/files/Chem4Word.Setup.2.0.1.0.2016.07.06.msi</Url>
+  </Version>
+  <Version>
+    <Number>2.0.1.0 Beta 11</Number>
+    <IsBeta>true</IsBeta>
+    <Released>20-Apr-2016</Released>
+    <Changes>
+      <Change>Fixed null pointer exception when ChemSpider synonym in use and we tried to delete it</Change>
+      <Change>Make ChemSpider synonym read only in label editor</Change>
+      <Change>Fix bug when user edited structure, then cancelled edit labels; Resulting in loss of changes</Change>
+    </Changes>
+    <Url>http://www.chem4word.co.uk/files/Chem4Word.Setup.2.0.1.0.Beta.11.msi</Url>
+  </Version>
+  <Version>
+    <Number>2.0.1.0 Beta 10</Number>
+    <IsBeta>true</IsBeta>
+    <Released>02-Mar-2016</Released>
+    <Changes>
+      <Change>Fixed bug in import of double and triple bonds on structures from ChemSpider</Change>
+      <Change>Progress bar and Editor windows should now be shown on same monitor as active document</Change>
+      <Change>Fixed bug in automatic updates</Change>
+    </Changes>
+    <Url>http://www.chem4word.co.uk/files/Chem4Word.Setup.2.0.1.0.Beta.10.msi</Url>
+  </Version>
+  <Version>
+    <Number>2.0.1.0 Beta 9</Number>
+    <IsBeta>true</IsBeta>
+    <Released>21-Feb-2016</Released>
+    <Changes>
+      <Change>Improved detection of previous version to fix issue in automatic updates. You may need to manually perform this update by downloading from https://chem4word.codeplex.com/releases/view/618360</Change>
+    </Changes>
+    <Url>http://www.chem4word.co.uk/files/Chem4Word.Setup.2.0.1.0.Beta.9.msi</Url>
+  </Version>
+  <Version>
+    <Number>2.0.1.0 Beta 8</Number>
+    <IsBeta>true</IsBeta>
+    <Released>08-Feb-2016</Released>
+    <Changes>
+      <Change>Add form for user feedback, when errors are shown</Change>
+    </Changes>
+    <Url>http://www.chem4word.co.uk/files/Chem4Word.Setup.2.0.1.0.Beta.8.msi</Url>
+  </Version>
+  <Version>
+    <Number>2.0.1.0 Beta 7</Number>
+    <IsBeta>true</IsBeta>
+    <Released>20-Jan-2016</Released>
+    <Changes>
+      <Change>Fixed inverted and missing thumbnail images in navigator drop downs</Change>
+      <Change>Better error handling in Opsin and ChemSpider search</Change>
+      <Change>Specify OpenXml version in app.config of UI assembly</Change>
+    </Changes>
+    <Url>http://www.chem4word.co.uk/files/Chem4Word.Setup.2.0.1.0.Beta.7.msi</Url>
+  </Version>
+  <Version>
+    <Number>2.0.1.0 Beta 6</Number>
+    <IsBeta>true</IsBeta>
+    <Released>12-Jan-2016</Released>
+    <Changes>
+      <Change>Automatic check for new version</Change>
+      <Change>Synchronise options for editor and rendering</Change>
+      <Change>New draw structure button</Change>
+      <Change>Better error handling when reading file "user settings.xml"</Change>
+      <Change>Updated ChemDoodle Web to 7.0.2</Change>
+      <Change>Localised Open XML SDK (no need to install)</Change>
+      <Change>Fix bug in Un-Install which caused "C:\Users\{UserName}\AppData\Local\Chemistry Add-in for Word" folder to be deleted</Change>
+    </Changes>
+    <Url>http://www.chem4word.co.uk/files/Chem4Word.Setup.2.0.1.0.Beta.6.msi</Url>
+  </Version>
+  <Version>
+    <Number>2.0.1.0 Beta 5</Number>
+    <IsBeta>true</IsBeta>
+    <Released>13-Dec-2015</Released>
+    <Changes>
+      <Change>Revised thumbnails in navigator</Change>
+    </Changes>
+    <Url>http://www.chem4word.co.uk/files/Chem4Word.Setup.2.0.1.0.Beta.5.msi</Url>
+  </Version>
+  <Version>
+    <Number>2.0.1.0 Beta 4</Number>
+    <IsBeta>true</IsBeta>
+    <Released>02-Dec-2015</Released>
+    <Changes>
+      <Change>Automatic download and install of OpenXml SDK</Change>
+    </Changes>
+    <Url>http://www.chem4word.co.uk/files/Chem4Word.Setup.2.0.1.0.Beta.4.msi</Url>
+  </Version>
+  <Version>
+    <Number>2.0.1.0 Beta 3</Number>
+    <IsBeta>true</IsBeta>
+    <Released>25-Nov-2015</Released>
+    <Changes>
+      <Change>Improved error trapping during start up</Change>
+    </Changes>
+    <Url>http://www.chem4word.co.uk/files/Chem4Word.Setup.2.0.1.0.Beta.3.msi</Url>
+  </Version>
+  <Version>
+    <Number>2.0.1.0 Beta 2</Number>
+    <IsBeta>true</IsBeta>
+    <Released>16-Nov-2015</Released>
+    <Changes>
+      <Change>Rendering of charges fixed</Change>
+    </Changes>
+    <Url>http://www.chem4word.co.uk/files/Chem4Word.Setup.2.0.1.0.Beta.2.msi</Url>
+  </Version>
+  <Version>
+    <Number>2.0.1.0 Beta</Number>
+    <IsBeta>true</IsBeta>
+    <Released>09-Nov-2015</Released>
+    <Changes>
+      <Change>Rendering structures using OOXML</Change>
+    </Changes>
+    <Url>http://www.chem4word.co.uk/files/Chem4Word.Setup.2.0.1.0.Beta.msi</Url>
+  </Version>
+</ChangeLog>

@@ -1,0 +1,15 @@
+syntax: glob
+
+*.csproj.user
+obj/
+bin/
+Release/
+Debug/
+packages/
+
+*.ncb
+*.suo
+_ReSharper.*
+*.resharper.user
+glob:Libs/Chem4Word.Font.dll
+glob:Chem4Word.5.1.ReSharper.user

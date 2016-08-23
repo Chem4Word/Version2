@@ -1,0 +1,100 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{E87753FD-BEAC-457B-B7BF-5C000117F4C3}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Chem4Word.Drawing.TwoD</RootNamespace>
+    <AssemblyName>Chem4Word.Drawing.TwoD</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="log4net">
+      <HintPath>..\Libs\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Bonds\AbstractEdgeControl.cs" />
+    <Compile Include="Bonds\BasicEdgeControl.cs" />
+    <Compile Include="Bonds\BondFactory.cs" />
+    <Compile Include="Bonds\DottedEdgeControl.cs" />
+    <Compile Include="Bonds\DoubleEdgeControl.cs" />
+    <Compile Include="Bonds\HatchEdgeControl.cs" />
+    <Compile Include="Bonds\IBondFactory.cs" />
+    <Compile Include="Bonds\IEdge.cs" />
+    <Compile Include="Bonds\TripleEdgeControl.cs" />
+    <Compile Include="Bonds\WavyEdgeControl.cs" />
+    <Compile Include="Bonds\WedgeEdgeControl.cs" />
+    <Compile Include="Commands\ChemCommands.cs" />
+    <Compile Include="Common\CmlChangedEventArgs.cs" />
+    <Compile Include="Common\DirectionalSelectionMode.cs" />
+    <Compile Include="Common\DrawingMode.cs" />
+    <Compile Include="Common\IChemCanvas.cs" />
+    <Compile Include="Common\IVisual.cs" />
+    <Compile Include="Nodes\AbstractNodeControl.cs" />
+    <Compile Include="Nodes\BasicNodeControl.cs" />
+    <Compile Include="Nodes\FAtomNodeControl.cs" />
+    <Compile Include="Nodes\HAtomNodeControl.cs" />
+    <Compile Include="Nodes\INode.cs" />
+    <Compile Include="Nodes\INodeFactory.cs" />
+    <Compile Include="Nodes\NodeFactory.cs" />
+    <Compile Include="Nodes\NoTextNodeControl.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Euclid\Euclid.csproj">
+      <Project>{D78B7D21-FA43-45B5-86FF-E03DFA55C4BC}</Project>
+      <Name>Euclid</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NUMBO\Numbo.csproj">
+      <Project>{C19EC9B8-0051-47FD-A129-310CCA3CB411}</Project>
+      <Name>Numbo</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

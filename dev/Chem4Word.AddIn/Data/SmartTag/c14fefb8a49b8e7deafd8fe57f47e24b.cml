@@ -1,0 +1,88 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<cml convention="conventions:molecular" xmlns="http://www.xml-cml.org/schema" xmlns:conventions="http://www.xml-cml.org/convention/" xmlns:cmlDict="http://www.xml-cml.org/dictionary/cml/" xmlns:nameDict="http://www.xml-cml.org/dictionary/cml/name/">
+  <molecule id="m1">
+    <name dictRef="nameDict:iupac">\italic{N}-(4-hydroxyphenyl)acetamide</name>
+    <name dictRef="nameDict:trivial">Aceta</name>
+    <name dictRef="nameDict:trivial">Actimin</name>
+    <name dictRef="nameDict:trivial">Anacin-3</name>
+    <name dictRef="nameDict:trivial">Apacet</name>
+    <name dictRef="nameDict:trivial">Aspirin Free Anacin</name>
+    <name dictRef="nameDict:trivial">Atasol</name>
+    <name dictRef="nameDict:trivial">Banesin</name>
+    <name dictRef="nameDict:trivial">Crocin</name>
+    <name dictRef="nameDict:trivial">Dapa</name>
+    <name dictRef="nameDict:trivial">Datril Extra-Strength</name>
+    <name dictRef="nameDict:trivial">DayQuil</name>
+    <name dictRef="nameDict:trivial">Feverall</name>
+    <name dictRef="nameDict:trivial">Few Drops</name>
+    <name dictRef="nameDict:trivial">Fibi</name>
+    <name dictRef="nameDict:trivial">Fibi plus</name>
+    <name dictRef="nameDict:trivial">Genapap</name>
+    <name dictRef="nameDict:trivial">Genebs</name>
+    <name dictRef="nameDict:trivial">Lekadol</name>
+    <name dictRef="nameDict:trivial">Liquiprin</name>
+    <name dictRef="nameDict:trivial">Neopap</name>
+    <name dictRef="nameDict:trivial">Oraphen-PD</name>
+    <name dictRef="nameDict:trivial">Panadol</name>
+    <name dictRef="nameDict:trivial">Paralen</name>
+    <name dictRef="nameDict:trivial">Phenaphen</name>
+    <name dictRef="nameDict:trivial">Redutemp</name>
+    <name dictRef="nameDict:trivial">Snaplets-FR</name>
+    <name dictRef="nameDict:trivial">Suppap</name>
+    <name dictRef="nameDict:trivial">Tapanol</name>
+    <name dictRef="nameDict:trivial">Tylenol</name>
+    <name dictRef="nameDict:trivial">Valorin</name>
+    <name dictRef="nameDict:trivial">Xcel</name>
+    <formula concise="C 8 H 9 N 1 O 2" />
+    <atomArray>
+      <atom id="a1" elementType="C" x2="0.1382150160714531" y2="-4.163499500227021" />
+      <atom id="a2" elementType="C" x2="1.4718941378994908" y2="-4.933499500227025" />
+      <atom id="a3" elementType="C" x2="1.4718941378994879" y2="-6.4734995002270255" />
+      <atom id="a4" elementType="C" x2="0.138215016071451" y2="-7.243499500227023" />
+      <atom id="a5" elementType="C" x2="-1.1954641057565836" y2="-6.473499500227021" />
+      <atom id="a6" elementType="C" x2="-1.1954641057565825" y2="-4.933499500227021" />
+      <atom id="a7" elementType="O" x2="2.805573259727522" y2="-7.243499500227028" />
+      <atom id="a8" elementType="N" x2="-2.5291432275846173" y2="-4.1634995002270205" />
+      <atom id="a9" elementType="C" x2="-3.862822349412652" y2="-4.933499500227019" />
+      <atom id="a10" elementType="C" x2="-5.196501471240689" y2="-4.163499500227019" />
+      <atom id="a11" elementType="O" x2="-3.862822349412653" y2="-6.47349950022702" />
+      <atom id="a12" elementType="H" x2="0.13821501607145534" y2="-2.6234995002270214" />
+      <atom id="a13" elementType="H" x2="2.8055732597275282" y2="-4.163499500227028" />
+      <atom id="a14" elementType="H" x2="0.13821501607144807" y2="-8.783499500227023" />
+      <atom id="a15" elementType="H" x2="-2.5291432275846195" y2="-7.243499500227019" />
+      <atom id="a16" elementType="H" x2="2.8055732597275185" y2="-8.783499500227029" />
+      <atom id="a17" elementType="H" x2="-2.5291432275846177" y2="-2.6234995002270196" />
+      <atom id="a18" elementType="H" x2="-4.426501471240688" y2="-2.829820378398985" />
+      <atom id="a19" elementType="H" x2="-6.5301805930687244" y2="-3.393499500227019" />
+      <atom id="a20" elementType="H" x2="-5.966501471240688" y2="-5.4971786220550545" />
+    </atomArray>
+    <bondArray>
+      <bond id="b1" atomRefs2="a1 a2" order="1" />
+      <bond id="b2" atomRefs2="a2 a3" order="2">
+        <bondStereo atomRefs4="a1 a2 a3 a4">C</bondStereo>
+      </bond>
+      <bond id="b3" atomRefs2="a3 a4" order="1" />
+      <bond id="b4" atomRefs2="a4 a5" order="2">
+        <bondStereo atomRefs4="a3 a4 a5 a6">C</bondStereo>
+      </bond>
+      <bond id="b5" atomRefs2="a5 a6" order="1" />
+      <bond id="b6" atomRefs2="a1 a6" order="2">
+        <bondStereo atomRefs4="a5 a6 a1 a2">C</bondStereo>
+      </bond>
+      <bond id="b7" atomRefs2="a3 a7" order="1" />
+      <bond id="b8" atomRefs2="a6 a8" order="1" />
+      <bond id="b9" atomRefs2="a8 a9" order="1" />
+      <bond id="b10" atomRefs2="a9 a10" order="1" />
+      <bond id="b11" atomRefs2="a9 a11" order="2" />
+      <bond id="b12" atomRefs2="a1 a12" order="1" />
+      <bond id="b13" atomRefs2="a2 a13" order="1" />
+      <bond id="b14" atomRefs2="a4 a14" order="1" />
+      <bond id="b15" atomRefs2="a5 a15" order="1" />
+      <bond id="b16" atomRefs2="a7 a16" order="1" />
+      <bond id="b17" atomRefs2="a8 a17" order="1" />
+      <bond id="b18" atomRefs2="a10 a18" order="1" />
+      <bond id="b19" atomRefs2="a10 a19" order="1" />
+      <bond id="b20" atomRefs2="a10 a20" order="1" />
+    </bondArray>
+  </molecule>
+</cml>

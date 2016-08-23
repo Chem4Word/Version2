@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<cml:cml xmlns:cml="http://www.xml-cml.org/schema" xmlns:cmlDict="http://www.xml-cml.org/dictionary/cml/" xmlns:nameDict="http://www.xml-cml.org/dictionary/cml/name/">
+  <cml:molecule id="m1">
+    <cml:name dictRef="cmlName:iupac">(2S)-2-amino-3-hydroxybutanoic acid</cml:name>
+    <cml:name dictRef="cmlName:trivial">threonine</cml:name>
+    <cml:name dictRef="cmlName:abbreviation">Thr</cml:name>
+    <cml:atomArray>
+      <cml:atom id="a1" elementType="C" x2="-2.200000047683716" y2="3.4649999141693115" />
+      <cml:atom id="a2" elementType="C" x2="-0.8663209258556801" y2="4.234999914169311" />
+      <cml:atom id="a3" elementType="N" x2="-3.533679169511751" y2="4.234999914169312" />
+      <cml:atom id="a4" elementType="O" x2="0.4673581959723552" y2="3.4649999141693106" />
+      <cml:atom id="a5" elementType="O" x2="-0.8663209258556793" y2="5.774999914169311" />
+      <cml:atom id="a6" elementType="H" x2="-1.0425395165305895" y2="1.857744405029008" />
+      <cml:atom id="a7" elementType="C" x2="-3.0715713219631198" y2="2.195368663037324" />
+      <cml:atom id="a8" elementType="H" x2="-3.53367916951175" y2="5.774999914169312" />
+      <cml:atom id="a9" elementType="H" x2="-4.9773584248541916" y2="3.6849999427795423" />
+      <cml:atom id="a10" elementType="H" x2="0.4673581959723543" y2="1.9249999141693106" />
+      <cml:atom id="a11" elementType="O" x2="-2.4078240421839006" y2="0.8057501727365914" />
+      <cml:atom id="a12" elementType="C" x2="-4.483507740227744" y2="1.5805227060870792" />
+      <cml:atom id="a13" elementType="H" x2="-4.370846546853914" y2="3.022099507983232" />
+      <cml:atom id="a14" elementType="H" x2="-3.279395316463305" y2="-0.4638810783953957" />
+      <cml:atom id="a15" elementType="H" x2="-5.703353716251476" y2="2.442458933616841" />
+      <cml:atom id="a16" elementType="H" x2="-5.895444158492369" y2="0.9656767491368345" />
+      <cml:atom id="a17" elementType="H" x2="-4.583661935865391" y2="0.058586288418500665" />
+    </cml:atomArray>
+    <cml:bondArray>
+      <cml:bond atomRefs2="a1 a2" order="1" id="b1" />
+      <cml:bond atomRefs2="a1 a3" order="1" id="b2" />
+      <cml:bond atomRefs2="a2 a4" order="1" id="b3" />
+      <cml:bond atomRefs2="a2 a5" order="2" id="b4" />
+      <cml:bond atomRefs2="a1 a6" order="1" id="b5">
+        <cml:bondStereo>W</cml:bondStereo>
+      </cml:bond>
+      <cml:bond atomRefs2="a1 a7" order="1" id="b6">
+        <cml:bondStereo>H</cml:bondStereo>
+      </cml:bond>
+      <cml:bond atomRefs2="a3 a8" order="1" id="b7" />
+      <cml:bond atomRefs2="a3 a9" order="1" id="b8" />
+      <cml:bond atomRefs2="a4 a10" order="1" id="b9" />
+      <cml:bond atomRefs2="a7 a11" order="1" id="b10" />
+      <cml:bond atomRefs2="a7 a12" order="1" id="b11" />
+      <cml:bond atomRefs2="a7 a13" order="1" id="b12" />
+      <cml:bond atomRefs2="a11 a14" order="1" id="b13" />
+      <cml:bond atomRefs2="a12 a15" order="1" id="b14" />
+      <cml:bond atomRefs2="a12 a16" order="1" id="b15" />
+      <cml:bond atomRefs2="a12 a17" order="1" id="b16" />
+    </cml:bondArray>
+  </cml:molecule>
+</cml:cml>

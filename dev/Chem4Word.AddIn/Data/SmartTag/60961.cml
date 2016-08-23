@@ -1,0 +1,100 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<cml convention="conventions:molecular" xmlns="http://www.xml-cml.org/schema" xmlns:conventions="http://www.xml-cml.org/convention/">
+  <molecule id="m60961" formalCharge="0" xmlns:pubchem="http://www.ncbi.nlm.nih.gov">
+    <name dictRef="pubchem:cid">60961</name>
+    <atomArray>
+      <atom id="a1" elementType="O" x2="5.9405" y2="0.8252" />
+      <atom id="a2" elementType="O" x2="3.4026" y2="1.3296" />
+      <atom id="a3" elementType="O" x2="4.6844" y2="3.0874" />
+      <atom id="a4" elementType="O" x2="7.6651" y2="2.0032" />
+      <atom id="a5" elementType="N" x2="4.6783" y2="-0.4327" />
+      <atom id="a6" elementType="N" x2="4.6783" y2="-2.0422" />
+      <atom id="a7" elementType="N" x2="2.866" y2="-0.2375" />
+      <atom id="a8" elementType="N" x2="2.0" y2="-1.7375" />
+      <atom id="a9" elementType="N" x2="2.866" y2="-3.2375" />
+      <atom id="a10" elementType="C" x2="4.4026" y2="1.3278">
+        <atomParity atomRefs4="a2 a11 a12 a20">1.0</atomParity>
+      </atom>
+      <atom id="a11" elementType="C" x2="4.9889" y2="0.5178">
+        <atomParity atomRefs4="a1 a5 a10 a21">1.0</atomParity>
+      </atom>
+      <atom id="a12" elementType="C" x2="4.9917" y2="2.1358">
+        <atomParity atomRefs4="a3 a10 a13 a22">1.0</atomParity>
+      </atom>
+      <atom id="a13" elementType="C" x2="5.9422" y2="1.8252">
+        <atomParity atomRefs4="a1 a12 a14 a23">1.0</atomParity>
+      </atom>
+      <atom id="a14" elementType="C" x2="6.7523" y2="2.4116" />
+      <atom id="a15" elementType="C" x2="3.7321" y2="-0.7375" />
+      <atom id="a16" elementType="C" x2="5.2619" y2="-1.2375" />
+      <atom id="a17" elementType="C" x2="3.7321" y2="-1.7375" />
+      <atom id="a18" elementType="C" x2="2.866" y2="-2.2375" />
+      <atom id="a19" elementType="C" x2="2.0" y2="-0.7375" />
+      <atom id="a20" elementType="H" x2="4.122" y2="1.8807" />
+      <atom id="a21" elementType="H" x2="5.4266" y2="0.0786" />
+      <atom id="a22" elementType="H" x2="5.4309" y2="2.5735" />
+      <atom id="a23" elementType="H" x2="6.4942" y2="1.5427" />
+      <atom id="a24" elementType="H" x2="7.0999" y2="2.925" />
+      <atom id="a25" elementType="H" x2="6.307" y2="2.843" />
+      <atom id="a26" elementType="H" x2="3.0935" y2="1.867" />
+      <atom id="a27" elementType="H" x2="5.1" y2="3.5475" />
+      <atom id="a28" elementType="H" x2="5.8819" y2="-1.2375" />
+      <atom id="a29" elementType="H" x2="8.1674" y2="2.3668" />
+      <atom id="a30" elementType="H" x2="1.4631" y2="-0.4275" />
+      <atom id="a31" elementType="H" x2="2.3291" y2="-3.5475" />
+      <atom id="a32" elementType="H" x2="3.403" y2="-3.5475" />
+    </atomArray>
+    <bondArray>
+      <bond atomRefs2="a1 a11" order="1" id="a1_a11" />
+      <bond atomRefs2="a1 a13" order="1" id="a1_a13" />
+      <bond atomRefs2="a2 a10" order="1" id="a2_a10">
+        <bondStereo>H</bondStereo>
+      </bond>
+      <bond atomRefs2="a2 a26" order="1" id="a2_a26" />
+      <bond atomRefs2="a3 a12" order="1" id="a3_a12">
+        <bondStereo>H</bondStereo>
+      </bond>
+      <bond atomRefs2="a3 a27" order="1" id="a3_a27" />
+      <bond atomRefs2="a4 a14" order="1" id="a4_a14" />
+      <bond atomRefs2="a4 a29" order="1" id="a4_a29" />
+      <bond atomRefs2="a5 a11" order="1" id="a5_a11">
+        <bondStereo>W</bondStereo>
+      </bond>
+      <bond atomRefs2="a5 a15" order="1" id="a5_a15" />
+      <bond atomRefs2="a5 a16" order="1" id="a5_a16" />
+      <bond atomRefs2="a6 a16" order="2" id="a6_a16" />
+      <bond atomRefs2="a6 a17" order="1" id="a6_a17" />
+      <bond atomRefs2="a7 a15" order="1" id="a7_a15" />
+      <bond atomRefs2="a7 a19" order="2" id="a7_a19" />
+      <bond atomRefs2="a8 a18" order="2" id="a8_a18" />
+      <bond atomRefs2="a8 a19" order="1" id="a8_a19" />
+      <bond atomRefs2="a9 a18" order="1" id="a9_a18" />
+      <bond atomRefs2="a9 a31" order="1" id="a9_a31" />
+      <bond atomRefs2="a9 a32" order="1" id="a9_a32" />
+      <bond atomRefs2="a10 a11" order="1" id="a10_a11" />
+      <bond atomRefs2="a10 a12" order="1" id="a10_a12" />
+      <bond atomRefs2="a10 a20" order="1" id="a10_a20" />
+      <bond atomRefs2="a11 a21" order="1" id="a11_a21" />
+      <bond atomRefs2="a12 a13" order="1" id="a12_a13" />
+      <bond atomRefs2="a12 a22" order="1" id="a12_a22" />
+      <bond atomRefs2="a13 a14" order="1" id="a13_a14">
+        <bondStereo>W</bondStereo>
+      </bond>
+      <bond atomRefs2="a13 a23" order="1" id="a13_a23" />
+      <bond atomRefs2="a14 a24" order="1" id="a14_a24" />
+      <bond atomRefs2="a14 a25" order="1" id="a14_a25" />
+      <bond atomRefs2="a15 a17" order="2" id="a15_a17" />
+      <bond atomRefs2="a16 a28" order="1" id="a16_a28" />
+      <bond atomRefs2="a17 a18" order="1" id="a17_a18" />
+      <bond atomRefs2="a19 a30" order="1" id="a19_a30" />
+    </bondArray>
+    <name dictRef="pubchem:Allowed">(2R,3R,4S,5R)-2-(6-aminopurin-9-yl)-5-(hydroxymethyl)tetrahydrofuran-3,4-diol</name>
+    <name dictRef="pubchem:CAS-likeStyle">(2R,3R,4S,5R)-2-(6-aminopurin-9-yl)-5-(hydroxymethyl)tetrahydrofuran-3,4-diol</name>
+    <name dictRef="pubchem:Preferred">(2R,3R,4S,5R)-2-(6-aminopurin-9-yl)-5-(hydroxymethyl)oxolane-3,4-diol</name>
+    <name dictRef="pubchem:Systematic">(2R,3R,4S,5R)-2-(6-aminopurin-9-yl)-5-(hydroxymethyl)oxolane-3,4-diol</name>
+    <name dictRef="pubchem:Traditional">(2R,3R,4S,5R)-2-adenin-9-yl-5-methylol-tetrahydrofuran-3,4-diol</name>
+    <formula convention="pubchem:formula" inline="C10H13N5O4" />
+    <formula convention="pubchem:CanonicalSmiles" inline="C1=NC2=C(C(=N1)N)N=CN2C3C(C(C(O3)CO)O)O" />
+    <formula convention="pubchem:IsomericSmiles" inline="C1=NC2=C(C(=N1)N)N=CN2[C@H]3[C@@H]([C@@H]([C@H](O3)CO)O)O" />
+  </molecule>
+</cml>

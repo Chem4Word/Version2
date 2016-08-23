@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<cml convention="conventions:molecular" xmlns="http://www.xml-cml.org/schema" xmlns:conventions="http://www.xml-cml.org/convention/" xmlns:nameDict="http://www.xml-cml.org/dictionary/cml/name/">
+  <molecule id="m11125" formalCharge="0" spinMultiplicity="1" xmlns:pubchem="http://www.ncbi.nlm.nih.gov">
+    <name dictRef="pubchem:cid">11125</name>
+    <atomArray>
+      <atom id="a1" elementType="O" formalCharge="-1" x2="4.5980763435364" y2="0.75" />
+      <atom id="a2" elementType="O" formalCharge="-1" x2="2.8660254478455" y2="0.75" />
+      <atom id="a3" elementType="O" x2="3.7320508956909" y2="-0.75" />
+      <atom id="a4" elementType="C" x2="3.7320508956909" y2="0.25" />
+      <atom id="a5" elementType="Li" formalCharge="1" x2="5.4641017913818" y2="0.25" />
+      <atom id="a6" elementType="Li" formalCharge="1" x2="2.0" y2="0.25" />
+    </atomArray>
+    <bondArray>
+      <bond atomRefs2="a1 a4" order="S" id="a1_a4"  />
+      <bond atomRefs2="a2 a4" order="S" id="a2_a4"  />
+      <bond atomRefs2="a3 a4" order="D" id="a3_a4"  />
+    </bondArray>
+    <name dictRef="pubchem:Allowed">dilithium carbonate</name>
+    <name dictRef="nameDict:cas">dilithium carbonate</name>
+    <name dictRef="pubchem:Preferred">dilithium carbonate</name>
+    <name dictRef="nameDict:systematic">dilithium carbonate</name>
+    <name dictRef="pubchem:Traditional">dilithium carbonate</name>
+    <formula convention="pubchem:formula" inline="CLi2O3" concise="C 1 Li 2 O 3" />
+    <formula convention="pubchem:CanonicalSmiles" inline="[Li+].[Li+].C(=O)([O-])[O-]" concise="C 1 Li 2 O 3" />
+    <formula convention="pubchem:IsomericSmiles" inline="[Li+].[Li+].C(=O)([O-])[O-]" concise="C 1 Li 2 O 3" />
+  </molecule>
+</cml>

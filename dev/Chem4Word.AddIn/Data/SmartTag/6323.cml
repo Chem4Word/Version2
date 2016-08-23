@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<cml convention="conventions:molecular" xmlns="http://www.xml-cml.org/schema" xmlns:conventions="http://www.xml-cml.org/convention/" xmlns:nameDict="http://www.xml-cml.org/dictionary/cml/name/">
+  <molecule id="m6323" formalCharge="0" spinMultiplicity="1" xmlns:pubchem="http://www.ncbi.nlm.nih.gov">
+    <name dictRef="pubchem:cid">6323</name>
+    <atomArray>
+      <atom id="a1" elementType="Br" x2="2.0" y2="0.0" />
+      <atom id="a2" elementType="C" x2="3.0" y2="0.0" />
+      <atom id="a3" elementType="H" x2="3.0" y2="-0.62" />
+      <atom id="a4" elementType="H" x2="3.62" y2="0.0" />
+      <atom id="a5" elementType="H" x2="3.0" y2="0.62" />
+    </atomArray>
+    <bondArray>
+      <bond atomRefs2="a1 a2" order="S" id="a1_a2"  />
+      <bond atomRefs2="a2 a3" order="S" id="a2_a3"  />
+      <bond atomRefs2="a2 a4" order="S" id="a2_a4"  />
+      <bond atomRefs2="a2 a5" order="S" id="a2_a5"  />
+    </bondArray>
+    <name dictRef="pubchem:Allowed">bromomethane</name>
+    <name dictRef="nameDict:cas">bromomethane</name>
+    <name dictRef="pubchem:Preferred">bromomethane</name>
+    <name dictRef="nameDict:systematic">bromomethane</name>
+    <name dictRef="pubchem:Traditional">bromomethane</name>
+    <formula convention="pubchem:formula" inline="CH3Br" concise="C 1 H 3 Br 1" />
+    <formula convention="pubchem:CanonicalSmiles" inline="CBr" concise="C 1 H 3 Br 1" />
+    <formula convention="pubchem:IsomericSmiles" inline="CBr" concise="C 1 H 3 Br 1" />
+  </molecule>
+</cml>

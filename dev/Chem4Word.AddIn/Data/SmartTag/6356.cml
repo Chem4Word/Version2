@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<cml convention="conventions:molecular" xmlns="http://www.xml-cml.org/schema" xmlns:conventions="http://www.xml-cml.org/convention/" xmlns:nameDict="http://www.xml-cml.org/dictionary/cml/name/">
+  <molecule id="m6356" formalCharge="0" spinMultiplicity="1" xmlns:pubchem="http://www.ncbi.nlm.nih.gov">
+    <name dictRef="pubchem:cid">6356</name>
+    <atomArray>
+      <atom id="a1" elementType="F" x2="3.7321" y2="0.75" />
+      <atom id="a2" elementType="F" x2="2.0" y2="0.75" />
+      <atom id="a3" elementType="F" x2="2.866" y2="-0.75" />
+      <atom id="a4" elementType="B" x2="2.866" y2="0.25" />
+    </atomArray>
+    <bondArray>
+      <bond atomRefs2="a1 a4" order="S" id="a1_a4"  />
+      <bond atomRefs2="a2 a4" order="S" id="a2_a4"  />
+      <bond atomRefs2="a3 a4" order="S" id="a3_a4"  />
+    </bondArray>
+    <name dictRef="pubchem:Allowed">trifluoroborane</name>
+    <name dictRef="nameDict:cas">trifluoroborane</name>
+    <name dictRef="pubchem:Preferred">trifluoroborane</name>
+    <name dictRef="nameDict:systematic">trifluoroborane</name>
+    <name dictRef="pubchem:Traditional">trifluoroborane</name>
+    <formula convention="pubchem:formula" inline="BF3" concise="B 1 F 3" />
+    <formula convention="pubchem:CanonicalSmiles" inline="B(F)(F)F" concise="B 1 F 3" />
+    <formula convention="pubchem:IsomericSmiles" inline="B(F)(F)F" concise="B 1 F 3" />
+  </molecule>
+</cml>

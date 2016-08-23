@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<cml convention="conventions:molecular" xmlns="http://www.xml-cml.org/schema" xmlns:conventions="http://www.xml-cml.org/convention/" xmlns:nameDict="http://www.xml-cml.org/dictionary/cml/name/">
+  <molecule id="m23266" formalCharge="0" spinMultiplicity="1" xmlns:pubchem="http://www.ncbi.nlm.nih.gov">
+    <name dictRef="pubchem:cid">23266</name>
+    <atomArray>
+      <atom id="a1" elementType="Si" x2="3.7320508956909" y2="0.25" />
+      <atom id="a2" elementType="Na" formalCharge="1" x2="5.4641017913818" y2="0.25" />
+      <atom id="a3" elementType="Na" formalCharge="1" x2="2.0" y2="0.25" />
+      <atom id="a4" elementType="O" formalCharge="-1" x2="4.5980763435364" y2="0.75" />
+      <atom id="a5" elementType="O" formalCharge="-1" x2="2.8660254478455" y2="0.75" />
+      <atom id="a6" elementType="O" x2="3.7320508956909" y2="-0.75" />
+    </atomArray>
+    <bondArray>
+      <bond atomRefs2="a1 a4" order="S" id="a1_a4"  />
+      <bond atomRefs2="a1 a5" order="S" id="a1_a5"  />
+      <bond atomRefs2="a1 a6" order="D" id="a1_a6"  />
+    </bondArray>
+    <name dictRef="pubchem:Allowed">disodium dioxido(oxo)silane</name>
+    <name dictRef="nameDict:cas">disodium dioxido(oxo)silane</name>
+    <name dictRef="pubchem:Preferred">disodium dioxido(oxo)silane</name>
+    <name dictRef="nameDict:systematic">disodium bis(oxidanidyl)-oxo-silane</name>
+    <name dictRef="pubchem:Traditional">disodium keto(dioxido)silane</name>
+    <formula convention="pubchem:formula" inline="Na2O3Si" concise="Na 2 O 3 Si 1" />
+    <formula convention="pubchem:CanonicalSmiles" inline="[O-][Si](=O)[O-].[Na+].[Na+]" concise="Na 2 O 3 Si 1" />
+    <formula convention="pubchem:IsomericSmiles" inline="[O-][Si](=O)[O-].[Na+].[Na+]" concise="Na 2 O 3 Si 1" />
+  </molecule>
+</cml>
