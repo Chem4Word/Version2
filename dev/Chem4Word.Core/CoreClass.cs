@@ -45,6 +45,7 @@ using log4net;
 using Microsoft.Office.Core;
 using Microsoft.Office.Interop.Word;
 using Microsoft.Office.Tools.Word.Extensions;
+using Microsoft.Win32;
 using Numbo;
 using Numbo.Cml;
 using Numbo.Coa;
@@ -174,9 +175,9 @@ namespace Chem4Word.Core
 #else
                 // Ensure Open Xml SDK 2.0 is installed
                 EnsureOpenXmlSdkIsInstalled();
+#endif
                 // Check to see if we are running the latest version
                 CheckForUpdates();
-#endif
             }
             catch (Exception ex)
             {
@@ -840,78 +841,115 @@ namespace Chem4Word.Core
                 {
                     #region CheckForUpdate
 
-                    string existingVersionXmlFile = Path.Combine(assemblyDirectoryName, @"Data\This-Version.xml");
-                    if (File.Exists(existingVersionXmlFile))
+                    bool doCheck = true;
+
+                    RegistryKey key = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\Chem4Word", true);
+                    if (key == null)
                     {
-                        XDocument currentVersion = XDocument.Load(existingVersionXmlFile);
-                        string currentVersionNumber = currentVersion.Root.Element("Number").Value;
-                        DateTime currentReleaseDate = SafeDate.Parse(currentVersion.Root.Element("Released").Value);
-                        Debug.WriteLine("Current Version " + currentVersionNumber + " Released " + currentReleaseDate.ToString("dd-MMM-yyyy"));
+                        key = Registry.CurrentUser.CreateSubKey(@"SOFTWARE\Chem4Word");
+                    }
 
-                        string tempPath = Path.GetTempPath();
-                        string chem4wordVersionsXml = "Chem4Word-Versions.xml";
+                    string lastChecked = null;
+                    try
+                    {
+                        lastChecked = key.GetValue("Last Update Check").ToString();
+                    }
+                    catch
+                    {
+                        //
+                    }
 
-                        string oldVersionXmlFile = Path.Combine(tempPath, chem4wordVersionsXml);
-                        if (File.Exists(oldVersionXmlFile))
+                    if (!string.IsNullOrEmpty(lastChecked))
+                    {
+                        DateTime last;
+                        if (DateTime.TryParse(lastChecked, out last))
                         {
-                            File.Delete(oldVersionXmlFile);
-                        }
-
-                        string guid = Guid.NewGuid().ToString();
-                        string latestVersionXmlFile = Path.Combine(tempPath, guid + "-" + chem4wordVersionsXml);
-
-                        string versionsLink = "http://www.chem4word.co.uk/files/" + chem4wordVersionsXml;
-                        WebClient client = new WebClient();
-                        client.Headers.Add("user-agent", "Chem4Word Add-In");
-                        client.DownloadFile(versionsLink, latestVersionXmlFile);
-                        client.Dispose();
-
-                        bool updateRequired = false;
-
-                        if (File.Exists(latestVersionXmlFile))
-                        {
-                            string fileContents = File.ReadAllText(latestVersionXmlFile);
-                            if (fileContents.Contains("<ChangeLog>"))
+                            TimeSpan delta = DateTime.Today - last;
+                            if (delta.Days < 7)
                             {
-                                XDocument latestVersion = XDocument.Load(latestVersionXmlFile);
-                                var versions = latestVersion.XPathSelectElements("//Version");
-                                foreach (var version in versions)
+                                doCheck = false;
+                            }
+                        }
+                    }
+
+                    if (doCheck)
+                    {
+                        string existingVersionXmlFile = Path.Combine(assemblyDirectoryName, @"Data\This-Version.xml");
+                        if (File.Exists(existingVersionXmlFile))
+                        {
+                            XDocument currentVersion = XDocument.Load(existingVersionXmlFile);
+                            string currentVersionNumber = currentVersion.Root.Element("Number").Value;
+                            DateTime currentReleaseDate = SafeDate.Parse(currentVersion.Root.Element("Released").Value);
+                            Debug.WriteLine("Current Version " + currentVersionNumber + " Released " + currentReleaseDate.ToString("dd-MMM-yyyy"));
+
+                            string tempPath = Path.GetTempPath();
+                            string chem4wordVersionsXml = "Chem4Word-Versions.xml";
+
+                            string oldVersionXmlFile = Path.Combine(tempPath, chem4wordVersionsXml);
+                            if (File.Exists(oldVersionXmlFile))
+                            {
+                                File.Delete(oldVersionXmlFile);
+                            }
+
+                            string guid = Guid.NewGuid().ToString();
+                            string latestVersionXmlFile = Path.Combine(tempPath, guid + "-" + chem4wordVersionsXml);
+
+                            string versionsLink = "http://www.chem4word.co.uk/files/" + chem4wordVersionsXml;
+                            WebClient client = new WebClient();
+                            client.Headers.Add("user-agent", "Chem4Word Add-In");
+                            client.DownloadFile(versionsLink, latestVersionXmlFile);
+                            client.Dispose();
+
+                            bool updateRequired = false;
+
+                            if (File.Exists(latestVersionXmlFile))
+                            {
+                                string fileContents = File.ReadAllText(latestVersionXmlFile);
+                                if (fileContents.Contains("<ChangeLog>"))
                                 {
-                                    var thisVersionNumber = version.Element("Number").Value;
-                                    DateTime thisVersionDate = SafeDate.Parse(version.Element("Released").Value);
-                                    Debug.WriteLine("New Version " + thisVersionNumber + " Released " + thisVersionDate.ToString("dd-MMM-yyyy"));
-                                    if (thisVersionDate > currentReleaseDate)
+                                    XDocument latestVersion = XDocument.Load(latestVersionXmlFile);
+                                    var versions = latestVersion.XPathSelectElements("//Version");
+                                    foreach (var version in versions)
                                     {
-                                        updateRequired = true;
-                                        break;
+                                        var thisVersionNumber = version.Element("Number").Value;
+                                        DateTime thisVersionDate = SafeDate.Parse(version.Element("Released").Value);
+                                        Debug.WriteLine("New Version " + thisVersionNumber + " Released " + thisVersionDate.ToString("dd-MMM-yyyy"));
+                                        if (thisVersionDate > currentReleaseDate)
+                                        {
+                                            updateRequired = true;
+                                            break;
+                                        }
+                                    }
+
+                                    try
+                                    {
+                                        File.Delete(latestVersionXmlFile);
+                                    }
+                                    catch (Exception)
+                                    {
+                                        // Do Nothing
+                                    }
+
+                                    if (updateRequired)
+                                    {
+                                        AutomaticUpdate au = new AutomaticUpdate(_telemetry);
+                                        au.TopLeft = WordTopLeft;
+                                        au.CurrentVersion = currentVersion;
+                                        au.NewVersions = latestVersion;
+
+                                        DialogResult dr = au.ShowDialog();
                                     }
                                 }
-
-                                try
+                                else
                                 {
-                                    File.Delete(latestVersionXmlFile);
+                                    _telemetry.Write(module, "Exception", "File Chem4Word-Versions.xml is corrupt");
+                                    _telemetry.Write(module, "Exception(Data)", fileContents);
                                 }
-                                catch (Exception)
-                                {
-                                    // Do Nothing
-                                }
-
-                                if (updateRequired)
-                                {
-                                    AutomaticUpdate au = new AutomaticUpdate(_telemetry);
-                                    au.TopLeft = WordTopLeft;
-                                    au.CurrentVersion = currentVersion;
-                                    au.NewVersions = latestVersion;
-
-                                    DialogResult dr = au.ShowDialog();
-                                }
-                            }
-                            else
-                            {
-                                _telemetry.Write(module, "Exception", "File Chem4Word-Versions.xml is corrupt");
-                                _telemetry.Write(module, "Exception(Data)", fileContents);
                             }
                         }
+
+                        key.SetValue("Last Update Check", DateTime.Today.ToString("yyyy-MM-dd"));
+
                     }
                     #endregion
                 }
