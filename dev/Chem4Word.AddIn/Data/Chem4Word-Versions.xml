@@ -4,14 +4,14 @@
   <Version>
     <Number>2.0.1.0 R6</Number>
     <IsBeta>false</IsBeta>
-    <Released>24-Aug-2016</Released>
+    <Released>01-SEP-2016</Released>
     <Changes>
-      <Change>Reduce check for update frequency to once per week.</Change>
+      <Change>Reduced update check frequency to once per week.</Change>
     </Changes>
     <Changes>
       <Change>Note: If you are no longer using Chem4Word; Please uninstall it using the "Add/Remove Programs" or "Programms and Features" icon in Control Panel.</Change>
     </Changes>
-    <Url>http://www.chem4word.co.uk/files/Chem4Word.Setup.2.0.1.0.2016.08.03.msi</Url>
+    <Url>http://www.chem4word.co.uk/files/Chem4Word.Setup.2.0.1.0.2016.09.01.msi</Url>
   </Version>
   <Version>
     <Number>2.0.1.0 R5</Number>

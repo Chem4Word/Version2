@@ -498,6 +498,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ChemDoodle\ChemDoodleEditorForm.resx">
       <DependentUpon>ChemDoodleEditorForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="UIControls\AutomaticUpdate.resx">
       <DependentUpon>AutomaticUpdate.cs</DependentUpon>
