@@ -8100,7 +8100,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Chemistry Add-in for Word"
         "ProductCode" = "8:{99056466-4B80-4823-A8EB-0AC8725E10AE}"
-        "PackageCode" = "8:{673164E3-9125-48CE-BC6A-159CC530AF7A}"
+        "PackageCode" = "8:{3AA3B783-B9D6-4E8E-8CD1-9AD878FFBC4E}"
         "UpgradeCode" = "8:{5DD696D5-5339-41F7-B081-3A556855D260}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
