@@ -4,7 +4,7 @@
   <Version>
     <Number>2.0.1.0 R6</Number>
     <IsBeta>false</IsBeta>
-    <Released>01-SEP-2016</Released>
+    <Released>01-Sep-2016</Released>
     <Changes>
       <Change>Reduced update check frequency to once per week.</Change>
     </Changes>
