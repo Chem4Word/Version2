@@ -162,7 +162,7 @@ namespace Chem4Word.UI.UIControls
                 string cmdFile = Path.Combine(Path.GetTempPath(), "remove-old-chem4word.bat");
                 File.WriteAllText(cmdFile, sb.ToString());
 
-                _telemetry.Write(module, "AutomaticUpdate", cmdFile);
+                _telemetry.Write(module, "AutomaticUpdate", sb.ToString());
                 _telemetry.Write(module, "AutomaticUpdate", "Running update batch file");
 
                 // Execcute batch file
