@@ -17,42 +17,42 @@ namespace Chem4Word.Common.Utilities
             {
                 int day = Int32.Parse(parts[0]);
                 int month = 0;
-                switch (parts[1])
+                switch (parts[1].ToLower())
                 {
-                    case "Jan":
+                    case "jan":
                         month = 1;
                         break;
-                    case "Feb":
+                    case "feb":
                         month = 2;
                         break;
-                    case "Mar":
+                    case "mar":
                         month = 3;
                         break;
-                    case "Apr":
+                    case "apr":
                         month = 4;
                         break;
-                    case "May":
+                    case "may":
                         month = 5;
                         break;
-                    case "Jun":
+                    case "jun":
                         month = 6;
                         break;
-                    case "Jul":
+                    case "jul":
                         month = 7;
                         break;
-                    case "Aug":
+                    case "aug":
                         month = 8;
                         break;
-                    case "Sep":
+                    case "sep":
                         month = 9;
                         break;
-                    case "Oct":
+                    case "oct":
                         month = 10;
                         break;
-                    case "Nov":
+                    case "nov":
                         month = 11;
                         break;
-                    case "Dec":
+                    case "dec":
                         month = 12;
                         break;
                 }
