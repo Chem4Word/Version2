@@ -87,7 +87,7 @@ namespace Chem4Word.Common
 #if DEBUG
                 me3.Message = _helper.AddInVersion + " (debug)";
 #else
-                me3.Message = _helper.AddInVersion + " (R5 03-Aug-2016)";
+                me3.Message = _helper.AddInVersion + " (R6 01-Sep-2016)";
 #endif
                 result3 = storage.WriteMessage(me3);
             }
