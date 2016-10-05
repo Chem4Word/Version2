@@ -288,7 +288,11 @@ namespace Chem4Word.Common
 
                         if (webPage.StartsWith("Your IP address : "))
                         {
+                            // Tidy Up the data
                             webPage = webPage.Replace("Your IP address : ", "");
+                            webPage = webPage.Replace("<br/>", "");
+                            webPage = webPage.Replace("<br />", "");
+
                             // IPv6
                             if (webPage.Contains(":"))
                             {
