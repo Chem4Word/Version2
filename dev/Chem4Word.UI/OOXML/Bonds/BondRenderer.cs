@@ -87,6 +87,7 @@ namespace Chem4Word.UI.OOXML.Bonds
             switch (bond.Order)
             {
                 case "0":
+                case "unknown":
                     m_BondLines.Add(new BondLine(bondStart, bondEnd, "dotted"));
                     break;
 
