@@ -23,7 +23,7 @@
             <menu id="EditMenu">
               <button id="tweakDoodle" onAction="TweakDoodleClick" getEnabled="GetTweak2DEnable" label="Edit 2D - (ChemDoodle)" getImage="GetChemImage" />
               <!--<button id="tweak2D" onAction="Tweak2DClick" getEnabled="GetTweak2DEnable" label="Edit 2D - (WPF)" getImage="GetChemImage" />-->
-              <button id="editLabels" onAction="EditLabelsClick" getEnabled="GetSaveSelectionEnable" label="Edit Labels" getImage="GetEditLabelsImage" />
+              <button id="editLabels" onAction="EditLabelsClick" getEnabled="GetTweak2DEnable" label="Edit Labels" getImage="GetEditLabelsImage" />
             </menu>
           </splitButton>
           <button id="viewCMLButton" onAction="ViewCmlClick" getEnabled="GetEditEnable" label="View CML" size="large" imageMso="XmlSource" />

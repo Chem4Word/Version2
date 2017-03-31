@@ -80,7 +80,7 @@ namespace Chem4Word.AddIn.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 2016.
+        ///   Looks up a localized string similar to 2017.
         /// </summary>
         internal static string COPYRIGHT_YEAR {
             get {
@@ -135,21 +135,13 @@ namespace Chem4Word.AddIn.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &lt;cml:cml convention=&quot;conventions:molecular&quot;
-        ///	xmlns:conventions=&quot;http://www.xml-cml.org/convention/&quot;
-        ///	xmlns:cml=&quot;http://www.xml-cml.org/schema&quot;
-        ///	xmlns:cmlDict=&quot;http://www.xml-cml.org/dictionary/cml/&quot;
-        ///	xmlns:nameDict=&quot;http://www.xml-cml.org/dictionary/cml/name/&quot;&gt;
-        ///  &lt;cml:molecule id=&quot;m1&quot;&gt;
-        ///    &lt;cml:formula concise=&quot;C 1 H 4&quot; /&gt;
+        ///   Looks up a localized string similar to &lt;cml:cml convention=&quot;conventions:molecular&quot; xmlns:conventions=&quot;http://www.xml-cml.org/convention/&quot; xmlns:cml=&quot;http://www.xml-cml.org/schema&quot; xmlns:cmlDict=&quot;http://www.xml-cml.org/dictionary/cml/&quot; xmlns:nameDict=&quot;http://www.xml-cml.org/dictionary/cml/name/&quot;&gt;
+        ///  &lt;cml:molecule id=&quot;m1&quot; formalCharge=&quot;0&quot; spinMultiplicity=&quot;1&quot;&gt;
         ///    &lt;cml:atomArray&gt;
-        ///      &lt;cml:atom id=&quot;a1&quot; elementType=&quot;C&quot; x2=&quot;213&quot; y2=&quot;115&quot;/&gt;
+        ///      &lt;cml:atom id=&quot;a0&quot; elementType=&quot;C&quot; x2=&quot;329.5&quot; y2=&quot;182.5&quot;/&gt;
         ///    &lt;/cml:atomArray&gt;
-        ///    &lt;cml:bondArray&gt;
-        ///    &lt;/cml:bondArray&gt;
-        ///  &lt;/cml:molecule&gt;
-        ///&lt;/cml:cml&gt;
-        ///.
+        ///    &lt;cml:bondArray&gt;&lt;/cml:bondArray&gt;
+        ///    &lt;cml:formula concise=&quot;C 1 H 4&quot;&gt;&lt;/cml:for [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string EmptyStructure {
             get {

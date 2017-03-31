@@ -135,6 +135,12 @@
     <value>Zone </value>
     <comment>The string which should prefix the unique count of a chemistry zone</comment>
   </data>
+  <data name="ChemSpiderRdfServiceUri" xml:space="preserve">
+    <value>https://rdf.chemspider.com/</value>
+  </data>
+  <data name="ChemSpiderWebServiceUri" xml:space="preserve">
+    <value>https://www.chemspider.com/</value>
+  </data>
   <data name="String1" xml:space="preserve">
     <value>MS ChemSans</value>
   </data>

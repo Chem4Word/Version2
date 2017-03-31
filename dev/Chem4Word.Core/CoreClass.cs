@@ -12,6 +12,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Resources;
 using System.Text.RegularExpressions;
 using System.Timers;
 using System.Windows;
@@ -1786,7 +1787,7 @@ namespace Chem4Word.Core
                 {
                     Log.Debug("Getting Chemspider RDF Page");
                     _telemetry.Write(module, "Information", "Calling WebService");
-                    string url = "http://rdf.chemspider.com/" + afterInchiKey;
+                    string url = Properties.Resources.ChemSpiderRdfServiceUri + afterInchiKey;
                     HttpWebRequest request = WebRequest.Create(url) as HttpWebRequest;
                     request.Timeout = 5000;
                     request.UserAgent = "Chem4Word";
@@ -1812,7 +1813,7 @@ namespace Chem4Word.Core
                                     if (reader.Name.Equals("chemdomain:hasValue"))
                                     {
                                         result = reader.ReadInnerXml();
-                                        System.Diagnostics.Debug.WriteLine("Found Synonym: " + result);
+                                        Debug.WriteLine("Found Synonym: " + result);
                                         Log.Debug("Found Synonym: " + result);
                                         break;
                                     }
@@ -1857,6 +1858,7 @@ namespace Chem4Word.Core
                 Log.Debug("Calling ChemSpider WebService");
                 _telemetry.Write(module, "Information", "Calling WebService");
                 com.chemspider.www.InChI i = new com.chemspider.www.InChI();
+                i.Url = Properties.Resources.ChemSpiderWebServiceUri + "InChI.asmx";
                 i.UserAgent = "Chem4Word";
                 i.Timeout = 5000;
                 result = i.MolToInChIKey(molfile);
