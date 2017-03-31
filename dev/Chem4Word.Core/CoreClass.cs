@@ -875,6 +875,8 @@ namespace Chem4Word.Core
 
                     if (doCheck)
                     {
+                        key.SetValue("Last Update Check", DateTime.Today.ToString("yyyy-MM-dd"));
+
                         string existingVersionXmlFile = Path.Combine(assemblyDirectoryName, @"Data\This-Version.xml");
                         if (File.Exists(existingVersionXmlFile))
                         {
@@ -957,8 +959,6 @@ namespace Chem4Word.Core
                                 }
                             }
                         }
-
-                        key.SetValue("Last Update Check", DateTime.Today.ToString("yyyy-MM-dd"));
 
                     }
                     #endregion
