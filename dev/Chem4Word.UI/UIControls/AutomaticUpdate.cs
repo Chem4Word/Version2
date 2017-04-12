@@ -71,7 +71,7 @@ namespace Chem4Word.UI.UIControls
         {
             string module = "linkCodeplexPage_LinkClicked()";
             _telemetry.Write(module, "AutomaticUpdate", "Open CodePlex Page");
-            Process.Start("https://chem4word.codeplex.com/releases/view/618360");
+            Process.Start("https://chem4word.codeplex.com/releases");
             DialogResult = DialogResult.Cancel;
         }
 
