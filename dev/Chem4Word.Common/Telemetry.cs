@@ -42,6 +42,7 @@ namespace Chem4Word.Common
             bool result2 = false;
             bool result3 = false;
             bool result4 = false;
+            bool result5 = false;
 
             AzureStorage storage = new AzureStorage();
 
@@ -79,6 +80,22 @@ namespace Chem4Word.Common
 
             try
             {
+                // Write Word command line
+                MessageEntity me5 = new MessageEntity();
+                me5.MachineId = _helper.MachineId;
+                me5.Operation = "StartUp";
+                me5.Level = "Information";
+                me5.Message = Environment.GetCommandLineArgs()[0];
+                result5 = storage.WriteMessage(me5);
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Exception " + ex.Message);
+                Write(module, "Exception", "WV: " + ex.Message);
+            }
+
+            try
+            {
                 // Write AddIn Version
                 MessageEntity me3 = new MessageEntity();
                 me3.MachineId = _helper.MachineId;
@@ -87,7 +104,7 @@ namespace Chem4Word.Common
 #if DEBUG
                 me3.Message = _helper.AddInVersion + " (debug)";
 #else
-                me3.Message = _helper.AddInVersion + " (R7 31-Mar-2017)";
+                me3.Message = _helper.AddInVersion + " (R8 18-Oct-2017)";
 #endif
                 result3 = storage.WriteMessage(me3);
             }
@@ -113,7 +130,7 @@ namespace Chem4Word.Common
                 Write(module, "Exception", "IP: " + ex.Message);
             }
 
-            _systemInfoSent = result1 && result2 && result3;
+            _systemInfoSent = result1 && result2 && result3 && result4 && result5;
         }
 
         public void Write(string operation, string level, string message)
