@@ -2,14 +2,23 @@
 <!-- This file must be uploaded to http://www.chem4word.co.uk/files/ folder as Chem4Word-Versions.xml -->
 <ChangeLog>
   <Version>
+    <Number>2.0.1.0 R9</Number>
+    <IsBeta>false</IsBeta>
+    <Released>25-Oct-2017</Released>
+    <Changes>
+      <Change>The version you are using is unsupported, please update as soon as possible</Change>
+      <Change>Fix incorrect version number</Change>
+      <Change>Note: If you are no longer using Chem4Word; Please uninstall it using the "Add/Remove Programs" or "Programms and Features" icon in Control Panel.</Change>
+      <Change>Note: If you are having problems using Chem4Word; Please contact us via our Facebook group at https://www.facebook.com/home.php?sk=group_186300551397797 or our codeplex forum at https://chem4word.codeplex.com/.</Change>
+    </Changes>
+    <Url>http://www.chem4word.co.uk/files/Chem4Word.Setup.2.0.1.0.2017.10.25.msi</Url>
+  </Version>
+  <Version>
     <Number>2.0.1.0 R8</Number>
     <IsBeta>false</IsBeta>
     <Released>18-Oct-2017</Released>
     <Changes>
-      <Change>The version you are using is unsupported, please update as soon as possible</Change>
       <Change>Fix bug in detection of Word</Change>
-      <Change>Note: If you are no longer using Chem4Word; Please uninstall it using the "Add/Remove Programs" or "Programms and Features" icon in Control Panel.</Change>
-      <Change>Note: If you are having problems using Chem4Word; Please contact us via our Facebook group at https://www.facebook.com/home.php?sk=group_186300551397797 or our codeplex forum at https://chem4word.codeplex.com/.</Change>
     </Changes>
     <Url>http://www.chem4word.co.uk/files/Chem4Word.Setup.2.0.1.0.2017.10.18.msi</Url>
   </Version>

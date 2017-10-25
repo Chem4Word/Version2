@@ -12,7 +12,7 @@
             <Image Source="../Resources/Images/AboutfloatRight.png" Stretch="UniformToFill" HorizontalAlignment="Right" />
             <TextBlock Margin="400,10,0,0" Name="labelVersion" Background="Transparent" ForceCursor="True">VX.X.X.X</TextBlock>
             <TextBlock Text="Chemistry Add-in for Word" FontFamily="Segoe UI" FontSize="18" Canvas.Top="30" Canvas.Left="37" />
-            <TextBlock Name="txtBetalabel" Text="Version 2.0.1.0 R7 31-Mar-2017" FontFamily="Segoe UI" FontSize="18" Canvas.Top="60" Canvas.Left="37"></TextBlock>
+            <TextBlock Name="txtBetalabel" Text="Version 2.0.1.0 R9 25-Oct-2017" FontFamily="Segoe UI" FontSize="18" Canvas.Top="60" Canvas.Left="37"></TextBlock>
         </Canvas>
         <Grid Grid.Row="1" Grid.Column="0">
             <StackPanel>
