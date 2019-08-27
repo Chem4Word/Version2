@@ -39,7 +39,7 @@
     <Changes>
       <Change>Reduced update check frequency to once per week.</Change>
     </Changes>
-    <Url>http://www.chem4word.co.uk/files/Chem4Word.Setup.2.0.1.0.2016.09.01.msi</Url>
+    <Url>https://www.chem4word.co.uk/files3/Chem4Word-Setup.exe</Url>
   </Version>
   <Version>
     <Number>2.0.1.0 R5</Number>
@@ -67,7 +67,7 @@
     <Changes>
       <Change>Fix issue with incorrect javascript file; disabling editor</Change>
     </Changes>
-    <Url>http://www.chem4word.co.uk/files/Chem4Word.Setup.2.0.1.0.2016.07.16.msi</Url>
+    <Url>https://www.chem4word.co.uk/files3/Chem4Word-Setup.exe</Url>
   </Version>
   <Version>
     <Number>2.0.1.0 R2</Number>
@@ -85,7 +85,7 @@
     <Changes>
       <Change>RTM with updated manual</Change>
     </Changes>
-    <Url>http://www.chem4word.co.uk/files/Chem4Word.Setup.2.0.1.0.2016.07.06.msi</Url>
+    <Url>https://www.chem4word.co.uk/files3/Chem4Word-Setup.exe</Url>
   </Version>
   <Version>
     <Number>2.0.1.0 Beta 11</Number>
@@ -107,7 +107,7 @@
       <Change>Progress bar and Editor windows should now be shown on same monitor as active document</Change>
       <Change>Fixed bug in automatic updates</Change>
     </Changes>
-    <Url>http://www.chem4word.co.uk/files/Chem4Word.Setup.2.0.1.0.Beta.10.msi</Url>
+    <Url>https://www.chem4word.co.uk/files3/Chem4Word-Setup.exe</Url>
   </Version>
   <Version>
     <Number>2.0.1.0 Beta 9</Number>
@@ -125,7 +125,7 @@
     <Changes>
       <Change>Add form for user feedback, when errors are shown</Change>
     </Changes>
-    <Url>http://www.chem4word.co.uk/files/Chem4Word.Setup.2.0.1.0.Beta.8.msi</Url>
+    <Url>https://www.chem4word.co.uk/files3/Chem4Word-Setup.exe</Url>
   </Version>
   <Version>
     <Number>2.0.1.0 Beta 7</Number>
