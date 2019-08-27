@@ -11,7 +11,7 @@
       <Change>Note: If you are no longer using Chem4Word; Please uninstall it using the "Add/Remove Programs" or "Programms and Features" icon in Control Panel.</Change>
       <Change>Note: If you are having problems using Chem4Word; Please contact us via our Facebook group at https://www.facebook.com/home.php?sk=group_186300551397797 or our codeplex forum at https://chem4word.codeplex.com/.</Change>
     </Changes>
-    <Url>http://www.chem4word.co.uk/files/Chem4Word.Setup.2.0.1.0.2017.10.25.msi</Url>
+    <Url>https://www.chem4word.co.uk/files3/Chem4Word-Setup.exe</Url>
   </Version>
   <Version>
     <Number>2.0.1.0 R8</Number>
@@ -20,7 +20,7 @@
     <Changes>
       <Change>Fix bug in detection of Word</Change>
     </Changes>
-    <Url>http://www.chem4word.co.uk/files/Chem4Word.Setup.2.0.1.0.2017.10.18.msi</Url>
+    <Url>https://www.chem4word.co.uk/files3/Chem4Word-Setup.exe</Url>
   </Version>
   <Version>
     <Number>2.0.1.0 R7</Number>
@@ -30,7 +30,7 @@
       <Change>Fix bug where Edit Labels was always disabled, if gallery turned off</Change>
       <Change>Changed ChemSpider Web Service Urls to https as ChemSpider are no longer supporting http</Change>
     </Changes>
-    <Url>http://www.chem4word.co.uk/files/Chem4Word.Setup.2.0.1.0.2017.03.31.msi</Url>
+    <Url>https://www.chem4word.co.uk/files3/Chem4Word-Setup.exe</Url>
   </Version>
   <Version>
     <Number>2.0.1.0 R6</Number>
@@ -49,7 +49,7 @@
       <Change>Added option to disable gallery; The gallery uses a custom template (Chem4Word2010.dotx) to store the gallery, using this causes cutomisations stored in Normal.dotx to be overwritten, hence we now give you the choice.</Change>
       <Change>Improved detection of IPv6 Addresses (for Telemetry).</Change>
     </Changes>
-    <Url>http://www.chem4word.co.uk/files/Chem4Word.Setup.2.0.1.0.2016.08.03.msi</Url>
+    <Url>https://www.chem4word.co.uk/files3/Chem4Word-Setup.exe</Url>
   </Version>
   <Version>
     <Number>2.0.1.0 R4</Number>
@@ -58,7 +58,7 @@
     <Changes>
       <Change>Fix detection of IP Address to work with IPv6 Addresses (for Telemetry)</Change>
     </Changes>
-    <Url>http://www.chem4word.co.uk/files/Chem4Word.Setup.2.0.1.0.2016.07.29.msi</Url>
+    <Url>https://www.chem4word.co.uk/files3/Chem4Word-Setup.exe</Url>
   </Version>
   <Version>
     <Number>2.0.1.0 R3</Number>
@@ -76,7 +76,7 @@
     <Changes>
       <Change>Add passive install of Microsoft Office OpenXml SDK 2.0 (if required)</Change>
     </Changes>
-    <Url>http://www.chem4word.co.uk/files/Chem4Word.Setup.2.0.1.0.2016.07.15.msi</Url>
+    <Url>https://www.chem4word.co.uk/files3/Chem4Word-Setup.exe</Url>
   </Version>
   <Version>
     <Number>2.0.1.0 R1</Number>
@@ -96,7 +96,7 @@
       <Change>Make ChemSpider synonym read only in label editor</Change>
       <Change>Fix bug when user edited structure, then cancelled edit labels; Resulting in loss of changes</Change>
     </Changes>
-    <Url>http://www.chem4word.co.uk/files/Chem4Word.Setup.2.0.1.0.Beta.11.msi</Url>
+    <Url>https://www.chem4word.co.uk/files3/Chem4Word-Setup.exe</Url>
   </Version>
   <Version>
     <Number>2.0.1.0 Beta 10</Number>
@@ -116,7 +116,7 @@
     <Changes>
       <Change>Improved detection of previous version to fix issue in automatic updates. You may need to manually perform this update by downloading from https://chem4word.codeplex.com/releases/view/618360</Change>
     </Changes>
-    <Url>http://www.chem4word.co.uk/files/Chem4Word.Setup.2.0.1.0.Beta.9.msi</Url>
+    <Url>https://www.chem4word.co.uk/files3/Chem4Word-Setup.exe</Url>
   </Version>
   <Version>
     <Number>2.0.1.0 Beta 8</Number>
@@ -136,7 +136,7 @@
       <Change>Better error handling in Opsin and ChemSpider search</Change>
       <Change>Specify OpenXml version in app.config of UI assembly</Change>
     </Changes>
-    <Url>http://www.chem4word.co.uk/files/Chem4Word.Setup.2.0.1.0.Beta.7.msi</Url>
+    <Url>https://www.chem4word.co.uk/files3/Chem4Word-Setup.exe</Url>
   </Version>
   <Version>
     <Number>2.0.1.0 Beta 6</Number>
@@ -151,7 +151,7 @@
       <Change>Localised Open XML SDK (no need to install)</Change>
       <Change>Fix bug in Un-Install which caused "C:\Users\{UserName}\AppData\Local\Chemistry Add-in for Word" folder to be deleted</Change>
     </Changes>
-    <Url>http://www.chem4word.co.uk/files/Chem4Word.Setup.2.0.1.0.Beta.6.msi</Url>
+    <Url>https://www.chem4word.co.uk/files3/Chem4Word-Setup.exe</Url>
   </Version>
   <Version>
     <Number>2.0.1.0 Beta 5</Number>
@@ -160,7 +160,7 @@
     <Changes>
       <Change>Revised thumbnails in navigator</Change>
     </Changes>
-    <Url>http://www.chem4word.co.uk/files/Chem4Word.Setup.2.0.1.0.Beta.5.msi</Url>
+    <Url>https://www.chem4word.co.uk/files3/Chem4Word-Setup.exe</Url>
   </Version>
   <Version>
     <Number>2.0.1.0 Beta 4</Number>
@@ -169,7 +169,7 @@
     <Changes>
       <Change>Automatic download and install of OpenXml SDK</Change>
     </Changes>
-    <Url>http://www.chem4word.co.uk/files/Chem4Word.Setup.2.0.1.0.Beta.4.msi</Url>
+    <Url>https://www.chem4word.co.uk/files3/Chem4Word-Setup.exe</Url>
   </Version>
   <Version>
     <Number>2.0.1.0 Beta 3</Number>
@@ -178,7 +178,7 @@
     <Changes>
       <Change>Improved error trapping during start up</Change>
     </Changes>
-    <Url>http://www.chem4word.co.uk/files/Chem4Word.Setup.2.0.1.0.Beta.3.msi</Url>
+    <Url>https://www.chem4word.co.uk/files3/Chem4Word-Setup.exe</Url>
   </Version>
   <Version>
     <Number>2.0.1.0 Beta 2</Number>
@@ -187,7 +187,7 @@
     <Changes>
       <Change>Rendering of charges fixed</Change>
     </Changes>
-    <Url>http://www.chem4word.co.uk/files/Chem4Word.Setup.2.0.1.0.Beta.2.msi</Url>
+    <Url>https://www.chem4word.co.uk/files3/Chem4Word-Setup.exe</Url>
   </Version>
   <Version>
     <Number>2.0.1.0 Beta</Number>
@@ -196,6 +196,6 @@
     <Changes>
       <Change>Rendering structures using OOXML</Change>
     </Changes>
-    <Url>http://www.chem4word.co.uk/files/Chem4Word.Setup.2.0.1.0.Beta.1.msi</Url>
+    <Url>https://www.chem4word.co.uk/files3/Chem4Word-Setup.exe</Url>
   </Version>
 </ChangeLog>
