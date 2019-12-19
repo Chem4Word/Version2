@@ -1,6 +1,6 @@
 # Version 2.0.1.0 Available!
 
-Features of [this release](https://chem4word.codeplex.com/releases/view/624949) are:-
+Features of this release are:-
 * Uses the Open Office XML to render structures in publication ready quality when used with Word 2010 or later.
 * Added user option to disable attaching of Chem4Word template (to preserve user macros and styles etc).  This also disables gthe gallery.
 * Editor form allows reading and writing of CML files and MDL Molfiles.
@@ -21,18 +21,15 @@ Features of [this release](https://chem4word.codeplex.com/releases/view/624949) 
 * Fixed bug in JSON code.
 
 # Introduction 
-The **Chem4Word Project** ([http://research.microsoft.com/chem4word](http://research.microsoft.com/chem4word)) began in 2008 as a collaboration between Microsoft Research  and the University of Cambridge, designed to make it easier to insert and modify chemical information (labels, formulas, 2-D depictions, etc.) from within Microsoft Office Word, and also to have the chemical information stored and manipulated in a semantically rich manner. 
+The **Chem4Word Project** began in 2008 as a collaboration between Microsoft Research  and the University of Cambridge, designed to make it easier to insert and modify chemical information (labels, formulas, 2-D depictions, etc.) from within Microsoft Office Word, and also to have the chemical information stored and manipulated in a semantically rich manner. 
 
-On March 22, 2010, at the ACS meeting in San Francisco, CA, we announced the availability of a [beta build](http://research.microsoft.com/en-us/downloads/3fe31020-0e51-4ee0-ada3-5cd142bcf930/default.aspx), and we are now launching Chem4Word as an open source project overseen by Dr Joe Townsend. 
+On March 22, 2010, at the ACS meeting in San Francisco, CA, we announced the availability of a beta build, and we are now launching Chem4Word as an open source project overseen by Dr Joe Townsend. 
 
 # Contacting The Chem4Word Team
-The best way to get in contact with us and to bring up issues or bugs is via the [discussions tab](http://chem4word.codeplex.com/Thread/List.aspx) or the [issue tracker](http://chem4word.codeplex.com/WorkItem/AdvancedList.aspx). 
+The best way to get in contact with us and to bring up issues or bugs is via the GitHub. 
 Join our group on [facebook](http://www.facebook.com/home.php?sk=group_186300551397797&ap=1).
 
 This project has adopted the code of conduct defined by the [Contributor Covenant](http://contributor-covenant.org/) to clarify expected behavior in our community. For more information see the [.NET Foundation Code of Conduct](http://www.dotnetfoundation.org/code-of-conduct).
-
-# Mailing List
-We now have a [mailing list](http://mailinglists.outercurve.org/cgi-bin/mailman/listinfo/chem4word) for Chem4Word.  Please subscribe to hear the latest news and to take part in discussions on the future of this product!
 
 # Future work
 We have identified a number of feature areas where we have definite plans for taking the project forward – these fall into two categories; chemical and non-chemical - each of the areas are outlined below in no particular order. In some cases we have already made a start on the code but these are not yet in a working state; in others we have fairly clear ideas as to how we want to progress and we hope that if we provide a very skeleton proof of concept implementation then people with more experience or design skills than us could take them forward. Finally some of the tasks need agreement at a high level as to the direction we should move in and we are engaging with the relevant people and organisations to proceed.  We would welcome your feedback in these areas.
@@ -56,32 +53,28 @@ We have identified a number of feature areas where we have definite plans for ta
 	* RACSO peak lists – the idea behind this is to be able to convert the spectral data entered by the user into the form currently accepted by the publishers (each publisher has a particular and slightly different house style) in the correct format and insert it into the document. Changing the ChemSS would change the formatting. 
 	* Functional programming and performance - the code has been written in a stateless manner which provides an elegant design but is not optimised for performance. This is entirely in keeping with Donald Knuth's "premature optimization is the root of all evil". However Chem4Word has some areas (systems with many rings, interactive drawing) where many identical calculations are repeated and this is evident in performance). This is an area where modern programming methods (e.g. memoization) should be rewarding.
 
-This software also makes use of the Microsoft ChemSans and Microsoft ChemSerif font sets which are available at http://research.microsoft.com/chem4word under the Microsoft Research License Agreement.
-
-The release version of the program is available from the downloads page along with the source code as a .ZIP package. The source code is also available under [mercurial](http://mercurial.selenic.com/) from the Source Code tab. Since our beta release in March 2010 we have been making several usability improvements including an improved 2D editor, some bug fixes, and also a completely refactored codebase.  The package names have been changed to better reflect what they are doing, we have added new packages and we have moved various pieces of code (for example the navigator) from one package to another.
+Since our beta release in March 2010 we have been making several usability improvements including an improved 2D editor, some bug fixes, and also a completely refactored codebase.  The package names have been changed to better reflect what they are doing, we have added new packages and we have moved various pieces of code (for example the navigator) from one package to another.
 
 Copyright (C) .NET Foundation. All rights reserved. This code is licensed under the Apache License, Version 2.0. THIS CODE IS PROVIDED **AS IS** WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING ANY IMPLIED WARRANTIES OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.
 
 # History
 
 # Version 1.5 Now Fully Released!
-After a successful beta, **Version 1.5 is now ready for download**.  This is the **full release version**, made possible by our wonderful team (Andy Wright, Eric Schultz, Mike Williams, Alex Wade and Clyde Davies) and by the splendid people at [ChemDoodle](url_http___www.chemdoodle.com_).  
+After a successful beta, **Version 1.5 is now ready for download**.  This is the **full release version**, made possible by our wonderful team (Andy Wright, Eric Schultz, Mike Williams, Alex Wade and Clyde Davies) and by the splendid people at [ChemDoodle](https://www.chemdoodle.com).  
 
 Version 1.5 addresses one of the most common requests for enhancements:  the ability to create your own chemical structures from scratch.  We integrated the publically available version of the ChemDoodle editor to allow you to do this.  
 
-We also have better integration with [PubChem](url_http___pubchem.ncbi.nlm.nih.gov_) services.  We have fixed a bug on querying the service, allowed paging through results, and also have sorted the results by relevance.
+We also have better integration with [PubChem](https://pubchem.ncbi.nlm.nih.gov) services.  We have fixed a bug on querying the service, allowed paging through results, and also have sorted the results by relevance.
 
 Please feel free to download!
 
 # Version 1.5 Beta
 **Great news!** We now have the **beta** of the next version of Chem4Word ready for testing! We need **you** to test it. The most exciting new feature is integration with the ChemDoodle editor: you can now create your own chemical structures from scratch. There is also improved access to online repositories of chemical structures.
-
-If you want to help us beta-test it, download it from [https://chem4word.codeplex.com/releases/view/118025](https://chem4word.codeplex.com/releases/view/118025) . If you want to post test results, you can use the mailing list at [http://mailinglists.outercurve.org/cgi-bin/mailman/listinfo/chem4word](http://mailinglists.outercurve.org/cgi-bin/mailman/listinfo/chem4word) . If you want to post results on FaceBook, please feel free to do so but add the hashtag ‪#‎c4wbeta‬ . 
  
 # Version 1.1 Release
-This release is the first release under the aegis of the Outercurve Foundation ([http://www.outercurve.org/](http://www.outercurve.org/)).  It is fully compatible with Word 2013 and also fixes some issues with OPSIN and PubChem downloads.  Download it now from [http://chem4word.codeplex.com/releases/view/102798](http://chem4word.codeplex.com/releases/view/102798).
+This release is the first release under the aegis of the Outercurve Foundation .  It is fully compatible with Word 2013 and also fixes some issues with OPSIN and PubChem downloads.
 
 This release could not have been possible without  Jim Piavis and his team at Microsoft.  We'd like to propose a formal vote of thanks  for their dedicated effort in getting this released.
 
 # Version 1.0 release
-We are [launching](http://chem4word.codeplex.com/releases) the **Chemistry Add-in for Microsoft Word v. 1.0** on 1 February 2011 and are also pleased to announce that we have become part of the Outercurve Foundation ([http://www.outercurve.org/](http://www.outercurve.org/)) in the [research accelerators](http://www.outercurve.org/Galleries/ResearchAccelerators/) gallery. 
+We are launching the **Chemistry Add-in for Microsoft Word v. 1.0** on 1 February 2011 and are also pleased to announce that we have become part of the Outercurve Foundation in the research accelerators gallery. 
