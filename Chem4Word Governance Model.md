@@ -19,7 +19,7 @@ Contributors are community members who submit patches to the project. These patc
 
 NOTE: before a contributor’s first patch is put into the repository they must sign a Contributor License Agreement or assignment agreement. The patch can be submitted and discussed but it can’t actually be committed to the repository without signed paperwork.
 
-**How to become one** : Submit a patch to the [Chem4Word project](http://chem4word.codeplex.com/).  
+**How to become one** : Submit a patch to the [Chem4Word project](https://github.com/Chem4Word/Version3).  
 ## Committers
 Committers are contributors who have shown dedication to Chem4Word, high technical prowess and the ability to work well with contributors and users. The committers have responsibilities beyond the contributors. In particular, committers formally decide on whether patches are entered into the main code repository and add those requests. Additionally they verify with Outercurve Foundation staff that a potential contributor has a signed CLA before committing a patch to the repository. A committer will use lazy consensus to decide on whether to commit a patch from a contributor. If the discussion is no longer moving towards a consensus, the PMC must vote via lazy consensus on whether the patch should be applied.
 
