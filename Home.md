@@ -26,7 +26,7 @@ The **Chem4Word Project** began in 2008 as a collaboration between Microsoft Res
 On March 22, 2010, at the ACS meeting in San Francisco, CA, we announced the availability of a beta build, and we are now launching Chem4Word as an open source project overseen by Dr Joe Townsend. 
 
 # Contacting The Chem4Word Team
-The best way to get in contact with us and to bring up issues or bugs is via the GitHub. 
+The best way to get in contact with us and to bring up issues or bugs is via GitHub. 
 Join our group on [facebook](http://www.facebook.com/home.php?sk=group_186300551397797&ap=1).
 
 This project has adopted the code of conduct defined by the [Contributor Covenant](http://contributor-covenant.org/) to clarify expected behavior in our community. For more information see the [.NET Foundation Code of Conduct](http://www.dotnetfoundation.org/code-of-conduct).
