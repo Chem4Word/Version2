@@ -1,4 +1,4 @@
-# Version2
-Version 2 of Chem4Word - A Chemistry Add-In for Microsoft Word
+# Introduction
+This project is Version 2 of the Chemistry for Word Add-In
 
-This version is now obsolete, please use V3.0
+This version is now obsolete, please use V3.2
